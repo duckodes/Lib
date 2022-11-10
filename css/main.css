@@ -1,4 +1,3 @@
-Panel
-{
-    height: 50;
+.background {
+    background-image: url(../image/GitHubAvater.png);
 }
