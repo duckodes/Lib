@@ -24,5 +24,66 @@
           <a class="nav-link" href="main.html">Designer.首頁</a>
         </li>
     </ul>
+    <div>
+        <br>時間
+        <div>
+            2022.12.06
+            <div>
+                VisualEffect<br>
+                當遊戲內暫停使用方法為(Time.timeScale = 0)，由VisualEffect 裡的UpdateParticle<br>
+                無法暫停，必須使用OutPutMesh設置Update參數。
+            </div>
+        </div>
+        <br>時間
+        <div>
+            2022.11.16
+            <div>
+                <h1>
+                    Unity UGUI介面
+                </h1>
+            </div>
+            <div>
+                <h4>
+                    調整解析度問題<br>
+                </h4>
+                
+                只要有跟血條外框對到的血條(血條放上血條外框對齊)，Anchors min max應跟隨血條做<br>
+                滿版設置，解析度會跟隨外框一起做運動變形只要沒有跟血條外框對到，且單獨分開的血<br>
+                條，Anchors應為只有血條外框的滿版，解析度會跟隨外框位置進行變更。
+            </div>
+        </div>
+        <br>時間
+        <div>
+            2023.01.05
+            <div>
+                <h1>
+                    Unity GUIStyle 顏色對比
+                </h1>
+            </div>
+            <div>
+                原文出處: https://blog.csdn.net/chelen_jak/article/details/108508694<br>
+                &emsp;&emsp;今日在製作畢製的過程，處理內置Debug功能，在GUI處理上遇到顏色對比的問題。<br>
+                上網查了查色相色譜公式，查到有關html色系的講解，並將其方法用在unity，180度的顏<br>
+                色是互補色，只要用RGB位元通道下最大的值減去某顏色的值，即可以獲得互補色~<br>
+                &emsp;&emsp;在8位元通道下RGB為2^8 = 256，當然還有16位元，32位元的通道。<br>
+                <h3>
+                    UnityRGBA獲取對比色簡單的方法
+                </h3>
+                <div>
+                    Unity的Color是以RGBA顏色表示，這種架構在Unity負責傳遞顏色，而顏色是由浮點0~1，因<br>
+                    此只要將1減去想要獲得對比色的顏色，即可。
+                </div>
+                <h3>
+                    在hover時獲取對比色
+                </h3>
+                <img src="image/ColorCode20230105.png" with="600" heigh="400" alt="一張圖片">
+                <h5>
+                    GUIStyle 
+                    以上紅線是處理遊戲內置Debug功能時，想要獲取的顏色值。<br>
+                    
+                </h5>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
