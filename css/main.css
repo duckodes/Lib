@@ -1,9 +1,3 @@
-.background {
-    background-image: url(../image/GitHubAvater.png);
-    background-repeat: no-repeat;
-    position: absolute;
-
-}
-.topic {
-    position: relative;
+.display {
+    background-color: rgb(75, 75, 75);
 }
