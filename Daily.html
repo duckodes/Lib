@@ -1,35 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="image/Logo_R.png">
+    <link rel="icon" type="image/png" sizes="500x500" href="image/Logo_R.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="image/Logo_R_57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="image/Logo_R_60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="image/Logo_R_72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="image/Logo_R_76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="image/Logo_R_114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="image/Logo_R_120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="image/Logo_R_144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="image/Logo_R_152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/Logo_R_180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="image/Logo_R_192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/Logo_R_32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="image/Logo_R_96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/Logo_R_16.png">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
     <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
     <title>Record 日誌</title>
 </head>
+
 <body>
     <!-- Nav -->
     <nav class="navbar" style="background-color: #ffffff00;">
         <div class="container justify-content-center">
             <ul class="nav justify-content-center nav-pills nav-fill">
                 <li class="nav-item">
-                  <a class="nav-link" aria-current="page" href="main.html">Home.首頁</a>
+                    <a class="nav-link" aria-current="page" href="main.html">Home.首頁</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="Portfolio.html">Portfolio.作品</a>
+                    <a class="nav-link" href="Portfolio.html">Portfolio.作品</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active bg-warning text-dark" href="Daily.html">Daily.日誌</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="Introduction.html">Contact.簡介</a>
+                    <a class="nav-link" href="Introduction.html">Contact.簡介</a>
                 </li>
             </ul>
         </div>
-      </nav>
+    </nav>
     <!-- Contents -->
     <div class="container">
         <div class="row align-items-center">
@@ -40,10 +55,10 @@
                     <br><br>VisualEffect<br><br>
                 </h2>
             </div>
-                    <!-- Time -->
+            <!-- Time -->
             <div class="row mx-auto align-items-center">
                 2022.12.06
-                    <!-- Content -->
+                <!-- Content -->
                 <div class="col-8 mx-auto">
                     <p class="p-1 text-justify">
                         &emsp;&emsp;當遊戲內暫停使用方法為(Time.timeScale = 0)，由VisualEffect 裡的UpdateParticle
@@ -58,10 +73,10 @@
                     <br><br>Unity UGUI介面<br><br>
                 </h2>
             </div>
-                    <!-- Time -->
+            <!-- Time -->
             <div class="row mx-auto align-items-center">
                 2022.11.16
-                    <!-- Content -->
+                <!-- Content -->
                 <div class="col-8 mx-auto">
                     <h4>
                         調整解析度問題<br>
@@ -71,7 +86,7 @@
                         滿版設置，解析度會跟隨外框一起做運動變形只要沒有跟血條外框對到，且單獨分開的血
                         條，Anchors應為只有血條外框的滿版，解析度會跟隨外框位置進行變更。
                     </p>
-                    
+
                 </div>
             </div>
 
@@ -81,23 +96,23 @@
                     <br><br>Unity GUIStyle 顏色對比<br><br>
                 </h2>
             </div>
-                    <!-- Time -->
+            <!-- Time -->
             <div class="row mx-auto align-items-center">
                 2023.01.05
-                    <!-- Content -->
+                <!-- Content -->
                 <div class="col-8 mx-auto">
                     <div style="word-break: break-all;">
                         原文出處:<br> https://blog.csdn.net/chelen_jak/article/details/108508694<br><br>
                     </div>
-                    
+
                     <p class="p-1 text-justify">
-                        
+
                         &emsp;&emsp;今日在製作畢製的過程，處理內置Debug功能，在GUI處理上遇到顏色對比的問題。
                         上網查了查色相色譜公式，查到有關html色系的講解，並將其方法用在unity，180度的顏
                         色是互補色，只要用RGB位元通道下最大的值減去某顏色的值，即可以獲得互補色~<br>
                         &emsp;&emsp;在8位元通道下RGB為2^8 = 256，當然還有16位元，32位元的通道。
                     </p>
-                    
+
                     <h3>
                         UnityRGBA獲取對比色簡單的方法
                     </h3>
@@ -113,15 +128,16 @@
                             在hover時獲取對比色
                         </h3>
                         <img src="image/ColorCode20230105.png" width="600" heigh="400" alt="一張圖片">
-                        <img class="col-6 mx-auto" src="image/OutputContrastingColorUnityGIF.gif" width="250" heigh="40" alt="一張圖片">
-                        
+                        <img class="col-6 mx-auto" src="image/OutputContrastingColorUnityGIF.gif" width="250" heigh="40"
+                            alt="一張圖片">
+
                         <h5>
-                            GUIStyle 
+                            GUIStyle
                             以上紅線是處理遊戲內置Debug功能時，想要獲取的顏色值。<br>
                         </h5>
                     </div>
-                    
-                    
+
+
                 </div>
             </div>
         </div>
@@ -129,4 +145,5 @@
     <!-- Script -->
     <script src="js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
