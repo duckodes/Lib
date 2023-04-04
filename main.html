@@ -131,9 +131,20 @@
   <!-- Script -->
   <script src="js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" language="Javascript">
+    var http = require('http'); // Require HTTP module
+    var pageViewCount = 0; // Declare and initialise the page view count
 
-    document.querySelector("#Viewers-num").textContent;
+    var server = http.createServer(function (req, res) {
+      res.writeHead(200, { 'Content-Type': 'text/plain' }); // Headers
 
+      pageViewCount++; // Increase the page view count for every successful page load request
+
+      console.log('There are currently ' + pageViewCount + ' views'); // Output in console the amount of total page views
+      res.end();
+    });
+
+    server.listen(8000);
+    console.log('Server is currently running');
   </script>
 </body>
 
