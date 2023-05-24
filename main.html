@@ -25,44 +25,28 @@
   <title>Record 日誌</title>
 </head>
 
-<body>
+<body style="background-color: #816868">
   <!-- Nav -->
   <nav class="navbar" style="background-color: #ffffff00;">
     <div class="container justify-content-center">
-      <ul class="nav justify-content-center nav-pills nav-fill">
+      <ul class="nav justify-content-center">
         <li class="nav-item">
-          <a class="nav-link active bg-warning text-dark" aria-current="page" href="main.html">Home.首頁</a>
+          <a class="nav-link active text-dark" aria-current="page" href="main.html">Home❖首頁</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Portfolio.html">Portfolio.作品</a>
+          <a class="nav-link text-dark" href="Portfolio.html">Portfolio◆製作</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Daily.html">Daily.日誌</a>
+          <a class="nav-link text-dark" href="Daily.html">Daily◆日誌</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Introduction.html">Contact.簡介</a>
+          <a class="nav-link text-dark" href="Introduction.html">Contact◆簡介</a>
         </li>
       </ul>
     </div>
   </nav>
 
   <div style="height: 1250px;">
-    <!-- Top -->
-    <div class="container">
-      <div class="row">
-        <div class="col-6 mx-auto text-center">
-          <h4>
-            頁面尚未完成請多指教~
-          </h4>
-          <div>
-            瀏覽人數
-            <div id="Viewers-num">
-              0
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- Display -->
     <div class="container d-flex justify-content-center align-items-center">
       <div class="row">
@@ -112,40 +96,44 @@
             </div>
           </div>
         </div>
+
+        <!-- HashTag -->
+        <div class="container">
+          <div class="row">
+            <div class="col-6 mx-auto text-center">
+              <h4>
+                #GameDev<br>
+                #SoftDev<br>
+              </h4>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
   <!-- End -->
-  <footer class="fixed-bottom text-center text-white" style="background-color: #21081a;">
+  <footer class="text-center text-white" style="background-color: rgb(35, 35, 35)">
     <div class="container p-5">
       <div class="row p-5">
         <div class="col-12 text-center">
-          Contact me with gmail
-          <a href="mailto:bear90789078@gmail.com">->🤝</a>
+          Gmail
+          <a href="mailto:bear90789078@gmail.com">🤝</a>
+        </div>
+        <div class="col-12 text-center">
+          Instagram
+          <a href="https://www.instagram.com/u.gamie/">🤝</a>
+        </div>
+        <div class="col-12 text-center">
+          PlayStore
+          <a href="https://play.google.com/store/apps/dev?id=7143063429112993146">🤝</a>
         </div>
       </div>
     </div>
   </footer>
-
-  <!-- Script -->
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script type="text/javascript" language="Javascript">
-    var http = require('http'); // Require HTTP module
-    var pageViewCount = 0; // Declare and initialise the page view count
-
-    var server = http.createServer(function (req, res) {
-      res.writeHead(200, { 'Content-Type': 'text/plain' }); // Headers
-
-      pageViewCount++; // Increase the page view count for every successful page load request
-
-      console.log('There are currently ' + pageViewCount + ' views'); // Output in console the amount of total page views
-      res.end();
-    });
-
-    server.listen(8000);
-    console.log('Server is currently running');
-  </script>
 </body>
+<!-- Script -->
+<script src="js/bootstrap.bundle.min.js"></script>
 
 </html>
