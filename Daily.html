@@ -66,7 +66,7 @@
                     </p>
                 </div>
             </div>
-
+            <!-- End -->
             <!-- Topic -->
             <div class="col-6 mx-auto align-items-center">
                 <h2>
@@ -89,7 +89,7 @@
 
                 </div>
             </div>
-
+            <!-- End -->
             <!-- Topic -->
             <div class="col-6 mx-auto align-items-center">
                 <h2>
@@ -136,10 +136,45 @@
                             以上紅線是處理遊戲內置Debug功能時，想要獲取的顏色值。<br>
                         </h5>
                     </div>
-
+                </div>
+            </div>
+            <!-- End -->
+            <!-- Topic -->
+            <div class="col-6 mx-auto align-items-center">
+                <h2>
+                    <br><br>開發感想<br><br>
+                </h2>
+            </div>
+            <!-- Time -->
+            <div class="row mx-auto align-items-center">
+                2023.6.2
+                <!-- Content -->
+                <div class="col-8 mx-auto">
+                    <h4>
+                        Unity遊戲開發結構感想<br>
+                    </h4>
+                    <p class="p-2 text-justify">
+                        &emsp;&emsp;相信一開始了解引擎背後TimeLine是最為重要，畢竟開發時，一些架構沒處理好，
+                        就會造成往後諸多難處，在開發時，有次碰到一個前所未有的事件:
+                        有一組件A，及組件B、C，各自繼承MonoBehaviour，A掛在場景空物件上，B掛在預置體(Prefab)上，而這個Prefab是在Awake
+                        生成的，也就是說如果要獲取組件B必須要以Tag或是其他方式，不能直接以序列化字段(SerializeField)
+                        獲取組件B，同時我在A組件的生命周期方法Start中以Tag方式獲取到B組件，接著A方法F中調用B組件上的方法，
+                        再以C組件中的OnEnabled調用這個A組件的方法F，為甚麼這麼繞呢主要是因為不想要在C組建中再次去抓取B組件，
+                        只要獲得A組件即可使用B組建中的方法。
+                        這時候問題就來了，當我在C的OnEnabled事件中調用A組件的方法F，就會報錯，主因是B組件的獲取是在A組件的Start中獲取的
+                        而OnEnabled是在Start週期前執行，想當然獲取不到進而報錯，嘗試了Invoke確實可行但我想讓腳本更明確化一點，也就是
+                        構思變成這樣；在A的Start執行完畢後執行某一事件，思來想去，還把方向用成怎麼讓Start加載完畢時，使用一個Event?
+                        ，最後到頭來還挺簡單，只要在Start尾端放上某一方法也就是在獲取完某一物件，就調用獲取組件的方法，便可執行，因為數值輸入到A數值中，
+                        也是在組件C的OnEnable完成，不用在C組件當中調用任何方法或是Event，就可以調用這個B組件的方法，來達到調用效果。聽起來挺容易，但投入時
+                        ，思想會跟著策略走，進而影響到自身，會想要以更複雜的方式去完成，但其實重新思考一遍，便可以整理整體的資訊概要，以最簡單的方式，去完成
+                        結構與架構的鋪設。
+                    </p>
 
                 </div>
             </div>
+            <!-- End -->
+            
+
         </div>
     </div>
     <!-- Script -->
