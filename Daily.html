@@ -25,28 +25,29 @@
     <title>Record 日誌</title>
 </head>
 
-<body style="background-color: #816868">
+<body style="background-color: #252525">
     <!-- Nav -->
-    <nav class="navbar" style="background-color: #ffffff00;">
+    <nav class="navbar" style="background-color: #353535;">
         <div class="container justify-content-center">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link text-dark" aria-current="page" href="main.html">Home◆首頁</a>
+                    <a class="nav-link text-light" aria-current="page" href="main.html">Home◆首頁</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="Portfolio.html">Portfolio◆製作</a>
+                    <a class="nav-link text-light" href="Portfolio.html">Portfolio◆製作</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-dark" href="Daily.html">Daily❖日誌</a>
+                    <a class="nav-link active text-light" href="Daily.html">Daily💠日誌</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-dark" href="Introduction.html">Contact◆簡介</a>
+                    <a class="nav-link text-light" href="Introduction.html">Contact◆簡介</a>
                 </li>
             </ul>
         </div>
     </nav>
+
     <!-- Contents -->
-    <div class="container">
+    <div class="container text-light" style="background-color: #303030">
         <div class="row align-items-center">
 
             <!-- Topic -->
@@ -57,7 +58,12 @@
             </div>
             <!-- Time -->
             <div class="row mx-auto align-items-center">
-                2022.12.06
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <div class="col-11 d-flex align-items-center">
+                        <h5>2022.12.06</h5>
+                    </div>
+                </div>
+                
                 <!-- Content -->
                 <div class="col-8 mx-auto">
                     <p class="p-1 text-justify">
@@ -75,7 +81,12 @@
             </div>
             <!-- Time -->
             <div class="row mx-auto align-items-center">
-                2022.11.16
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <div class="col-11 d-flex align-items-center">
+                        <h5>2022.11.16</h5>
+                    </div>
+                </div>
+                
                 <!-- Content -->
                 <div class="col-8 mx-auto">
                     <h4>
@@ -98,7 +109,12 @@
             </div>
             <!-- Time -->
             <div class="row mx-auto align-items-center">
-                2023.01.05
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <div class="col-11 d-flex align-items-center">
+                        <h5>2023.01.05</h5>
+                    </div>
+                </div>
+
                 <!-- Content -->
                 <div class="col-8 mx-auto">
                     <div style="word-break: break-all;">
@@ -147,7 +163,12 @@
             </div>
             <!-- Time -->
             <div class="row mx-auto align-items-center">
-                2023.6.2
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <div class="col-11 d-flex align-items-center">
+                        <h5>2023.06.02</h5>
+                    </div>
+                </div>
+                
                 <!-- Content -->
                 <div class="col-8 mx-auto">
                     <h4>
@@ -173,7 +194,36 @@
                 </div>
             </div>
             <!-- End -->
-            
+            <!-- Topic -->
+            <div class="col-6 mx-auto align-items-center">
+                <h2>
+                    <br><br>Popup心得<br><br>
+                </h2>
+            </div>
+            <!-- Time -->
+            <div class="row mx-auto align-items-center">
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <div class="col-11 d-flex align-items-center">
+                        <h5>2023.06.15</h5>
+                    </div>
+                </div>
+                
+                <!-- Content -->
+                <div class="col-8 mx-auto">
+                    <p class="p-1 text-justify">
+                        &emsp;&emsp;一開始接觸到Unity最想知道的就是Popup的製作，畢竟是UI界面處理的東西，雖然也可以在場景中
+                        生成Quad之類的，但我還是覺得製作時應該明確分工，介面上就交給Canvas這樣分類才會明確，以前是直接用代碼
+                        敲出來生成的位置等等...並且是生成在WorldSpace當中，這部分就要考慮到UIcamera是否有正確設置，很麻煩，
+                        會有一堆問題，因為畢竟是直接生成在場景中
+                        然而上述代碼，如果沒有仔細去調整數據的話，便很難產生Popup大幅度的特色。
+                        之後便開始研究Popup，這三個是近期從自己撰寫的遊戲中，整理出來的，也是個人覺得最合理、最常見的。
+                    </p>
+                    <img class="col-12 mx-auto" src="image/Popup_1.gif" width="250" heigh="40" alt="一張圖片">
+                    <img class="col-12 mx-auto" src="image/Popup_2.gif" width="250" heigh="40" alt="一張圖片">
+                    <img class="col-12 mx-auto" src="image/Popup_3.gif" width="250" heigh="40" alt="一張圖片">
+                </div>
+            </div>
+            <!-- End -->
 
         </div>
     </div>

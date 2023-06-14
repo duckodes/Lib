@@ -23,94 +23,150 @@
   <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
   <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
   <title>Record 日誌</title>
+  <style>
+    .snowflake {
+      position: absolute;
+      color: #ffffff50;
+      font-size: 24px;
+      top: 50px;
+      animation: snowfall linear infinite;
+      transition: opacity 1s;
+      z-index: 0;
+    }
+
+    @keyframes snowfall {
+      0% {
+        top: 50px;
+      }
+
+      100% {
+        top: 100vh;
+      }
+    }
+  </style>
 </head>
 
-<body style="background-color: #816868">
+<body style="background-color: #252525">
   <!-- Nav -->
-  <nav class="navbar" style="background-color: #ffffff00;">
+  <nav class="navbar" style="background-color: #353535;">
     <div class="container justify-content-center">
       <ul class="nav justify-content-center">
         <li class="nav-item">
-          <a class="nav-link active text-dark" aria-current="page" href="main.html">Home❖首頁</a>
+          <a class="nav-link active text-light" aria-current="page" href="main.html">Home💠首頁</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="Portfolio.html">Portfolio◆製作</a>
+          <a class="nav-link text-light" href="Portfolio.html">Portfolio◆製作</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="Daily.html">Daily◆日誌</a>
+          <a class="nav-link text-light" href="Daily.html">Daily◆日誌</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link text-dark" href="Introduction.html">Contact◆簡介</a>
+          <a class="nav-link text-light" href="Introduction.html">Contact◆簡介</a>
         </li>
       </ul>
     </div>
   </nav>
 
   <div style="height: 1250px;">
-    <!-- Display -->
-    <div class="container d-flex justify-content-center align-items-center">
-      <div class="row">
-        <div class="col-8 mx-auto display rounded d-flex align-items-center">
-          <!-- Two -->
-          <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
-                  aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
-                  aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
-                  aria-label="Slide 3"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
-                  aria-label="Slide 4"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
-                  aria-label="Slide 5"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"
-                  aria-label="Slide 6"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"
-                  aria-label="Slide 7"></button>
-              </div>
-              <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="10000">
-                  <img src="image/GitHubAvater.png" class="d-block w-100" alt="...">
+    <div class="d-flex align-items-center justify-content-center h-100">
+
+      <!-- Display -->
+      <div class="container d-flex justify-content-center align-items-center">
+        <div class="row">
+          <!-- Top -->
+          <div class="container text-light">
+            <div class="d-flex align-items-center justify-content-center h-50">
+              <h1 style="font-size: 100px;">LIFE</h1>
+            </div>
+          </div>
+          <div class="col-8 mx-auto display rounded d-flex align-items-center" style="background-color: #252525;">
+            <!-- Two -->
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"
+                    aria-label="Slide 4"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4"
+                    aria-label="Slide 5"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="5"
+                    aria-label="Slide 6"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"
+                    aria-label="Slide 7"></button>
                 </div>
-                <div class="carousel-item" data-bs-interval="5000">
-                  <img src="image/GitHubAvater.png" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="7000">
-                  <img src="image/GitHubAvater.png" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="3000">
-                  <img src="image/GitHubAvater.png" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="6000">
-                  <img src="image/GitHubAvater.png" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="7000">
-                  <img src="image/GitHubAvater.png" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="9000">
-                  <img src="image/GitHubAvater.png" class="d-block w-100" alt="...">
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-bs-interval="10000" style="height: 855px;">
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                      <img src="image/Popup_1.gif" class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+
+                  <div class="carousel-item" data-bs-interval="5000" style="height: 855px;">
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                      <img src="image/Popup_2.gif" class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+
+                  <div class="carousel-item" data-bs-interval="7000" style="height: 855px;">
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                      <img src="image/Popup_3.gif" class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+
+                  <div class="carousel-item" data-bs-interval="3000" style="height: 855px;">
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                      <img src="image/Popup_3.gif" class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+
+                  <div class="carousel-item" data-bs-interval="6000" style="height: 855px;">
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                      <img src="image/Popup_3.gif" class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+
+                  <div class="carousel-item" data-bs-interval="7000" style="height: 855px;">
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                      <img src="image/Popup_3.gif" class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+
+                  <div class="carousel-item" data-bs-interval="9000" style="height: 855px;">
+                    <div class="d-flex align-items-center justify-content-center h-100">
+                      <img src="image/GitHubAvater.png" class="d-block w-100" alt="...">
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <!-- HashTag -->
-        <div class="container">
-          <div class="row">
-            <div class="col-6 mx-auto text-center">
-              <h4>
-                #GameDev<br>
-                #SoftDev<br>
-              </h4>
+          <!-- HashTag -->
+
+          <div class="container text-light">
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <h2><br><br>TAG</h2>
+            </div>
+            <div class="row">
+              <div class="col-6 mx-auto text-center">
+                <h4>
+                  #GameDev
+                  #SoftDev
+                </h4>
+              </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
+
   </div>
 
   <!-- End -->
@@ -135,5 +191,30 @@
 </body>
 <!-- Script -->
 <script src="js/bootstrap.bundle.min.js"></script>
+<script>
+  // JavaScript
+  function createSnowflake() {
+    var snowflake = document.createElement("span");
+    snowflake.innerHTML = "❆";
+    snowflake.className = "snowflake";
+    snowflake.style.left = Math.random() * (window.innerWidth - 50) + "px";
+    snowflake.style.animationDuration = Math.random() * 3 + 10 + "s";
+    snowflake.style.fontSize = Math.random() * 20 + 20 + "px"; // 隨機設定符號大小
+    snowflake.style.transform = "rotate(" + Math.random() * 360 + "deg)"; // 隨機設定旋轉角度
+
+    document.body.appendChild(snowflake);
+
+    setTimeout(function () {
+      snowflake.style.opacity = "0"; // 設置透明度為0，創建淡出效果
+      setTimeout(function () {
+        snowflake.remove();
+      }, 1000); // 1 秒後移除 ❆ 符號
+    }, 10000); // 10 秒後開始淡出
+  }
+
+  setInterval(function () {
+    createSnowflake();
+  }, 1500);
+</script>
 
 </html>
