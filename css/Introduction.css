@@ -1,5 +1,33 @@
 .avatar {
-    background-color: rgb(75, 75, 75);
-    width: 50;
-    height: 50;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: avatar-unhov 0.5s forwards;
+}
+
+.avatar:hover {
+    cursor: pointer;
+    animation: avatar-hov 0.5s forwards;
+}
+
+@keyframes avatar-hov {
+    0% {
+        box-shadow: 0 0 30px 5px rgba(0, 0, 0, 1);
+        backdrop-filter: blur(5px);
+    }
+
+    100% {
+        box-shadow: 0 0 100px 30px rgba(0, 0, 0, 1);
+        backdrop-filter: blur(15px);
+    }
+}
+
+@keyframes avatar-unhov {
+    0% {
+        box-shadow: 0 0 100px 30px rgba(0, 0, 0, 1);
+        backdrop-filter: blur(15px);
+    }
+
+    100% {
+        box-shadow: 0 0 30px 5px rgba(0, 0, 0, 1);
+        backdrop-filter: blur(5px);
+    }
 }

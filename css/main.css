@@ -29,6 +29,7 @@
 
 .pic-item {
     height: 700px;
+    z-index: 1;
 }
 
 .pic-leftbtn {
