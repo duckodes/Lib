@@ -96,3 +96,31 @@
         transform: rotate(-90deg);
     }
 }
+
+.life-snowrot {
+    cursor: pointer;
+    animation: life-snowrot-unhov 2s forwards;
+}
+.life-snowrot:hover {
+    cursor: pointer;
+    animation: life-snowrot 5s linear infinite;
+}
+
+@keyframes life-snowrot {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+@keyframes life-snowrot-unhov {
+    0% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
