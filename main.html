@@ -23,36 +23,15 @@
   <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
   <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
   <title>Record 日誌</title>
-  <style>
-    .snowflake {
-      position: absolute;
-      color: #ffffff50;
-      font-size: 24px;
-      top: 50px;
-      animation: snowfall linear infinite;
-      transition: opacity 1s;
-      z-index: 0;
-    }
-
-    @keyframes snowfall {
-      0% {
-        top: 50px;
-      }
-
-      100% {
-        top: 100vh;
-      }
-    }
-  </style>
 </head>
 
 <body style="background-color: #252525">
   <!-- Nav -->
-  <nav class="navbar" style="background-color: #353535;">
+  <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);">
     <div class="container justify-content-center">
       <ul class="nav justify-content-center">
         <li class="nav-item">
-          <a class="nav-link active text-light" aria-current="page" href="main.html">Home💠首頁</a>
+          <a class="nav-link active text-light" aria-current="page" href="main.html">Home⚠️首頁</a>
         </li>
         <li class="nav-item">
           <a class="nav-link text-light" href="Portfolio.html">Portfolio◆製作</a>
@@ -73,16 +52,30 @@
       <!-- Display -->
       <div class="container d-flex justify-content-center align-items-center">
         <div class="row">
+
           <!-- Top -->
-          <div class="container text-light">
-            <div class="d-flex align-items-center justify-content-center h-50">
-              <h1 style="font-size: 100px;">LIFE</h1>
+          <div class="container text-light no-select">
+            <div class="d-flex align-items-center justify-content-center h-100">
+              <h1 style="font-size: 100px; color: rgb(255, 174, 0);">L&nbsp;</h1>
+              <h1 style="font-size: 150px;">I&nbsp;</h1>
+              <h1 style="font-size: 100px; color: rgb(255, 174, 0);">F&nbsp;</h1>
+              <h1 style="font-size: 100px; color: rgb(255, 174, 0);">E&nbsp;</h1>
+              <div style="font-size: 150px;">💠</div>
+              <h1 style="font-size: 30px;">WARNING</h1>
             </div>
           </div>
-          <div class="col-8 mx-auto display rounded d-flex align-items-center" style="background-color: #252525;">
-            <!-- Two -->
+          <div class="col-12 mx-auto display rounded d-flex align-items-center no-select"
+            style="background-color: #252525;">
+            <!-- Pre -->
+            <div class="pic-leftbtn pic-prvbtn" style="Color: #ffffff; font-size: 30px;" data-bs-toggle="tooltip"
+              data-bs-placement="bottom" title="previous page" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev">
+              ⤏
+            </div>
+            <!-- Picture Button -->
             <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
               <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+
                 <div class="carousel-indicators">
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
                     aria-current="true" aria-label="Slide 1"></button>
@@ -99,62 +92,70 @@
                   <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="6"
                     aria-label="Slide 7"></button>
                 </div>
-                <div class="carousel-inner">
-                  <div class="carousel-item active" data-bs-interval="10000" style="height: 855px;">
+
+                <div class="carousel-inner border border-5 border-warning rounded-3">
+                  <div class="carousel-item active pic-item" data-bs-interval="10000">
                     <div class="d-flex align-items-center justify-content-center h-100">
-                      <img src="image/Popup_1.gif" class="d-block w-100" alt="...">
+                      <img src="image/Popup_1.gif" class="d-block w-100 rounded-3" alt="...">
                     </div>
                   </div>
 
-                  <div class="carousel-item" data-bs-interval="5000" style="height: 855px;">
+                  <div class="carousel-item pic-item" data-bs-interval="5000">
                     <div class="d-flex align-items-center justify-content-center h-100">
-                      <img src="image/Popup_2.gif" class="d-block w-100" alt="...">
+                      <img src="image/Popup_2.gif" class="d-block w-100 rounded-3" alt="...">
                     </div>
                   </div>
 
-                  <div class="carousel-item" data-bs-interval="7000" style="height: 855px;">
+                  <div class="carousel-item pic-item" data-bs-interval="7000">
                     <div class="d-flex align-items-center justify-content-center h-100">
-                      <img src="image/Popup_3.gif" class="d-block w-100" alt="...">
+                      <img src="image/Popup_3.gif" class="d-block w-100 rounded-3" alt="...">
                     </div>
                   </div>
 
-                  <div class="carousel-item" data-bs-interval="3000" style="height: 855px;">
+                  <div class="carousel-item pic-item" data-bs-interval="3000">
                     <div class="d-flex align-items-center justify-content-center h-100">
-                      <img src="image/Popup_3.gif" class="d-block w-100" alt="...">
+                      <img src="image/Popup_3.gif" class="d-block w-100 rounded-3" alt="...">
                     </div>
                   </div>
 
-                  <div class="carousel-item" data-bs-interval="6000" style="height: 855px;">
+                  <div class="carousel-item pic-item" data-bs-interval="6000">
                     <div class="d-flex align-items-center justify-content-center h-100">
-                      <img src="image/Popup_3.gif" class="d-block w-100" alt="...">
+                      <img src="image/Popup_3.gif" class="d-block w-100 rounded-3" alt="...">
                     </div>
                   </div>
 
-                  <div class="carousel-item" data-bs-interval="7000" style="height: 855px;">
+                  <div class="carousel-item pic-item" data-bs-interval="7000">
                     <div class="d-flex align-items-center justify-content-center h-100">
-                      <img src="image/Popup_3.gif" class="d-block w-100" alt="...">
+                      <img src="image/Popup_3.gif" class="d-block w-100 rounded-3" alt="...">
                     </div>
                   </div>
 
-                  <div class="carousel-item" data-bs-interval="9000" style="height: 855px;">
+                  <div class="carousel-item pic-item" data-bs-interval="9000">
                     <div class="d-flex align-items-center justify-content-center h-100">
-                      <img src="image/GitHubAvater.png" class="d-block w-100" alt="...">
+                      <img src="image/GitHubAvater.png" class="d-block w-100 rounded-3" alt="...">
                     </div>
                   </div>
 
                 </div>
               </div>
             </div>
+            <!-- Next -->
+            <div class="pic-leftbtn pic-nexbtn" style="Color: #ffffff; font-size: 30px;" data-bs-toggle="tooltip"
+              data-bs-placement="bottom" title="next page" data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next">
+              ⤎
+            </div>
+
           </div>
 
           <!-- HashTag -->
 
           <div class="container text-light">
             <div class="d-flex align-items-center justify-content-center h-100">
-              <h2><br><br>TAG</h2>
+              <h2 style="font-size: 100px;">TAG</h2>
             </div>
             <div class="row">
-              <div class="col-6 mx-auto text-center">
+              <div class="col-6 mx-auto text-center" style="background-color: #353535;">
                 <h4>
                   #GameDev
                   #SoftDev
@@ -170,22 +171,42 @@
   </div>
 
   <!-- End -->
-  <footer class="text-center text-white" style="background-color: rgb(35, 35, 35)">
+  <footer class="text-center text-white no-select" style="background-color: rgb(35, 35, 35);">
     <div class="container p-5">
-      <div class="row p-5">
-        <div class="col-12 text-center">
-          Gmail
-          <a href="mailto:bear90789078@gmail.com">🤝</a>
+
+      <div class="row">
+        <div class="col-12" style=" font-size: 25px;">
+          LIFE Record<br><br>
+          <div style="font-size: 50px;">
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Digital + Graphic Design
+          </div>
         </div>
-        <div class="col-12 text-center">
-          Instagram
-          <a href="https://www.instagram.com/u.gamie/">🤝</a>
+
+
+        <div class="col-3 p-5" style=" font-size: 20px;">
+          <div class="col-12 text-center">
+            <a href="mailto:bear90789078@gmail.com" style="text-decoration: none; color: #ffffff;">
+              Gmail<br>
+              ◈</a>
+          </div>
+          <div class="col-12 text-center">
+            <a href="https://www.instagram.com/u.gamie/" style="text-decoration: none; color: #ffffff;">
+              Instagram<br>
+              ◈</a>
+          </div>
+          <div class="col-12 text-center">
+            <a href="https://play.google.com/store/apps/dev?id=7143063429112993146"
+              style="text-decoration: none; color: #ffffff;">
+              PlayStore<br>
+              ◈</a>
+          </div>
         </div>
-        <div class="col-12 text-center">
-          PlayStore
-          <a href="https://play.google.com/store/apps/dev?id=7143063429112993146">🤝</a>
-        </div>
+
+        <div class="col-6" style="font-size: 5px;"><br><br><br><br><br><br><br><br><br><br><br><br><br>© 2023 UGsoft
+          LLC. All rights reserved.<br>© 2023 UGamie LLC.</div>
       </div>
+
+
     </div>
   </footer>
 </body>
@@ -193,28 +214,43 @@
 <script src="js/bootstrap.bundle.min.js"></script>
 <script>
   // JavaScript
+  var symbols = ["❆", "❅", "❀"]; // 符號陣列，可以自行擴充
+
   function createSnowflake() {
     var snowflake = document.createElement("span");
-    snowflake.innerHTML = "❆";
+    var randomIndex = Math.floor(Math.random() * symbols.length); // 隨機選取符號索引
+    var selectedSymbol = symbols[randomIndex]; // 從符號陣列中取得隨機符號
+
+    snowflake.innerHTML = selectedSymbol;
     snowflake.className = "snowflake";
-    snowflake.style.left = Math.random() * (window.innerWidth - 50) + "px";
+    snowflake.style.left = Math.random() * (window.innerWidth - 75) + "px";
     snowflake.style.animationDuration = Math.random() * 3 + 10 + "s";
-    snowflake.style.fontSize = Math.random() * 20 + 20 + "px"; // 隨機設定符號大小
-    snowflake.style.transform = "rotate(" + Math.random() * 360 + "deg)"; // 隨機設定旋轉角度
+    snowflake.style.fontSize = Math.random() * 20 + 20 + "px";
+    snowflake.style.transform = "rotate(" + Math.random() * 360 + "deg)";
 
     document.body.appendChild(snowflake);
 
     setTimeout(function () {
-      snowflake.style.opacity = "0"; // 設置透明度為0，創建淡出效果
+      snowflake.style.opacity = "0";
       setTimeout(function () {
         snowflake.remove();
-      }, 1000); // 1 秒後移除 ❆ 符號
-    }, 10000); // 10 秒後開始淡出
+      }, 1000);
+    }, 10000);
   }
 
   setInterval(function () {
     createSnowflake();
   }, 1500);
+
+  document.addEventListener("contextmenu", function (e) {
+    e.preventDefault();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.ctrlKey && e.key === "s") {
+      e.preventDefault();
+    }
+  });
 </script>
 
 </html>

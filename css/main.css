@@ -1,3 +1,97 @@
 .display {
     background-color: rgb(75, 75, 75);
 }
+
+.snowflake {
+    user-select: none;
+    position: absolute;
+    color: #ffffff50;
+    font-size: 24px;
+    top: 50px;
+    animation: snowfall linear infinite;
+    transition: opacity 1s;
+    z-index: 0;
+}
+
+@keyframes snowfall {
+    0% {
+        top: 50px;
+    }
+
+    100% {
+        top: 100vh;
+    }
+}
+
+.no-select {
+    user-select: none;
+}
+
+.pic-item {
+    height: 700px;
+}
+
+.pic-leftbtn {
+    opacity: 0.3;
+}
+
+.pic-leftbtn:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.pic-prvbtn {
+    animation: pic-prvbtn-unhov 0.5s forwards;
+}
+
+.pic-prvbtn:hover {
+    animation: pic-prvbtn 0.5s forwards;
+}
+
+@keyframes pic-prvbtn {
+    0% {
+        transform: rotate(90deg);
+    }
+
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+@keyframes pic-prvbtn-unhov {
+    0% {
+        transform: rotate(180deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+.pic-nexbtn {
+    animation: pic-nexbtn-unhov 0.5s forwards;
+}
+
+.pic-nexbtn:hover {
+    animation: pic-nexbtn 0.5s forwards;
+}
+
+@keyframes pic-nexbtn {
+    0% {
+        transform: rotate(-90deg);
+    }
+
+    100% {
+        transform: rotate(-180deg);
+    }
+}
+
+@keyframes pic-nexbtn-unhov {
+    0% {
+        transform: rotate(-180deg);
+    }
+
+    100% {
+        transform: rotate(-90deg);
+    }
+}

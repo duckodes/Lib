@@ -27,7 +27,7 @@
 
 <body style="background-color: #252525">
     <!-- Nav -->
-    <nav class="navbar" style="background-color: #353535;">
+    <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);">
         <div class="container justify-content-center">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
@@ -37,7 +37,7 @@
                     <a class="nav-link text-light" href="Portfolio.html">Portfolio◆製作</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-light" href="Daily.html">Daily💠日誌</a>
+                    <a class="nav-link active text-light" href="Daily.html">Daily⚠️日誌</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-light" href="Introduction.html">Contact◆簡介</a>
@@ -63,7 +63,7 @@
                         <h5>2022.12.06</h5>
                     </div>
                 </div>
-                
+
                 <!-- Content -->
                 <div class="col-8 mx-auto">
                     <p class="p-1 text-justify">
@@ -86,7 +86,7 @@
                         <h5>2022.11.16</h5>
                     </div>
                 </div>
-                
+
                 <!-- Content -->
                 <div class="col-8 mx-auto">
                     <h4>
@@ -168,7 +168,7 @@
                         <h5>2023.06.02</h5>
                     </div>
                 </div>
-                
+
                 <!-- Content -->
                 <div class="col-8 mx-auto">
                     <h4>
@@ -207,7 +207,7 @@
                         <h5>2023.06.15</h5>
                     </div>
                 </div>
-                
+
                 <!-- Content -->
                 <div class="col-8 mx-auto">
                     <p class="p-1 text-justify">
@@ -229,6 +229,45 @@
     </div>
     <!-- Script -->
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript
+        var symbols = ["❆", "❅", "❀"]; // 符號陣列，可以自行擴充
+
+        function createSnowflake() {
+            var snowflake = document.createElement("span");
+            var randomIndex = Math.floor(Math.random() * symbols.length); // 隨機選取符號索引
+            var selectedSymbol = symbols[randomIndex]; // 從符號陣列中取得隨機符號
+
+            snowflake.innerHTML = selectedSymbol;
+            snowflake.className = "snowflake";
+            snowflake.style.left = Math.random() * (window.innerWidth - 75) + "px";
+            snowflake.style.animationDuration = Math.random() * 3 + 10 + "s";
+            snowflake.style.fontSize = Math.random() * 20 + 20 + "px";
+            snowflake.style.transform = "rotate(" + Math.random() * 360 + "deg)";
+
+            document.body.appendChild(snowflake);
+
+            setTimeout(function () {
+                snowflake.style.opacity = "0";
+                setTimeout(function () {
+                    snowflake.remove();
+                }, 1000);
+            }, 10000);
+        }
+
+        setInterval(function () {
+            createSnowflake();
+        }, 1500);
+
+        document.addEventListener("contextmenu", function (e) {
+            e.preventDefault();
+        });
+        document.addEventListener("keydown", function (e) {
+            if (e.ctrlKey && e.key === "s") {
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 
 </html>

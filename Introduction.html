@@ -19,6 +19,7 @@
   <link rel="icon" type="image/png" sizes="32x32" href="image/Logo_R_32.png">
   <link rel="icon" type="image/png" sizes="96x96" href="image/Logo_R_96.png">
   <link rel="icon" type="image/png" sizes="16x16" href="image/Logo_R_16.png">
+  <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="css/Introduction.css">
   <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
   <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
@@ -27,7 +28,7 @@
 
 <body style="background-color: #252525">
   <!-- Nav -->
-  <nav class="navbar" style="background-color: #353535;">
+  <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);">
     <div class="container justify-content-center">
       <ul class="nav justify-content-center">
         <li class="nav-item">
@@ -40,17 +41,19 @@
           <a class="nav-link text-light" href="Daily.html">Daily◆日誌</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active text-light" href="Introduction.html">Contact💠簡介</a>
+          <a class="nav-link active text-light" href="Introduction.html">Contact⚠️簡介</a>
         </li>
       </ul>
     </div>
   </nav>
+
   <!-- Contents -->
   <div class="container text-light" style="background-color: #303030">
     <div class="row">
       <!-- Avatar -->
       <div class="col-12 mx-auto d-flex justify-content-center align-items-center">
-        <span><img class="col-3 avatar rounded" src="image/Logo_R.png" alt="">
+        <span class="col-12">
+          <img class="col-3 avatar rounded" style="background-color: rgba(0, 0, 0, 0);" src="image/Logo_R.png" alt="">
           <div class="col-3 text-center">
             <h1>RogerHsiung</h1>
           </div>
@@ -58,20 +61,21 @@
       </div>
       <!-- content1 -->
       <div class="row mx-auto">
-        <div class="col-8 mx-auto d-flex justify-content-center">
-          <div class="col-6 d-flex align-items-center">
+        <div class="col-10 mx-auto d-flex justify-content-center">
+          <div class="col-4 d-flex align-items-center">
             <h1>Who?</h1>
           </div>
           <div class="row">
             <p>
             <div class="col-12">
-              <h2>我是誰?</h2>
+              <h2>自介</h2>
             </div>
             </p>
             <p>
             <div class="row d-flex align-items-center">
-              &emsp;&emsp;我是羅傑，一個熱愛遊戲開發、喜歡探究新事物、喜歡研究各種遊戲內，設計的系統，在大學四年裡，充分利用自己擅長的電腦工具
-              ，學到了不少，也經常自學，也投入在遊戲引擎上不少的時間。日常喜歡打球，吃美味食物的BOY。
+              &emsp;&emsp;我是羅傑(Roger)，一個熱愛遊戲開發、喜歡探究新事物、喜歡研究各種遊戲內，精良的設計系統，在大學四年裡，充分利用自己擅長的電腦工具
+              ，學到了不少，也經常自學，並投入在遊戲引擎上不少的時間。主要開發為Unity Engine，並且有接觸過Unreal Engine，擅長使用Windows任何應用程式，
+              也開發過Windows Form 等... 實用的簡易工具。
             </div>
             </p>
           </div>
@@ -79,8 +83,8 @@
       </div>
       <!-- content2 -->
       <div class="row mx-auto">
-        <div class="col-8 mx-auto d-flex justify-content-center">
-          <div class="col-6 d-flex align-items-center">
+        <div class="col-10 mx-auto d-flex justify-content-center">
+          <div class="col-4 d-flex align-items-center">
             <h1>Why?</h1>
           </div>
           <div class="row">
@@ -99,8 +103,8 @@
       </div>
       <!-- content3 -->
       <div class="row mx-auto">
-        <div class="col-8 mx-auto d-flex justify-content-center">
-          <div class="col-6 d-flex align-items-center">
+        <div class="col-10 mx-auto d-flex justify-content-center">
+          <div class="col-4 d-flex align-items-center">
             <h1>What?</h1>
           </div>
           <div class="row">
@@ -119,8 +123,8 @@
       </div>
       <!-- content4 -->
       <div class="row mx-auto">
-        <div class="col-8 mx-auto d-flex justify-content-center">
-          <div class="col-6 d-flex align-items-center">
+        <div class="col-10 mx-auto d-flex justify-content-center">
+          <div class="col-4 d-flex align-items-center">
             <h1>When?</h1>
           </div>
           <div class="row">
@@ -139,8 +143,8 @@
       </div>
       <!-- content5 -->
       <div class="row mx-auto">
-        <div class="col-8 mx-auto d-flex justify-content-center">
-          <div class="col-6 d-flex align-items-center">
+        <div class="col-10 mx-auto d-flex justify-content-center">
+          <div class="col-4 d-flex align-items-center">
             <h1>Where?</h1>
           </div>
           <div class="row">
@@ -159,8 +163,8 @@
       </div>
       <!-- content6 -->
       <div class="row mx-auto">
-        <div class="col-8 mx-auto d-flex justify-content-center">
-          <div class="col-6 d-flex align-items-center">
+        <div class="col-10 mx-auto d-flex justify-content-center">
+          <div class="col-4 d-flex align-items-center">
             <h1>How?</h1>
           </div>
           <div class="row">
@@ -182,6 +186,45 @@
   </div>
   <!-- Script -->
   <script src="js/bootstrap.bundle.min.js"></script>
+  <script>
+    // JavaScript
+    var symbols = ["❆", "❅", "❀"]; // 符號陣列，可以自行擴充
+
+    function createSnowflake() {
+      var snowflake = document.createElement("span");
+      var randomIndex = Math.floor(Math.random() * symbols.length); // 隨機選取符號索引
+      var selectedSymbol = symbols[randomIndex]; // 從符號陣列中取得隨機符號
+
+      snowflake.innerHTML = selectedSymbol;
+      snowflake.className = "snowflake";
+      snowflake.style.left = Math.random() * (window.innerWidth - 75) + "px";
+      snowflake.style.animationDuration = Math.random() * 3 + 10 + "s";
+      snowflake.style.fontSize = Math.random() * 20 + 20 + "px";
+      snowflake.style.transform = "rotate(" + Math.random() * 360 + "deg)";
+
+      document.body.appendChild(snowflake);
+
+      setTimeout(function () {
+        snowflake.style.opacity = "0";
+        setTimeout(function () {
+          snowflake.remove();
+        }, 1000);
+      }, 10000);
+    }
+
+    setInterval(function () {
+      createSnowflake();
+    }, 1500);
+
+    document.addEventListener("contextmenu", function (e) {
+      e.preventDefault();
+    });
+    document.addEventListener("keydown", function (e) {
+      if (e.ctrlKey && e.key === "s") {
+        e.preventDefault();
+      }
+    });
+  </script>
 </body>
 
 </html>
