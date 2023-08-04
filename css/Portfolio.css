@@ -1,0 +1,7 @@
+.card_pic{
+    opacity: 0.35;
+}
+.cardword_pic:hover{
+    cursor: pointer;
+    opacity: 0.15;
+}
