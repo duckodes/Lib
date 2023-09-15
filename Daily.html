@@ -234,7 +234,7 @@
             <div class="row mx-auto align-items-center">
                 <div class="col-12 mx-auto d-flex justify-content-center">
                     <div class="col-11 d-flex align-items-center">
-                        <h5>2023.06.15</h5>
+                        <h5>2023.07.10</h5>
                     </div>
                 </div>
 
@@ -245,7 +245,40 @@
                         加上每次都要把PhotoShop打開很消耗時間，我就在unity上開發了這樣一款繪圖功能。最初版本基本功能
                         都有，例如: 塗抹、筆刷、橡皮擦、放大縮小、儲存圖片、塗層、調色盤，目前還在調整中!
                     </p>
-                    <img class="col-12 mx-auto" src="image/UnityArktosPainter/MainApple6.png" width="250" heigh="40" alt="一張圖片">
+                    <img class="col-12 mx-auto" src="image/UnityArktosPainter/MainApple6.png" width="250" heigh="40"
+                        alt="一張圖片">
+                </div>
+            </div>
+            <!-- End -->
+            <!-- Topic -->
+            <div class="col-6 mx-auto align-items-center">
+                <h2>
+                    <br><br>Unity Extensions Notes unity version 2021.3.6f1<br><br>
+                </h2>
+            </div>
+            <!-- Time -->
+            <div class="row mx-auto align-items-center">
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <div class="col-11 d-flex align-items-center">
+                        <h5>2023.09.15</h5>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="col-8 mx-auto">
+                    <p class="p-1 text-justify">
+                        &emsp;&emsp;在撰寫Unity插件時，也同樣會運用到各種Unity內部的API，
+                        其中"UnityEditor.EditorUtility.DisplayDialog"這個方法是寫出unity
+                        內部的Dialogue，用來做為設計者的提示工具，但調用這個參數或相關的參數，
+                        會面臨到一個問題，假設一開始Focus的視窗在自定義視窗，
+                        然後調用"UnityEditor.EditorUtility.DisplayDialog"方法，
+                        接著關閉提示工具後，Unity Focus對象就會是Unity本身的視窗，而不是自定義視窗，
+                        但這時候Unity提示藍標卻會顯示你是Focus在自定義視窗，實際上Focus對象卻是Unity本身，
+                        在此記錄一下編輯時發現的問題。
+                    </p>
+                    <p class="p-1 text-justify">
+                        &emsp;&emsp;解決辦法就只要在調用完後添加回Focus當前視窗就可以了。
+                    </p>
                 </div>
             </div>
             <!-- End -->
