@@ -273,7 +273,7 @@
                         會面臨到一個問題，假設一開始Focus的視窗在自定義視窗，
                         然後調用"UnityEditor.EditorUtility.DisplayDialog"方法，
                         接著關閉提示工具後，Unity Focus對象就會是Unity本身的視窗，而不是自定義視窗，
-                        但這時候Unity提示藍標卻會顯示你是Focus在自定義視窗，實際上Focus對象卻是Unity本身，
+                        但這時候Unity提示藍標卻會顯示當前Focus在自定義視窗，實際上Focus對象卻是Unity本身，
                         在此記錄一下編輯時發現的問題。
                     </p>
                     <p class="p-1 text-justify">
@@ -282,6 +282,44 @@
                 </div>
             </div>
             <!-- End -->
+            <!-- Topic -->
+            <div class="col-6 mx-auto align-items-center">
+                <h2>
+                    <br><br>Unity Custom Dialogue Tools<br><br>
+                </h2>
+            </div>
+            <!-- Time -->
+            <div class="row mx-auto align-items-center">
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <div class="col-11 d-flex align-items-center">
+                        <h5>2023.09.21</h5>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="col-8 mx-auto">
+                    <p class="p-1 text-justify">
+                        &emsp;&emsp;Unity Extension API 其中的 UnityEditor.EditorUtility.DisplayDialog，
+                        能讓Dialogue更自由的更改圖標Logo或是配色等，所開發出的自訂義對話框，並且不會有上一個講
+                        述的Focus 問題，他按完按鈕，會Focus到，一開始生成視窗的EditorWindow。
+
+                    </p>
+                    <img class="col-12 mx-auto" src="image/DialogueDrawOption.png" width="250" heigh="40"
+                        alt="一張圖片">
+                    <img class="col-12 mx-auto" src="image/Dialogue(1Button normal).png" width="250" heigh="40"
+                        alt="一張圖片">
+                    <img class="col-12 mx-auto" src="image/Dialogue(1Button out of content).png" width="250" heigh="40"
+                        alt="一張圖片">
+                    <img class="col-12 mx-auto" src="image/Dialogue(2Button normal).png" width="250" heigh="40"
+                        alt="一張圖片">
+                    <img class="col-12 mx-auto" src="image/Dialogue(3Button normal).png" width="250" heigh="40"
+                        alt="一張圖片">
+                    <img class="col-12 mx-auto" src="image/DialogueDraw1Button.gif" width="250" heigh="40" alt="一張圖片">
+                    
+                </div>
+            </div>
+            <!-- End -->
+
         </div>
     </div>
     <!-- Script -->
