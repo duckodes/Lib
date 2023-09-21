@@ -25,6 +25,13 @@
 
 .no-select {
     user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+img.no-drag {
+    -webkit-user-drag: none;
 }
 
 .pic-item {
@@ -96,6 +103,7 @@
         transform: rotate(-90deg);
     }
 }
+
 .life-snowrot:hover {
     cursor: pointer;
     animation: life-snowrot 5s linear infinite;
