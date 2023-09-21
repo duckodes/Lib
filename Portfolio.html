@@ -101,7 +101,8 @@
           <div class="card-img-overlay cardword_pic">
             <h5 class="card-title" style="font-size: 35px;">Custom Dialogue Tools</h5>
             <p class="card-text">unity引擎為基礎設計的插件，方便開發者產生對話框，進行自訂義對話框更改。<br>
-              (Plugin designed based on the Unity engine, which makes it easy for developers to generate dialogue boxes and customize dialogue boxes.)</p>
+              (Plugin designed based on the Unity engine, which makes it easy for developers to generate dialogue boxes
+              and customize dialogue boxes.)</p>
             <p class="card-text">Arktos 2023/7/20</p>
           </div>
         </div>
@@ -149,7 +150,7 @@
     });
 
     document.addEventListener("keydown", function (e) {
-      if (e.ctrlKey && e.key === "s") {
+      if (e.ctrlKey && e.key === "s" || e.key === "F12" || e.key === "F11" || e.ctrlKey && e.shiftKey && e.key === "I") {
         e.preventDefault();
       }
     });

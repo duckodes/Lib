@@ -304,8 +304,7 @@
                         述的Focus 問題，他按完按鈕，會Focus到，一開始生成視窗的EditorWindow。
 
                     </p>
-                    <img class="col-12 mx-auto" src="image/DialogueDrawOption.png" width="250" heigh="40"
-                        alt="一張圖片">
+                    <img class="col-12 mx-auto" src="image/DialogueDrawOption.png" width="250" heigh="40" alt="一張圖片">
                     <img class="col-12 mx-auto" src="image/Dialogue(1Button normal).png" width="250" heigh="40"
                         alt="一張圖片">
                     <img class="col-12 mx-auto" src="image/Dialogue(1Button out of content).png" width="250" heigh="40"
@@ -315,7 +314,7 @@
                     <img class="col-12 mx-auto" src="image/Dialogue(3Button normal).png" width="250" heigh="40"
                         alt="一張圖片">
                     <img class="col-12 mx-auto" src="image/DialogueDraw.gif" width="250" heigh="40" alt="一張圖片">
-                    
+
                 </div>
             </div>
             <!-- End -->
@@ -355,10 +354,10 @@
         }, 1500);
 
         document.addEventListener("contextmenu", function (e) {
-            e.preventDefault();
+           e.preventDefault();
         });
         document.addEventListener("keydown", function (e) {
-            if (e.ctrlKey && e.key === "s") {
+            if (e.ctrlKey && e.key === "s" || e.key === "F12" || e.key === "F11" || e.ctrlKey && e.shiftKey && e.key === "I") {
                 e.preventDefault();
             }
         });

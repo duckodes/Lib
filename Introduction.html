@@ -56,7 +56,7 @@
           <h1 class="col-3 text-center" style="font-size: 150px; color: rgb(255, 174, 0);">◈</h1>
           <h1 class="col-3 text-center" style="font-size: 95px; color: rgb(255, 174, 0);">Arktosr</h1>
         </span>
-        
+
         <span class="col-12">
           <img class="col-12 avatar rounded-pill" src="image/Avatar.png" alt="">
         </span>
@@ -249,7 +249,7 @@
       e.preventDefault();
     });
     document.addEventListener("keydown", function (e) {
-      if (e.ctrlKey && e.key === "s") {
+      if (e.ctrlKey && e.key === "s" || e.key === "F12" || e.key === "F11" || e.ctrlKey && e.shiftKey && e.key === "I") {
         e.preventDefault();
       }
     });
