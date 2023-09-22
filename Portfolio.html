@@ -66,10 +66,10 @@
       <!--1-->
       <div class="col-12 mx-auto d-flex justify-content-center" style="width: 1000px;">
         <div class="card bg-dark text-white">
-          <div class="card_pic">
+          <div class="card_pic" id="changeOpacity1">
             <img src="image/FileCatagorize.png" class="card-img" alt="...">
           </div>
-          <div class="card-img-overlay cardword_pic">
+          <div class="card-img-overlay cardword_pic" id="hoverTarget1">
             <h5 class="card-title" style="font-size: 35px;">File Catagorize</h5>
             <p class="card-text">在Windows上整理大量資料時，以條列式命名方式進行分類操作，解決多視窗操作問題。<br>
               (When organizing large amounts of data on Windows, use a list-based naming approach for categorization to
@@ -81,10 +81,10 @@
       <!--2-->
       <div class="col-12 mx-auto d-flex justify-content-center" style="width: 1000px;">
         <div class="card bg-dark text-white">
-          <div class="card_pic">
+          <div class="card_pic" id="changeOpacity2">
             <img src="image/UnityArktosPainter/MainApple6.png" class="card-img" alt="...">
           </div>
-          <div class="card-img-overlay cardword_pic">
+          <div class="card-img-overlay cardword_pic" id="hoverTarget2">
             <h5 class="card-title" style="font-size: 35px;">Color Tools</h5>
             <p class="card-text">unity引擎為基礎設計的插件，方便開發者進行簡易繪圖。<br>
               (Plugin based on the Unity engine, designed to facilitate developers with simple drawing.)</p>
@@ -95,12 +95,12 @@
       <!--3-->
       <div class="col-12 mx-auto d-flex justify-content-center" style="width: 1000px;">
         <div class="card bg-dark text-white">
-          <div class="card_pic">
+          <div class="card_pic" id="changeOpacity3">
             <video width="100%" height="100%" autoplay loop muted>
               <source src="image/DialogueDraw.mp4" type="video/mp4">
             </video>
           </div>
-          <div class="card-img-overlay cardword_pic">
+          <div class="card-img-overlay cardword_pic" id="hoverTarget3">
             <h5 class="card-title" style="font-size: 35px;">Custom Dialogue Tools</h5>
             <p class="card-text">unity引擎為基礎設計的插件，方便開發者產生對話框，進行自訂義對話框更改。<br>
               (Plugin designed based on the Unity engine, which makes it easy for developers to generate dialogue boxes
@@ -147,6 +147,24 @@
       createSnowflake();
     }, 1500);
 
+    // Hover ID Change ID opacity
+    function setupOpacityControl(targetId, hoverId) {
+      const targetElement = document.getElementById(targetId);
+      const hoverElement = document.getElementById(hoverId);
+
+      hoverElement.addEventListener('mouseover', () => {
+        targetElement.style.opacity = '1';
+      });
+
+      hoverElement.addEventListener('mouseout', () => {
+        targetElement.style.opacity = '0.25';
+      });
+    }
+    setupOpacityControl('changeOpacity1', 'hoverTarget1');
+    setupOpacityControl('changeOpacity2', 'hoverTarget2');
+    setupOpacityControl('changeOpacity3', 'hoverTarget3');
+
+    // Limit
     document.addEventListener("contextmenu", function (e) {
       e.preventDefault();
     });
