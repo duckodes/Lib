@@ -118,3 +118,38 @@ img.no-drag {
         transform: rotate(360deg);
     }
 }
+
+.first-text {
+    cursor: pointer;
+    animation: first-textanib 0.5s ease-out;
+    font-size: 50px;
+    color: white;
+}
+.first-text:hover {
+    cursor: pointer;
+    animation: first-textani 0.5s ease-out;
+    font-size: 52px;
+    color: red;
+}
+@keyframes first-textani {
+    0% {
+        font-size: 50px;
+        color: white;
+    }
+
+    100% {
+        font-size: 52px;
+        color: red;
+    }
+}
+@keyframes first-textanib {
+    0% {
+        font-size: 52px;
+        color: red;
+    }
+
+    100% {
+        font-size: 50px;
+        color: white;
+    }
+}
