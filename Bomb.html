@@ -190,7 +190,8 @@
             }
 
             const cell = document.getElementById(`cell-${row}-${col}`);
-            if (cell.classList.contains('revealed')) {
+            if (cell.classList.contains('revealed') ||
+                cell.classList.contains('marked')) {
                 return;
             }
 
