@@ -318,11 +318,13 @@
                     let istouch;
                     td.classList.add('cell', 'unrevealed');
                     td.addEventListener('click', () => {
-                        revealCell(row, col);
+                        if (!td.classList.contains('marked')) {
+                            revealCell(row, col);
+                        }
                         if ("vibrate" in navigator) {
                             navigator.vibrate(500);
                         }
-                        
+
                         istouch = false;
                     });
                     td.addEventListener('contextmenu', (e) => {
@@ -334,7 +336,7 @@
                     tr.appendChild(td);
 
                     let pressTimer;
-                    const longPressDuration = 1000;
+                    const longPressDuration = 500;
                     td.addEventListener('touchstart', (e) => {
                         pressTimer = setTimeout(longhandle, longPressDuration);
                         istouch = true;
