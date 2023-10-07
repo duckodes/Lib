@@ -194,6 +194,7 @@
                 return;
             }
 
+            cell.classList.remove('marked');
             cell.classList.remove('unrevealed');
             cell.classList.add('revealed');
             revealedCount++;
@@ -314,17 +315,19 @@
                 for (let col = 0; col < numCols; col++) {
                     const td = document.createElement('td');
                     td.id = `cell-${row}-${col}`;
-                    let istouchend;
+                    let istouch;
                     td.classList.add('cell', 'unrevealed');
                     td.addEventListener('click', () => {
                         revealCell(row, col);
                         if ("vibrate" in navigator) {
                             navigator.vibrate(500);
                         }
+                        
+                        istouch = false;
                     });
                     td.addEventListener('contextmenu', (e) => {
                         e.preventDefault();
-                        if (!istouchend) {
+                        if (!istouch) {
                             markCell(row, col);
                         }
                     });
@@ -334,10 +337,10 @@
                     const longPressDuration = 500;
                     td.addEventListener('touchstart', (e) => {
                         pressTimer = setTimeout(longhandle, longPressDuration);
+                        istouch = true;
                     });
                     td.addEventListener('touchend', (e) => {
                         clearTimeout(pressTimer);
-                        istouchend = true;
                     });
                     function longhandle() {
                         markCell(row, col);
