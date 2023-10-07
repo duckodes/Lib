@@ -314,13 +314,34 @@
                 for (let col = 0; col < numCols; col++) {
                     const td = document.createElement('td');
                     td.id = `cell-${row}-${col}`;
+                    let istouchend;
                     td.classList.add('cell', 'unrevealed');
-                    td.addEventListener('click', () => revealCell(row, col));
+                    td.addEventListener('click', () => {
+                        revealCell(row, col);
+                        if ("vibrate" in navigator) {
+                            navigator.vibrate(500);
+                        }
+                    });
                     td.addEventListener('contextmenu', (e) => {
                         e.preventDefault();
-                        markCell(row, col);
+                        if (!istouchend) {
+                            markCell(row, col);
+                        }
                     });
                     tr.appendChild(td);
+
+                    let pressTimer;
+                    const longPressDuration = 500;
+                    td.addEventListener('touchstart', (e) => {
+                        pressTimer = setTimeout(longhandle, longPressDuration);
+                    });
+                    td.addEventListener('touchend', (e) => {
+                        clearTimeout(pressTimer);
+                        istouchend = true;
+                    });
+                    function longhandle() {
+                        markCell(row, col);
+                    }
                 }
 
                 table.appendChild(tr);
