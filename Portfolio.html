@@ -109,7 +109,19 @@
           </div>
         </div>
       </div>
-
+      <!--4-->
+      <div class="col-12 mx-auto d-flex justify-content-center" style="width: 1000px;">
+        <div class="card bg-dark text-white">
+          <div class="card_pic" id="changeOpacity4">
+            <img src="image/bomb-web-game.png" class="card-img" alt="...">
+          </div>
+          <div class="card-img-overlay cardword_pic" id="hoverTarget4">
+            <h5 class="card-title" style="font-size: 35px;">踩地雷(Bomb)</h5>
+            <p class="card-text">javascript 建立的小遊戲</p>
+            <p class="card-text">Arktos 2023/10/3</p>
+          </div>
+        </div>
+      </div>
 
       <!--End-->
     </div>
@@ -163,6 +175,7 @@
     setupOpacityControl('changeOpacity1', 'hoverTarget1');
     setupOpacityControl('changeOpacity2', 'hoverTarget2');
     setupOpacityControl('changeOpacity3', 'hoverTarget3');
+    setupOpacityControl('changeOpacity4', 'hoverTarget4');
 
     // Limit
     document.addEventListener("contextmenu", function (e) {
@@ -174,6 +187,7 @@
         e.preventDefault();
       }
     });
+
   </script>
 </body>
 <script src="js/auxmodal.js"></script>
@@ -183,4 +197,8 @@
   clickShowAux("hoverTarget3", "Custom Dialogue Tools", "unity引擎為基礎設計的插件，方便開發者產生對話框，進行自訂義對話框更改", true, "&times;", "#f4f4f4", "10px", null, null, "10px", false);
 </script>
 
+<script src="js/linkprocess.js"></script>
+<script>
+  isetlink("hoverTarget4", "Bomb.html");
+</script>
 </html>

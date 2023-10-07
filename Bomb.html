@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="500x500" href="image/Logo_R.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="image/Logo_R_57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="image/Logo_R_60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="image/Logo_R_72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="image/Logo_R_76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="image/Logo_R_114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="image/Logo_R_120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="image/Logo_R_144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="image/Logo_R_152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/Logo_R_180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="image/Logo_R_192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/Logo_R_32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="image/Logo_R_96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/Logo_R_16.png">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
+    <title>踩地雷遊戲</title>
+    <style>
+        body {
+            background-color: #353535;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .boxmine {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cell {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #bbb;
+            text-align: center;
+            vertical-align: middle;
+            cursor: pointer;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .revealed {
+            background-color: #eee;
+        }
+
+        .unrevealed {
+            background-color: #bbb;
+            border: 1px solid #aaa;
+        }
+
+        .restart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .restartbutton {
+            width: 50px;
+            height: 50px;
+            font-size: 35px;
+
+            background-color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .restartbutton:hover {
+            cursor: pointer;
+            background-color: #aaa;
+        }
+
+        .marked {
+            background-color: #ffcc00;
+        }
+
+        .mine {
+            background-color: #ddd;
+        }
+
+        .no-select {
+            user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="bomb no-select">
+
+        <!-- Nav -->
+        <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;">
+            <div class="container justify-content-center">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item">
+                        <a class="nav-link text-light" aria-current="page" href="main.html">Home◆首頁</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active text-light" href="Portfolio.html">Portfolio⚠️製作</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="Daily.html">Daily◆日誌</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light" href="Introduction.html">Contact◆簡介</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <h1 style="text-align: center; color: white;">踩地雷遊戲</h1>
+        <div class="restart">
+            <button onclick="restartGame()" class="restartbutton">😶</button>
+        </div>
+        <div class="boxmine">
+            <table id="minesweeper"></table>
+        </div>
+
+    </div>
+
+    <script>
+        const numRows = 8;
+        const numCols = 8;
+        const numMines = 10;
+        let minefield = [];
+        let revealedCount = 0;
+        let isGameOver = false;
+
+        function createMinefield() {
+            minefield = new Array(numRows).fill(null).map(() => new Array(numCols).fill(0));
+            let minesPlaced = 0;
+
+            while (minesPlaced < numMines) {
+                const row = Math.floor(Math.random() * numRows);
+                const col = Math.floor(Math.random() * numCols);
+
+                if (minefield[row][col] === 0) {
+                    minefield[row][col] = -1;
+                    minesPlaced++;
+                }
+            }
+
+            for (let row = 0; row < numRows; row++) {
+                for (let col = 0; col < numCols; col++) {
+                    if (minefield[row][col] !== -1) {
+                        minefield[row][col] = countAdjacentMines(row, col);
+                    }
+                }
+            }
+        }
+
+        function countAdjacentMines(row, col) {
+            let count = 0;
+
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    const newRow = row + i;
+                    const newCol = col + j;
+
+                    if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
+                        if (minefield[newRow][newCol] === -1) {
+                            count++;
+                        }
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        function revealCell(row, col) {
+            if (isGameOver) {
+                return;
+            }
+
+            const cell = document.getElementById(`cell-${row}-${col}`);
+            if (cell.classList.contains('revealed')) {
+                return;
+            }
+
+            cell.classList.remove('unrevealed');
+            cell.classList.add('revealed');
+            revealedCount++;
+
+            if (minefield[row][col] === -1) {
+                cell.style.backgroundColor = 'red';
+                cell.textContent = '💣';
+                //alert('你踩到地雷了！遊戲結束。');
+                showAlert("⚠️", "你踩到地雷了！遊戲結束。", true, "返回", "#f4f4f4", null, "10px", null, "10px", true);
+                showAllMines();
+                showAllNumbers();
+                isGameOver = true;
+                const restartSymbol = ['😒', '😏', '😰', '😨', '😵', '😣'];
+                changeTextByClassName("restartbutton", getRandomElementFromArray(restartSymbol));
+            } else {
+                cell.textContent = minefield[row][col] === 0 ? '' : minefield[row][col];
+
+                if (revealedCount === numRows * numCols - numMines) {
+                    //alert('你贏了！');
+                    showAlert("👑", "你贏了！", true, "確認", "#f4f4f4", null, "10px", null, "10px", true);
+                    isGameOver = true;
+                    const restartSymbol = ['😊', '😳', '😆', '😸', '😁', '😋', '😜'];
+                    changeTextByClassName("restartbutton", getRandomElementFromArray(restartSymbol));
+                } else if (minefield[row][col] === 0) {
+                    for (let i = -1; i <= 1; i++) {
+                        for (let j = -1; j <= 1; j++) {
+                            const newRow = row + i;
+                            const newCol = col + j;
+
+                            if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
+                                revealCell(newRow, newCol);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        function markCell(row, col) {
+            if (isGameOver) {
+                return;
+            }
+
+            const cell = document.getElementById(`cell-${row}-${col}`);
+            if (cell.classList.contains('revealed')) {
+                return;
+            }
+
+            if (cell.classList.contains('marked')) {
+                cell.classList.remove('marked');
+                cell.textContent = '';
+                cell.classList.add('unrevealed');
+            } else {
+                cell.classList.remove('unrevealed');
+                cell.classList.add('marked');
+                cell.textContent = '🚩';
+            }
+        }
+        function showAllNumbers() {
+            if (isGameOver) {
+                return;
+            }
+
+            for (let row = 0; row < numRows; row++) {
+                for (let col = 0; col < numCols; col++) {
+                    const cell = document.getElementById(`cell-${row}-${col}`);
+                    if (!cell.classList.contains('revealed')) {
+                        if (minefield[row][col] != -1) {
+                            cell.textContent = minefield[row][col] === 0 ? '' : minefield[row][col];
+                        }
+                    }
+                }
+            }
+        }
+
+        function showAllMines() {
+            if (isGameOver) {
+                return;
+            }
+
+            for (let row = 0; row < numRows; row++) {
+                for (let col = 0; col < numCols; col++) {
+                    const cell = document.getElementById(`cell-${row}-${col}`);
+                    if (!cell.classList.contains('revealed')) {
+                        if (minefield[row][col] === -1) {
+                            cell.classList.add('revealed', 'mine');
+                            cell.textContent = '💣';
+                        }
+                    }
+                }
+            }
+        }
+
+        function changeTextByClassName(className, newText) {
+            var elements = document.getElementsByClassName(className);
+
+            for (var i = 0; i < elements.length; i++) {
+                elements[i].textContent = newText;
+            }
+        }
+
+        function getRandomElementFromArray(arr) {
+            if (arr.length === 0) {
+                return null;
+            }
+
+            const randomIndex = Math.floor(Math.random() * arr.length);
+
+            return arr[randomIndex];
+        }
+
+        function createTable() {
+            const table = document.getElementById('minesweeper');
+
+            for (let row = 0; row < numRows; row++) {
+                const tr = document.createElement('tr');
+
+                for (let col = 0; col < numCols; col++) {
+                    const td = document.createElement('td');
+                    td.id = `cell-${row}-${col}`;
+                    td.classList.add('cell', 'unrevealed');
+                    td.addEventListener('click', () => revealCell(row, col));
+                    td.addEventListener('contextmenu', (e) => {
+                        e.preventDefault();
+                        markCell(row, col);
+                    });
+                    tr.appendChild(td);
+                    
+                    td.addEventListener('mousedown', () => {
+                        let ct = setInterval(revealCell(row, col), 1000);
+                        console.log(ct.updateElapsedTime);
+                    });
+                }
+
+                table.appendChild(tr);
+            }
+        }
+
+        function restartGame() {
+            revealedCount = 0;
+            isGameOver = false;
+            createMinefield();
+            clearTable();
+            createTable();
+            changeTextByClassName("restartbutton", "😶");
+        }
+
+        function clearTable() {
+            const table = document.getElementById('minesweeper');
+            table.innerHTML = '';
+        }
+
+        createMinefield();
+        createTable();
+    </script>
+</body>
+<script src="js/alertmodal.js"></script>
+
+</html>
