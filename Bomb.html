@@ -316,17 +316,14 @@
                     const td = document.createElement('td');
                     td.id = `cell-${row}-${col}`;
                     let istouch;
-                    let isend;
                     td.classList.add('cell', 'unrevealed');
                     td.addEventListener('click', () => {
-                        if (!td.classList.contains('marked') && !isend) {
+                        if (!td.classList.contains('marked') && !istouch) {
                             revealCell(row, col);
                         }
                         if ("vibrate" in navigator) {
                             navigator.vibrate(500);
                         }
-
-                        istouch = false;
                     });
                     td.addEventListener('contextmenu', (e) => {
                         e.preventDefault();
@@ -340,14 +337,13 @@
                     const longPressDuration = 500;
                     td.addEventListener('touchstart', (e) => {
                         pressTimer = setTimeout(longhandle, longPressDuration);
-                        istouch = true;
                     });
                     td.addEventListener('touchend', (e) => {
                         clearTimeout(pressTimer);
-                        isend = true;
                     });
                     function longhandle() {
                         markCell(row, col);
+                        istouch = true;
                     }
                 }
 
