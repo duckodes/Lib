@@ -321,11 +321,6 @@
                         markCell(row, col);
                     });
                     tr.appendChild(td);
-                    
-                    td.addEventListener('mousedown', () => {
-                        let ct = setInterval(revealCell(row, col), 1000);
-                        console.log(ct.updateElapsedTime);
-                    });
                 }
 
                 table.appendChild(tr);
@@ -351,5 +346,6 @@
     </script>
 </body>
 <script src="js/alertmodal.js"></script>
+<script src="js/timeprocess.js"></script>
 
 </html>
