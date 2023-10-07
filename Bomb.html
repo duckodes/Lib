@@ -194,7 +194,6 @@
                 return;
             }
 
-            cell.classList.remove('marked');
             cell.classList.remove('unrevealed');
             cell.classList.add('revealed');
             revealedCount++;
@@ -322,7 +321,7 @@
                             revealCell(row, col);
                         }
                         if ("vibrate" in navigator) {
-                            navigator.vibrate(500);
+                            navigator.vibrate(1000);
                         }
                     });
                     td.addEventListener('contextmenu', (e) => {
