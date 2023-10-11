@@ -126,7 +126,7 @@
 
         <h1 style="text-align: center; color: white;">踩地雷遊戲</h1>
         <div class="restart">
-            <button onclick="restartGame()" class="restartbutton">😶</button>
+            <button onclick="restartOption()" class="restartbutton">😶</button>
         </div>
         <div class="boxmine">
             <table id="minesweeper"></table>
@@ -137,7 +137,7 @@
     <script>
         const numRows = 8;
         const numCols = 8;
-        const numMines = 10;
+        let numMines = 10;
         let minefield = [];
         let revealedCount = 0;
         let isGameOver = false;
@@ -351,12 +351,87 @@
                 table.appendChild(tr);
             }
         }
-        
+        function restartOption() {
+            var modal = document.createElement("div");
+            modal.style.display = "block";
+            modal.style.position = "fixed";
+            modal.style.top = "0";
+            modal.style.left = "0";
+            modal.style.width = "100%";
+            modal.style.height = "100%";
+            modal.style.backgroundColor = "rgba(0,0,0,0.7)";
+            modal.style.userSelect = "none";
+
+            // Create the modal content
+            var modalContent = document.createElement("div");
+            modalContent.className = "white-back";
+            modalContent.style.backgroundColor = "#f4f4f4";
+            // old position
+            //modalContent.style.margin = "15% auto";
+            // new position center
+            modalContent.style.position = "fixed";
+            modalContent.style.top = "50%";
+            modalContent.style.left = "50%";
+            modalContent.style.transform = "translate(-50%, -50%)";
+
+            modalContent.style.padding = "20px";
+            modalContent.style.border = "1px solid #888";
+            modalContent.style.width = "25%";
+            modalContent.style.textAlign = "center";
+            modalContent.style.position = "relative";
+            modalContent.style.borderRadius = "10px";
+
+            // Create the close button
+            var closeModalBtn = document.createElement("span");
+            closeModalBtn.innerHTML = "&times;";
+            closeModalBtn.className = "close";
+            closeModalBtn.style.position = "absolute";
+            closeModalBtn.style.top = "10px";
+            closeModalBtn.style.right = "10px";
+            closeModalBtn.style.fontSize = "20px";
+            closeModalBtn.style.fontWeight = "bold";
+            closeModalBtn.style.cursor = "pointer";
+
+            // Create modal content text
+            var modalTitle = document.createElement("h2");
+            modalTitle.textContent = "新遊戲";
+
+            var modalOption = document.createElement("div");
+            modalOption.style.height = "100px";
+
+            var modalbr = document.createElement("br");
+            
+            var r = s_sm(0, 30);
+
+            var modalRestart = document.createElement("button");
+            modalRestart.innerText = "Start";
+            modalRestart.onclick = function () {
+                numMines = gvs_0();
+                restartGame();
+                modal.remove();
+                r.remove();
+            }
+
+            modalContent.appendChild(closeModalBtn);
+            modalContent.appendChild(modalTitle);
+            modalContent.appendChild(modalOption);
+            modalOption.appendChild(modalbr);
+            modalContent.appendChild(modalRestart);
+
+            modal.appendChild(modalContent);
+
+            const t = document.querySelector("div");
+            t.appendChild(modal);
+            modal.querySelector(".close").onclick = function () {
+                modal.remove();
+                r.remove();
+            }
+        }
         function restartGame() {
             revealedCount = 0;
             isGameOver = false;
-            createMinefield();
             clearTable();
+            createMinefield();
             createTable();
             changeTextByClassName("restartbutton", "😶");
         }
@@ -372,5 +447,6 @@
 </body>
 <script src="js/alertmodal.js"></script>
 <script src="js/timeprocess.js"></script>
+<script src="js/SliderModal.js"></script>
 
 </html>
