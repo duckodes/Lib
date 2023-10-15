@@ -67,7 +67,8 @@
                 <!-- Content -->
                 <div class="col-8 mx-auto">
                     <p class="p-1 text-justify">
-                        &emsp;&emsp;<span class="first-text">當</span>遊戲內暫停使用方法為(Time.timeScale = 0)，由VisualEffect 裡的UpdateParticle
+                        &emsp;&emsp;<span class="first-text">當</span>遊戲內暫停使用方法為(Time.timeScale = 0)，由VisualEffect
+                        裡的UpdateParticle
                         無法暫停，必須使用OutPutMesh設置Update參數。
                     </p>
                 </div>
@@ -346,6 +347,42 @@
             <!-- Topic -->
             <div class="col-6 mx-auto align-items-center">
                 <h2>
+                    <br><br>第一次接觸到Chrome插件!<br><br>
+                </h2>
+            </div>
+            <!-- Time -->
+            <div class="row mx-auto align-items-center">
+                <div class="col-12 mx-auto d-flex justify-content-center">
+                    <div class="col-11 d-flex align-items-center">
+                        <h5>2023.9.26</h5>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="col-8 mx-auto">
+
+
+                    <p class="p-1 text-justify">
+                        &emsp;&emsp;<span class="first-text">第</span>一次接觸到Chrome插件，
+                        令我興奮不已，當時是我的同學跟我說他常常下載Chrome插件，換主題等等...又常
+                        常說翻譯插件很好用，這讓我對於Chrome的插件，增添了一絲興趣，於是我著手開
+                        始接觸。
+                        從(menifest.json)的接觸到javascript的撰寫，一開始跟一般製作網頁一樣
+                        ，html、javascript、等等..這些都是基本要用到的，由於我的好朋友，經常說某
+                        網站視頻有廣告，於是我開始研究起了廣告的配置，最開始接觸到廣告，是做手機遊
+                        戲，這讓我想起它們是如何被撰寫的，雖然可能方法不一樣，但大致上是一樣的原理
+                        ，我開始嘗試怎麼跳過廣告，試了很多種方法，都不行，但我一步一步的觀察，分析
+                        網頁，以及嘗試，慢慢的找出網站上的漏洞，但我不打算分享給任何人，因為畢竟
+                        該網站有收費的，我只是拿來當學術用途，從當中學習到了該如何製作插件!
+                    <div id="myadblocks" style="text-align: center;">----------點我👆觀看視頻✨----------</div>
+                    </p>
+
+                </div>
+            </div>
+            <!-- End -->
+            <!-- Topic -->
+            <div class="col-6 mx-auto align-items-center">
+                <h2>
                     <br><br>創造?<br><br>
                 </h2>
             </div>
@@ -376,7 +413,7 @@
                         創造新的事物，不只是算法上的不同融合而成，主要核心在於思路的過程，
                         整條核心價值在於思路，AI勢必也可以計算，也可以有思路，
                         但這些思路，或融合而成的思路，僅僅局限於人類現有的知識版圖，而不在於創新與創造。
-                        
+
                     </p>
 
                 </div>
@@ -424,6 +461,14 @@
             if (e.ctrlKey && e.key === "s" || e.key === "F12" || e.key === "F11" || e.ctrlKey && e.shiftKey && e.key === "I") {
                 e.preventDefault();
             }
+        });
+    </script>
+    <script src="JS/alertvediomodal.js"></script>
+    <script>
+        var myadblocks = document.getElementById("myadblocks");
+        myadblocks.style.cursor = "pointer";
+        myadblocks.addEventListener("mousedown", () =>{
+            showAlertVideo("image/myadblocks.mp4", "插件測試", "--學術用途--", true, "&times;", "#f4f4f4", "10px", null, null, "10px", false);
         });
     </script>
 </body>
