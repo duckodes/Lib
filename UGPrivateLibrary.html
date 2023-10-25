@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="hIM9VzpUGW4x0pEw9UNYO71x_m7h4uAdKhfuSwU8WhM" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="500x500" href="image/Logo_R.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="image/Logo_R_57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="image/Logo_R_60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="image/Logo_R_72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="image/Logo_R_76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="image/Logo_R_114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="image/Logo_R_120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="image/Logo_R_144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="image/Logo_R_152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/Logo_R_180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="image/Logo_R_192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/Logo_R_32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="image/Logo_R_96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/Logo_R_16.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
+
+    <!--Avaiable Styles :
+    https://github.com/highlightjs/highlight.js/tree/main/src/styles
+    From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css
+    From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-dark.min.css
+    From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css
+    From: css/tokyo-night-dark.css
+    From: css/tokyo-night-dark.min.css
+    From: css/default.min.css-->
+    <link rel="stylesheet" href="css/vs2015.min.css" id="code-style">
+
+    <title>Record 日誌</title>
+    <style>
+        body {
+            background-color: #353535;
+            justify-content: center;
+            align-items: center;
+            margin: 80px;
+            margin-left: 25%;
+            width: 50%;
+        }
+
+        code {
+            max-height: 350px;
+            overflow: auto;
+            scrollbar-width: thin;
+            /* Firefox */
+            scrollbar-color: #1e1e1e #707070;
+            z-index: 0;
+        }
+
+        code::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+            border-radius: 7px;
+            color: #1a1a1a;
+        }
+
+        code::-webkit-scrollbar-thumb {
+            background: #707070;
+            border-radius: 7px;
+        }
+
+        code::-webkit-scrollbar-track {
+            background: #1e1e1e;
+        }
+
+        code::-webkit-scrollbar-corner {
+            background-color: #1e1e1e;
+        }
+    </style>
+</head>
+
+<body style="background-color: #252525;">
+    <!-- Nav -->
+    <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;">
+        <div class="container justify-content-center">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" aria-current="page" href="main.html">Home◆首頁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="UGPrivateLibrary.html">Library⚠️類庫</a>
+                </li>
+            </ul>
+            <div id="theme-button" style="margin-right: 100px;"></div>
+            <div style="color: white;margin-left: -100px;">⚠️主題</div>
+        </div>
+    </nav>
+    
+    <!-- Code -->
+    <pre>
+        <div class="no-select" style="z-index: 1;color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;"><h2>Searcher</h2>
+            <h6>
+                作用: 提供搜尋功能方法<br><br>source -- 搜尋資料來源陣列<br>action -- 作用方法<br>stringComparison -- 字符串比較，如: 忽略大小寫
+            </h6>
+        </div>
+        <div id="code-copy" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: -42px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div>
+        <code class="languange-hlsl" id="code-text">
+using System;
+namespace UGamie.Core
+{
+    /// &lt;summary&gt;
+    /// Verion.1.0.0
+    /// Source: https://bearhubs.github.io/Profolio/main.html
+    /// &lt;/summary&gt;
+    /// 
+    /// &lt;copyright file = "Searcher.cs" company = "UGsoft LLC"&gt;
+    /// Copyright (C) 2023 UGamie LLC. With Copyright (C) 2023 UGsoft LLC. All rights reserved.
+    /// &lt;/copyright&gt;
+    /// 
+    /// &lt;author&gt;
+    /// ugamiestudio@gmail.com
+    /// &lt;/author&gt;
+    public class Searcher
+    {
+        public string m_keyword { get; set; }
+        public Searcher()
+        {
+            m_keyword = string.Empty;
+        }
+        public void Search(string[] source, Action&lt;string&gt; action, StringComparison stringComparison = StringComparison.OrdinalIgnoreCase)
+        {
+            foreach (string item in source)
+            {
+                if (item.Contains(m_keyword, stringComparison))
+                {
+                    action(item);
+                }
+            }
+        }
+    }
+}
+        </code>
+        <div class="no-select" style="z-index: 0.5;color: white;background-color: #303030;margin-top: -50px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;text-align: right;">csharp  </div>
+    </pre>
+
+    <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
+    <script src="js/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+
+</body>
+<!-- Script -->
+<script src="js/buttonmodal.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener("keydown", function (e) {
+        if (e.ctrlKey && e.key === "s" || e.key === "F12" || e.key === "F11" || e.ctrlKey && e.shiftKey && e.key === "I") {
+            e.preventDefault();
+        }
+    });
+</script>
+<script>
+    var copyButton = document.getElementById("code-copy");
+    var textToCopy = document.getElementById("code-text");
+    copyButton.addEventListener("click", function () {
+        var text = textToCopy.textContent;
+
+        var tempTextArea = document.createElement("textarea");
+        tempTextArea.value = text;
+
+        tempTextArea.style.position = "fixed";
+        tempTextArea.style.top = 0;
+        tempTextArea.style.left = 0;
+        document.body.appendChild(tempTextArea);
+
+        tempTextArea.select();
+        document.execCommand("copy");
+
+        document.body.removeChild(tempTextArea);
+
+        copyButton.innerHTML = " ";
+        var icon = createIcon("currentColor", "1em");
+        copyButton.appendChild(icon);
+        copyButton.innerHTML += " 已複製 ";
+        setTimeout(function () {
+            copyButton.innerHTML = " ";
+            var icon = createIcon("currentColor", "1em");
+            copyButton.appendChild(icon);
+            copyButton.innerHTML += " Recopy ";
+            copyButton.style.border = "0.1px solid #333";
+        }, 2000);
+    });
+
+    function createIcon(strokeColor, width) {
+        var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("stroke", strokeColor);
+        svg.setAttribute("fill", "none");
+        svg.setAttribute("stroke-width", "2");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.setAttribute("stroke-linecap", "round");
+        svg.setAttribute("stroke-linejoin", "round");
+        svg.setAttribute("class", "icon-sm");
+        svg.setAttribute("height", width);
+        svg.setAttribute("width", width);
+
+        var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", "M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2");
+
+        var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        rect.setAttribute("x", "8");
+        rect.setAttribute("y", "2");
+        rect.setAttribute("width", "8");
+        rect.setAttribute("height", "4");
+        rect.setAttribute("rx", "1");
+        rect.setAttribute("ry", "1");
+
+        svg.appendChild(path);
+        svg.appendChild(rect);
+
+        return svg;
+    }
+    function tokyonightdark() {
+        var linkstyle = document.getElementById("code-style");
+        linkstyle.href = "css/tokyo-night-dark.min.css";
+    }
+    function vs2015() {
+        var linkstyle = document.getElementById("code-style");
+        linkstyle.href = "css/vs2015.min.css";
+    }
+</script>
+
+</html>
