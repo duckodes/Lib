@@ -73,6 +73,60 @@
         code::-webkit-scrollbar-corner {
             background-color: #1e1e1e;
         }
+
+        #lib-search-ex {
+            width: 30%;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #lib-search-ex:hover {
+            opacity: 0.5;
+            width: 50%;
+        }
+
+        #lib-search-inspector {
+            width: 30%;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #lib-search-inspector:hover {
+            opacity: 0.5;
+            width: 50%;
+        }
+
+        .lib-sources::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        .white-lib-sources {
+            width: 2%;
+            color: black;
+            background-color: white;
+            transition: all 0.3s ease-in-out;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .white-lib-sources:hover {
+            background-color: rgb(158, 158, 158);
+            margin-top: 10px;
+        }
+
+        .black-lib-sources {
+            width: 2%;
+            color: white;
+            background-color: black;
+            transition: all 0.3s ease-in-out;
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+        }
+
+        .black-lib-sources:hover {
+            background-color: rgba(0, 0, 0, 0.507);
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -97,597 +151,109 @@
             <div style="color: white;margin-left: -100px;">⚠️主題</div>
         </div>
     </nav>
-
+    <div class="lib-sources"
+        style="border-radius: 5px;cursor: pointer;width: 200%;height: 100px;position: relative; left: -50%; overflow: auto;display: flex;align-items:begin;justify-content: center;">
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            A
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            B
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            C
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            D
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            E
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            F
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            G
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            H
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            I
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            J
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            K
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            L
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            M
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            N
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            O
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            P
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            Q
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            R
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            S
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            T
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            U
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            V
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            W
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            X
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            Y
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            Z
+        </div>
+    </div>
     <!-- Code -->
     <pre>
         <div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
-            <h2>Searcher</h2>
+            <h2>Example</h2>
             <h6>
-                作用: 提供簡易搜尋功能方法<br><br>m_keyword -- 搜尋的文字<br>source -- 搜尋資料來源陣列<br>action -- 作用方法<br>stringComparison -- 字符串比較，如: 忽略大小寫
+                [ 作用: ]    此段區域說明用途及內容
+
+                點擊按壓copy區域即可複製
+                右下角區域顯示此腳本名
             </h6>
         </div>
-        <div id="code-copy-Searcher-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: -42px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div>
-        <code class="languange-hlsl" id="code-text-Searcher-cs">
+        <div id="code-copy-Example-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: -42px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div>
+        <code class="languange-hlsl" id="code-text-Example-cs">
 using System;
-namespace UGamie.Core
+public class Example
 {
-    /// &lt;summary&gt;
-    /// Verion.1.0.0
-    /// Source: https://bearhubs.github.io/Profolio/main.html
-    /// &lt;/summary&gt;
-    /// 
-    /// &lt;copyright file = "Searcher.cs" company = "UGsoft LLC"&gt;
-    /// Copyright (C) 2023 UGamie LLC. With Copyright (C) 2023 UGsoft LLC. All rights reserved.
-    /// &lt;/copyright&gt;
-    /// 
-    /// &lt;author&gt;
-    /// ugamiestudio@gmail.com
-    /// &lt;/author&gt;
-    public class Searcher
-    {
-        public string m_keyword { get; set; }
-        public Searcher()
-        {
-            m_keyword = string.Empty;
-        }
-        public void Search(string[] source, Action&lt;string&gt; action, StringComparison stringComparison = StringComparison.OrdinalIgnoreCase)
-        {
-            foreach (string item in source)
-            {
-                if (item.Contains(m_keyword, stringComparison))
-                {
-                    action(item);
-                }
-            }
-        }
+    static void main(){
+        Console.writeLine("Hello, World!");
     }
 }
         </code>
-        <div class="no-select" style="z-index: 0.5;color: white;background-color: #303030;margin-top: -42px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;">Searcher.cs  </div>
-    </pre>
-
-    <!-- Code -->
-    <pre>
-        <div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
-            <h2>如何應用Searcher?</h2>
-            <h6>
-                作用: 提供簡易搜尋功能方法<br><br>m_keyword -- 搜尋的文字<br>source -- 搜尋資料來源陣列<br>action -- 作用方法<br>stringComparison -- 字符串比較，如: 忽略大小寫
-            </h6>
-        </div>
-        <div id="code-copy-CustomSearch-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: -42px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div>
-        <code class="languange-hlsl" id="code-text-CustomSearch-cs">
-using System;
-public class CustomSearch : MonoBehaviour
-{
-    private Searcher m_searcher;
-    // 要搜尋的資料
-    private string[] m_sources;
-    private void OnEnable()
-    {
-        m_searcher = new Searcher();
-    }
-    private void OnGUI()
-    {
-        // 使用Searcher.cs的方法Search，items是遍歷m_sources該數組的每項元素，會經由Search方法的Action&lt;string>傳入
-        m_searcher.Search(m_sources, (items) =>
-        {
-            // 撰寫列出的每項m_sources資源，以unity api GUILayout.Button為例
-            if (GUILayout.Button(items))
-            {
-                
-            }
-        });
-    }
-}
-        </code>
-        <div class="no-select" style="z-index: 0.5;color: white;background-color: #303030;margin-top: -42px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;">CustomSearch.cs  </div>
-    </pre>
-
-    <!-- Code -->
-    <pre>
-        <div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
-            <h2>Search</h2>
-            <h6>
-                作用: unity 组件，即可產生搜尋方法<br><br>此類需要結合Searcher.cs，應用以上方法
-            </h6>
-        </div>
-        <div id="code-copy-Search-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: -42px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div>
-        <code class="languange-hlsl" id="code-text-Search-cs">
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
-
-namespace UGamie.Core
-{
-    /// &lt;summary>
-    /// Verion.1.0.1
-    /// Source: https://bearhubs.github.io/Profolio/main.html
-    /// &lt;/summary>
-    /// 
-    /// &lt;copyright file = "Search.cs" company = "UGsoft LLC">
-    /// Copyright (C) 2023 UGamie LLC. With Copyright (C) 2023 UGsoft LLC. All rights reserved.
-    /// &lt;/copyright>
-    /// 
-    /// &lt;author>
-    /// ugamiestudio@gmail.com
-    /// &lt;/author>
-    public class Search : MonoBehaviour
-    {
-        #region Editor
-#if UNITY_EDITOR
-        [UnityEditor.CustomEditor(typeof(Search))]
-        private class SearchEditor : UnityEditor.Editor
-        {
-            private UnityEditor.SerializedProperty m_sources;
-            private UnityEditor.SerializedProperty m_onAction;
-            private UnityEditor.SerializedProperty m_x;
-            private UnityEditor.SerializedProperty m_y;
-            private UnityEditor.SerializedProperty m_size;
-            private UnityEditor.SerializedProperty m_buttonSize;
-
-            private UnityEditor.SerializedProperty m_fieldFixed;
-            private UnityEditor.SerializedProperty m_fieldFont;
-            private UnityEditor.SerializedProperty m_fieldFontSize;
-            private UnityEditor.SerializedProperty m_fieldTextAnchor;
-            private UnityEditor.SerializedProperty m_fieldSelectionColor;
-            private UnityEditor.SerializedProperty m_fieldNormalBackground;
-            private UnityEditor.SerializedProperty m_fieldNormalColor;
-            private UnityEditor.SerializedProperty m_fieldNormalTextColor;
-            private UnityEditor.SerializedProperty m_fieldHoverBackground;
-            private UnityEditor.SerializedProperty m_fieldHoverColor;
-            private UnityEditor.SerializedProperty m_fieldHoverTextColor;
-            private UnityEditor.SerializedProperty m_fieldActiveBackground;
-            private UnityEditor.SerializedProperty m_fieldActiveColor;
-            private UnityEditor.SerializedProperty m_fieldActiveTextColor;
-            private UnityEditor.SerializedProperty m_fieldFocusedBackground;
-            private UnityEditor.SerializedProperty m_fieldFocusedColor;
-            private UnityEditor.SerializedProperty m_fieldFocusedTextColor;
-
-            private UnityEditor.SerializedProperty m_buttonFixed;
-            private UnityEditor.SerializedProperty m_buttonFont;
-            private UnityEditor.SerializedProperty m_buttonFontSize;
-            private UnityEditor.SerializedProperty m_buttonTextAnchor;
-            private UnityEditor.SerializedProperty m_buttonNormalBackground;
-            private UnityEditor.SerializedProperty m_buttonNormalColor;
-            private UnityEditor.SerializedProperty m_buttonNormalTextColor;
-            private UnityEditor.SerializedProperty m_buttonHoverBackground;
-            private UnityEditor.SerializedProperty m_buttonHoverColor;
-            private UnityEditor.SerializedProperty m_buttonHoverTextColor;
-            private UnityEditor.SerializedProperty m_buttonActiveBackground;
-            private UnityEditor.SerializedProperty m_buttonActiveColor;
-            private UnityEditor.SerializedProperty m_buttonActiveTextColor;
-
-            private UnityEditor.SerializedProperty m_sliderNormalBackground;
-            private UnityEditor.SerializedProperty m_sliderNormalColor;
-            private UnityEditor.SerializedProperty m_sliderHoverBackground;
-            private UnityEditor.SerializedProperty m_sliderHoverColor;
-            private UnityEditor.SerializedProperty m_sliderActiveBackground;
-            private UnityEditor.SerializedProperty m_sliderActiveColor;
-            private UnityEditor.SerializedProperty m_sliderThumbNormalBackground;
-            private UnityEditor.SerializedProperty m_sliderThumbNormalColor;
-            private UnityEditor.SerializedProperty m_sliderThumbHoverBackground;
-            private UnityEditor.SerializedProperty m_sliderThumbHoverColor;
-            private UnityEditor.SerializedProperty m_sliderThumbActiveBackground;
-            private UnityEditor.SerializedProperty m_sliderThumbActiveColor;
-
-            private UnityEditor.SerializedProperty m_fieldArea;
-            private UnityEditor.SerializedProperty m_buttonArea;
-            private UnityEditor.SerializedProperty m_sliderArea;
-            private void OnEnable()
-            {
-                m_sources = serializedObject.FindProperty("m_sources");
-                m_onAction = serializedObject.FindProperty("m_onAction");
-                m_x = serializedObject.FindProperty("m_x");
-                m_y = serializedObject.FindProperty("m_y");
-                m_size = serializedObject.FindProperty("m_size");
-                m_buttonSize = serializedObject.FindProperty("m_buttonSize");
-                m_fieldFixed = serializedObject.FindProperty("m_fieldFixed");
-                m_fieldFont = serializedObject.FindProperty("m_fieldFont");
-                m_fieldFontSize = serializedObject.FindProperty("m_fieldFontSize");
-                m_fieldTextAnchor = serializedObject.FindProperty("m_fieldTextAnchor");
-                m_fieldSelectionColor = serializedObject.FindProperty("m_fieldSelectionColor");
-                m_fieldNormalBackground = serializedObject.FindProperty("m_fieldNormalBackground");
-                m_fieldNormalColor = serializedObject.FindProperty("m_fieldNormalColor");
-                m_fieldNormalTextColor = serializedObject.FindProperty("m_fieldNormalTextColor");
-                m_fieldHoverBackground = serializedObject.FindProperty("m_fieldHoverBackground");
-                m_fieldHoverColor = serializedObject.FindProperty("m_fieldHoverColor");
-                m_fieldHoverTextColor = serializedObject.FindProperty("m_fieldHoverTextColor");
-                m_fieldActiveBackground = serializedObject.FindProperty("m_fieldActiveBackground");
-                m_fieldActiveColor = serializedObject.FindProperty("m_fieldActiveColor");
-                m_fieldActiveTextColor = serializedObject.FindProperty("m_fieldActiveTextColor");
-                m_fieldFocusedBackground = serializedObject.FindProperty("m_fieldFocusedBackground");
-                m_fieldFocusedColor = serializedObject.FindProperty("m_fieldFocusedColor");
-                m_fieldFocusedTextColor = serializedObject.FindProperty("m_fieldFocusedTextColor");
-
-                m_buttonFixed = serializedObject.FindProperty("m_buttonFixed");
-                m_buttonFont = serializedObject.FindProperty("m_buttonFont");
-                m_buttonFontSize = serializedObject.FindProperty("m_buttonFontSize");
-                m_buttonTextAnchor = serializedObject.FindProperty("m_buttonTextAnchor");
-                m_buttonNormalBackground = serializedObject.FindProperty("m_buttonNormalBackground");
-                m_buttonNormalColor = serializedObject.FindProperty("m_buttonNormalColor");
-                m_buttonNormalTextColor = serializedObject.FindProperty("m_buttonNormalTextColor");
-                m_buttonHoverBackground = serializedObject.FindProperty("m_buttonHoverBackground");
-                m_buttonHoverColor = serializedObject.FindProperty("m_buttonHoverColor");
-                m_buttonHoverTextColor = serializedObject.FindProperty("m_buttonHoverTextColor");
-                m_buttonActiveBackground = serializedObject.FindProperty("m_buttonActiveBackground");
-                m_buttonActiveColor = serializedObject.FindProperty("m_buttonActiveColor");
-                m_buttonActiveTextColor = serializedObject.FindProperty("m_buttonActiveTextColor");
-
-                m_sliderNormalBackground = serializedObject.FindProperty("m_sliderNormalBackground");
-                m_sliderNormalColor = serializedObject.FindProperty("m_sliderNormalColor");
-                m_sliderHoverBackground = serializedObject.FindProperty("m_sliderHoverBackground");
-                m_sliderHoverColor = serializedObject.FindProperty("m_sliderHoverColor");
-                m_sliderActiveBackground = serializedObject.FindProperty("m_sliderActiveBackground");
-                m_sliderActiveColor = serializedObject.FindProperty("m_sliderActiveColor");
-                m_sliderThumbNormalBackground = serializedObject.FindProperty("m_sliderThumbNormalBackground");
-                m_sliderThumbNormalColor = serializedObject.FindProperty("m_sliderThumbNormalColor");
-                m_sliderThumbHoverBackground = serializedObject.FindProperty("m_sliderThumbHoverBackground");
-                m_sliderThumbHoverColor = serializedObject.FindProperty("m_sliderThumbHoverColor");
-                m_sliderThumbActiveBackground = serializedObject.FindProperty("m_sliderThumbActiveBackground");
-                m_sliderThumbActiveColor = serializedObject.FindProperty("m_sliderThumbActiveColor");
-
-                m_fieldArea = serializedObject.FindProperty("m_fieldArea");
-                m_buttonArea = serializedObject.FindProperty("m_buttonArea");
-                m_sliderArea = serializedObject.FindProperty("m_sliderArea");
-            }   
-            public override void OnInspectorGUI()
-            {
-                serializedObject.Update();
-
-                UnityEditor.EditorGUILayout.PropertyField(m_sources);
-                UnityEditor.EditorGUILayout.PropertyField(m_onAction);
-                UnityEditor.EditorGUILayout.PropertyField(m_x);
-                UnityEditor.EditorGUILayout.PropertyField(m_y);
-                UnityEditor.EditorGUILayout.PropertyField(m_size);
-                UnityEditor.EditorGUILayout.PropertyField(m_buttonSize);
-                m_fieldArea.boolValue = UnityEditor.EditorGUILayout.BeginFoldoutHeaderGroup(m_fieldArea.boolValue, "Field Option");
-                if (m_fieldArea.boolValue)
-                {
-                    UnityEditor.EditorGUILayout.PropertyField(m_fieldFixed);
-                    UnityEditor.EditorGUILayout.PropertyField(m_fieldFont);
-                    UnityEditor.EditorGUILayout.PropertyField(m_fieldFontSize);
-                    UnityEditor.EditorGUILayout.PropertyField(m_fieldTextAnchor);
-                    UnityEditor.EditorGUILayout.PropertyField(m_fieldSelectionColor);
-                    UnityEditor.EditorGUILayout.PropertyField(m_fieldNormalBackground);
-                    if (m_fieldNormalBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_fieldNormalColor);
-                        UnityEditor.EditorGUILayout.PropertyField(m_fieldNormalTextColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_fieldHoverBackground);
-                    if (m_fieldHoverBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_fieldHoverColor);
-                        UnityEditor.EditorGUILayout.PropertyField(m_fieldHoverTextColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_fieldActiveBackground);
-                    if (m_fieldActiveBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_fieldActiveColor);
-                        UnityEditor.EditorGUILayout.PropertyField(m_fieldActiveTextColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_fieldFocusedBackground);
-                    if (m_fieldFocusedBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_fieldFocusedColor);
-                        UnityEditor.EditorGUILayout.PropertyField(m_fieldFocusedTextColor);
-                    }
-                }
-                UnityEditor.EditorGUILayout.EndFoldoutHeaderGroup();
-
-                m_buttonArea.boolValue = UnityEditor.EditorGUILayout.BeginFoldoutHeaderGroup(m_buttonArea.boolValue, "Button Option");
-                if (m_buttonArea.boolValue)
-                {
-                    UnityEditor.EditorGUILayout.PropertyField(m_buttonFixed);
-                    UnityEditor.EditorGUILayout.PropertyField(m_buttonFont);
-                    UnityEditor.EditorGUILayout.PropertyField(m_buttonFontSize);
-                    UnityEditor.EditorGUILayout.PropertyField(m_buttonTextAnchor);
-                    UnityEditor.EditorGUILayout.PropertyField(m_buttonNormalBackground);
-                    if (m_buttonNormalBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_buttonNormalColor);
-                        UnityEditor.EditorGUILayout.PropertyField(m_buttonNormalTextColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_buttonHoverBackground);
-                    if (m_buttonHoverBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_buttonHoverColor);
-                        UnityEditor.EditorGUILayout.PropertyField(m_buttonHoverTextColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_buttonActiveBackground);
-                    if (m_buttonActiveBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_buttonActiveColor);
-                        UnityEditor.EditorGUILayout.PropertyField(m_buttonActiveTextColor);
-                    }
-                }
-                UnityEditor.EditorGUILayout.EndFoldoutHeaderGroup();
-
-                m_sliderArea.boolValue = UnityEditor.EditorGUILayout.BeginFoldoutHeaderGroup(m_sliderArea.boolValue, "Slider Option");
-                if (m_sliderArea.boolValue)
-                {
-                    UnityEditor.EditorGUILayout.PropertyField(m_sliderNormalBackground);
-                    if (m_sliderNormalBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_sliderNormalColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_sliderHoverBackground);
-                    if (m_sliderHoverBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_sliderHoverColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_sliderActiveBackground);
-                    if (m_sliderActiveBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_sliderActiveColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_sliderThumbNormalBackground);
-                    if (m_sliderThumbNormalBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_sliderThumbNormalColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_sliderThumbHoverBackground);
-                    if (m_sliderThumbHoverBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_sliderThumbHoverColor);
-                    }
-                    UnityEditor.EditorGUILayout.PropertyField(m_sliderThumbActiveBackground);
-                    if (m_sliderThumbActiveBackground.objectReferenceValue == null)
-                    {
-                        UnityEditor.EditorGUILayout.PropertyField(m_sliderThumbActiveColor);
-                    }
-                }
-                UnityEditor.EditorGUILayout.EndFoldoutHeaderGroup();
-
-                serializedObject.ApplyModifiedProperties();
-            }
-        }
-#endif
-        #endregion
-        [SerializeField] private string[] m_sources;
-        [SerializeField] private UnityEvent&lt;string> m_onAction;
-        [Range(0, 100)][SerializeField] private float m_x = 50;
-        [Range(0, 100)][SerializeField] private float m_y = 50;
-        [SerializeField] private Vector2 m_size = new Vector2(195, 20);
-        [SerializeField] private Vector2 m_buttonSize = new Vector2(200, 20);
-
-        [SerializeField] private bool m_fieldFixed = true;
-        [SerializeField] private Font m_fieldFont;
-        [SerializeField] private int m_fieldFontSize = 12;
-        [SerializeField] private TextAnchor m_fieldTextAnchor = TextAnchor.MiddleLeft;
-        [SerializeField] private Color m_fieldSelectionColor = new Color(0.6f, 0.6f, 0.6f);
-        [SerializeField] private Texture2D m_fieldNormalBackground;
-        [SerializeField] private Color m_fieldNormalColor = new Color(0.15f, 0.15f, 0.15f);
-        [SerializeField] private Color m_fieldNormalTextColor = Color.white;
-        [SerializeField] private Texture2D m_fieldHoverBackground;
-        [SerializeField] private Color m_fieldHoverColor = new Color(0.18f, 0.18f, 0.18f);
-        [SerializeField] private Color m_fieldHoverTextColor = Color.white;
-        [SerializeField] private Texture2D m_fieldActiveBackground;
-        [SerializeField] private Color m_fieldActiveColor = new Color(0.3f, 0.3f, 0.3f);
-        [SerializeField] private Color m_fieldActiveTextColor = Color.white;
-        [SerializeField] private Texture2D m_fieldFocusedBackground;
-        [SerializeField] private Color m_fieldFocusedColor = new Color(0.3f, 0.3f, 0.3f);
-        [SerializeField] private Color m_fieldFocusedTextColor = Color.white;
-
-        [SerializeField] private bool m_buttonFixed = false;
-        [SerializeField] private Font m_buttonFont;
-        [SerializeField] private int m_buttonFontSize = 12;
-        [SerializeField] private TextAnchor m_buttonTextAnchor = TextAnchor.MiddleCenter;
-        [SerializeField] private Texture2D m_buttonNormalBackground;
-        [SerializeField] private Color m_buttonNormalColor = new Color(0.25f, 0.25f, 0.25f);
-        [SerializeField] private Color m_buttonNormalTextColor = Color.white;
-        [SerializeField] private Texture2D m_buttonHoverBackground;
-        [SerializeField] private Color m_buttonHoverColor = new Color(0.35f, 0.35f, 0.35f);
-        [SerializeField] private Color m_buttonHoverTextColor = Color.white;
-        [SerializeField] private Texture2D m_buttonActiveBackground;
-        [SerializeField] private Color m_buttonActiveColor = new Color(0.3f, 0.3f, 0.3f);
-        [SerializeField] private Color m_buttonActiveTextColor = Color.white;
-
-        [SerializeField] private Texture2D m_sliderNormalBackground;
-        [SerializeField] private Color m_sliderNormalColor = new Color(0.25f, 0.25f, 0.25f);
-        [SerializeField] private Texture2D m_sliderHoverBackground;
-        [SerializeField] private Color m_sliderHoverColor = new Color(0.25f, 0.25f, 0.25f);
-        [SerializeField] private Texture2D m_sliderActiveBackground;
-        [SerializeField] private Color m_sliderActiveColor = new Color(0.3f, 0.3f, 0.3f);
-        [SerializeField] private Texture2D m_sliderThumbNormalBackground;
-        [SerializeField] private Color m_sliderThumbNormalColor = new Color(0.45f, 0.45f, 0.45f);
-        [SerializeField] private Texture2D m_sliderThumbHoverBackground;
-        [SerializeField] private Color m_sliderThumbHoverColor = new Color(0.55f, 0.55f, 0.55f);
-        [SerializeField] private Texture2D m_sliderThumbActiveBackground;
-        [SerializeField] private Color m_sliderThumbActiveColor = new Color(0.5f, 0.5f, 0.5f);
-
-        [SerializeField] private bool m_fieldArea;
-        [SerializeField] private bool m_buttonArea;
-        [SerializeField] private bool m_sliderArea;
-        public void SetSource(string[] source) => m_sources = source;
-        public void SetSource(List&lt;string> source) => m_sources = source.ToArray();
-        public void SetX(float x) => m_x = x;
-        public void SetY(float y) => m_y = y;
-        public void SetSize(Vector2 size) => m_size = size;
-        public void SetButtonSize(Vector2 size) => m_buttonSize = size;
-        public void SetKeyword(string fieldText) => m_searcher.m_keyword = fieldText;
-
-        private Searcher m_searcher;
-
-        private Texture2D m_background;
-
-        private Vector2 m_scrollPosition = Vector2.zero;
-
-        private GUISkin m_sliderThumbSkin;
-
-        private void Awake()
-        {
-            m_searcher = new Searcher();
-
-            m_background = MakeTex(1, 1, m_fieldNormalColor);
-
-            if (m_fieldNormalBackground == null)
-            {
-                m_fieldNormalBackground = MakeTex(1, 1, m_fieldNormalColor);
-            }
-            if (m_fieldHoverBackground == null)
-            {
-                m_fieldHoverBackground = MakeTex(1, 1, m_fieldHoverColor);
-            }
-            if (m_fieldActiveBackground == null)
-            {
-                m_fieldActiveBackground = MakeTex(1, 1, m_fieldActiveColor);
-            }
-            if (m_fieldFocusedBackground == null)
-            {
-                m_fieldFocusedBackground = MakeTex(1, 1, m_fieldFocusedColor);
-            }
-
-            if (m_buttonNormalBackground == null)
-            {
-                m_buttonNormalBackground = MakeTex(1, 1, m_buttonNormalColor);
-            }
-            if (m_buttonHoverBackground == null)
-            {
-                m_buttonHoverBackground = MakeTex(1, 1, m_buttonHoverColor);
-            }
-            if (m_buttonActiveBackground == null)
-            {
-                m_buttonActiveBackground = MakeTex(1, 1, m_buttonActiveColor);
-            }
-
-            if (m_sliderNormalBackground == null)
-            {
-                m_sliderNormalBackground = MakeTex(1, 1, m_sliderNormalColor);
-            }
-            if (m_sliderHoverBackground == null)
-            {
-                m_sliderHoverBackground = MakeTex(1, 1, m_sliderHoverColor);
-            }
-            if (m_sliderActiveBackground == null)
-            {
-                m_sliderActiveBackground = MakeTex(1, 1, m_sliderActiveColor);
-            }
-
-            m_sliderThumbSkin = ScriptableObject.CreateInstance&lt;GUISkin>();
-            if (m_sliderThumbNormalBackground == null)
-            {
-                m_sliderThumbSkin.verticalScrollbarThumb.normal.background = MakeTex(1, 1, m_sliderThumbNormalColor);
-                m_sliderThumbNormalBackground = MakeTex(1, 1, m_sliderThumbNormalColor);
-            }
-            if (m_sliderThumbHoverBackground == null)
-            {
-                m_sliderThumbSkin.verticalScrollbarThumb.hover.background = MakeTex(1, 1, m_sliderThumbHoverColor);
-                m_sliderThumbHoverBackground = m_sliderThumbSkin.verticalScrollbarThumb.hover.background;
-            }
-            if (m_sliderThumbActiveBackground == null)
-            {
-                m_sliderThumbSkin.verticalScrollbarThumb.active.background = MakeTex(1, 1, m_sliderThumbActiveColor);
-                m_sliderThumbActiveBackground = m_sliderThumbSkin.verticalScrollbarThumb.active.background;
-            }
-        }
-        private void OnGUI()
-        {
-            FieldStyle(out GUIStyle fieldStyle);
-            ButtonStyle(out GUIStyle buttonStyle);
-            SliderStyle(out GUIStyle sliderStyle);
-            GUILayout.BeginHorizontal();
-            float x = (Screen.width * (m_x / 100)) - (m_size.x * (m_x / 100));
-            x = Mathf.Clamp(x, 0, Screen.width - m_size.x);
-            //GUILayout.Space(x);
-            GUILayout.BeginVertical();
-            float y = (Screen.height * (m_y / 100)) - ((m_size.y + m_buttonSize.y * m_sources.Length * 1.16f) * (m_y / 100));
-            y = Mathf.Clamp(y, 0, Screen.height - (m_size.y + m_buttonSize.y * m_sources.Length * 1.16f));
-            //GUILayout.Space(y);
-            float yy = (Screen.height * (m_y / 100)) - ((m_size.y + (m_size.y * 10)) * (m_y / 100));
-            yy = Mathf.Clamp(yy, 0, Screen.height - (m_size.y + (m_size.y * 10)));
-            GUI.DrawTexture(new Rect(x, yy, m_size.x + 20 >= m_buttonSize.x + 15 ? m_size.x + 20 : m_buttonSize.x + 15, m_size.y + m_size.y * 10), m_background);
-            GUI.skin.settings.selectionColor = m_fieldSelectionColor;
-            m_searcher.m_keyword = GUI.TextField(new Rect(x, yy, m_size.x, m_size.y), m_searcher.m_keyword, fieldStyle);
-
-            GUI.skin = m_sliderThumbSkin;
-            if (m_buttonFixed)
-            {
-                m_scrollPosition = GUI.BeginScrollView(new Rect(x, yy + m_size.y, m_size.x + 20 >= m_buttonSize.x + 20 ? m_size.x + 20 : m_buttonSize.x + 20, m_size.y * 10), m_scrollPosition, new Rect(0, 0, m_size.x >= m_buttonSize.x ? m_size.x : m_buttonSize.x, m_sources.Length * m_buttonSize.y * 1.16f), GUIStyle.none, sliderStyle);
-            }
-            else
-            {
-                m_scrollPosition = GUI.BeginScrollView(new Rect(x, yy + m_size.y, m_size.x + 20 >= m_buttonSize.x + 15 ? m_size.x + 20 : m_buttonSize.x + 15, m_size.y * 10), m_scrollPosition, new Rect(0, 0, m_size.x >= m_buttonSize.x ? m_size.x : m_buttonSize.x, m_sources.Length * m_buttonSize.y), GUIStyle.none, sliderStyle);
-            }
-            GUI.skin = null;
-            m_searcher.Search(m_sources, (items) =>
-            {
-                if (GUILayout.Button(items, buttonStyle, GUILayout.Width(m_buttonSize.x), GUILayout.Height(m_buttonSize.y)))
-                {
-                    m_onAction?.Invoke(items);
-                }
-            });
-            GUI.EndScrollView();
-
-            GUILayout.EndVertical();
-            GUILayout.EndHorizontal();
-        }
-        private void FieldStyle(out GUIStyle fieldStyle)
-        {
-            if (m_fieldFixed)
-            {
-                fieldStyle = new GUIStyle(GUI.skin.textField);
-            }
-            else
-            {
-                fieldStyle = new GUIStyle();
-            }
-            fieldStyle.font = m_fieldFont;
-            fieldStyle.fontSize = m_fieldFontSize;
-            fieldStyle.alignment = m_fieldTextAnchor;
-            fieldStyle.normal.background = m_fieldNormalBackground;
-            fieldStyle.hover.background = m_fieldHoverBackground;
-            fieldStyle.active.background = m_fieldActiveBackground;
-            fieldStyle.focused.background = m_fieldFocusedBackground;
-            fieldStyle.normal.textColor = m_fieldNormalTextColor;
-            fieldStyle.hover.textColor = m_fieldHoverTextColor;
-            fieldStyle.active.textColor = m_fieldActiveTextColor;
-            fieldStyle.focused.textColor = m_fieldFocusedTextColor;
-
-        }
-        private void ButtonStyle(out GUIStyle buttonStyle)
-        {
-            if (m_buttonFixed)
-            {
-                buttonStyle = new GUIStyle(GUI.skin.button);
-            }
-            else
-            {
-                buttonStyle = new GUIStyle();
-            }
-            buttonStyle.font = m_buttonFont;
-            buttonStyle.fontSize = m_buttonFontSize;
-            buttonStyle.alignment = m_buttonTextAnchor;
-            buttonStyle.normal.background = m_buttonNormalBackground;
-            buttonStyle.hover.background = m_buttonHoverBackground;
-            buttonStyle.active.background = m_buttonActiveBackground;
-            buttonStyle.normal.textColor = m_buttonNormalTextColor;
-            buttonStyle.hover.textColor = m_buttonHoverTextColor;
-            buttonStyle.active.textColor = m_buttonActiveTextColor;
-        }
-        private void SliderStyle(out GUIStyle sliderStyle)
-        {
-            sliderStyle = new GUIStyle(GUI.skin.verticalScrollbar);
-            sliderStyle.normal.background = m_sliderNormalBackground;
-            sliderStyle.hover.background = m_sliderHoverBackground;
-            sliderStyle.active.background = m_sliderActiveBackground;
-        }
-        private Texture2D MakeTex(int width, int height, Color color)
-        {
-            Color[] pix = new Color[width * height];
-            for (int i = 0; i &lt; pix.Length; i++)
-                pix[i] = color;
-            Texture2D result = new Texture2D(width, height, TextureFormat.ARGB32, false);
-            result.filterMode = FilterMode.Point;
-            result.SetPixels(pix);
-            result.Apply();
-            return result;
-        }
-        
-    }
-}
-        </code>
-        <div class="no-select" style="z-index: 0.5;color: white;background-color: #303030;margin-top: -42px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;">Search.cs  </div>
+        <div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: -42px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;">Example.cs  </div>
     </pre>
 
     <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
@@ -743,9 +309,7 @@ namespace UGamie.Core
             }, 2000);
         });
     }
-    copycode("code-copy-Search-cs", "code-text-Search-cs");
-    copycode("code-copy-Searcher-cs", "code-text-Searcher-cs");
-    copycode("code-copy-CustomSearch-cs", "code-text-CustomSearch-cs");
+    copycode("code-copy-Example-cs", "code-text-Example-cs");
 
     function createIcon(strokeColor, width) {
         var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -785,5 +349,74 @@ namespace UGamie.Core
     }
 </script>
 <script src="js/buttonmodal.js"></script>
+<script src="js/alertmodal.js"></script>
+<script>
+    var blacklibsources = document.querySelectorAll('.black-lib-sources');
+    var whitelibsources = document.querySelectorAll('.white-lib-sources');
+    blacklibsources.forEach(function (element) {
+        element.addEventListener("click", function () {
+            if (element.innerText === "A") {
+                var alert = showAlert("A", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+                alert.style.zIndex = "999";
+                var br = BR();
+                var exlink = Alinker("◆ex", "//www.youtube.com");
+                var whiteBackChild = alert.querySelector('.white-back');
+                whiteBackChild.appendChild(exlink);
+            }
+            if (element.innerText === "C") {
+                var alert = showAlert("C", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+                alert.style.zIndex = "999";
+                var br = BR();
+                var exlink = Alinker("◆ex", "//www.youtube.com");
+                var whiteBackChild = alert.querySelector('.white-back');
+                whiteBackChild.appendChild(exlink);
+            }
+        });
+    });
+    whitelibsources.forEach(function (element) {
+        element.addEventListener("click", function () {
+            if (element.innerText === "S") {
+                var alert = showAlert("S", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+                alert.style.zIndex = "999";
+                var br = BR();
+                var Seacherlink = Alinker("◆Seacher", "SearcherLink.html");
+                var exlink = Alinker("◆ex", "//www.youtube.com");
+                var whiteBackChild = alert.querySelector('.white-back');
+                whiteBackChild.appendChild(Seacherlink);
+                whiteBackChild.appendChild(br);
+                whiteBackChild.appendChild(exlink);
+            }
+            if (element.innerText === "B") {
+                var alert = showAlert("B", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+                alert.style.zIndex = "999";
+                var br = BR();
+                var exlink = Alinker("◆ex", "//www.youtube.com");
+                var whiteBackChild = alert.querySelector('.white-back');
+                whiteBackChild.appendChild(exlink);
+            }
+        });
+    });
+    function Alinker(inner, to) {
+        var link = document.createElement("a");
+        link.innerHTML = inner;
+        link.href = to;
+        return link;
+    }
+    function BR() {
+        var br = document.createElement("br");
+        return br;
+    }
+</script>
+<script src="js/downloadfile.js"></script>
+<script>
+    var downloadFiler = document.querySelectorAll('.download-file');
+    downloadFiler.forEach(function (e) {
+        e.addEventListener("click", () => {
+            if (e.innerText === "Example.cs  ") {
+                downloadFile('Example.cs', 'Resource/OriginFile/csharpFile/Example.cs');
+            }
+        });
+    });
+</script>
 
 </html>

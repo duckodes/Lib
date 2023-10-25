@@ -96,6 +96,7 @@ function showAlert(title, content, closeBtn, closeInner = "&times;", alertBackCo
         }
     }
     customModal.style.display = "block";
+    return customModal;
 }
 
 // Click using ID
