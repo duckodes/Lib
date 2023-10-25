@@ -1,4 +1,4 @@
-function b_SwB(a = false, bW = "40px", cW = "20px", bH = "20px", cH = "20px",
+function b_SwB(a = true, bW = "40px", cW = "20px", bH = "20px", cH = "20px",
     bC = "#ccc", bCOn = "#ccc", cC = "#aaa", cCOn = "#aaa", bR = "15px", cR = "15px", ls = document.body) {
     var b = d_SD(bW, bH, bC, bR, ls);
     var bRect = b.getBoundingClientRect();
@@ -12,9 +12,15 @@ function b_SwB(a = false, bW = "40px", cW = "20px", bH = "20px", cH = "20px",
     var active = a;
     if (!active) {
         c.style.left = 0 + 'px';
+        c.style.background = cC;
+        b.style.background = bC;
+        vs2015();
     }
     else if (active) {
         c.style.left = c.offsetWidth + 'px';
+        c.style.background = cCOn;
+        b.style.background = bCOn;
+        tokyonightdark();
     }
 
     b.addEventListener("mousedown", () => {
@@ -49,5 +55,5 @@ function d_SD(w, h, b, r, p) {
 }
 
 var tb = document.getElementById("theme-button");
-b_SwB(a = false, bW = "40px", cW = "20px", bH = "20px", cH = "20px",
+b_SwB(a = true, bW = "40px", cW = "20px", bH = "20px", cH = "20px",
     bC = "#633", bCOn = "#336", cC = "#855", cCOn = "#558", bR = "15px", cR = "15px", ls = tb);
