@@ -16,6 +16,32 @@ function downloadFile(filename, fileurl) {
         })
         .catch(error => console.error('下載失敗：', error));
 }
+function downloadFileTO(filename, fileurl) {
+    // 指定服务器上的文件路径
+    var fileUrl = fileurl; // 替換成實際文件的 URL
+  
+    // 使用 Fetch API 下載文件
+    fetch(fileUrl)
+      .then(response => response.blob()) // 使用 blob() 方法获取文件的 Blob 数据
+      .then(blob => {
+        // 创建一个下载链接
+        var a = document.createElement('a');
+        a.href = window.URL.createObjectURL(blob);
+        a.download = filename; // 指定下载的文件名
+  
+        // 模拟用户单击下载链接以触发保存对话框
+        a.style.display = 'none';
+        document.body.appendChild(a);
+        a.click();
+  
+        // 清理创建的链接和 URL 对象
+        window.URL.revokeObjectURL(a.href);
+        document.body.removeChild(a);
+      })
+      .catch(error => console.error('下载失敗：', error));
+  }
+
+
 function downloadtxtwriteFile() {
     var content = '这是文件的内容';
     var blob = new Blob([content], { type: 'text/plain' });
