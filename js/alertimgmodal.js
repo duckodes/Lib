@@ -92,12 +92,3 @@ function showImg(source, title, content, closeBtn, closeInner = "&times;", alert
     }
     customModal.style.display = "block";
 }
-
-var libsearchex = document.getElementById("lib-search-ex");
-var libsearchinspector = document.getElementById("lib-search-inspector");
-libsearchex.addEventListener("mousedown", () => {
-    showImg("image/lib/lib-code-Search-ex.png", "", "", true, "&times;", "rgba(0, 0, 0, 0)", top = "10px", null, null, "10px", false);
-});
-libsearchinspector.addEventListener("mousedown", () => {
-    showImg("image/lib/lib-code-inspectorSearch.png", "Unity Inspector", "", true, "&times;", "rgba(0, 0, 0, 0)", top = "10px", null, null, "10px", false);
-});

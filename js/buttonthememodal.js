@@ -54,6 +54,15 @@ function d_SD(w, h, b, r, p) {
     return d;
 }
 
+function tokyonightdark() {
+    var linkstyle = document.getElementById("code-style");
+    linkstyle.href = "css/tokyo-night-dark.min.css";
+}
+function vs2015() {
+    var linkstyle = document.getElementById("code-style");
+    linkstyle.href = "css/vs2015.min.css";
+}
+
 var tb = document.getElementById("theme-button");
 b_SwB(a = true, bW = "40px", cW = "20px", bH = "20px", cH = "20px",
     bC = "#633", bCOn = "#336", cC = "#855", cCOn = "#558", bR = "15px", cR = "15px", ls = tb);
