@@ -1,0 +1,91 @@
+body {
+    background-color: #353535;
+    justify-content: center;
+    align-items: center;
+    margin: 80px;
+    margin-left: 25%;
+    width: 50%;
+}
+
+code {
+    max-height: 350px;
+    overflow: auto;
+    scrollbar-width: thin;
+    /* Firefox */
+    scrollbar-color: #1e1e1e #707070;
+    z-index: 0;
+}
+
+code::-webkit-scrollbar {
+    width: 7px;
+    height: 0px;
+    border-radius: 7px;
+    color: #1a1a1a;
+}
+
+code::-webkit-scrollbar-thumb {
+    background: #707070;
+    border-radius: 7px;
+}
+
+code::-webkit-scrollbar-track {
+    background: #1e1e1e;
+}
+
+code::-webkit-scrollbar-corner {
+    background-color: #1e1e1e;
+}
+
+#lib-search-ex {
+    width: 30%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#lib-search-ex:hover {
+    opacity: 0.5;
+    width: 50%;
+}
+
+#lib-search-inspector {
+    width: 30%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#lib-search-inspector:hover {
+    opacity: 0.5;
+    width: 50%;
+}
+
+.lib-sources::-webkit-scrollbar {
+    width: 0px;
+}
+
+.white-lib-sources {
+    width: 2%;
+    color: black;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.white-lib-sources:hover {
+    background-color: rgb(158, 158, 158);
+    margin-top: 10px;
+}
+
+.black-lib-sources {
+    width: 2%;
+    color: white;
+    background-color: black;
+    transition: all 0.3s ease-in-out;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.black-lib-sources:hover {
+    background-color: rgba(0, 0, 0, 0.507);
+    margin-top: 10px;
+}
