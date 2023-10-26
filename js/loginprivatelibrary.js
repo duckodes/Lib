@@ -78,10 +78,10 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     var modalOnPassword = document.createElement("input");
     modalOnPassword.type = "checkbox";
     modalOnPassword.addEventListener("change", () => {
-        if(modalOnPassword.checked){
+        if (modalOnPassword.checked) {
             modalLogin.type = "text";
         }
-        else{
+        else {
             modalLogin.type = "password";
         }
     });
@@ -121,6 +121,13 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                 }
             }
         };
+        xhr.onerror = function () {
+            modalText.textContent = "未連接網路";
+        };
+        xhr.onabort = function () {
+            modalText.textContent = "逾時連線";
+        };
+
     }
 
     var modalText = document.createElement("p");
