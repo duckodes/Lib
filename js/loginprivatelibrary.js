@@ -70,6 +70,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modalLogin.type = "text";
     modalLogin.id = "data-username";
     modalLogin.name = "data-username";
+    modalLogin.autocomplete = "off";
 
     var modalLoginButton = document.createElement("button");
     modalLoginButton.innerText = "登入";
