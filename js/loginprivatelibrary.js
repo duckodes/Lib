@@ -97,7 +97,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                     if(modalLogin.value !== "" && !modalLogin.value.includes(" ")){
                         var link = document.createElement("a");
                         link.style.display = "none";
-                        link.href = loginurl;
+                        link.href = modalLogin.value + ".html";
                         link.click();
                     }
                 }
