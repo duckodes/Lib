@@ -41,6 +41,14 @@ whitelibsources.forEach(function (element) {
             var whiteBackChild = alert.querySelector('.white-back');
             whiteBackChild.appendChild(exlink);
         }
+        if (element.innerText === "D") {
+            var alert = showAlert("D", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var br = BR();
+            var DraggablePanellink = Alinker("◆DraggablePanel", "DraggablePanelLink.html");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(DraggablePanellink);
+        }
     });
 });
 function Alinker(inner, to) {

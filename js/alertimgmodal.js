@@ -12,15 +12,16 @@ function createImgModal(title, content, closeBtn, closeInner, wantCloseBtnBorder
     modal.style.zIndex = "999";
     modal.style.overflow = "auto";
     document.body.style.overflow = "hidden";
+    modal.style.alignItems = "center";
+    modal.style.justifyContent = "center";
+    modal.style.flexDirection = "column";
 
     // Create the close button
     var closeModalBtn = document.createElement("span");
     closeModalBtn.innerHTML = closeInner;
     closeModalBtn.className = "close";
     closeModalBtn.style.position = "sticky";
-    closeModalBtn.style.top = "1%";
-    closeModalBtn.style.textAlign = "right";
-    closeModalBtn.style.marginRight = "1%";
+    closeModalBtn.style.marginLeft = "80%";
     closeModalBtn.style.color = "white";
     if (wantCloseBtnBorder) {
         closeModalBtn.style.border = "2px solid #353535";
@@ -47,10 +48,26 @@ function createImgModal(title, content, closeBtn, closeInner, wantCloseBtnBorder
 
     var modalImg = document.createElement("img");
     modalImg.src = source;
-    modalImg.style.position = "relative";
-    modalImg.style.top = "-2.5%";
-    modalImg.style.left = "25%";
-    modalImg.style.width = "50%";
+    modalImg.style.width = "auto";
+    modalImg.style.height = "auto";
+    modalImg.style.maxWidth = "80%";
+    modalImg.style.maxHeight = "80%";
+    modalImg.style.cursor = "pointer";
+    modalImg.addEventListener("click", () => {
+        if (modalImg.style.maxWidth === "80%") {
+            modalImg.style.width = "auto";
+            modalImg.style.height = "auto";
+            modalImg.style.maxHeight = "92%";
+            modalImg.style.maxWidth = "92%";
+        }
+        else if (modalImg.style.maxWidth === "92%") {
+            modalImg.style.width = "auto";
+            modalImg.style.height = "auto";
+            modalImg.style.maxHeight = "80%";
+            modalImg.style.maxWidth = "80%";
+            console.log("isthere");
+        }
+    });
 
     // Append modal content to modal container
     modal.appendChild(closeModalBtn);
@@ -90,5 +107,5 @@ function showImg(source, title, content, closeBtn, closeInner = "&times;", alert
             document.body.style.overflow = "auto";
         }
     }
-    customModal.style.display = "block";
+    customModal.style.display = "flex";
 }

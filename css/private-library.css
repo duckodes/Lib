@@ -36,28 +36,6 @@ code::-webkit-scrollbar-corner {
     background-color: #1e1e1e;
 }
 
-#lib-search-ex {
-    width: 30%;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-#lib-search-ex:hover {
-    opacity: 0.5;
-    width: 50%;
-}
-
-#lib-search-inspector {
-    width: 30%;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-#lib-search-inspector:hover {
-    opacity: 0.5;
-    width: 50%;
-}
-
 .lib-sources::-webkit-scrollbar {
     width: 0px;
 }

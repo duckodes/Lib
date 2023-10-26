@@ -36,6 +36,29 @@
 
     <title>Searcher 搜尋</title>
     <link rel="stylesheet" href="css/private-library.css">
+    <style>
+        #lib-search-ex {
+            width: 20%;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #lib-search-ex:hover {
+            opacity: 0.5;
+            width: 15%;
+        }
+
+        #lib-search-inspector {
+            width: 20%;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #lib-search-inspector:hover {
+            opacity: 0.5;
+            width: 15%;
+        }
+    </style>
 </head>
 
 <body style="background-color: #252525;">
@@ -237,7 +260,7 @@ public class CustomSearch : MonoBehaviour
         <div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
             <h2>Search</h2>
             <h6>
-                作用: 使用該组件至 unity 空物件，可產生搜尋方法
+                作用: 使用該组件至 unity 空物件，可產生搜尋GUI面板
 
                 <br>此類需要結合Searcher.cs，應用以上方法
                 <br>On Action(String) Event => 當搜尋列按下n項button時，掛勾此事件，並傳入第n項的字符串

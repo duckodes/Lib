@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="hIM9VzpUGW4x0pEw9UNYO71x_m7h4uAdKhfuSwU8WhM" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="500x500" href="image/Logo_R.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="image/Logo_R_57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="image/Logo_R_60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="image/Logo_R_72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="image/Logo_R_76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="image/Logo_R_114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="image/Logo_R_120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="image/Logo_R_144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="image/Logo_R_152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/Logo_R_180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="image/Logo_R_192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/Logo_R_32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="image/Logo_R_96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/Logo_R_16.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
+
+    <!--Avaiable Styles :
+    https://github.com/highlightjs/highlight.js/tree/main/src/styles
+    From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css
+    From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-dark.min.css
+    From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css
+    From: css/tokyo-night-dark.css
+    From: css/tokyo-night-dark.min.css
+    From: css/default.min.css-->
+    <link rel="stylesheet" href="css/vs2015.min.css" id="code-style">
+
+    <title>DraggablePanel 浮動窗口</title>
+    <link rel="stylesheet" href="css/private-library.css">
+    <style>
+        #lib-draggablepanel{
+            width: 30%;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        #lib-draggablepanel:hover {
+            opacity: 0.5;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body style="background-color: #252525;">
+    <!-- Nav -->
+    <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;">
+        <div class="container justify-content-center">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" aria-current="page" href="main.html">Home◆首頁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="UGPrivateLibrary.html">Library◆類庫</a>
+                </li>
+            </ul>
+            <div id="theme-button" style="margin-right: 100px;"></div>
+            <div style="color: white;margin-left: -100px;">⚠️主題</div>
+        </div>
+    </nav>
+
+    <div class="lib-sources no-select"
+        style="border-radius: 5px;cursor: pointer;width: 200%;height: 100px;position: relative; left: -50%; overflow: auto;display: flex;align-items:begin;justify-content: center;">
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            A
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            B
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            C
+        </div>
+        <div class="white-lib-sources" style="background-color: rgb(255, 187, 0);width: 3%;height: 100px;display: flex;align-items: center;justify-content: center;">
+            D
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            E
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            F
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            G
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            H
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            I
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            J
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            K
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            L
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            M
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            N
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            O
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            P
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            Q
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            R
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            S
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            T
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            U
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            V
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            W
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            X
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            Y
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            Z
+        </div>
+    </div>
+
+    <!-- Code -->
+    <pre>
+        <div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
+            <h2>DraggablePanel 浮動窗口</h2>
+            <h6>
+                作用: 使用該组件至 unity 空物件，可產生GUI.Window生成的浮動窗口
+
+                <br>
+            </h6>
+            <div  style="white-space: nowrap;">
+                <img src="image/lib/lib-code-DraggablePanel.png" id="lib-draggablepanel">
+            </div>
+        </div>
+        <div id="code-copy-DraggablePanel-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: -42px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div>
+        <code class="languange-hlsl" id="code-text-DraggablePanel-cs">
+using System.Collections;
+using UnityEngine;
+
+public class DraggablePanel : MonoBehaviour
+{
+    [Range(20, 50)] [SerializeField] private int m_titleSize = 20;
+    [SerializeField] private TextAnchor m_textAnchor = TextAnchor.MiddleCenter;
+    [Range(200, 1000)] [SerializeField] private int m_minSize = 200;
+    [SerializeField] private Texture2D m_resizeCursor;
+
+    private Rect m_panel;
+    private Vector2 m_resizeStartMousePos;
+    private Vector2 m_originalSize;
+    private Vector2 m_recordSize;
+    private Vector2 m_recordPosition;
+    private Texture2D m_backgroundColor;
+    private Texture2D m_titleColor;
+    private Texture2D m_closeTexture;
+    private Texture2D m_closeNormal;
+    private Texture2D m_closeHover;
+    private Texture2D m_closePress;
+    private Texture2D m_resizeTexture;
+    private Texture2D m_resizeNormal;
+    private Texture2D m_resizeHover;
+    private Texture2D m_resizePress;
+
+    private float m_lastClickTime;
+    private float m_doubleClickInterval = 0.3f;
+
+    private bool m_isDragging = false;
+    private bool m_isResizing = false;
+    private void Awake()
+    {
+        m_panel = new Rect(50, 50, 700, 500);
+    }
+    private void OnEnable()
+    {
+        m_originalSize = m_panel.size;
+
+        m_closeNormal = MakeTex(1, 1, new Color(0.25f, 0.25f, 0.25f));
+        m_closeHover = MakeTex(1, 1, new Color(0.5f, 0.5f, 0.5f));
+        m_closePress = MakeTex(1, 1, new Color(0.05f, 0.05f, 0.05f));
+        m_closeTexture = m_closeNormal;
+
+        m_resizeNormal = MakeTex(1, 1, new Color(0.25f, 0.25f, 0.25f));
+        m_resizeHover = MakeTex(1, 1, new Color(0.5f, 0.5f, 0.5f));
+        m_resizePress = MakeTex(1, 1, new Color(0.05f, 0.05f, 0.05f));
+        m_resizeTexture = m_resizeNormal;
+
+        m_backgroundColor = MakeTex(1, 1, new Color(0.2f, 0.2f, 0.2f));
+        m_titleColor = MakeTex(1, 1, new Color(0.3f, 0.3f, 0.3f));
+    }
+    private void OnGUI()
+    {
+        GUIStyle m_panelStyle = new GUIStyle(GUI.skin.window);
+        m_panelStyle.normal.background = m_backgroundColor;
+        m_panelStyle.onNormal.background = m_backgroundColor;
+        m_panel = GUI.Window(0, m_panel, DrawPanel, string.Empty, m_panelStyle);
+        if (!m_panel.Contains(Event.current.mousePosition) && Event.current.type == EventType.MouseUp)
+        {
+            m_isResizing = false;
+            m_originalSize = m_panel.size;
+        }
+    }
+
+    private void DrawPanel(int windowID)
+    {
+        GUIStyle titleStyle = new GUIStyle(GUI.skin.label);
+        titleStyle.alignment = m_textAnchor;
+        Rect titleRect = new Rect(0, 0, m_panel.width, m_titleSize);
+        GUI.DrawTexture(titleRect, m_titleColor);
+        GUI.Label(titleRect, "Draggable & Resizable Pane", titleStyle);
+
+        GUI.Label(new Rect(10, 30, m_panel.width - 40, 20), "This is draggable panel!");
+
+        Rect closeRect = new Rect(m_panel.width - (titleRect.height - 5) - 2, 2, titleRect.height - 5, titleRect.height - 5);
+        GUIStyle closeLabelStyle = new GUIStyle(GUI.skin.label);
+        closeLabelStyle.alignment = TextAnchor.MiddleCenter;
+        GUI.DrawTexture(closeRect, m_closeTexture);
+        GUI.Label(closeRect, "☓", closeLabelStyle);
+        if (closeRect.Contains(Event.current.mousePosition))
+        {
+            if (Event.current.type == EventType.MouseDown)
+            {
+                m_closeTexture = m_closePress;
+            }
+            if(m_closeTexture != m_closePress)
+            {
+                m_closeTexture = m_closeHover;
+            }
+            if (Event.current.type == EventType.MouseUp)
+            {
+                gameObject.SetActive(false);
+                m_closeTexture = m_closeNormal;
+            }
+        }
+        else
+        {
+            m_closeTexture = m_closeNormal;
+        }
+        Rect resizeRect = new Rect(closeRect.x - (titleRect.height - 5), 2, titleRect.height - 5, titleRect.height - 5);
+        GUIStyle resizeLabelStyle = new GUIStyle(GUI.skin.label);
+        resizeLabelStyle.alignment = TextAnchor.MiddleCenter;
+        GUI.DrawTexture(resizeRect, m_resizeTexture);
+        GUI.Label(resizeRect, "❐", resizeLabelStyle);
+        if (resizeRect.Contains(Event.current.mousePosition))
+        {
+            if (Event.current.type == EventType.MouseDown)
+            {
+                m_resizeTexture = m_resizePress;
+            }
+            if (m_resizeTexture != m_resizePress)
+            {
+                m_resizeTexture = m_resizeHover;
+            }
+            if (Event.current.type == EventType.MouseUp)
+            {
+                StartResize();
+                m_resizeTexture = m_resizeNormal;
+            }
+        }
+        else
+        {
+            m_resizeTexture = m_resizeNormal;
+        }
+        if (!closeRect.Contains(Event.current.mousePosition) &&
+            !resizeRect.Contains(Event.current.mousePosition))
+        {
+            if (titleRect.Contains(Event.current.mousePosition))
+            {
+                if (Event.current.type == EventType.MouseDown)
+                {
+                    float currentTime = Time.realtimeSinceStartup;
+
+                    if (currentTime - m_lastClickTime &lt;= m_doubleClickInterval)
+                    {
+                        StartResize();
+                    }
+                    m_lastClickTime = currentTime;
+                }
+            }
+
+            if (Event.current.type == EventType.MouseDown && titleRect.Contains(Event.current.mousePosition))
+            {
+                m_isDragging = true;
+                m_resizeStartMousePos = Event.current.mousePosition;
+            }
+
+            if (m_isDragging)
+            {
+                m_panel.position += Event.current.mousePosition - m_resizeStartMousePos;
+            }
+
+            if (Event.current.type == EventType.MouseDown && new Rect(m_panel.width - 20, m_panel.height - 20, 20, 20).Contains(Event.current.mousePosition))
+            {
+                m_isResizing = true;
+                m_resizeStartMousePos = Event.current.mousePosition;
+            }
+            if (new Rect(m_panel.width - 20, m_panel.height - 20, 20, 20).Contains(Event.current.mousePosition))
+            {
+                Cursor.SetCursor(m_resizeCursor, Vector2.zero, CursorMode.ForceSoftware);
+            }
+            else if(!m_isResizing)
+            {
+                Cursor.SetCursor(null, Vector2.zero, CursorMode.ForceSoftware);
+            }
+            if (m_isResizing)
+            {
+                float deltaX = Event.current.mousePosition.x - m_resizeStartMousePos.x;
+                float deltaY = Event.current.mousePosition.y - m_resizeStartMousePos.y;
+                m_panel.size = new Vector2(Mathf.Max(m_originalSize.x + deltaX, m_minSize), Mathf.Max(m_originalSize.y + deltaY, m_minSize));
+            }
+
+            if (Event.current.type == EventType.MouseUp)
+            {
+                m_isDragging = false;
+                m_isResizing = false;
+                m_originalSize = m_panel.size;
+            }
+            if (m_panel.position.x &lt;= 0)
+            {
+                m_panel.position = new Vector2(0, m_panel.position.y);
+            }
+            if (m_panel.position.y &lt;= 0)
+            {
+                m_panel.position = new Vector2(m_panel.position.x, 0);
+            }
+            if (m_panel.xMax >= Screen.width)
+            {
+                m_panel.position = new Vector2(Screen.width - m_panel.width, m_panel.position.y);
+            }
+            if (m_panel.yMax >= Screen.height)
+            {
+                m_panel.position = new Vector2(m_panel.position.x, Screen.height - m_panel.height);
+            }
+        }
+    }
+    private void StartResize()
+    {
+        StartCoroutine(ResizePanel());
+    }
+    private IEnumerator ResizePanel()
+    {
+        if (m_panel.size != new Vector2(Screen.width, Screen.height))
+        {
+            m_recordSize = m_panel.size;
+            m_recordPosition = m_panel.position;
+
+            float elapsedTime = 0f;
+
+            while (elapsedTime &lt; 1)
+            {
+                float t = elapsedTime / 1;
+                m_panel.size = Vector2.Lerp(m_panel.size, new Vector2(Screen.width, Screen.height), t);
+                elapsedTime += Time.deltaTime;
+                m_isDragging = false;
+                yield return null;
+            }
+
+            m_panel.size = new Vector2(Screen.width, Screen.height);
+        }
+        else
+        {
+            float elapsedTime = 0f;
+
+            while (elapsedTime &lt; 1)
+            {
+                float t = elapsedTime / 1;
+                m_panel.position = Vector2.Lerp(m_panel.position, m_recordPosition, t);
+                m_panel.size = Vector2.Lerp(m_panel.size, m_recordSize, t);
+                elapsedTime += Time.deltaTime;
+                m_isDragging = false;
+                yield return null;
+            }
+
+            m_panel.size = m_recordSize;
+        }
+    }
+    private Texture2D MakeTex(int width, int height, Color color)
+    {
+        Color[] pix = new Color[width * height];
+        for (int i = 0; i &lt; pix.Length; i++)
+            pix[i] = color;
+        Texture2D result = new Texture2D(width, height);
+        result.SetPixels(pix);
+        result.Apply();
+        return result;
+    }
+}
+        </code>
+        <div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: -42px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">DraggablePanel.cs  </div>
+    </pre>
+
+    <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
+    <script src="js/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+
+</body>
+<!-- Script -->
+<script src="js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+    });
+
+    document.addEventListener("keydown", function (e) {
+        if (e.ctrlKey && e.key === "s" || e.key === "F12" || e.key === "F11" || e.ctrlKey && e.shiftKey && e.key === "I") {
+            e.preventDefault();
+        }
+    });
+</script>
+<script src="js/copycode.js"></script>
+<script>
+    copycode("code-copy-DraggablePanel-cs", "code-text-DraggablePanel-cs");
+</script>
+<script src="js/buttonthememodal.js"></script>
+<script src="js/alertimgmodal.js"></script>
+<script>
+    var libdraggablepanel = document.getElementById("lib-draggablepanel");
+    libdraggablepanel.addEventListener("mousedown", () => {
+        showImg("image/lib/lib-code-DraggablePanel.png", "", "", true, "&times;", "rgba(0, 0, 0, 0)", top = "10px", null, null, "10px", false);
+    });
+</script>
+<script src="js/alertmodal.js"></script>
+<script src="js/libsources.js"></script>
+<script src="js/downloadfile.js"></script>
+<script>
+    var downloadFiler = document.querySelectorAll('.download-file');
+    downloadFiler.forEach(function (e) {
+        e.addEventListener("click", () => {
+            if (e.innerText === "DraggablePanel.cs  ") {
+                downloadFile('DraggablePanel.cs', 'Resource/OriginFile/csharpFile/DraggablePanel.cs');
+            }
+        });
+    });
+</script>
+
+</html>
