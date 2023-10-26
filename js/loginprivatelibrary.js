@@ -67,10 +67,22 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modalTitle.textContent = title;
 
     var modalLogin = document.createElement("input");
-    modalLogin.type = "text";
+    modalLogin.style.width = "50%";
+    modalLogin.type = "password";
     modalLogin.id = "data-username";
     modalLogin.name = "data-username";
     modalLogin.autocomplete = "off";
+
+    var modalOnPassword = document.createElement("input");
+    modalOnPassword.type = "checkbox";
+    modalOnPassword.addEventListener("change", () => {
+        if(modalOnPassword.checked){
+            modalLogin.type = "text";
+        }
+        else{
+            modalLogin.type = "password";
+        }
+    });
 
     var modalLoginButton = document.createElement("button");
     modalLoginButton.innerText = "登入";
@@ -117,6 +129,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modalContent.appendChild(closeModalBtn);
     modalContent.appendChild(modalTitle);
     modalContent.appendChild(modalLogin);
+    modalContent.appendChild(modalOnPassword);
     modalContent.appendChild(modalLoginButton);
     modalContent.appendChild(modalText);
 
