@@ -80,7 +80,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
         document.removeEventListener("keydown", keydownEvent);
     });
     document.addEventListener("keydown", keydownEvent);
-    function keydownEvent(event){
+    function keydownEvent(event) {
         if (event.keyCode === 13) {
             loginF();
         }
@@ -94,11 +94,14 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                     modalText.textContent = "登入錯誤";
                 }
                 else if (xhr.status === 200) {
-                    if(modalLogin.value !== "" && !modalLogin.value.includes(" ")){
+                    if (modalLogin.value !== "" && !modalLogin.value.includes(" ")) {
                         var link = document.createElement("a");
                         link.style.display = "none";
                         link.href = modalLogin.value + ".html";
                         link.click();
+                    }
+                    else {
+                        modalText.textContent = "輸入項不可為空";
                     }
                 }
             }
