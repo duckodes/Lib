@@ -95,13 +95,6 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalVideo.addEventListener("ended", function () {
         modalVideoPlay.textContent = "▲";
     });
-    modalVideo.addEventListener("play", ()=> {
-        modalVideoPlay.textContent = "⚌";
-    });
-    modalVideo.addEventListener("pause", ()=> {
-        modalVideoPlay.textContent = "▲";
-    });
-
 
     // Create video slider
     modalVideoSlider.style.width = "0%";
@@ -145,16 +138,6 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
 
     });
     document.addEventListener("mousemove", function (e) {
-        if (isDragging && animationFrameId === null) {
-            requestAnimationFrame(function () {
-                animationFrameId = requestAnimationFrame(function () {
-                    updateProgress(e);
-                    animationFrameId = null;
-                });
-            });
-        }
-    });
-    document.addEventListener("touchmove", function (e) {
         if (isDragging && animationFrameId === null) {
             requestAnimationFrame(function () {
                 animationFrameId = requestAnimationFrame(function () {
@@ -490,7 +473,7 @@ function createAlertVideoModal(source, title, content, closeBtn, closeInner, wan
 // *Show Modal 
 function showAlertVideo(source, title, content, closeBtn, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false) {
     // Get the modal and buttons
-    var customModal = createAlertVideoModal(source, title, content, closeBtn, closeInner, wantCloseBtnBorder);
+    var customModal = createAlertVideoModalv2(source, title, content, closeBtn, closeInner, wantCloseBtnBorder);
     if (customModal.querySelector(".white-back") != null) {
         customModal.querySelector(".white-back").style.backgroundColor = alertBackColor;
     }
@@ -506,7 +489,7 @@ function showAlertVideo(source, title, content, closeBtn, closeInner = "&times;"
             customModal.remove();
         }
     }
-    customModal.style.display = "block";
+    customModal.style.display = "flex";
 }
 
 // Click using ID
