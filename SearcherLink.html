@@ -244,7 +244,7 @@ public class CustomSearch : MonoBehaviour
     }
     private void OnGUI()
     {
-        // 使用Searcher.cs的方法Search，items是遍歷m_sources該數組的每項元素，會經由Search方法的Action<string>傳入
+        // 使用Searcher.cs的方法Search，items是遍歷m_sources該數組的每項元素，會經由Search方法的Action&lt;string>傳入
         m_searcher.m_keyword = GUILayout.TextField(m_searcher.m_keyword, GUILayout.Width(200));
         m_searcher.Search(m_sources, (items) =>
         {
