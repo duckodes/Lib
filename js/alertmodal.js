@@ -15,6 +15,9 @@ function createAlertModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modal.style.height = "100%";
     modal.style.backgroundColor = "rgba(0,0,0,0.7)";
     modal.style.userSelect = "none";
+    modal.style.zIndex = "999";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
 
     // Create the modal content
     var modalContent = document.createElement("div");
@@ -23,14 +26,17 @@ function createAlertModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     // old position
     //modalContent.style.margin = "15% auto";
     // new position center
-    modalContent.style.position = "fixed";
-    modalContent.style.top = "50%";
-    modalContent.style.left = "50%";
-    modalContent.style.transform = "translate(-50%, -50%)";
+    //modalContent.style.position = "fixed";
+    //modalContent.style.top = "50%";
+    //modalContent.style.left = "50%";
+    //modalContent.style.transform = "translate(-50%, -50%)";
 
     modalContent.style.padding = "20px";
     modalContent.style.border = "1px solid #888";
-    modalContent.style.width = "25%";
+    modalContent.style.width = "auto";
+    modalContent.style.height = "auto";
+    modalContent.style.maxHeight = "80%";
+    modalContent.style.maxWidth = "80%";
     modalContent.style.textAlign = "center";
     modalContent.style.position = "relative";
     modalContent.style.borderRadius = "10px";
@@ -93,9 +99,10 @@ function showAlert(title, content, closeBtn, closeInner = "&times;", alertBackCo
         // Close the modal when clicking the close button
         customModal.querySelector(".close").onclick = function () {
             customModal.style.display = "none";
+            customModal.remove();
         }
     }
-    customModal.style.display = "block";
+    customModal.style.display = "flex";
     return customModal;
 }
 
