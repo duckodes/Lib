@@ -1,7 +1,7 @@
 // Quick Guide
 // Insert End of html <script src="JS/alertmodal.js"></script>
 // Copy Default: showAlert("Video.mp4", "title", "This is content.", true, "&times;", "#f4f4f4", "10px", null, null, "10px", false);
-function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, wantCloseBtnBorder) {
+function createAlertVideoModal(source, title, content, closeBtn, closeInner, wantCloseBtnBorder) {
     // Create the modal container
     var modal = document.createElement("div");
     modal.style.display = "none";
@@ -232,7 +232,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalContent.appendChild(closeModalBtn);
     modalContent.appendChild(modalTitle);
 
-    //modalContent.appendChild(modalVideo);
+    modalContent.appendChild(modalVideo);
     modalContent.appendChild(modalVideoSliderControl);
     modalVideoSliderControl.appendChild(modalVideoSlider);
     modalVideoSlider.appendChild(modalVideoSliderHolder);
@@ -254,7 +254,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
 // *Show Modal 
 function showAlertVideo(source, title, content, closeBtn, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false) {
     // Get the modal and buttons
-    var customModal = createAlertVideoModalv2(source, title, content, closeBtn, closeInner, wantCloseBtnBorder);
+    var customModal = createAlertVideoModal(source, title, content, closeBtn, closeInner, wantCloseBtnBorder);
     if (customModal.querySelector(".white-back") != null) {
         customModal.querySelector(".white-back").style.backgroundColor = alertBackColor;
     }
