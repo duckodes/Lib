@@ -105,7 +105,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
         }
     }
     function loginF() {
-        var loginurl = "https://bearhubs.github.io/Profolio/" + modalLogin.value;
+        var loginurl = "https://bearhubs.github.io/Profolio/" + "UG" + modalLogin.value + "rary";
         var xhr = loginlibrarycheck(loginurl);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
@@ -116,7 +116,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                     if (modalLogin.value !== "" && !modalLogin.value.includes(" ")) {
                         var link = document.createElement("a");
                         link.style.display = "none";
-                        link.href = modalLogin.value + ".html";
+                        link.href = "UG" + modalLogin.value + "rary.html";
                         link.click();
                     }
                     else {
