@@ -12,6 +12,9 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modal.style.height = "100%";
     modal.style.backgroundColor = "rgba(0,0,0,0.7)";
     modal.style.userSelect = "none";
+    modal.style.zIndex = "999";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
 
     // Create the modal content
     var modalContent = document.createElement("div");
@@ -20,25 +23,24 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     // old position
     //modalContent.style.margin = "15% auto";
     // new position center
-    modalContent.style.position = "fixed";
-    modalContent.style.top = "50%";
-    modalContent.style.left = "50%";
-    modalContent.style.transform = "translate(-50%, -50%)";
-
-    modalContent.style.padding = "20px";
     modalContent.style.border = "1px solid #888";
-    modalContent.style.width = "50%";
+    modalContent.style.padding = "20px";
+    modalContent.style.width = "auto";
+    modalContent.style.height = "auto";
+    modalContent.style.maxWidth = "50%";
+    modalContent.style.maxHeight = "100%";
     modalContent.style.textAlign = "center";
-    modalContent.style.position = "relative";
     modalContent.style.borderRadius = "10px";
 
     // Create the close button
     var closeModalBtn = document.createElement("span");
     closeModalBtn.innerHTML = closeInner;
     closeModalBtn.className = "close";
-    closeModalBtn.style.position = "absolute";
+    closeModalBtn.style.position = "relative";
     closeModalBtn.style.top = "10px";
     closeModalBtn.style.right = "10px";
+    closeModalBtn.style.width = "100%";
+    closeModalBtn.style.textAlign = "right";
     if (wantCloseBtnBorder) {
         closeModalBtn.style.border = "2px solid #353535";
         closeModalBtn.style.borderRadius = "5px";
@@ -69,8 +71,10 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     var modalVideoPlay = document.createElement("p");
     var modalVideoFullScreen = document.createElement("p");
     modalVideo.src = source;
-    modalVideo.style.width = "100%";
-    modalVideo.style.height = "100%";
+    modalVideo.style.width = "auto";
+    modalVideo.style.height = "auto";
+    modalVideo.style.maxWidth = "70%";
+    modalVideo.style.maxHeight = "90%";
     modalVideo.style.borderRadius = "10px";
     modalVideo.controls = false;
     modalVideo.controlsList = "nodownload nofullscreen";
@@ -79,18 +83,25 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
         e.preventDefault();
     });
     modalVideo.onclick = function () {
-        if (modalVideo.paused) {
-            modalVideo.play();
-            modalVideoPlay.textContent = "⚌";
-        }
-        else {
-            modalVideo.pause();
-            modalVideoPlay.textContent = "▲";
+        if(!modalVideo.webkitDisplayingFullscreen){
+            if (modalVideo.paused) {
+                modalVideo.play();
+            }
+            else {
+                modalVideo.pause();
+            }
         }
     }
     modalVideo.addEventListener("ended", function () {
         modalVideoPlay.textContent = "▲";
     });
+    modalVideo.addEventListener("play", ()=> {
+        modalVideoPlay.textContent = "⚌";
+    });
+    modalVideo.addEventListener("pause", ()=> {
+        modalVideoPlay.textContent = "▲";
+    });
+
 
     // Create video slider
     modalVideoSlider.style.width = "0%";
@@ -114,8 +125,8 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     var isPlayWhenDrag = false;
     var animationFrameId = null;
     modalVideoSliderControl.style.position = "relative";
-    modalVideoSliderControl.style.marginLeft = "5%";
-    modalVideoSliderControl.style.width = "90%";
+    modalVideoSliderControl.style.marginLeft = "20%";
+    modalVideoSliderControl.style.width = "60%";
     modalVideoSliderControl.style.background = "#003b99";
     modalVideoSliderControl.style.borderRadius = "10px";
     modalVideoSliderControl.style.cursor = "pointer";
@@ -126,7 +137,6 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
             modalVideoSliderHolder.style.display = "block";
             if (modalVideo.paused === false) {
                 modalVideo.pause();
-                modalVideoPlay.textContent = "▲";
                 isPlayWhenDrag = true;
             }
 
@@ -150,7 +160,6 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
         modalVideoSliderHolder.style.display = "none";
         if (isPlayWhenDrag) {
             modalVideo.play();
-            modalVideoPlay.textContent = "⚌";
             isPlayWhenDrag = false;
         }
     });
@@ -187,33 +196,33 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
 
     // Create video play button
     modalVideoPlay.textContent = "▲";
-    modalVideoPlay.style.position = "absolute";
-    modalVideoPlay.style.left = "5px";
-    modalVideoPlay.style.bottom = "60px";
-    modalVideoPlay.style.width = "30px";
+    modalVideoPlay.style.position = "relative";
+    modalVideoPlay.textAlign = "center";
+    modalVideoPlay.style.right = "31%";
+    modalVideoPlay.style.bottom = "17px";
     modalVideoPlay.style.height = "30px";
     modalVideoPlay.style.rotate = "90deg";
+    modalVideoPlay.style.fontSize = "20px";
     //modalVideoPlay.style.color = 'white';
     modalVideoPlay.style.cursor = "pointer";
     modalVideoPlay.onclick = function () {
         if (modalVideo.paused) {
             modalVideo.play();
-            modalVideoPlay.textContent = "⚌";
         }
         else {
             modalVideo.pause();
-            modalVideoPlay.textContent = "▲";
         }
     };
     // Create video fullScreen button
     modalVideoFullScreen.textContent = "╬";
-    modalVideoFullScreen.style.position = "absolute";
-    modalVideoFullScreen.style.right = "10px";
-    modalVideoFullScreen.style.bottom = "56px";
+    modalVideoFullScreen.style.position = "relative";
+    modalVideoFullScreen.style.right = "-80%";
+    modalVideoFullScreen.style.bottom = "65px";
     modalVideoFullScreen.style.fontStyle = "bold";
-    modalVideoFullScreen.style.transform = 'scaleX(1) scaleY(0.6)';
+    modalVideoFullScreen.style.transform = 'scaleX(0.8) scaleY(0.6)';
     modalVideoFullScreen.style.width = "30px";
     modalVideoFullScreen.style.height = "30px";
+    modalVideoFullScreen.style.fontSize = "30px";
     //modalVideoPlay.style.color = 'white';
     modalVideoFullScreen.style.cursor = "pointer";
     modalVideoFullScreen.onclick = function () {
@@ -484,9 +493,10 @@ function showAlertVideo(source, title, content, closeBtn, closeInner = "&times;"
         // Close the modal when clicking the close button
         customModal.querySelector(".close").onclick = function () {
             customModal.style.display = "none";
+            customModal.remove();
         }
     }
-    customModal.style.display = "block";
+    customModal.style.display = "flex";
 }
 
 // Click using ID
@@ -507,7 +517,7 @@ function showAlertVideo(source, title, content, closeBtn, closeInner = "&times;"
 
 <script src="JS/alertmodal.js"></script>
 <script>
-    clickShowAlert("Alert Windows", "This is content.", true, "確認", "#f4f4f4", "10px", null, null, "10px", true);
+    clickShowAlert("Alert Windows", "openAlertModalBtn","This is content.", true, "確認", "#f4f4f4", "10px", null, null, "10px", true);
 </script>
 
 </html>*/

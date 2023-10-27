@@ -52,20 +52,21 @@ function createImgModal(title, content, closeBtn, closeInner, wantCloseBtnBorder
     modalImg.style.height = "auto";
     modalImg.style.maxWidth = "80%";
     modalImg.style.maxHeight = "80%";
-    modalImg.style.cursor = "pointer";
+    modalImg.style.cursor = "zoom-in";
     modalImg.addEventListener("click", () => {
         if (modalImg.style.maxWidth === "80%") {
             modalImg.style.width = "auto";
             modalImg.style.height = "auto";
             modalImg.style.maxHeight = "92%";
             modalImg.style.maxWidth = "92%";
+            modalImg.style.cursor = "zoom-out";
         }
         else if (modalImg.style.maxWidth === "92%") {
             modalImg.style.width = "auto";
             modalImg.style.height = "auto";
             modalImg.style.maxHeight = "80%";
             modalImg.style.maxWidth = "80%";
-            console.log("isthere");
+            modalImg.style.cursor = "zoom-in"
         }
     });
 
