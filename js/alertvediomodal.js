@@ -266,6 +266,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
 function showAlertVideo(source, title, content, closeBtn, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false) {
     // Get the modal and buttons
     var customModal = createAlertVideoModalv2(source, title, content, closeBtn, closeInner, wantCloseBtnBorder);
+    customModal.style.display = "flex";
     if (customModal.querySelector(".white-back") != null) {
         customModal.querySelector(".white-back").style.backgroundColor = alertBackColor;
     }
@@ -281,7 +282,6 @@ function showAlertVideo(source, title, content, closeBtn, closeInner = "&times;"
             customModal.remove();
         }
     }
-    customModal.style.display = "flex";
 }
 
 // Click using ID
