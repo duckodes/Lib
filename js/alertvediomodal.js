@@ -12,7 +12,6 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modal.style.height = "100%";
     modal.style.backgroundColor = "rgba(0,0,0,0.7)";
     modal.style.userSelect = "none";
-    modal.style.zIndex = "999";
     modal.style.justifyContent = "center";
     modal.style.alignItems = "center";
 
@@ -154,16 +153,6 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
             });
         }
     });
-    document.addEventListener("touchmove", function (e) {
-        if (isDragging && animationFrameId === null) {
-            requestAnimationFrame(function () {
-                animationFrameId = requestAnimationFrame(function () {
-                    updateProgress(e);
-                    animationFrameId = null;
-                });
-            });
-        }
-    });
     document.addEventListener("mouseup", function () {
         isDragging = false;
         modal.style.cursor = "default";
@@ -285,27 +274,6 @@ function showAlertVideo(source, title, content, closeBtn, closeInner = "&times;"
 }
 
 // Click using ID
-// Example:
-/*<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Example Modal</title>
-
-</head>
-
-<body>
-    <button id="openAlertModalBtn">Alert modal</button>
-</body>
-
-<script src="JS/alertmodal.js"></script>
-<script>
-    clickShowAlert("Alert Windows", "openAlertModalBtn","This is content.", true, "確認", "#f4f4f4", "10px", null, null, "10px", true);
-</script>
-
-</html>*/
 function clickShowAlertVideo(source, useAlertID, title, content, closeBtn, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false) {
     var openModalBtn = document.getElementById(useAlertID);
 
