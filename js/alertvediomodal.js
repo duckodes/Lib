@@ -252,7 +252,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     return modal;
 }
 // Create a function to generate the custom modal
-function createAlertVideoModal(source, title, content, closeBtn, closeInner, wantCloseBtnBorder) {
+/*function createAlertVideoModal(source, title, content, closeBtn, closeInner, wantCloseBtnBorder) {
     // Create the modal container
     var modal = document.createElement("div");
     modal.style.display = "none";
@@ -475,7 +475,7 @@ function createAlertVideoModal(source, title, content, closeBtn, closeInner, wan
     document.body.appendChild(modal);
 
     return modal;
-}
+}*/
 
 // *Show Modal 
 function showAlertVideo(source, title, content, closeBtn, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false) {
