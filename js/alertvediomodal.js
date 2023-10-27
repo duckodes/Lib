@@ -95,6 +95,13 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalVideo.addEventListener("ended", function () {
         modalVideoPlay.textContent = "▲";
     });
+    modalVideo.addEventListener("play", ()=> {
+        modalVideoPlay.textContent = "⚌";
+    });
+    modalVideo.addEventListener("pause", ()=> {
+        modalVideoPlay.textContent = "▲";
+    });
+
 
     // Create video slider
     modalVideoSlider.style.width = "0%";
