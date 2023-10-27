@@ -116,7 +116,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                     if (modalLogin.value !== "" && !modalLogin.value.includes(" ")) {
                         var link = document.createElement("a");
                         link.style.display = "none";
-                        link.href = "UG" + modalLogin.value + "rary.html";
+                        link.href = "https://bearhubs.github.io/Profolio/" + "UG" + modalLogin.value + "rary.html";
                         link.click();
                     }
                     else {
