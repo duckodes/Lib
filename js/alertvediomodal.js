@@ -154,6 +154,16 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
             });
         }
     });
+    document.addEventListener("touchmove", function (e) {
+        if (isDragging && animationFrameId === null) {
+            requestAnimationFrame(function () {
+                animationFrameId = requestAnimationFrame(function () {
+                    updateProgress(e);
+                    animationFrameId = null;
+                });
+            });
+        }
+    });
     document.addEventListener("mouseup", function () {
         isDragging = false;
         modal.style.cursor = "default";
