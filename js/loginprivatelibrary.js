@@ -21,6 +21,9 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modal.style.height = "100%";
     modal.style.backgroundColor = "rgba(0,0,0,0.7)";
     modal.style.userSelect = "none";
+    modal.style.zIndex = "999";
+    modal.style.justifyContent = "center";
+    modal.style.alignItems = "center";
 
     // Create the modal content
     var modalContent = document.createElement("div");
@@ -29,14 +32,17 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     // old position
     //modalContent.style.margin = "15% auto";
     // new position center
-    modalContent.style.position = "fixed";
-    modalContent.style.top = "50%";
-    modalContent.style.left = "50%";
-    modalContent.style.transform = "translate(-50%, -50%)";
+    //modalContent.style.position = "fixed";
+    //modalContent.style.top = "50%";
+    //modalContent.style.left = "50%";
+    //modalContent.style.transform = "translate(-50%, -50%)";
 
     modalContent.style.padding = "20px";
     modalContent.style.border = "1px solid #888";
-    modalContent.style.width = "25%";
+    modalContent.style.width = "auto";
+    modalContent.style.height = "auto";
+    modalContent.style.maxHeight = "80%";
+    modalContent.style.maxWidth = "80%";
     modalContent.style.textAlign = "center";
     modalContent.style.position = "relative";
     modalContent.style.borderRadius = "10px";
@@ -61,8 +67,6 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     else {
         closeModalBtn.style.display = "none";
     }
-
-    var createSVG = createSVGAnonymous();
 
     // Create modal content text
     var modalTitle = document.createElement("h2");
@@ -135,7 +139,11 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modalText.style.color = "red";
 
     // Append elements to modal content
-    modalContent.appendChild(createSVG);
+
+    if (typeof createSVGAnonymous === 'function'){
+        var createSVG = createSVGAnonymous();
+        modalContent.appendChild(createSVG);
+    }
     modalContent.appendChild(closeModalBtn);
     modalContent.appendChild(modalTitle);
     modalContent.appendChild(modalLogin);
@@ -171,49 +179,8 @@ function showLogin(title, content, closeBtn, closeInner = "&times;", alertBackCo
             customModal.remove();
         }
     }
-    customModal.style.display = "block";
+    customModal.style.display = "flex";
     return customModal;
-}
-
-function createSVGAnonymous() {
-    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", "55");
-    svg.setAttribute("height", "55");
-    svg.setAttribute("viewBox", "0 0 100 100");
-
-    // body
-    var body = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    body.setAttribute("d", "M40 45 L60 45 70 50 L65 70 L35 70 30 50 Z");
-    body.setAttribute("fill", "black");
-    body.setAttribute("stroke", "white");
-    svg.appendChild(body);
-
-    // tie
-    var tie = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    tie.setAttribute("d", "M50 30 L50 50 C45 55, 50 60, 50 70 C50 60, 55 55, 50 50 L50 30");
-    tie.setAttribute("stroke", "white");
-    tie.setAttribute("stroke-width", "3");
-    tie.setAttribute("fill", "none");
-    svg.appendChild(tie);
-
-    // head
-    var head = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    head.setAttribute("cx", "50");
-    head.setAttribute("cy", "30");
-    head.setAttribute("r", "15");
-    head.setAttribute("fill", "black");
-    head.setAttribute("stroke", "white");
-    svg.appendChild(head);
-
-    // questmark
-    var questmark = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    questmark.setAttribute("d", "M43 30 A8 8 0 1 1 50 35 V41");
-    questmark.setAttribute("fill", "none");
-    questmark.setAttribute("stroke", "white");
-    questmark.setAttribute("stroke-width", "3");
-    svg.appendChild(questmark);
-
-    return svg;
 }
 
 var wantlogin = document.getElementById("want-login");
