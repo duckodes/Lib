@@ -179,6 +179,12 @@ function showLogin(title, content, closeBtn, closeInner = "&times;", alertBackCo
             customModal.remove();
         }
     }
+    window.onclick = function (event) {
+        if (event.target == customModal) {
+            customModal.style.display = "none";
+            customModal.remove();
+        }
+    }
     customModal.style.display = "flex";
     return customModal;
 }
