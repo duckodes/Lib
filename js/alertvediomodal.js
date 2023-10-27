@@ -232,7 +232,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalContent.appendChild(closeModalBtn);
     modalContent.appendChild(modalTitle);
 
-    modalContent.appendChild(modalVideo);
+    //modalContent.appendChild(modalVideo);
     modalContent.appendChild(modalVideoSliderControl);
     modalVideoSliderControl.appendChild(modalVideoSlider);
     modalVideoSlider.appendChild(modalVideoSliderHolder);
