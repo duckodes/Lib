@@ -5,14 +5,20 @@ function consoleswitch() {
 function consoleoutput(state) {
     var consoleOutput = document.createElement("div");
     consoleOutput.className = "console-output";
-    consoleOutput.style.width = "50%";
-    consoleOutput.style.position = "relative";
-    consoleOutput.style.left = "25%";
-    consoleOutput.style.marginLeft = "10%";
+    consoleOutput.style.position = "fixed";
+    consoleOutput.style.bottom = "10px";
+    consoleOutput.style.left = "10%";
+    consoleOutput.style.width = "80%";
+    consoleOutput.style.height = "80%"
+    consoleOutput.style.userSelect = "none";
+    consoleOutput.style.zIndex = "-999";
+    consoleOutput.style.backgroundColor = "#111";
+    consoleOutput.style.overflow = "auto";
+    consoleOutput.style.borderRadius = "10px";
     document.body.appendChild(consoleOutput);
 
     console.log = function (message) {
-        consoleOutput.innerHTML += "<span style='color: white;'>[Log] " + message + "</span><br>";
+        consoleOutput.innerHTML += "<span style='color: white;'>" + message + "</span><br>";
     };
     console.error = function (message) {
         consoleOutput.innerHTML += "<span style='color: red;'>[Error] " + message + "</span><br>";
@@ -31,7 +37,12 @@ function consoleoutput(state) {
         console.error('行號：' + lineno);
         console.error('列號：' + colno);
         console.error('錯誤對象：' + error);
+        console.log('');
         window.scrollTo({
+            top: window.document.body.scrollHeight,
+            behavior: 'smooth'
+        });
+        consoleOutput.scrollTo({
             top: window.document.body.scrollHeight,
             behavior: 'smooth'
         });
@@ -46,10 +57,30 @@ function consoleoutput(state) {
     removebutton.style.right = "10px";
     removebutton.style.color = "white";
     removebutton.style.cursor = "pointer";
+    removebutton.style.zIndex = "99999";
     document.body.appendChild(removebutton);
     removebutton.addEventListener("click", () => {
         consoleOutput.innerHTML = "";
     });
+    var checkIndex = document.createElement("input");
+    checkIndex.className = "console-output-ci";
+    checkIndex.type = "checkbox";
+    checkIndex.style.position = "fixed";
+    checkIndex.style.bottom = "10px";
+    checkIndex.style.width = "45px";
+    checkIndex.style.textAlign = "right";
+    checkIndex.style.right = "50px";
+    checkIndex.style.zIndex = "99999";
+    document.body.appendChild(checkIndex);
+    checkIndex.addEventListener("change", () => {
+        if (checkIndex.checked) {
+            consoleOutput.style.zIndex = "9999";
+        }
+        else {
+            consoleOutput.style.zIndex = "-999";
+        }
+    });
+
     if (!state) {
         var allconsole = document.querySelectorAll('.console-output');
         allconsole.forEach(function (element) {
@@ -57,6 +88,10 @@ function consoleoutput(state) {
         });
         var allconsolerb = document.querySelectorAll('.console-output-rb');
         allconsolerb.forEach(function (element) {
+            element.remove();
+        });
+        var allconsolecI = document.querySelectorAll('.console-output-ci');
+        allconsolecI.forEach(function (element) {
             element.remove();
         });
     }

@@ -67,3 +67,14 @@ code::-webkit-scrollbar-corner {
     background-color: rgba(0, 0, 0, 0.507);
     margin-top: 10px;
 }
+
+.console-output::-webkit-scrollbar {
+    width: 7px;
+    height: 0px;
+    border-radius: 7px;
+    color: #969696;
+}
+.console-output::-webkit-scrollbar-thumb {
+    background: #707070;
+    border-radius: 7px;
+}
