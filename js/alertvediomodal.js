@@ -159,7 +159,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     });
     document.addEventListener("touchmove", function (e) {
         if (isDragging) {
-            e.preventDefault();
+            //e.preventDefault();
             handleMove(e.touches[0].clientX);
         }
     });
