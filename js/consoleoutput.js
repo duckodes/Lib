@@ -1,6 +1,6 @@
 function consoleswitch() {
     console_SwB(a = true, bW = "100%", cW = "10px", bH = "5px", cH = "10px",
-        bC = "rgb(200, 150, 100, 0.5)", bCOn = "rgb(100, 150, 100, 0.2)", cC = "#222222", cCOn = "#222222", bR = "0px", cR = "5px", ls = document.body);
+        bC = "rgb(250, 100, 100, 0.5)", bCOn = "rgb(100, 150, 100, 0)", cC = "#222222", cCOn = "#222222", bR = "0px", cR = "5px", ls = document.body);
 }
 function consoleoutput(state) {
     var consoleOutput = document.createElement("div");
@@ -40,7 +40,7 @@ function consoleoutput(state) {
     removebutton.className = "console-output-rb";
     removebutton.innerText = "clear";
     removebutton.style.position = "fixed";
-    removebutton.style.bottom = "0";
+    removebutton.style.bottom = "5px";
     removebutton.style.width = "45px";
     removebutton.style.textAlign = "right";
     removebutton.style.right = "10px";
@@ -66,17 +66,16 @@ function console_SwB(a = true, bW = "40px", cW = "20px", bH = "20px", cH = "20px
     bC = "#ccc", bCOn = "#ccc", cC = "#aaa", cCOn = "#aaa", bR = "15px", cR = "15px", ls = document.body) {
     var b = console_SD(bW, bH, bCOn, bR, ls);
     var bRect = b.getBoundingClientRect();
-    b.style.cursor = "pointer";
     b.style.transition = "all 3s ease-out";
     b.style.position = "fixed";
-    b.style.bottom = "99.2%";
+    b.style.bottom = "0";
     b.style.right = "-2px";
     b.style.zIndex = "9999";
     var c = console_SD(cW, cH, cCOn, cR, b);
     c.style.position = "relative";
     c.style.bottom = "3px";
     c.style.left = b.offsetWidth + 'px';
-    c.style.transition = "all 2s ease-out";
+    c.style.transition = "all 5s ease-out";
 
     var active = a;
     if (!active) {
