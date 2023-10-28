@@ -82,7 +82,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
         e.preventDefault();
     });
     modalVideo.onclick = function () {
-        if(!modalVideo.webkitDisplayingFullscreen){
+        if (!modalVideo.webkitDisplayingFullscreen) {
             if (modalVideo.paused) {
                 modalVideo.play();
             }
@@ -94,10 +94,10 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalVideo.addEventListener("ended", function () {
         modalVideoPlay.textContent = "▲";
     });
-    modalVideo.addEventListener("play", ()=> {
+    modalVideo.addEventListener("play", () => {
         modalVideoPlay.textContent = "⚌";
     });
-    modalVideo.addEventListener("pause", ()=> {
+    modalVideo.addEventListener("pause", () => {
         modalVideoPlay.textContent = "▲";
     });
 
@@ -123,6 +123,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     var isDragging = false;
     var isPlayWhenDrag = false;
     var animationFrameId = null;
+    var touchStartPositionX = 0;
     modalVideoSliderControl.style.position = "relative";
     modalVideoSliderControl.style.marginLeft = "20%";
     modalVideoSliderControl.style.width = "60%";
@@ -144,16 +145,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
 
     });
     modalVideoSliderControl.addEventListener("touchstart", function (e) {
-        if (isDragging === false) {
-            isDragging = true;
-            modalVideoSliderHolder.style.display = "block";
-            if (modalVideo.paused === false) {
-                modalVideo.pause();
-                isPlayWhenDrag = true;
-            }
-    
-            updateProgress(e.touches[0]);
-        }
+        handleStart(e.touches[0].clientX);
     });
     document.addEventListener("mousemove", function (e) {
         if (isDragging && animationFrameId === null) {
@@ -166,16 +158,23 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
         }
     });
     document.addEventListener("touchmove", function (e) {
-        if (isDragging && animationFrameId === null) {
+        if (isDragging) {
             //e.preventDefault();
-            animationFrameId = requestAnimationFrame(function () {
-                updateProgress(e.touches[0]);
-                animationFrameId = null;
-            });
+            handleMove(e.touches[0].clientX);
         }
     });
     document.addEventListener("mouseup", function () {
         isDragging = false;
+        modal.style.cursor = "default";
+        modalVideoSliderHolder.style.display = "none";
+        if (isPlayWhenDrag) {
+            modalVideo.play();
+            isPlayWhenDrag = false;
+        }
+    });
+    document.addEventListener("touchend", function (e) {
+        isDragging = false;
+        handleEnd();
         modal.style.cursor = "default";
         modalVideoSliderHolder.style.display = "none";
         if (isPlayWhenDrag) {
@@ -198,6 +197,46 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
         var percent = (offsetX / rect.width) * 100;
         var newTime = (percent / 100) * modalVideo.duration;
         modalVideo.currentTime = newTime;
+    }
+
+    function handleStart(clientX) {
+        if (isDragging === false) {
+            isDragging = true;
+            modal.style.cursor = "pointer";
+            modalVideoSliderHolder.style.display = "block";
+            if (modalVideo.paused === false) {
+                modalVideo.pause();
+                isPlayWhenDrag = true;
+            }
+            touchStartPositionX = clientX;
+        }
+    }
+
+    function handleMove(clientX) {
+        if (isDragging && animationFrameId === null) {
+            requestAnimationFrame(function () {
+                animationFrameId = requestAnimationFrame(function () {
+                    var currentX = clientX;
+                    var deltaX = currentX - touchStartPositionX;
+                    var rect = modalVideoSliderControl.getBoundingClientRect();
+                    var percentChange = (deltaX / rect.width) * 100;
+                    var newTime = modalVideo.currentTime + (percentChange / 100) * modalVideo.duration;
+                    modalVideo.currentTime = Math.max(0, Math.min(newTime, modalVideo.duration));
+                    touchStartPositionX = currentX; // 更新开始位置以处理下一步移动
+                    animationFrameId = null;
+                });
+            });
+        }
+    }
+
+    function handleEnd() {
+        isDragging = false;
+        modal.style.cursor = "default";
+        modalVideoSliderHolder.style.display = "none";
+        if (isPlayWhenDrag) {
+            modalVideo.play();
+            isPlayWhenDrag = false;
+        }
     }
     // Create video slider control holder
     modalVideoSliderHolder.style.display = "none";
@@ -248,13 +287,13 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalVideoFullScreen.onclick = function () {
         if (modalVideo.requestFullscreen) {
             modalVideo.requestFullscreen();
-          } else if (modalVideo.mozRequestFullScreen) { // Firefox
+        } else if (modalVideo.mozRequestFullScreen) { // Firefox
             modalVideo.mozRequestFullScreen();
-          } else if (modalVideo.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        } else if (modalVideo.webkitRequestFullscreen) { // Chrome, Safari and Opera
             modalVideo.webkitRequestFullscreen();
-          } else if (modalVideo.msRequestFullscreen) { // Internet Explorer
+        } else if (modalVideo.msRequestFullscreen) { // Internet Explorer
             modalVideo.msRequestFullscreen();
-          }
+        }
     };
 
     // Append elements to modal content
