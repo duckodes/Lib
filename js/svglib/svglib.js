@@ -66,3 +66,44 @@ function createSVGCopy(strokeColor, width) {
 
     return svg;
 }
+
+function createSVGEye(strokeColor, width) {
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("stroke", strokeColor);
+    svg.setAttribute("fill", "none");
+    svg.setAttribute("stroke-width", "2");
+    svg.setAttribute("viewBox", "0 0 100 100");
+    svg.setAttribute("stroke-linecap", "round");
+    svg.setAttribute("stroke-linejoin", "round");
+    svg.setAttribute("class", "icon-sm");
+    svg.setAttribute("height", width);
+    svg.setAttribute("width", width);
+
+    // Top
+    var topPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    topPath.setAttribute("d", "M40 55 C 50 45, 60 45, 80 55");
+    topPath.setAttribute("fill", "none");
+    topPath.setAttribute("stroke", "white");
+    topPath.setAttribute("stroke-width", "3");
+    svg.appendChild(topPath);
+
+    // Circle
+    var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    circle.setAttribute("cx", "57");
+    circle.setAttribute("cy", "55");
+    circle.setAttribute("r", "7");
+    circle.setAttribute("fill", "none");
+    circle.setAttribute("stroke", "white");
+    circle.setAttribute("stroke-width", "3");
+    svg.appendChild(circle);
+
+    // Bottom
+    var bottomPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    bottomPath.setAttribute("d", "M40 55 C 50 65, 60 65, 80 55");
+    bottomPath.setAttribute("fill", "none");
+    bottomPath.setAttribute("stroke", "white");
+    bottomPath.setAttribute("stroke-width", "3");
+    svg.appendChild(bottomPath);
+
+    return svg;
+}

@@ -3,19 +3,26 @@ function consoleswitch() {
         bC = "rgb(250, 100, 100, 0.5)", bCOn = "rgb(100, 150, 100, 0)", cC = "#222222", cCOn = "#222222", bR = "0px", cR = "5px", ls = document.body);
 }
 function consoleoutput(state) {
-    var consoleOutput = document.createElement("div");
+    var consoleOutput = document.createElement("code");
     consoleOutput.className = "console-output";
+    consoleOutput.id = "resizableY"
     consoleOutput.style.position = "fixed";
-    consoleOutput.style.bottom = "10px";
-    consoleOutput.style.left = "10%";
-    consoleOutput.style.width = "80%";
-    consoleOutput.style.height = "80%"
-    consoleOutput.style.userSelect = "none";
+    consoleOutput.style.bottom = "0";
+    consoleOutput.style.right = "0%";
+    consoleOutput.style.width = "100%";
+    consoleOutput.style.height = "80%";
     consoleOutput.style.zIndex = "-999";
     consoleOutput.style.backgroundColor = "#111";
     consoleOutput.style.overflow = "auto";
+    consoleOutput.style.userSelect = "none";
     consoleOutput.style.borderRadius = "10px";
+    consoleOutput.style.opacity = "0.3";
+    consoleOutput.style.resize = "both";
     document.body.appendChild(consoleOutput);
+    resizeY("resizableY");
+    scrollMDY("resizableY");
+
+    var xhrFullRes = false;
 
     console.log = function (message) {
         consoleOutput.innerHTML += "<span style='color: white;'>" + message + "</span><br>";
@@ -38,12 +45,59 @@ function consoleoutput(state) {
         console.error('列號：' + colno);
         console.error('錯誤對象：' + error);
         console.log('');
+        if (xhrFullRes) {
+            // 使用 AJAX 请求获取错误来源文件的内容
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", source, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var sourceCode = xhr.responseText;
+                    var sourceLines = sourceCode.split('\n');
+
+                    console.log('錯誤來源內容：');
+                    for (var i = 0; i < sourceLines.length; i++) {
+                        if (i === lineno - 1) {
+                            var errorLine = sourceLines[i];
+                            var errorColumn = colno - 1; // 列号从0开始
+
+                            console.log('');
+                            console.warn('行 [' + lineno + '] ' + errorLine);
+                            console.log(' '.repeat(errorColumn) + '^'); // 在错误位置添加 ^ 符号
+                        } else {
+                            console.log('行 [' + (i + 1) + '] ' + sourceLines[i]);
+                        }
+                    }
+                }
+            };
+            xhr.send();
+        }
+        else {
+            // 使用 AJAX 请求获取错误来源文件的内容
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", source, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var sourceLines = xhr.responseText.split('\n'); // 按行拆分源代码
+
+                    if (sourceLines[lineno - 1]) {
+                        var errorLine = sourceLines[lineno - 1];
+                        var errorColumn = colno - 1; // 列号从0开始
+
+                        console.log('錯誤來源內容：');
+                        console.log('行 ' + lineno + ': ' + errorLine);
+                        console.log(' '.repeat(errorColumn) + '^'); // 在错误位置添加 ^ 符号
+                    }
+                }
+            };
+            xhr.send();
+        }
+        console.log('');
         window.scrollTo({
             top: window.document.body.scrollHeight,
             behavior: 'smooth'
         });
         consoleOutput.scrollTo({
-            top: window.document.body.scrollHeight,
+            top: consoleOutput.scrollHeight,
             behavior: 'smooth'
         });
     };
@@ -75,9 +129,29 @@ function consoleoutput(state) {
     checkIndex.addEventListener("change", () => {
         if (checkIndex.checked) {
             consoleOutput.style.zIndex = "9999";
+            consoleOutput.style.opacity = "1";
         }
         else {
             consoleOutput.style.zIndex = "-999";
+            consoleOutput.style.opacity = "0.3";
+        }
+    });
+    var checkfullxhr = document.createElement("input");
+    checkfullxhr.className = "console-output-ci";
+    checkfullxhr.type = "checkbox";
+    checkfullxhr.style.position = "fixed";
+    checkfullxhr.style.bottom = "10px";
+    checkfullxhr.style.width = "45px";
+    checkfullxhr.style.textAlign = "right";
+    checkfullxhr.style.right = "75px";
+    checkfullxhr.style.zIndex = "99999";
+    document.body.appendChild(checkfullxhr);
+    checkfullxhr.addEventListener("change", () => {
+        if (checkfullxhr.checked) {
+            xhrFullRes = true;
+        }
+        else {
+            xhrFullRes = false;
         }
     });
 
@@ -105,7 +179,7 @@ function console_SwB(a = true, bW = "40px", cW = "20px", bH = "20px", cH = "20px
     b.style.position = "fixed";
     b.style.bottom = "0";
     b.style.right = "-2px";
-    b.style.zIndex = "9999";
+    b.style.zIndex = "99999";
     var c = console_SD(cW, cH, cCOn, cR, b);
     c.style.position = "relative";
     c.style.bottom = "3px";
@@ -155,4 +229,110 @@ function console_SD(w, h, b, r, p) {
     p.appendChild(d);
 
     return d;
+}
+function resizeY(id) {
+    const resizableDiv = document.getElementById(id);
+    let isResizing = false;
+    let initialHeight;
+
+    resizableDiv.addEventListener('mousedown', (e) => {
+        const topEdge = resizableDiv.getBoundingClientRect().top;
+        const mouseY = e.clientY;
+
+        if (mouseY <= topEdge + 20) { // Adjust the threshold as needed
+            isResizing = true;
+            initialHeight = resizableDiv.clientHeight;
+            const startY = e.clientY;
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isResizing) return;
+                const newHeight = initialHeight - (e.clientY - startY);
+                resizableDiv.style.height = newHeight + 'px';
+                resizableDiv.style.minHeight = "5%";
+                resizableDiv.style.maxHeight = "90%"
+            });
+
+            document.addEventListener('mouseup', () => {
+                isResizing = false;
+            });
+        }
+    });
+    resizableDiv.addEventListener('mousemove', (e) => {
+        const topEdge = resizableDiv.getBoundingClientRect().top;
+        const mouseY = e.clientY;
+
+        if (mouseY <= topEdge + 20) { // Adjust the threshold as needed
+            resizableDiv.style.cursor = "ns-resize";
+        }
+        else {
+            resizableDiv.style.cursor = "";
+        }
+    });
+}
+function scrollMDY(id) {
+    const scrollContainer = document.getElementById(id);
+
+    let isScrolling = false;
+    let startY = 0;
+    let startScrollTop = 0;
+
+    scrollContainer.addEventListener("mousedown", (e) => {
+        if (e.button === 0) {
+            isScrolling = true;
+            startY = e.clientY;
+            startScrollTop = scrollContainer.scrollTop;
+        }
+    });
+
+    document.addEventListener("mouseup", () => {
+        isScrolling = false;
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (isScrolling) {
+            const deltaY = e.clientY - startY;
+            scrollContainer.scrollTop = startScrollTop - deltaY;
+        }
+    });
+}
+function scrollMDYlerp(id) {
+    const scrollContainer = document.getElementById(id);
+
+    let isScrolling = false;
+    let startY = 0;
+    let startScrollTop = 0;
+    let deltaY = 0;
+    let inertiaInterval;
+
+    scrollContainer.addEventListener("mousedown", (e) => {
+        if (e.button === 0) {
+            isScrolling = true;
+            startY = e.clientY;
+            startScrollTop = scrollContainer.scrollTop;
+
+            clearInterval(inertiaInterval);
+        }
+    });
+
+    document.addEventListener("mouseup", () => {
+        if (isScrolling) {
+            isScrolling = false;
+
+            inertiaInterval = setInterval(() => {
+                if (deltaY === 0) {
+                    clearInterval(inertiaInterval);
+                } else {
+                    scrollContainer.scrollTop -= deltaY; // Invert the direction here
+                    deltaY *= 0.9; // Adjust this factor for desired inertia effect
+                }
+            }, 10);
+        }
+    });
+
+    document.addEventListener("mousemove", (e) => {
+        if (isScrolling) {
+            deltaY = e.clientY - startY;
+            scrollContainer.scrollTop = startScrollTop - deltaY;
+        }
+    });
 }

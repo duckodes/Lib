@@ -78,7 +78,6 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalVideo.style.borderRadius = "10px";
     modalVideo.controls = false;
     modalVideo.controlsList = "nodownload nofullscreen";
-    modalVideo.controlsList.add("timeline");
     modalVideo.addEventListener("contextmenu", function (e) {
         e.preventDefault();
     });
