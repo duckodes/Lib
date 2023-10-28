@@ -143,6 +143,18 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
         }
 
     });
+    modalVideoSliderControl.addEventListener("touchstart", function (e) {
+        if (isDragging === false) {
+            isDragging = true;
+            modalVideoSliderHolder.style.display = "block";
+            if (modalVideo.paused === false) {
+                modalVideo.pause();
+                isPlayWhenDrag = true;
+            }
+    
+            updateProgress(e.touches[0]);
+        }
+    });
     document.addEventListener("mousemove", function (e) {
         if (isDragging && animationFrameId === null) {
             requestAnimationFrame(function () {
@@ -150,6 +162,15 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
                     updateProgress(e);
                     animationFrameId = null;
                 });
+            });
+        }
+    });
+    document.addEventListener("touchmove", function (e) {
+        if (isDragging && animationFrameId === null) {
+            //e.preventDefault();
+            animationFrameId = requestAnimationFrame(function () {
+                updateProgress(e.touches[0]);
+                animationFrameId = null;
             });
         }
     });
