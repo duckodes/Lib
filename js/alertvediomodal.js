@@ -3,7 +3,7 @@
 // Copy Default: showAlert("Video.mp4", "title", "This is content.", true, "&times;", "#f4f4f4", "10px", null, null, "10px", false);
 function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, wantCloseBtnBorder) {
     // Create the modal container
-    var modal = document.createElement("div");
+    var modal = document.createElement("div");off();
     modal.style.display = "none";
     modal.style.position = "fixed";
     modal.style.top = "0";
@@ -78,7 +78,6 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalVideo.style.borderRadius = "10px";
     modalVideo.controls = false;
     modalVideo.controlsList = "nodownload nofullscreen";
-    modalVideo.controlsList.add("timeline");
     modalVideo.addEventListener("contextmenu", function (e) {
         e.preventDefault();
     });

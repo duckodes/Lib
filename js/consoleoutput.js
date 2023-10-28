@@ -15,4 +15,13 @@ function consoleoutput() {
     console.info = function (message) {
         consoleOutput.innerHTML += "<span style='color: blue;'>[Info] " + message + "</span><br>";
     };
+    window.onerror = function (message, source, lineno, colno, error) {
+        console.error('錯誤訊息：'+ message);
+        console.error('來源：' + source);
+        console.error('行號：' + lineno);
+        console.error('列號：' + colno);
+        console.error('錯誤對象：' + error);
+        return true;
+    };
+    
 }
