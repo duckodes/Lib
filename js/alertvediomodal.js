@@ -225,9 +225,15 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     //modalVideoPlay.style.color = 'white';
     modalVideoFullScreen.style.cursor = "pointer";
     modalVideoFullScreen.onclick = function () {
-        if(typeof modalVideo.requestFullscreen === 'function'){
+        if (modalVideo.requestFullscreen) {
             modalVideo.requestFullscreen();
-        }
+          } else if (modalVideo.mozRequestFullScreen) { // Firefox
+            modalVideo.mozRequestFullScreen();
+          } else if (modalVideo.webkitRequestFullscreen) { // Chrome, Safari and Opera
+            modalVideo.webkitRequestFullscreen();
+          } else if (modalVideo.msRequestFullscreen) { // Internet Explorer
+            modalVideo.msRequestFullscreen();
+          }
     };
 
     // Append elements to modal content
