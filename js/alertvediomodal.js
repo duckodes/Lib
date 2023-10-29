@@ -264,6 +264,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalVideoPlay.style.fontSize = "20px";
     //modalVideoPlay.style.color = 'white';
     modalVideoPlay.style.cursor = "pointer";
+    modalVideoPlay.style.transition = "all 0.2s ease-in-out"
     modalVideoPlay.onclick = function () {
         if (modalVideo.paused) {
             modalVideo.play();
@@ -272,6 +273,12 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
             modalVideo.pause();
         }
     };
+    modalVideoPlay.addEventListener("mouseenter", () => {
+        modalVideoPlay.style.fontSize = "25px";
+    });
+    modalVideoPlay.addEventListener("mouseleave", () => {
+        modalVideoPlay.style.fontSize = "20px";
+    });
     // Create video fullScreen button
     modalVideoFullScreen.textContent = "╬";
     modalVideoFullScreen.style.position = "relative";
@@ -282,6 +289,7 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
     modalVideoFullScreen.style.width = "30px";
     modalVideoFullScreen.style.height = "30px";
     modalVideoFullScreen.style.fontSize = "30px";
+    modalVideoFullScreen.style.transition = "all 0.2s ease-in-out";
     //modalVideoPlay.style.color = 'white';
     modalVideoFullScreen.style.cursor = "pointer";
     modalVideoFullScreen.onclick = function () {
@@ -295,6 +303,12 @@ function createAlertVideoModalv2(source, title, content, closeBtn, closeInner, w
             modalVideo.msRequestFullscreen();
         }
     };
+    modalVideoFullScreen.addEventListener("mouseenter", () => {
+        modalVideoFullScreen.style.rotate = "45deg";
+    });
+    modalVideoFullScreen.addEventListener("mouseleave", () => {
+        modalVideoFullScreen.style.rotate = "0deg";
+    });
 
     // Append elements to modal content
     modalContent.appendChild(closeModalBtn);

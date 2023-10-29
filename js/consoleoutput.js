@@ -107,8 +107,8 @@ function consoleoutput(state) {
     removebutton.style.position = "fixed";
     removebutton.style.bottom = "5px";
     removebutton.style.width = "45px";
-    removebutton.style.textAlign = "right";
-    removebutton.style.right = "10px";
+    removebutton.style.textAlign = "center";
+    removebutton.style.right = "5px";
     removebutton.style.color = "white";
     removebutton.style.cursor = "pointer";
     removebutton.style.zIndex = "99999";
@@ -120,10 +120,9 @@ function consoleoutput(state) {
     checkIndex.className = "console-output-ci";
     checkIndex.type = "checkbox";
     checkIndex.style.position = "fixed";
-    checkIndex.style.bottom = "10px";
-    checkIndex.style.width = "45px";
+    checkIndex.style.bottom = "30px";
     checkIndex.style.textAlign = "right";
-    checkIndex.style.right = "50px";
+    checkIndex.style.right = "5px";
     checkIndex.style.zIndex = "99999";
     document.body.appendChild(checkIndex);
     checkIndex.addEventListener("change", () => {
@@ -140,10 +139,9 @@ function consoleoutput(state) {
     checkfullxhr.className = "console-output-ci";
     checkfullxhr.type = "checkbox";
     checkfullxhr.style.position = "fixed";
-    checkfullxhr.style.bottom = "10px";
-    checkfullxhr.style.width = "45px";
+    checkfullxhr.style.bottom = "50px";
     checkfullxhr.style.textAlign = "right";
-    checkfullxhr.style.right = "75px";
+    checkfullxhr.style.right = "5px";
     checkfullxhr.style.zIndex = "99999";
     document.body.appendChild(checkfullxhr);
     checkfullxhr.addEventListener("change", () => {
