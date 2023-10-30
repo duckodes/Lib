@@ -124,7 +124,7 @@
             </div>
         </nav>
 
-        <h1 style="text-align: center; color: white;">踩地雷遊戲</h1>
+        <h6 style="text-align: center; color: white;">BOMB</h6>
         <div class="restart">
             <button onclick="restartOption()" class="restartbutton">😶</button>
         </div>
@@ -135,8 +135,8 @@
     </div>
 
     <script>
-        const numRows = 8;
-        const numCols = 8;
+        let numRows = 8;
+        let numCols = 8;
         let numMines = 10;
         let minefield = [];
         let revealedCount = 0;
@@ -353,7 +353,7 @@
         }
         function restartOption() {
             var modal = document.createElement("div");
-            modal.style.display = "block";
+            modal.style.display = "flex";
             modal.style.position = "fixed";
             modal.style.top = "0";
             modal.style.left = "0";
@@ -361,6 +361,8 @@
             modal.style.height = "100%";
             modal.style.backgroundColor = "rgba(0,0,0,0.7)";
             modal.style.userSelect = "none";
+            modal.style.justifyContent = "center";
+            modal.style.alignItems = "center";
 
             // Create the modal content
             var modalContent = document.createElement("div");
@@ -369,16 +371,11 @@
             // old position
             //modalContent.style.margin = "15% auto";
             // new position center
-            modalContent.style.position = "fixed";
-            modalContent.style.top = "50%";
-            modalContent.style.left = "50%";
-            modalContent.style.transform = "translate(-50%, -50%)";
 
             modalContent.style.padding = "20px";
             modalContent.style.border = "1px solid #888";
-            modalContent.style.width = "25%";
+            modalContent.style.width = "50%";
             modalContent.style.textAlign = "center";
-            modalContent.style.position = "relative";
             modalContent.style.borderRadius = "10px";
 
             // Create the close button
@@ -397,26 +394,56 @@
             modalTitle.textContent = "新遊戲";
 
             var modalOption = document.createElement("div");
-            modalOption.style.height = "100px";
+            modalOption.style.height = "80%";
 
-            var modalbr = document.createElement("br");
-            
-            var r = s_sm(10, 30);
+            var sbombnum = showslider("10", "0", "30");
+            var bombnumtext = document.createElement("label");
+            bombnumtext.innerText = "炸彈" + sbombnum.value.toString();
+            sbombnum.addEventListener("input", () => {
+                bombnumtext.innerText = "炸彈" + sbombnum.value.toString();
+            });
+            var snumrow = showslider("8", "0", "30");
+            var numrowtext = document.createElement("label");
+            numrowtext.innerText = "列" + snumrow.value.toString();
+            snumrow.addEventListener("input", () => {
+                numrowtext.innerText = "列" + snumrow.value.toString();
+            });
+            var snumcol = showslider("8", "0", "30");
+            var numcoltext = document.createElement("label");
+            numcoltext.innerText = "行" + snumcol.value.toString();
+            snumcol.addEventListener("input", () => {
+                numcoltext.innerText = "行" + snumcol.value.toString();
+            });
 
             var modalRestart = document.createElement("button");
             modalRestart.innerText = "Start";
             modalRestart.onclick = function () {
-                numMines = gvs_0();
+                numMines = sbombnum.value;
+                numRows = Number(snumrow.value);
+                numCols = Number(snumcol.value);
                 restartGame();
                 modal.remove();
-                r.remove();
+                sbombnum.remove();
+            }
+            var modalCancel = document.createElement("button");
+            modalCancel.innerText = "Cancel";
+            modalCancel.onclick = function () {
+                modal.remove();
             }
 
             modalContent.appendChild(closeModalBtn);
             modalContent.appendChild(modalTitle);
             modalContent.appendChild(modalOption);
-            modalOption.appendChild(modalbr);
+
+            modalOption.appendChild(sbombnum);
+            modalOption.appendChild(bombnumtext);
+
+            modalOption.appendChild(snumrow);
+            modalOption.appendChild(numrowtext);
+            modalOption.appendChild(snumcol);
+            modalOption.appendChild(numcoltext);
             modalContent.appendChild(modalRestart);
+            modalContent.appendChild(modalCancel);
 
             modal.appendChild(modalContent);
 
@@ -424,7 +451,7 @@
             t.appendChild(modal);
             modal.querySelector(".close").onclick = function () {
                 modal.remove();
-                r.remove();
+                sbombnum.remove();
             }
         }
         function restartGame() {
@@ -447,6 +474,6 @@
 </body>
 <script src="js/alertmodal.js"></script>
 <script src="js/timeprocess.js"></script>
-<script src="js/SliderModal.js"></script>
+<script src="js/sliderinput.js"></script>
 
 </html>
