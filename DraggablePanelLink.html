@@ -37,11 +37,12 @@
     <title>DraggablePanel 浮動窗口</title>
     <link rel="stylesheet" href="css/private-library.css">
     <style>
-        #lib-draggablepanel{
+        #lib-draggablepanel {
             width: 30%;
             cursor: pointer;
             transition: all 0.3s ease-in-out;
         }
+
         #lib-draggablepanel:hover {
             opacity: 0.5;
             width: 25%;
@@ -82,7 +83,8 @@
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
             C
         </div>
-        <div class="white-lib-sources" style="background-color: rgb(255, 187, 0);width: 3%;height: 100px;display: flex;align-items: center;justify-content: center;">
+        <div class="white-lib-sources"
+            style="background-color: rgb(255, 187, 0);width: 3%;height: 100px;display: flex;align-items: center;justify-content: center;">
             D
         </div>
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
@@ -419,30 +421,19 @@ public class DraggablePanel : MonoBehaviour
         <div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: -42px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">DraggablePanel.cs  </div>
     </pre>
 
-    <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
-    <script src="js/highlight.min.js"></script>
-    <script>
-        hljs.highlightAll();
-    </script>
-
 </body>
-<!-- Script -->
-<script src="js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener("contextmenu", function (e) {
-        e.preventDefault();
-    });
 
-    document.addEventListener("keydown", function (e) {
-        if (e.ctrlKey && e.key === "s" || e.key === "F12" || e.key === "F11" || e.ctrlKey && e.shiftKey && e.key === "I") {
-            e.preventDefault();
-        }
-    });
+<!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
+<script src="js/highlight.min.js"></script>
+<script>
+    hljs.highlightAll();
 </script>
+<script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/consoleoutput.js"></script>
 <script>
     consoleswitch();
 </script>
+<script src="js/userprevent.js"></script>
 <script src="js/svglib/svglib.js"></script>
 <script src="js/copycode.js"></script>
 <script>

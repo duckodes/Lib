@@ -127,69 +127,11 @@
     </div>
   </div>
 
-  <!-- Script -->
-  <script src="js/bootstrap.bundle.min.js"></script>
-  <script>
-    // JavaScript
-    var symbols = ["❆", "❅", "❀"]; // 符號陣列，可以自行擴充
-
-    function createSnowflake() {
-      var snowflake = document.createElement("span");
-      var randomIndex = Math.floor(Math.random() * symbols.length); // 隨機選取符號索引
-      var selectedSymbol = symbols[randomIndex]; // 從符號陣列中取得隨機符號
-
-      snowflake.innerHTML = selectedSymbol;
-      snowflake.className = "snowflake";
-      snowflake.style.left = Math.random() * (window.innerWidth - 75) + "px";
-      snowflake.style.animationDuration = Math.random() * 3 + 10 + "s";
-      snowflake.style.fontSize = Math.random() * 20 + 20 + "px";
-      snowflake.style.transform = "rotate(" + Math.random() * 360 + "deg)";
-
-      document.body.appendChild(snowflake);
-
-      setTimeout(function () {
-        snowflake.style.opacity = "0";
-        setTimeout(function () {
-          snowflake.remove();
-        }, 1000);
-      }, 10000);
-    }
-
-    setInterval(function () {
-      createSnowflake();
-    }, 1500);
-
-    // Hover ID Change ID opacity
-    function setupOpacityControl(targetId, hoverId) {
-      const targetElement = document.getElementById(targetId);
-      const hoverElement = document.getElementById(hoverId);
-
-      hoverElement.addEventListener('mouseover', () => {
-        targetElement.style.opacity = '1';
-      });
-
-      hoverElement.addEventListener('mouseout', () => {
-        targetElement.style.opacity = '0.25';
-      });
-    }
-    setupOpacityControl('changeOpacity1', 'hoverTarget1');
-    setupOpacityControl('changeOpacity2', 'hoverTarget2');
-    setupOpacityControl('changeOpacity3', 'hoverTarget3');
-    setupOpacityControl('changeOpacity4', 'hoverTarget4');
-
-    // Limit
-    document.addEventListener("contextmenu", function (e) {
-      e.preventDefault();
-    });
-
-    document.addEventListener("keydown", function (e) {
-      if (e.ctrlKey && e.key === "s" || e.key === "F12" || e.key === "F11" || e.ctrlKey && e.shiftKey && e.key === "I") {
-        e.preventDefault();
-      }
-    });
-
-  </script>
 </body>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/snowflakemotion.js"></script>
+<script src="js/userprevent.js"></script>
 <script src="js/auxmodal.js"></script>
 <script>
   clickShowAux("hoverTarget1", "File Catagorize", "Windows上整理大量資料時，以條列式命名方式進行分類操作", true, "&times;", "#f4f4f4", "10px", null, null, "10px", false);
@@ -201,4 +143,26 @@
 <script>
   isetlink("hoverTarget4", "Bomb.html");
 </script>
+
+<!--OWN-->
+<script>
+  // Hover ID Change ID opacity
+  function setupOpacityControl(targetId, hoverId) {
+    const targetElement = document.getElementById(targetId);
+    const hoverElement = document.getElementById(hoverId);
+
+    hoverElement.addEventListener('mouseover', () => {
+      targetElement.style.opacity = '1';
+    });
+
+    hoverElement.addEventListener('mouseout', () => {
+      targetElement.style.opacity = '0.25';
+    });
+  }
+  setupOpacityControl('changeOpacity1', 'hoverTarget1');
+  setupOpacityControl('changeOpacity2', 'hoverTarget2');
+  setupOpacityControl('changeOpacity3', 'hoverTarget3');
+  setupOpacityControl('changeOpacity4', 'hoverTarget4');
+</script>
+
 </html>

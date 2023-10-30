@@ -134,346 +134,350 @@
 
     </div>
 
-    <script>
-        let numRows = 8;
-        let numCols = 8;
-        let numMines = 10;
-        let minefield = [];
-        let revealedCount = 0;
-        let isGameOver = false;
-
-        function createMinefield() {
-            minefield = new Array(numRows).fill(null).map(() => new Array(numCols).fill(0));
-            let minesPlaced = 0;
-
-            while (minesPlaced < numMines) {
-                const row = Math.floor(Math.random() * numRows);
-                const col = Math.floor(Math.random() * numCols);
-
-                if (minefield[row][col] === 0) {
-                    minefield[row][col] = -1;
-                    minesPlaced++;
-                }
-            }
-
-            for (let row = 0; row < numRows; row++) {
-                for (let col = 0; col < numCols; col++) {
-                    if (minefield[row][col] !== -1) {
-                        minefield[row][col] = countAdjacentMines(row, col);
-                    }
-                }
-            }
-        }
-
-        function countAdjacentMines(row, col) {
-            let count = 0;
-
-            for (let i = -1; i <= 1; i++) {
-                for (let j = -1; j <= 1; j++) {
-                    const newRow = row + i;
-                    const newCol = col + j;
-
-                    if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
-                        if (minefield[newRow][newCol] === -1) {
-                            count++;
-                        }
-                    }
-                }
-            }
-
-            return count;
-        }
-
-        function revealCell(row, col) {
-            if (isGameOver) {
-                return;
-            }
-
-            const cell = document.getElementById(`cell-${row}-${col}`);
-            if (cell.classList.contains('revealed') ||
-                cell.classList.contains('marked')) {
-                return;
-            }
-
-            cell.classList.remove('unrevealed');
-            cell.classList.add('revealed');
-            revealedCount++;
-
-            if (minefield[row][col] === -1) {
-                cell.style.backgroundColor = 'red';
-                cell.textContent = '💣';
-                //alert('你踩到地雷了！遊戲結束。');
-                showAlert("⚠️", "你踩到地雷了！遊戲結束。", true, "返回", "#f4f4f4", null, "10px", null, "10px", true);
-                showAllMines();
-                showAllNumbers();
-                isGameOver = true;
-                const restartSymbol = ['😒', '😏', '😰', '😨', '😵', '😣'];
-                changeTextByClassName("restartbutton", getRandomElementFromArray(restartSymbol));
-            } else {
-                cell.textContent = minefield[row][col] === 0 ? '' : minefield[row][col];
-
-                if (revealedCount === numRows * numCols - numMines) {
-                    //alert('你贏了！');
-                    showAlert("👑", "你贏了！", true, "確認", "#f4f4f4", null, "10px", null, "10px", true);
-                    isGameOver = true;
-                    const restartSymbol = ['😊', '😳', '😆', '😸', '😁', '😋', '😜'];
-                    changeTextByClassName("restartbutton", getRandomElementFromArray(restartSymbol));
-                } else if (minefield[row][col] === 0) {
-                    for (let i = -1; i <= 1; i++) {
-                        for (let j = -1; j <= 1; j++) {
-                            const newRow = row + i;
-                            const newCol = col + j;
-
-                            if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
-                                revealCell(newRow, newCol);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        function markCell(row, col) {
-            if (isGameOver) {
-                return;
-            }
-
-            const cell = document.getElementById(`cell-${row}-${col}`);
-            if (cell.classList.contains('revealed')) {
-                return;
-            }
-
-            if (cell.classList.contains('marked')) {
-                cell.classList.remove('marked');
-                cell.textContent = '';
-                cell.classList.add('unrevealed');
-            } else {
-                cell.classList.remove('unrevealed');
-                cell.classList.add('marked');
-                cell.textContent = '🚩';
-            }
-        }
-        function showAllNumbers() {
-            if (isGameOver) {
-                return;
-            }
-
-            for (let row = 0; row < numRows; row++) {
-                for (let col = 0; col < numCols; col++) {
-                    const cell = document.getElementById(`cell-${row}-${col}`);
-                    if (!cell.classList.contains('revealed')) {
-                        if (minefield[row][col] != -1) {
-                            cell.textContent = minefield[row][col] === 0 ? '' : minefield[row][col];
-                        }
-                    }
-                }
-            }
-        }
-
-        function showAllMines() {
-            if (isGameOver) {
-                return;
-            }
-
-            for (let row = 0; row < numRows; row++) {
-                for (let col = 0; col < numCols; col++) {
-                    const cell = document.getElementById(`cell-${row}-${col}`);
-                    if (!cell.classList.contains('revealed')) {
-                        if (minefield[row][col] === -1) {
-                            cell.classList.add('revealed', 'mine');
-                            cell.textContent = '💣';
-                        }
-                    }
-                }
-            }
-        }
-
-        function changeTextByClassName(className, newText) {
-            var elements = document.getElementsByClassName(className);
-
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].textContent = newText;
-            }
-        }
-
-        function getRandomElementFromArray(arr) {
-            if (arr.length === 0) {
-                return null;
-            }
-
-            const randomIndex = Math.floor(Math.random() * arr.length);
-
-            return arr[randomIndex];
-        }
-
-        function createTable() {
-            const table = document.getElementById('minesweeper');
-
-            for (let row = 0; row < numRows; row++) {
-                const tr = document.createElement('tr');
-
-                for (let col = 0; col < numCols; col++) {
-                    const td = document.createElement('td');
-                    td.id = `cell-${row}-${col}`;
-                    let istouch;
-                    td.classList.add('cell', 'unrevealed');
-                    td.addEventListener('click', () => {
-                        if (!td.classList.contains('marked') && !istouch) {
-                            revealCell(row, col);
-                        }
-                        if ("vibrate" in navigator) {
-                            navigator.vibrate(1000);
-                        }
-                        istouch = false;
-                    });
-                    td.addEventListener('contextmenu', (e) => {
-                        e.preventDefault();
-                        if (!istouch) {
-                            markCell(row, col);
-                        }
-                    });
-                    tr.appendChild(td);
-
-                    let pressTimer;
-                    const longPressDuration = 500;
-                    td.addEventListener('touchstart', (e) => {
-                        pressTimer = setTimeout(longhandle, longPressDuration);
-                    });
-                    td.addEventListener('touchend', (e) => {
-                        clearTimeout(pressTimer);
-                    });
-                    function longhandle() {
-                        markCell(row, col);
-                        istouch = true;
-                    }
-                }
-
-                table.appendChild(tr);
-            }
-        }
-        function restartOption() {
-            var modal = document.createElement("div");
-            modal.style.display = "flex";
-            modal.style.position = "fixed";
-            modal.style.top = "0";
-            modal.style.left = "0";
-            modal.style.width = "100%";
-            modal.style.height = "100%";
-            modal.style.backgroundColor = "rgba(0,0,0,0.7)";
-            modal.style.userSelect = "none";
-            modal.style.justifyContent = "center";
-            modal.style.alignItems = "center";
-
-            // Create the modal content
-            var modalContent = document.createElement("div");
-            modalContent.className = "white-back";
-            modalContent.style.backgroundColor = "#f4f4f4";
-            // old position
-            //modalContent.style.margin = "15% auto";
-            // new position center
-
-            modalContent.style.padding = "20px";
-            modalContent.style.border = "1px solid #888";
-            modalContent.style.width = "50%";
-            modalContent.style.textAlign = "center";
-            modalContent.style.borderRadius = "10px";
-
-            // Create the close button
-            var closeModalBtn = document.createElement("span");
-            closeModalBtn.innerHTML = "&times;";
-            closeModalBtn.className = "close";
-            closeModalBtn.style.position = "absolute";
-            closeModalBtn.style.top = "10px";
-            closeModalBtn.style.right = "10px";
-            closeModalBtn.style.fontSize = "20px";
-            closeModalBtn.style.fontWeight = "bold";
-            closeModalBtn.style.cursor = "pointer";
-
-            // Create modal content text
-            var modalTitle = document.createElement("h2");
-            modalTitle.textContent = "新遊戲";
-
-            var modalOption = document.createElement("div");
-            modalOption.style.height = "80%";
-
-            var sbombnum = showslider("10", "0", "30");
-            var bombnumtext = document.createElement("label");
-            bombnumtext.innerText = "炸彈" + sbombnum.value.toString();
-            sbombnum.addEventListener("input", () => {
-                bombnumtext.innerText = "炸彈" + sbombnum.value.toString();
-            });
-            var snumrow = showslider("8", "0", "30");
-            var numrowtext = document.createElement("label");
-            numrowtext.innerText = "列" + snumrow.value.toString();
-            snumrow.addEventListener("input", () => {
-                numrowtext.innerText = "列" + snumrow.value.toString();
-            });
-            var snumcol = showslider("8", "0", "30");
-            var numcoltext = document.createElement("label");
-            numcoltext.innerText = "行" + snumcol.value.toString();
-            snumcol.addEventListener("input", () => {
-                numcoltext.innerText = "行" + snumcol.value.toString();
-            });
-
-            var modalRestart = document.createElement("button");
-            modalRestart.innerText = "Start";
-            modalRestart.onclick = function () {
-                numMines = sbombnum.value;
-                numRows = Number(snumrow.value);
-                numCols = Number(snumcol.value);
-                restartGame();
-                modal.remove();
-                sbombnum.remove();
-            }
-            var modalCancel = document.createElement("button");
-            modalCancel.innerText = "Cancel";
-            modalCancel.onclick = function () {
-                modal.remove();
-            }
-
-            modalContent.appendChild(closeModalBtn);
-            modalContent.appendChild(modalTitle);
-            modalContent.appendChild(modalOption);
-
-            modalOption.appendChild(sbombnum);
-            modalOption.appendChild(bombnumtext);
-
-            modalOption.appendChild(snumrow);
-            modalOption.appendChild(numrowtext);
-            modalOption.appendChild(snumcol);
-            modalOption.appendChild(numcoltext);
-            modalContent.appendChild(modalRestart);
-            modalContent.appendChild(modalCancel);
-
-            modal.appendChild(modalContent);
-
-            const t = document.querySelector("div");
-            t.appendChild(modal);
-            modal.querySelector(".close").onclick = function () {
-                modal.remove();
-                sbombnum.remove();
-            }
-        }
-        function restartGame() {
-            revealedCount = 0;
-            isGameOver = false;
-            clearTable();
-            createMinefield();
-            createTable();
-            changeTextByClassName("restartbutton", "😶");
-        }
-
-        function clearTable() {
-            const table = document.getElementById('minesweeper');
-            table.innerHTML = '';
-        }
-
-        createMinefield();
-        createTable();
-    </script>
 </body>
+
+<script src="js/userprevent.js"></script>
 <script src="js/alertmodal.js"></script>
 <script src="js/timeprocess.js"></script>
 <script src="js/sliderinput.js"></script>
+
+<!--OWN-->
+<script>
+    let numRows = 8;
+    let numCols = 8;
+    let numMines = 10;
+    let minefield = [];
+    let revealedCount = 0;
+    let isGameOver = false;
+
+    function createMinefield() {
+        minefield = new Array(numRows).fill(null).map(() => new Array(numCols).fill(0));
+        let minesPlaced = 0;
+
+        while (minesPlaced < numMines) {
+            const row = Math.floor(Math.random() * numRows);
+            const col = Math.floor(Math.random() * numCols);
+
+            if (minefield[row][col] === 0) {
+                minefield[row][col] = -1;
+                minesPlaced++;
+            }
+        }
+
+        for (let row = 0; row < numRows; row++) {
+            for (let col = 0; col < numCols; col++) {
+                if (minefield[row][col] !== -1) {
+                    minefield[row][col] = countAdjacentMines(row, col);
+                }
+            }
+        }
+    }
+
+    function countAdjacentMines(row, col) {
+        let count = 0;
+
+        for (let i = -1; i <= 1; i++) {
+            for (let j = -1; j <= 1; j++) {
+                const newRow = row + i;
+                const newCol = col + j;
+
+                if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
+                    if (minefield[newRow][newCol] === -1) {
+                        count++;
+                    }
+                }
+            }
+        }
+
+        return count;
+    }
+
+    function revealCell(row, col) {
+        if (isGameOver) {
+            return;
+        }
+
+        const cell = document.getElementById(`cell-${row}-${col}`);
+        if (cell.classList.contains('revealed') ||
+            cell.classList.contains('marked')) {
+            return;
+        }
+
+        cell.classList.remove('unrevealed');
+        cell.classList.add('revealed');
+        revealedCount++;
+
+        if (minefield[row][col] === -1) {
+            cell.style.backgroundColor = 'red';
+            cell.textContent = '💣';
+            //alert('你踩到地雷了！遊戲結束。');
+            showAlert("⚠️", "你踩到地雷了！遊戲結束。", true, "返回", "#f4f4f4", null, "10px", null, "10px", true);
+            showAllMines();
+            showAllNumbers();
+            isGameOver = true;
+            const restartSymbol = ['😒', '😏', '😰', '😨', '😵', '😣'];
+            changeTextByClassName("restartbutton", getRandomElementFromArray(restartSymbol));
+        } else {
+            cell.textContent = minefield[row][col] === 0 ? '' : minefield[row][col];
+
+            if (revealedCount === numRows * numCols - numMines) {
+                //alert('你贏了！');
+                showAlert("👑", "你贏了！", true, "確認", "#f4f4f4", null, "10px", null, "10px", true);
+                isGameOver = true;
+                const restartSymbol = ['😊', '😳', '😆', '😸', '😁', '😋', '😜'];
+                changeTextByClassName("restartbutton", getRandomElementFromArray(restartSymbol));
+            } else if (minefield[row][col] === 0) {
+                for (let i = -1; i <= 1; i++) {
+                    for (let j = -1; j <= 1; j++) {
+                        const newRow = row + i;
+                        const newCol = col + j;
+
+                        if (newRow >= 0 && newRow < numRows && newCol >= 0 && newCol < numCols) {
+                            revealCell(newRow, newCol);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    function markCell(row, col) {
+        if (isGameOver) {
+            return;
+        }
+
+        const cell = document.getElementById(`cell-${row}-${col}`);
+        if (cell.classList.contains('revealed')) {
+            return;
+        }
+
+        if (cell.classList.contains('marked')) {
+            cell.classList.remove('marked');
+            cell.textContent = '';
+            cell.classList.add('unrevealed');
+        } else {
+            cell.classList.remove('unrevealed');
+            cell.classList.add('marked');
+            cell.textContent = '🚩';
+        }
+    }
+    function showAllNumbers() {
+        if (isGameOver) {
+            return;
+        }
+
+        for (let row = 0; row < numRows; row++) {
+            for (let col = 0; col < numCols; col++) {
+                const cell = document.getElementById(`cell-${row}-${col}`);
+                if (!cell.classList.contains('revealed')) {
+                    if (minefield[row][col] != -1) {
+                        cell.textContent = minefield[row][col] === 0 ? '' : minefield[row][col];
+                    }
+                }
+            }
+        }
+    }
+
+    function showAllMines() {
+        if (isGameOver) {
+            return;
+        }
+
+        for (let row = 0; row < numRows; row++) {
+            for (let col = 0; col < numCols; col++) {
+                const cell = document.getElementById(`cell-${row}-${col}`);
+                if (!cell.classList.contains('revealed')) {
+                    if (minefield[row][col] === -1) {
+                        cell.classList.add('revealed', 'mine');
+                        cell.textContent = '💣';
+                    }
+                }
+            }
+        }
+    }
+
+    function changeTextByClassName(className, newText) {
+        var elements = document.getElementsByClassName(className);
+
+        for (var i = 0; i < elements.length; i++) {
+            elements[i].textContent = newText;
+        }
+    }
+
+    function getRandomElementFromArray(arr) {
+        if (arr.length === 0) {
+            return null;
+        }
+
+        const randomIndex = Math.floor(Math.random() * arr.length);
+
+        return arr[randomIndex];
+    }
+
+    function createTable() {
+        const table = document.getElementById('minesweeper');
+
+        for (let row = 0; row < numRows; row++) {
+            const tr = document.createElement('tr');
+
+            for (let col = 0; col < numCols; col++) {
+                const td = document.createElement('td');
+                td.id = `cell-${row}-${col}`;
+                let istouch;
+                td.classList.add('cell', 'unrevealed');
+                td.addEventListener('click', () => {
+                    if (!td.classList.contains('marked') && !istouch) {
+                        revealCell(row, col);
+                    }
+                    if ("vibrate" in navigator) {
+                        navigator.vibrate(1000);
+                    }
+                    istouch = false;
+                });
+                td.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    if (!istouch) {
+                        markCell(row, col);
+                    }
+                });
+                tr.appendChild(td);
+
+                let pressTimer;
+                const longPressDuration = 500;
+                td.addEventListener('touchstart', (e) => {
+                    pressTimer = setTimeout(longhandle, longPressDuration);
+                });
+                td.addEventListener('touchend', (e) => {
+                    clearTimeout(pressTimer);
+                });
+                function longhandle() {
+                    markCell(row, col);
+                    istouch = true;
+                }
+            }
+
+            table.appendChild(tr);
+        }
+    }
+    function restartOption() {
+        var modal = document.createElement("div");
+        modal.style.display = "flex";
+        modal.style.position = "fixed";
+        modal.style.top = "0";
+        modal.style.left = "0";
+        modal.style.width = "100%";
+        modal.style.height = "100%";
+        modal.style.backgroundColor = "rgba(0,0,0,0.7)";
+        modal.style.userSelect = "none";
+        modal.style.justifyContent = "center";
+        modal.style.alignItems = "center";
+
+        // Create the modal content
+        var modalContent = document.createElement("div");
+        modalContent.className = "white-back";
+        modalContent.style.backgroundColor = "#f4f4f4";
+        // old position
+        //modalContent.style.margin = "15% auto";
+        // new position center
+
+        modalContent.style.padding = "20px";
+        modalContent.style.border = "1px solid #888";
+        modalContent.style.width = "50%";
+        modalContent.style.textAlign = "center";
+        modalContent.style.borderRadius = "10px";
+
+        // Create the close button
+        var closeModalBtn = document.createElement("span");
+        closeModalBtn.innerHTML = "&times;";
+        closeModalBtn.className = "close";
+        closeModalBtn.style.position = "absolute";
+        closeModalBtn.style.top = "10px";
+        closeModalBtn.style.right = "10px";
+        closeModalBtn.style.fontSize = "20px";
+        closeModalBtn.style.fontWeight = "bold";
+        closeModalBtn.style.cursor = "pointer";
+
+        // Create modal content text
+        var modalTitle = document.createElement("h2");
+        modalTitle.textContent = "新遊戲";
+
+        var modalOption = document.createElement("div");
+        modalOption.style.height = "80%";
+
+        var sbombnum = showslider("10", "0", "30");
+        var bombnumtext = document.createElement("label");
+        bombnumtext.innerText = "炸彈" + sbombnum.value.toString();
+        sbombnum.addEventListener("input", () => {
+            bombnumtext.innerText = "炸彈" + sbombnum.value.toString();
+        });
+        var snumrow = showslider("8", "0", "30");
+        var numrowtext = document.createElement("label");
+        numrowtext.innerText = "列" + snumrow.value.toString();
+        snumrow.addEventListener("input", () => {
+            numrowtext.innerText = "列" + snumrow.value.toString();
+        });
+        var snumcol = showslider("8", "0", "30");
+        var numcoltext = document.createElement("label");
+        numcoltext.innerText = "行" + snumcol.value.toString();
+        snumcol.addEventListener("input", () => {
+            numcoltext.innerText = "行" + snumcol.value.toString();
+        });
+
+        var modalRestart = document.createElement("button");
+        modalRestart.innerText = "Start";
+        modalRestart.onclick = function () {
+            numMines = sbombnum.value;
+            numRows = Number(snumrow.value);
+            numCols = Number(snumcol.value);
+            restartGame();
+            modal.remove();
+            sbombnum.remove();
+        }
+        var modalCancel = document.createElement("button");
+        modalCancel.innerText = "Cancel";
+        modalCancel.onclick = function () {
+            modal.remove();
+        }
+
+        modalContent.appendChild(closeModalBtn);
+        modalContent.appendChild(modalTitle);
+        modalContent.appendChild(modalOption);
+
+        modalOption.appendChild(sbombnum);
+        modalOption.appendChild(bombnumtext);
+
+        modalOption.appendChild(snumrow);
+        modalOption.appendChild(numrowtext);
+        modalOption.appendChild(snumcol);
+        modalOption.appendChild(numcoltext);
+        modalContent.appendChild(modalRestart);
+        modalContent.appendChild(modalCancel);
+
+        modal.appendChild(modalContent);
+
+        const t = document.querySelector("div");
+        t.appendChild(modal);
+        modal.querySelector(".close").onclick = function () {
+            modal.remove();
+            sbombnum.remove();
+        }
+    }
+    function restartGame() {
+        revealedCount = 0;
+        isGameOver = false;
+        clearTable();
+        createMinefield();
+        createTable();
+        changeTextByClassName("restartbutton", "😶");
+    }
+
+    function clearTable() {
+        const table = document.getElementById('minesweeper');
+        table.innerHTML = '';
+    }
+
+    createMinefield();
+    createTable();
+</script>
 
 </html>

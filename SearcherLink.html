@@ -797,30 +797,20 @@ namespace UGamie.Core
         </svg>
     </div>
 
-    <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
-    <script src="js/highlight.min.js"></script>
-    <script>
-        hljs.highlightAll();
-    </script>
-
 </body>
+
+<!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
+<script src="js/highlight.min.js"></script>
+<script>
+    hljs.highlightAll();
+</script>
 <!-- Script -->
 <script src="js/bootstrap.bundle.min.js"></script>
-<script>
-    document.addEventListener("contextmenu", function (e) {
-        e.preventDefault();
-    });
-
-    document.addEventListener("keydown", function (e) {
-        if (e.ctrlKey && e.key === "s" || e.key === "F12" || e.key === "F11" || e.ctrlKey && e.shiftKey && e.key === "I") {
-            e.preventDefault();
-        }
-    });
-</script>
 <script src="js/consoleoutput.js"></script>
 <script>
     consoleswitch();
 </script>
+<script src="js/userprevent.js"></script>
 <script src="js/svglib/svglib.js"></script>
 <script src="js/copycode.js"></script>
 <script>
