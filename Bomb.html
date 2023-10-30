@@ -404,31 +404,31 @@
         var modalOption = document.createElement("div");
         modalOption.style.height = "80%";
 
-        var sbombnum = showslider("10", "0", "30");
+        var sbombnum = showslider("10", "0", "30", "any");
         var bombnumtext = document.createElement("label");
         bombnumtext.innerText = "炸彈" + sbombnum.value.toString();
         sbombnum.addEventListener("input", () => {
-            bombnumtext.innerText = "炸彈" + sbombnum.value.toString();
+            bombnumtext.innerText = "炸彈" + Math.floor(sbombnum.value).toString();
         });
-        var snumrow = showslider("8", "0", "30");
+        var snumrow = showslider("8", "0", "30", "any");
         var numrowtext = document.createElement("label");
         numrowtext.innerText = "列" + snumrow.value.toString();
         snumrow.addEventListener("input", () => {
-            numrowtext.innerText = "列" + snumrow.value.toString();
+            numrowtext.innerText = "列" + Math.floor(snumrow.value).toString();
         });
-        var snumcol = showslider("8", "0", "30");
+        var snumcol = showslider("8", "0", "30", "any");
         var numcoltext = document.createElement("label");
         numcoltext.innerText = "行" + snumcol.value.toString();
         snumcol.addEventListener("input", () => {
-            numcoltext.innerText = "行" + snumcol.value.toString();
+            numcoltext.innerText = "行" + Math.floor(snumcol.value).toString();
         });
 
         var modalRestart = document.createElement("button");
         modalRestart.innerText = "Start";
         modalRestart.onclick = function () {
             numMines = sbombnum.value;
-            numRows = Number(snumrow.value);
-            numCols = Number(snumcol.value);
+            numRows = Number(Math.floor(snumrow.value));
+            numCols = Number(Math.floor(snumcol.value));
             restartGame();
             modal.remove();
             sbombnum.remove();
