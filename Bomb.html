@@ -404,38 +404,69 @@
         var modalOption = document.createElement("div");
         modalOption.style.height = "80%";
 
-        var sbombnum = showslider("10", "0", "30", "any");
+        var snumrow = showslider(numRows.toString(), "9", "30", "any");
+        var snumcol = showslider(numCols.toString(), "9", "30", "any");
+        var sbombnum = showslider(numMines.toString(), "10", ((Math.floor(snumrow.value) * Math.floor(snumcol.value)) * 0.3).toString(), "any");
         var bombnumtext = document.createElement("label");
-        bombnumtext.innerText = "炸彈" + sbombnum.value.toString();
+        bombnumtext.innerText = "地雷" + sbombnum.value.toString();
         sbombnum.addEventListener("input", () => {
-            bombnumtext.innerText = "炸彈" + Math.floor(sbombnum.value).toString();
+            bombnumtext.innerText = "地雷" + Math.floor(sbombnum.value).toString();
         });
-        var snumrow = showslider("8", "0", "30", "any");
         var numrowtext = document.createElement("label");
         numrowtext.innerText = "列" + snumrow.value.toString();
         snumrow.addEventListener("input", () => {
             numrowtext.innerText = "列" + Math.floor(snumrow.value).toString();
+            sbombnum.max = ((Math.floor(snumrow.value) * Math.floor(snumcol.value)) * 0.3).toString();
+            bombnumtext.innerText = "地雷" + Math.floor(sbombnum.value).toString();
         });
-        var snumcol = showslider("8", "0", "30", "any");
         var numcoltext = document.createElement("label");
         numcoltext.innerText = "行" + snumcol.value.toString();
         snumcol.addEventListener("input", () => {
             numcoltext.innerText = "行" + Math.floor(snumcol.value).toString();
+            sbombnum.max = ((Math.floor(snumrow.value) * Math.floor(snumcol.value)) * 0.3).toString();
+            bombnumtext.innerText = "地雷" + Math.floor(sbombnum.value).toString();
         });
 
         var modalRestart = document.createElement("button");
-        modalRestart.innerText = "Start";
+        modalRestart.innerText = "開始遊戲";
         modalRestart.onclick = function () {
-            numMines = sbombnum.value;
+            numMines = Math.floor(sbombnum.value);
             numRows = Number(Math.floor(snumrow.value));
             numCols = Number(Math.floor(snumcol.value));
             restartGame();
             modal.remove();
-            sbombnum.remove();
         }
         var modalCancel = document.createElement("button");
-        modalCancel.innerText = "Cancel";
+        modalCancel.innerText = "取消";
         modalCancel.onclick = function () {
+            modal.remove();
+        }
+
+        var modal_10_9_9 = document.createElement("button");
+        modal_10_9_9.innerHTML = "簡單 <br> 地雷10 - 列9 - 行9";
+        modal_10_9_9.onclick = function () {
+            numMines = 10;
+            numRows = 9;
+            numCols = 9;
+            restartGame();
+            modal.remove();
+        }
+        var modal_40_16_16 = document.createElement("button");
+        modal_40_16_16.innerHTML = "中階 <br> 地雷40 - 列16 - 行16";
+        modal_40_16_16.onclick = function () {
+            numMines = 40;
+            numRows = 16;
+            numCols = 16;
+            restartGame();
+            modal.remove();
+        }
+        var modal_99_16_30 = document.createElement("button");
+        modal_99_16_30.innerHTML = "困難 <br> 地雷99 - 列16 - 行30";
+        modal_99_16_30.onclick = function () {
+            numMines = 99;
+            numRows = 16;
+            numCols = 30;
+            restartGame();
             modal.remove();
         }
 
@@ -443,13 +474,19 @@
         modalContent.appendChild(modalTitle);
         modalContent.appendChild(modalOption);
 
+        modalOption.appendChild(modal_10_9_9);
+        modalOption.appendChild(modal_40_16_16);
+        modalOption.appendChild(modal_99_16_30);
+
         modalOption.appendChild(sbombnum);
         modalOption.appendChild(bombnumtext);
 
         modalOption.appendChild(snumrow);
         modalOption.appendChild(numrowtext);
+
         modalOption.appendChild(snumcol);
         modalOption.appendChild(numcoltext);
+
         modalContent.appendChild(modalRestart);
         modalContent.appendChild(modalCancel);
 
