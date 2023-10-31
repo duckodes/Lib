@@ -86,6 +86,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modalLoginUser.placeholder = "Email or User account";
 
     var modalOnPasswordUser = document.createElement("input");
+    modalOnPasswordUser.style.opacity = "0";
     modalOnPasswordUser.type = "checkbox";
     modalOnPasswordUser.checked = modalOnPasswordUser_checked;
     if (modalOnPasswordUser.checked) {
@@ -95,6 +96,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
         modalLoginUser.type = "password";
     }
     modalOnPasswordUser.addEventListener("change", () => {
+        modalOnPasswordUser.checked = true;
         if (modalOnPasswordUser.checked) {
             modalLoginUser.type = "text";
             modalOnPasswordUser_checked = true;
