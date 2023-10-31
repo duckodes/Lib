@@ -290,6 +290,7 @@ function showLogin(title, content, closeBtn, closeInner = "&times;", alertBackCo
         customModal.querySelector(".close").onclick = function () {
             customModal.style.display = "none";
             customModal.remove();
+            window.location.reload();
         }
     }
     customModal.style.display = "flex";
@@ -304,5 +305,6 @@ if (wantlogin != null) {
         slog.style.zIndex = "999";
         var f = document.getElementById("data-username");
         f.focus();
+        window.stop();
     });
 }
