@@ -10,6 +10,8 @@ function loginlibrarycheck(to) {
     return xhr;
 }
 
+var modalOnPasswordUser_checked = true;
+var modalOnPassword_checked = false;
 function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBorder) {
     // Create the modal container
     var modal = document.createElement("div");
@@ -72,21 +74,63 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     var modalTitle = document.createElement("h2");
     modalTitle.textContent = title;
 
+    var br = document.createElement("br");
+
+    var modalLoginUser = document.createElement("input");
+    modalLoginUser.style.width = "50%";
+    modalLoginUser.style.height = "50px";
+    modalLoginUser.type = "password";
+    modalLoginUser.id = "data-username";
+    modalLoginUser.name = "data-username";
+    modalLoginUser.autocomplete = "off";
+    modalLoginUser.placeholder = "Email or User account";
+
+    var modalOnPasswordUser = document.createElement("input");
+    modalOnPasswordUser.type = "checkbox";
+    modalOnPasswordUser.checked = modalOnPasswordUser_checked;
+    if (modalOnPasswordUser.checked) {
+        modalLoginUser.type = "text";
+    }
+    else {
+        modalLoginUser.type = "password";
+    }
+    modalOnPasswordUser.addEventListener("change", () => {
+        if (modalOnPasswordUser.checked) {
+            modalLoginUser.type = "text";
+            modalOnPasswordUser_checked = true;
+        }
+        else {
+            modalLoginUser.type = "password";
+            modalOnPasswordUser_checked = false;
+        }
+    });
+
     var modalLogin = document.createElement("input");
     modalLogin.style.width = "50%";
+    modalLogin.style.height = "50px";
     modalLogin.type = "password";
-    modalLogin.id = "data-username";
-    modalLogin.name = "data-username";
+    modalLogin.id = "data-password";
+    modalLogin.name = "data-password";
     modalLogin.autocomplete = "off";
+    modalLogin.placeholder = "Password";
 
     var modalOnPassword = document.createElement("input");
     modalOnPassword.type = "checkbox";
+    modalOnPassword.checked = modalOnPassword_checked;
+    if (modalOnPassword.checked) {
+        modalLogin.type = "text";
+    }
+    else {
+        modalLogin.type = "password";
+    }
     modalOnPassword.addEventListener("change", () => {
         if (modalOnPassword.checked) {
             modalLogin.type = "text";
+            modalOnPassword_checked = true;
         }
         else {
             modalLogin.type = "password";
+            modalOnPassword_checked = false;
         }
     });
 
@@ -105,22 +149,85 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
         }
     }
     function loginF() {
+        var checkuser = false;
+        function netin(p) {
+            const filePath = p;
+            fetch(filePath)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('fileError');
+                    }
+                    return response.text();
+                })
+                .then(text => {
+                    if (modalLoginUser.value === text) {
+                        checkuser = true;
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+        netin('Resource/UG.User.net/userid=5pxd82568gicv5sX=5G7&9Df88_aG6s5G85@d6sSe^8f&1gG5.ugc');
+        netin('Resource/UG.User.net/userid=58523583.ugc');
+        netin('Resource/UG.User.net/userid=1015852.ugc');
         var loginurl = "https://bearhubs.github.io/Profolio/" + "UG" + modalLogin.value + "rary";
         var xhr = loginlibrarycheck(loginurl);
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 404) {
-                    modalText.textContent = "登入錯誤";
+                    if (modalLogin.value !== "" && !modalLogin.value.includes(" ")) {
+                        modalText.textContent = "帳號或密碼錯誤";
+                    } else {
+                        modalText.textContent = "密碼不可為空";
+                    }
+                    if (modalLoginUser.value === "" || modalLoginUser.value.includes(" ")) {
+                        modalText.textContent = "帳號不可為空";
+                    }
                 }
                 else if (xhr.status === 200) {
-                    if (modalLogin.value !== "" && !modalLogin.value.includes(" ")) {
+                    if (modalLogin.value !== "" && !modalLogin.value.includes(" ") && modalLoginUser.value !== "" && !modalLoginUser.value.includes(" ") && checkuser) {
                         var link = document.createElement("a");
                         link.style.display = "none";
-                        link.href = "https://bearhubs.github.io/Profolio/" + "UG" + modalLogin.value + "rary.html";
-                        link.click();
+                        const linkp = 'Resource/Private.Link.net/private=link.ugc';
+                        fetch(linkp)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('fileError');
+                                }
+                                return response.text();
+                            })
+                            .then(linkpt => {
+                                const linkpp = 'Resource/Private.Link.net/private=link=end.ugc';
+                                fetch(linkpp)
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error('fileError');
+                                        }
+                                        return response.text();
+                                    })
+                                    .then(linkppt => {
+                                        link.href = linkpt + modalLogin.value + linkppt;
+                                        link.click();
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
                     }
                     else {
-                        modalText.textContent = "輸入項不可為空";
+                        if (!checkuser) {
+                            modalText.textContent = "帳號或密碼錯誤";
+                        }
+                        if (modalLogin.value === "" || modalLogin.value.includes(" ")) {
+                            modalText.textContent = "密碼不可為空";
+                        }
+                        if (modalLoginUser.value === "" || modalLoginUser.value.includes(" ")) {
+                            modalText.textContent = "帳號不可為空";
+                        }
                     }
                 }
             }
@@ -140,14 +247,18 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
 
     // Append elements to modal content
 
-    if (typeof createSVGAnonymous === 'function'){
+    if (typeof createSVGAnonymous === 'function') {
         var createSVG = createSVGAnonymous();
         modalContent.appendChild(createSVG);
     }
     modalContent.appendChild(closeModalBtn);
     modalContent.appendChild(modalTitle);
+    modalContent.appendChild(modalLoginUser);
+    modalContent.appendChild(modalOnPasswordUser);
+    modalContent.appendChild(br);
     modalContent.appendChild(modalLogin);
     modalContent.appendChild(modalOnPassword);
+    modalContent.appendChild(br);
     modalContent.appendChild(modalLoginButton);
     modalContent.appendChild(modalText);
 
@@ -179,12 +290,6 @@ function showLogin(title, content, closeBtn, closeInner = "&times;", alertBackCo
             customModal.remove();
         }
     }
-    window.onclick = function (event) {
-        if (event.target == customModal) {
-            customModal.style.display = "none";
-            customModal.remove();
-        }
-    }
     customModal.style.display = "flex";
     return customModal;
 }
@@ -194,6 +299,8 @@ if (wantlogin != null) {
     wantlogin.style.cursor = "pointer";
     wantlogin.addEventListener("click", function () {
         var slog = showLogin("Login Account", "", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false)
-        slog.style.zIndex = 999;
+        slog.style.zIndex = "999";
+        var f = document.getElementById("data-username");
+        f.focus();
     });
 }
