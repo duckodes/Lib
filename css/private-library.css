@@ -36,36 +36,83 @@ code::-webkit-scrollbar-corner {
     background-color: #1e1e1e;
 }
 
+.lib-sources {
+    cursor: grab;
+    border-radius: 5px;
+    position: fixed;
+    overflow: auto;
+    flex-direction: column;
+    width: 50px;
+    left: -2px;
+    margin-left: -15px;
+    top: 25%;
+    height: auto;
+    max-height: 50%;
+    align-items: start;
+    justify-content: center;
+    z-index: -999999;
+    opacity: 0.2;
+    transition: all 0.3s ease-in-out;
+}
+
+.lib-sources:hover {
+    opacity: 1;
+    margin-left: 0px;
+}
+
+.lib-sources:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    opacity: 1;
+    margin-left: 0px;
+}
+
 .lib-sources::-webkit-scrollbar {
     width: 0px;
 }
 
 .white-lib-sources {
-    width: 2%;
+    width: 50%;
     color: black;
-    background-color: white;
+    background-color: #565f89;
     transition: all 0.3s ease-in-out;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
 .white-lib-sources:hover {
-    background-color: rgb(158, 158, 158);
+    color: #7dcfff;
+    background-color: #f7768e;
     margin-top: 10px;
+    width: 100%;
 }
 
 .black-lib-sources {
-    width: 2%;
-    color: white;
-    background-color: black;
+    width: 50%;
+    color: #7dcfff;
+    background-color: #1a1b26;
     transition: all 0.3s ease-in-out;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
 
 .black-lib-sources:hover {
-    background-color: rgba(0, 0, 0, 0.507);
+    background-color: #f7768e;
     margin-top: 10px;
+    width: 100%;
+}
+
+.select-lib {
+    color: white;
+    background-color: #f7768e;
+    width: 75%;
+}
+
+.select-lib:hover {
+    color: #f7768e;
+    background-color: #ff4c6d;
+    width: 100%;
 }
 
 .console-output::-webkit-scrollbar {
@@ -74,6 +121,7 @@ code::-webkit-scrollbar-corner {
     border-radius: 7px;
     color: #969696;
 }
+
 .console-output::-webkit-scrollbar-thumb {
     background: #707070;
     border-radius: 7px;

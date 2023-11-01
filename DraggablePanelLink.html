@@ -73,8 +73,7 @@
         </div>
     </nav>
 
-    <div class="lib-sources no-select"
-        style="border-radius: 5px;cursor: pointer;width: 200%;height: 100px;position: relative; left: -50%; overflow: auto;display: flex;align-items:begin;justify-content: center;">
+    <div class="lib-sources no-select" id="scroll-drag">
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
             A
         </div>
@@ -84,8 +83,8 @@
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
             C
         </div>
-        <div class="white-lib-sources"
-            style="background-color: rgb(255, 187, 0);width: 3%;height: 100px;display: flex;align-items: center;justify-content: center;">
+        <div class="white-lib-sources select-lib"
+            style="height: 100px;display: flex;align-items: center;justify-content: center;">
             D
         </div>
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
@@ -454,6 +453,32 @@ public class DraggablePanel : MonoBehaviour
                 downloadFile('DraggablePanel.cs', 'Resource/OriginFile/csharpFile/DraggablePanel.cs');
             }
         });
+    });
+</script>
+<script src="js/scrollmousedrag.js"></script>
+<script>
+    scrollmousedrag("scroll-drag");
+</script>
+<script src="js/scrollcheck.js"></script>
+<script>
+    winsy0(() => {
+        var libsrc = document.getElementById('scroll-drag');
+        libsrc.style.opacity = "1";
+        libsrc.style.marginLeft = "0px";
+    }, () => {
+        var libsrc = document.getElementById('scroll-drag');
+        libsrc.style.opacity = "1";
+        libsrc.style.marginLeft = "0px";
+    }, () => {
+        var libsrc = document.getElementById('scroll-drag');
+        libsrc.addEventListener('mousedown', () => {
+            libsrc.style.opacity = "1";
+        });
+        libsrc.addEventListener('touchstart', () => {
+            libsrc.style.opacity = "1";
+        });
+        libsrc.style.opacity = "0.2";
+        libsrc.style.marginLeft = "-15px";
     });
 </script>
 
