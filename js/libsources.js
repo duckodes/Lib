@@ -5,16 +5,77 @@ blacklibsources.forEach(function (element) {
         if (element.innerText === "A") {
             var alert = showAlert("A", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var br = BR();
-            var exlink = Alinker("◆ex", "//www.youtube.com");
+            var exlink = Alinker("目前尚無資源", "#");
             var whiteBackChild = alert.querySelector('.white-back');
             whiteBackChild.appendChild(exlink);
         }
         if (element.innerText === "C") {
             var alert = showAlert("C", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var br = BR();
-            var exlink = Alinker("◆ex", "//www.youtube.com");
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "E") {
+            var alert = showAlert("E", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "H") {
+            var alert = showAlert("H", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "J") {
+            var alert = showAlert("J", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "M") {
+            var alert = showAlert("M", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "O") {
+            var alert = showAlert("O", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "Q") {
+            var alert = showAlert("Q", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "T") {
+            var alert = showAlert("T", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "V") {
+            var alert = showAlert("V", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "Y") {
+            var alert = showAlert("Y", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
             var whiteBackChild = alert.querySelector('.white-back');
             whiteBackChild.appendChild(exlink);
         }
@@ -22,32 +83,113 @@ blacklibsources.forEach(function (element) {
 });
 whitelibsources.forEach(function (element) {
     element.addEventListener("click", function () {
-        if (element.innerText === "S") {
-            var alert = showAlert("S", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
-            alert.style.zIndex = "999";
-            var br = BR();
-            var Seacherlink = Alinker("◆Seacher", "SearcherLink.html");
-            var exlink = Alinker("◆ex", "//www.youtube.com");
-            var whiteBackChild = alert.querySelector('.white-back');
-            whiteBackChild.appendChild(Seacherlink);
-            whiteBackChild.appendChild(br);
-            whiteBackChild.appendChild(exlink);
-        }
         if (element.innerText === "B") {
             var alert = showAlert("B", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var br = BR();
-            var exlink = Alinker("◆ex", "//www.youtube.com");
+            var exlink = Alinker("目前尚無資源", "#");
             var whiteBackChild = alert.querySelector('.white-back');
             whiteBackChild.appendChild(exlink);
         }
         if (element.innerText === "D") {
             var alert = showAlert("D", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var br = BR();
             var DraggablePanellink = Alinker("◆DraggablePanel", "DraggablePanelLink.html");
             var whiteBackChild = alert.querySelector('.white-back');
             whiteBackChild.appendChild(DraggablePanellink);
+        }
+        if (element.innerText === "F") {
+            var alert = showAlert("F", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "G") {
+            var alert = showAlert("G", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "I") {
+            var alert = showAlert("I", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "K") {
+            var alert = showAlert("K", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "L") {
+            var alert = showAlert("L", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "N") {
+            var alert = showAlert("N", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "P") {
+            var alert = showAlert("P", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "R") {
+            var alert = showAlert("R", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "S") {
+            var alert = showAlert("S", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var Seacherlink = Alinker("◆Seacher", "SearcherLink.html");
+            var exlink = Alinker("◆nextex", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(Seacherlink);
+            whiteBackChild.appendChild(BR());
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "U") {
+            var alert = showAlert("U", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "W") {
+            var alert = showAlert("W", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "X") {
+            var alert = showAlert("X", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
+        }
+        if (element.innerText === "Z") {
+            var alert = showAlert("Z", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+            alert.style.zIndex = "999";
+            var exlink = Alinker("目前尚無資源", "#");
+            var whiteBackChild = alert.querySelector('.white-back');
+            whiteBackChild.appendChild(exlink);
         }
     });
 });

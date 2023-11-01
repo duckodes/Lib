@@ -36,6 +36,25 @@ code::-webkit-scrollbar-corner {
     background-color: #1e1e1e;
 }
 
+.search-bar {
+    border-radius: 20px;
+    justify-content: flex-start;
+    background-color: transparent;
+    color: white;
+    border: 1px solid;
+    border-color: #565f89;
+    padding-left: 10px;
+    outline: 0;
+    width: 38px;
+    transition: width 0.3s ease-in-out;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.search-bar:focus {
+    border-color: #7dcfff;
+    width: 100%;
+}
+
 .lib-sources {
     cursor: grab;
     border-radius: 5px;
