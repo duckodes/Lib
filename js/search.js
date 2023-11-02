@@ -47,6 +47,7 @@ searchbar.addEventListener("input", () => {
         });
         searchbuttonarea.appendChild(button);
     });
+    selectarrow();
 });
 searchbar.addEventListener("focus", () => {
     searchbuttonarea.style.display = "flex";
@@ -72,6 +73,49 @@ function searchIO(source, fc) {
         if (itemLowerCase.includes(searchValue) && searchValue !== '') {
             fc(item);
         }
+    });
+}
+function selectarrow() {
+    var buttons = document.querySelectorAll('.search-list-button');
+    let currentIndex = -1;
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'ArrowUp') {
+            if (currentIndex > -1) {
+                buttons[currentIndex].style.background = "#1a1b26";
+                currentIndex--;
+                if (currentIndex > -1) {
+                    buttons[currentIndex].style.background = "#2b2c37";
+                }
+            }
+            else {
+                currentIndex = buttons.length - 1;
+                if (currentIndex === buttons.length - 1) {
+                    buttons[currentIndex].style.background = "#2b2c37";
+                }
+            }
+        } else if (event.key === 'ArrowDown') {
+            if (currentIndex < buttons.length - 1) {
+                if (currentIndex !== -1) {
+                    buttons[currentIndex].style.background = "#1a1b26";
+                }
+                currentIndex++;
+                buttons[currentIndex].style.background = "#2b2c37";
+            }
+            else {
+                buttons[currentIndex].style.background = "#1a1b26";
+                currentIndex = -1;
+            }
+        } else if (event.key === 'Enter' && currentIndex !== -1) {
+            buttons[currentIndex].click();
+        }
+    });
+    buttons.forEach((button, index) => {
+        button.addEventListener('mouseenter', function () {
+            if(currentIndex > -1){
+                buttons[currentIndex].style.background = "#1a1b26";
+            }
+            currentIndex = index;
+        });
     });
 }
 function onclicksearch(button) {
