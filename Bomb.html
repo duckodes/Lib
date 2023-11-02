@@ -99,11 +99,11 @@
 
 <body>
 
-    <div class="bomb no-select">
+    <div class="bomb no-select" style="position:relative;width:100%;height:100%;">
 
         <!-- Nav -->
         <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);
-        position: fixed;
+        position: relative;
         top: 0;
         left: 0;
         width: 100%;">
@@ -125,7 +125,7 @@
             </div>
         </nav>
 
-        <h6 style="text-align: center; color: white;">BOMB</h6>
+        <h6 style="text-align: center; color: white; padding-top: 30px;">BOMB</h6>
         <div class="restart">
             <button onclick="restartOption()" class="restartbutton">😶</button>
         </div>
@@ -414,16 +414,16 @@
             bombnumtext.innerText = "地雷" + Math.floor(sbombnum.value).toString();
         });
         var numrowtext = document.createElement("label");
-        numrowtext.innerText = "列" + snumrow.value.toString();
+        numrowtext.innerText = "行" + snumrow.value.toString();
         snumrow.addEventListener("input", () => {
-            numrowtext.innerText = "列" + Math.floor(snumrow.value).toString();
+            numrowtext.innerText = "行" + Math.floor(snumrow.value).toString();
             sbombnum.max = ((Math.floor(snumrow.value) * Math.floor(snumcol.value)) * 0.3).toString();
             bombnumtext.innerText = "地雷" + Math.floor(sbombnum.value).toString();
         });
         var numcoltext = document.createElement("label");
-        numcoltext.innerText = "行" + snumcol.value.toString();
+        numcoltext.innerText = "列" + snumcol.value.toString();
         snumcol.addEventListener("input", () => {
-            numcoltext.innerText = "行" + Math.floor(snumcol.value).toString();
+            numcoltext.innerText = "列" + Math.floor(snumcol.value).toString();
             sbombnum.max = ((Math.floor(snumrow.value) * Math.floor(snumcol.value)) * 0.3).toString();
             bombnumtext.innerText = "地雷" + Math.floor(sbombnum.value).toString();
         });
@@ -444,7 +444,7 @@
         }
 
         var modal_10_9_9 = document.createElement("button");
-        modal_10_9_9.innerHTML = "簡單 <br> 地雷10 - 列9 - 行9";
+        modal_10_9_9.innerHTML = "簡單 <br> 地雷10 - 行9 - 列9";
         modal_10_9_9.onclick = function () {
             numMines = 10;
             numRows = 9;
@@ -453,7 +453,7 @@
             modal.remove();
         }
         var modal_40_16_16 = document.createElement("button");
-        modal_40_16_16.innerHTML = "中階 <br> 地雷40 - 列16 - 行16";
+        modal_40_16_16.innerHTML = "中階 <br> 地雷40 - 行16 - 列16";
         modal_40_16_16.onclick = function () {
             numMines = 40;
             numRows = 16;
@@ -462,7 +462,7 @@
             modal.remove();
         }
         var modal_99_16_30 = document.createElement("button");
-        modal_99_16_30.innerHTML = "困難 <br> 地雷99 - 列16 - 行30";
+        modal_99_16_30.innerHTML = "困難 <br> 地雷99 - 行16 - 列30";
         modal_99_16_30.onclick = function () {
             numMines = 99;
             numRows = 16;
