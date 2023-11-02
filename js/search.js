@@ -10,7 +10,7 @@ searchbuttonarea.style.flexDirection = "column";
 searchbuttonarea.style.background = "#1a1b26";
 searchbuttonarea.style.borderRadius = "20px";
 navb.appendChild(searchbuttonarea);
-var source = ["Searcher", "DraggablePanel"];
+var source = ["Counter", "DraggablePanel", "Searcher"];
 var searchbar = document.querySelector('.search-bar');
 var searchbarfocus = true;
 searchbar.addEventListener("input", () => {
@@ -75,9 +75,9 @@ function searchIO(source, fc) {
     });
 }
 function onclicksearch(button) {
-    if (button.innerText === "Searcher") {
+    if (button.innerText === "Counter") {
         var a = document.createElement("a");
-        a.href = "SearcherLink.html";
+        a.href = "CounterLink.html";
         setTimeout(() => {
             a.click();
         }, 100);
@@ -85,6 +85,13 @@ function onclicksearch(button) {
     else if (button.innerText === "DraggablePanel") {
         var a = document.createElement("a");
         a.href = "DraggablePanelLink.html";
+        setTimeout(() => {
+            a.click();
+        }, 100);
+    }
+    else if (button.innerText === "Searcher") {
+        var a = document.createElement("a");
+        a.href = "SearcherLink.html";
         setTimeout(() => {
             a.click();
         }, 100);

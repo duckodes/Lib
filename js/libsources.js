@@ -12,9 +12,9 @@ blacklibsources.forEach(function (element) {
         if (element.innerText === "C") {
             var alert = showAlert("C", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var exlink = Alinker("目前尚無資源", "#");
+            var Counterlink = Alinker("◆Counter", "CounterLink.html");
             var whiteBackChild = alert.querySelector('.white-back');
-            whiteBackChild.appendChild(exlink);
+            whiteBackChild.appendChild(Counterlink);
         }
         if (element.innerText === "E") {
             var alert = showAlert("E", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
