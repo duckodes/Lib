@@ -89,7 +89,7 @@ function selectarrow() {
             }
             else {
                 currentIndex = buttons.length - 1;
-                if (currentIndex === buttons.length - 1) {
+                if (currentIndex <= buttons.length - 1 && currentIndex > -1) {
                     buttons[currentIndex].style.background = "#2b2c37";
                 }
             }
@@ -102,7 +102,9 @@ function selectarrow() {
                 buttons[currentIndex].style.background = "#2b2c37";
             }
             else {
-                buttons[currentIndex].style.background = "#1a1b26";
+                if(currentIndex > -1 && currentIndex <= buttons.length - 1){
+                    buttons[currentIndex].style.background = "#1a1b26";
+                }
                 currentIndex = -1;
             }
         } else if (event.key === 'Enter' && currentIndex !== -1) {
