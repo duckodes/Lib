@@ -43,7 +43,7 @@ searchbar.addEventListener("input", () => {
         });
         button.addEventListener("click", () => {
             searchbar.value = items;
-            onclicksearch(button);
+            onclicksearch(button.innerText);
         });
         searchbuttonarea.appendChild(button);
     });
@@ -85,12 +85,14 @@ function selectarrow() {
                 currentIndex--;
                 if (currentIndex > -1) {
                     buttons[currentIndex].style.background = "#2b2c37";
+                    searchbar.value = buttons[currentIndex].innerText;
                 }
             }
             else {
                 currentIndex = buttons.length - 1;
                 if (currentIndex <= buttons.length - 1 && currentIndex > -1) {
                     buttons[currentIndex].style.background = "#2b2c37";
+                    searchbar.value = buttons[currentIndex].innerText;
                 }
             }
         } else if (event.key === 'ArrowDown') {
@@ -100,6 +102,7 @@ function selectarrow() {
                 }
                 currentIndex++;
                 buttons[currentIndex].style.background = "#2b2c37";
+                searchbar.value = buttons[currentIndex].innerText;
             }
             else {
                 if(currentIndex > -1 && currentIndex <= buttons.length - 1){
@@ -108,34 +111,38 @@ function selectarrow() {
                 currentIndex = -1;
             }
         } else if (event.key === 'Enter' && currentIndex !== -1) {
-            buttons[currentIndex].click();
+            if(document.activeElement.className === "search-bar"){
+                //buttons[currentIndex].click();
+                onclicksearch(searchbar.value);
+            }
         }
     });
     buttons.forEach((button, index) => {
         button.addEventListener('mouseenter', function () {
-            if(currentIndex > -1){
+            if(currentIndex > -1 && currentIndex != index){
                 buttons[currentIndex].style.background = "#1a1b26";
             }
             currentIndex = index;
+            //searchbar.value = buttons[currentIndex].innerText;
         });
     });
 }
-function onclicksearch(button) {
-    if (button.innerText === "Counter") {
+function onclicksearch(Text) {
+    if (Text === "Counter") {
         var a = document.createElement("a");
         a.href = "CounterLink.html";
         setTimeout(() => {
             a.click();
         }, 100);
     }
-    else if (button.innerText === "DraggablePanel") {
+    else if (Text === "DraggablePanel") {
         var a = document.createElement("a");
         a.href = "DraggablePanelLink.html";
         setTimeout(() => {
             a.click();
         }, 100);
     }
-    else if (button.innerText === "Searcher") {
+    else if (Text === "Searcher") {
         var a = document.createElement("a");
         a.href = "SearcherLink.html";
         setTimeout(() => {
