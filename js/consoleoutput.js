@@ -100,6 +100,7 @@ function consoleoutput(state) {
             top: consoleOutput.scrollHeight,
             behavior: 'smooth'
         });
+        return false;
     };
     var removebutton = document.createElement("div");
     removebutton.className = "console-output-rb";
