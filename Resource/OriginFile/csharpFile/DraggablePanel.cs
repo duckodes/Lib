@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class DraggablePanel : MonoBehaviour
 {
+    [SerializeField] private Rect m_rect = new Rect(0, 0, 700, 500);
     [Range(20, 50)] [SerializeField] private int m_titleSize = 20;
     [SerializeField] private TextAnchor m_textAnchor = TextAnchor.MiddleCenter;
     [Range(200, 1000)] [SerializeField] private int m_minSize = 200;
@@ -31,7 +32,7 @@ public class DraggablePanel : MonoBehaviour
     private bool m_isResizing = false;
     private void Awake()
     {
-        m_panel = new Rect(50, 50, 700, 500);
+        m_panel = m_rect;
     }
     private void OnEnable()
     {

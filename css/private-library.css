@@ -47,7 +47,7 @@ code::-webkit-scrollbar-corner {
     outline: 0;
     width: 38px;
     transition: width 0.3s ease-in-out;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .search-bar:focus {
@@ -132,6 +132,11 @@ code::-webkit-scrollbar-corner {
     color: #f7768e;
     background-color: #ff4c6d;
     width: 100%;
+}
+
+.mark-place {
+    color: orange;
+    font-style: italic;
 }
 
 .console-output::-webkit-scrollbar {

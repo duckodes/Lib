@@ -161,6 +161,19 @@
     <br><br><h2>DraggablePanel 浮動窗口</h2>
             <h6>
                 作用: 使用該组件至 unity 空物件，可產生GUI.Window生成的浮動窗口
+
+                <br>使用: 
+                1.拖動標題欄位即可移動
+                2.視窗右下角的位置按下滑鼠左鍵可調整視窗大小
+                3.視窗右上角放大及關閉按鈕
+                <span class="mark-place">
+                    <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
+                    <br>Rect: 調整初始位置及大小
+                    <br>Title Size: 標題的大小
+                    <br>Text Anchor: 標題文字位置
+                    <br>Min Size: 此拖動視窗可縮放的最小大小
+                    <br>Resize Cursor: 當滑鼠移動進入右下角可縮放區域時，顯示的滑鼠樣式
+                </span>
             </h6>
             <div  style="white-space: nowrap;">
                 <img src="image/lib/lib-code-DraggablePanel.png" id="lib-draggablepanel">
@@ -171,6 +184,7 @@ using UnityEngine;
 
 public class DraggablePanel : MonoBehaviour
 {
+    [SerializeField] private Rect m_rect = new Rect(0, 0, 700, 500);
     [Range(20, 50)] [SerializeField] private int m_titleSize = 20;
     [SerializeField] private TextAnchor m_textAnchor = TextAnchor.MiddleCenter;
     [Range(200, 1000)] [SerializeField] private int m_minSize = 200;
@@ -199,7 +213,7 @@ public class DraggablePanel : MonoBehaviour
     private bool m_isResizing = false;
     private void Awake()
     {
-        m_panel = new Rect(50, 50, 700, 500);
+        m_panel = m_rect;
     }
     private void OnEnable()
     {
