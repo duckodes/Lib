@@ -60,6 +60,41 @@ searchbar.addEventListener("blur", () => {
         searchbuttonarea.style.display = "none";
     }
 });
+searchbar.addEventListener("click", () => {
+    searchbuttonarea.style.display = "flex";
+    clearButtons();
+    searchIO(source, (items) => {
+        var button = document.createElement('div');
+        button.className = 'search-list-button';
+        button.innerText = items;
+        button.style.textAlign = "left";
+        button.style.display = "flex";
+        button.style.alignItems = "center";
+        button.style.height = "auto";
+        button.style.minHeight = "40px";
+        button.style.paddingLeft = "5%";
+        button.style.color = "#7dcfff";
+        button.style.background = "#1a1b26";
+        button.style.borderRadius = "10px";
+        button.addEventListener("mouseenter", () => {
+            button.style.background = "#2b2c37";
+            searchbarfocus = false;
+        });
+        button.addEventListener("mouseleave", () => {
+            button.style.background = "#1a1b26";
+            searchbarfocus = true;
+        });
+        button.addEventListener("mouseup", () => {
+            searchbarfocus = true;
+            searchbuttonarea.style.display = "none";
+        });
+        button.addEventListener("click", () => {
+            searchbar.value = items;
+            onclicksearch(button.innerText);
+        });
+        searchbuttonarea.appendChild(button);
+    });
+});
 function clearButtons() {
     var buttons = document.querySelectorAll('.search-list-button');
     buttons.forEach(button => {
@@ -131,28 +166,42 @@ function selectarrow() {
 }
 function onclicksearch(Text) {
     var a = document.createElement("a");
+    localStorage.setItem('SearchKeyword', Text);
     if (Text === "Counter") {
-        a.href = "CounterLink.html";
+        a.href = "CounterLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);
     }
     else if (Text === "DraggablePanel") {
-        a.href = "DraggablePanelLink.html";
+        a.href = "DraggablePanelLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);
     }
     else if (Text === "Searcher") {
-        a.href = "SearcherLink.html";
+        a.href = "SearcherLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);
     }
     else {
-        a.href = "PrivateLibraryUnlink.html";
+        a.href = "PrivateLibraryUnlink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);
     }
 }
+function getParameterByName(name, url) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+searchbar.value = getParameterByName('v', window.location.href);
+//searchbar.value = localStorage.getItem('SearchKeyword');
+//if (searchbar.value === localStorage.getItem('SearchKeyword')) {
+//localStorage.removeItem('SearchKeyword');
+//}

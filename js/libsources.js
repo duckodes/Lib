@@ -12,7 +12,7 @@ blacklibsources.forEach(function (element) {
         if (element.innerText === "C") {
             var alert = showAlert("C", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var Counterlink = Alinker("◆Counter", "CounterLink.html");
+            var Counterlink = Alinker("◆Counter", "CounterLink.html" + "?v=" + "Counter");
             var whiteBackChild = alert.querySelector('.white-back');
             whiteBackChild.appendChild(Counterlink);
         }
@@ -93,7 +93,7 @@ whitelibsources.forEach(function (element) {
         if (element.innerText === "D") {
             var alert = showAlert("D", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var DraggablePanellink = Alinker("◆DraggablePanel", "DraggablePanelLink.html");
+            var DraggablePanellink = Alinker("◆DraggablePanel", "DraggablePanelLink.html" + "?v=" + "DraggablePanel");
             var whiteBackChild = alert.querySelector('.white-back');
             whiteBackChild.appendChild(DraggablePanellink);
         }
@@ -156,7 +156,7 @@ whitelibsources.forEach(function (element) {
         if (element.innerText === "S") {
             var alert = showAlert("S", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var Seacherlink = Alinker("◆Seacher", "SearcherLink.html");
+            var Seacherlink = Alinker("◆Searcher", "SearcherLink.html" + "?v=" + "Searcher");
             var exlink = Alinker("◆nextex", "#");
             var whiteBackChild = alert.querySelector('.white-back');
             whiteBackChild.appendChild(Seacherlink);
