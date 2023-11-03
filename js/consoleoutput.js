@@ -335,6 +335,3 @@ function scrollMDYlerp(id) {
         }
     });
 }
-if(window.location.pathname !== "/PrivateLibraryUnlink.html"){
-    consoleswitch();
-}

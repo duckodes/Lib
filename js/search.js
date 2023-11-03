@@ -200,7 +200,9 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-searchbar.value = getParameterByName('v', window.location.href);
+if(window.location.pathname !== "/UGPrivateLibrary.html"){
+    searchbar.value = getParameterByName('v', window.location.href);
+}
 //searchbar.value = localStorage.getItem('SearchKeyword');
 //if (searchbar.value === localStorage.getItem('SearchKeyword')) {
 //localStorage.removeItem('SearchKeyword');
