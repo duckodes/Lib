@@ -200,6 +200,7 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
+console.log(window.location.pathname);
 if(window.location.pathname !== "/UGPrivateLibrary.html"){
     searchbar.value = getParameterByName('v', window.location.href);
 }
