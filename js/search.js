@@ -105,21 +105,23 @@ function selectarrow() {
                 searchbar.value = buttons[currentIndex].innerText;
             }
             else {
-                if(currentIndex > -1 && currentIndex <= buttons.length - 1){
+                if (currentIndex > -1 && currentIndex <= buttons.length - 1) {
                     buttons[currentIndex].style.background = "#1a1b26";
                 }
                 currentIndex = -1;
             }
-        } else if (event.key === 'Enter' && currentIndex !== -1) {
-            if(document.activeElement.className === "search-bar"){
+        } else if (event.key === 'Enter') {
+            if (document.activeElement.className === "search-bar") {
+                //if (currentIndex !== -1) {
                 //buttons[currentIndex].click();
+                //}
                 onclicksearch(searchbar.value);
             }
         }
     });
     buttons.forEach((button, index) => {
         button.addEventListener('mouseenter', function () {
-            if(currentIndex > -1 && currentIndex != index){
+            if (currentIndex > -1 && currentIndex != index) {
                 buttons[currentIndex].style.background = "#1a1b26";
             }
             currentIndex = index;
