@@ -299,12 +299,22 @@ function showLogin(title, content, closeBtn, closeInner = "&times;", alertBackCo
 
 var wantlogin = document.getElementById("want-login");
 if (wantlogin != null) {
-    wantlogin.style.cursor = "pointer";
-    wantlogin.addEventListener("click", function () {
-        var slog = showLogin("Login Account", "", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false)
-        slog.style.zIndex = "999";
-        var f = document.getElementById("data-username");
-        f.focus();
-        window.stop();
-    });
+    if (localStorage.getItem('userlogin_privatelib_true') == null) {
+        wantlogin.style.cursor = "pointer";
+        wantlogin.addEventListener("click", function () {
+            var slog = showLogin("Login Account", "", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false)
+            slog.style.zIndex = "999";
+            var f = document.getElementById("data-username");
+            f.focus();
+            window.stop();
+        });
+    }
+    else {
+        wantlogin.innerHTML = "◆登出";
+        wantlogin.style.cursor = "pointer";
+        wantlogin.addEventListener("click", function () {
+            localStorage.removeItem('userlogin_privatelib_true');
+            window.location = "main.html";
+        });
+    }
 }
