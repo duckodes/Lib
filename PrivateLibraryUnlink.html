@@ -64,23 +64,32 @@
 
     <!-- Code -->
     <pre><div class="no-select" style="color: white;width: 100%;margin-bottom: -50px;text-align: center;white-space: pre-line;">
-    <br><br><h2>Example</h2>
+    <br><br><h1>查無此類庫</h1>
             <h6>
-                [ 作用: ]    此段區域說明用途及內容
-
-                <br>點擊按壓左上角copy區域即可複製
-                <br>右下角區域顯示此腳本名，點擊按壓即可下載此腳本
             </h6>
-<br><br></div><div id="code-copy-Example-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-Example-cs">
+<br><br></div><div id="code-copy-Empty-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-Empty-cs">
 using System;
-public class Example
+public class Empty
 {
     static void main(){
-        Console.writeLine("Hello, World!");
+        Console.writeLine("Empty!");
     }
 }
-        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Example.cs  </div></pre>
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Empty.cs  </div></pre>
+    <!-- Code 
+    <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
+    <br><br><h2>CodeEx</h2>
+            <h6>
+                作用: CodeEx
 
+                <br>CodeEx
+            </h6>
+            <div  style="white-space: nowrap;">
+                <img src="CodeEx">
+            </div>
+<br><br></div><div id="code-copy-CodeEx-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-CodeEx-cs">
+
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">CodeEx.cs  </div></pre>-->
     <div class="lib-sources no-select" id="scroll-drag">
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
             A
@@ -179,7 +188,7 @@ public class Example
 <script src="js/svglib/svglib.js"></script>
 <script src="js/copycode.js"></script>
 <script>
-    copycode("code-copy-Example-cs", "code-text-Example-cs");
+    copycode("code-copy-Empty-cs", "code-text-Empty-cs");
 </script>
 <script src="js/buttonthememodal.js"></script>
 <script src="js/alertmodal.js"></script>
@@ -189,8 +198,8 @@ public class Example
     var downloadFiler = document.querySelectorAll('.download-file');
     downloadFiler.forEach(function (e) {
         e.addEventListener("click", () => {
-            if (e.innerText === "Example.cs  ") {
-                downloadFile('Example.cs', 'Resource/OriginFile/csharpFile/Example.cs');
+            if (e.innerText === "Empty.cs  ") {
+                downloadFile('Empty.cs', 'Resource/OriginFile/csharpFile/Empty.cs');
             }
         });
     });

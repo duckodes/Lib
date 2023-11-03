@@ -130,23 +130,27 @@ function selectarrow() {
     });
 }
 function onclicksearch(Text) {
+    var a = document.createElement("a");
     if (Text === "Counter") {
-        var a = document.createElement("a");
         a.href = "CounterLink.html";
         setTimeout(() => {
             a.click();
         }, 100);
     }
     else if (Text === "DraggablePanel") {
-        var a = document.createElement("a");
         a.href = "DraggablePanelLink.html";
         setTimeout(() => {
             a.click();
         }, 100);
     }
     else if (Text === "Searcher") {
-        var a = document.createElement("a");
         a.href = "SearcherLink.html";
+        setTimeout(() => {
+            a.click();
+        }, 100);
+    }
+    else {
+        a.href = "PrivateLibraryUnlink.html";
         setTimeout(() => {
             a.click();
         }, 100);
