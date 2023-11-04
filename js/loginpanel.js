@@ -275,10 +275,10 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
             .catch(error => {
                 modalText.textContent = error.message;
                 if (modalLogin.value === "" || modalLogin.value.includes(" ")) {
-                    modalText.textContent = "密碼不可為空a";
+                    modalText.textContent = "密碼不可為空";
                 }
                 if (modalLoginUser.value === "" || modalLoginUser.value.includes(" ")) {
-                    modalText.textContent = "帳號不可為空a";
+                    modalText.textContent = "帳號不可為空";
                 }
             });
 
