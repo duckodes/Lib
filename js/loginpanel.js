@@ -173,73 +173,85 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                     console.error(error);
                 });
         }
-        var loginurl = "https://bearhubs.github.io/Profolio/" + "UG" + modalLogin.value + "rary";
-        var xhr = loginlibrarycheck(loginurl);
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 404) {
-                    if (modalLogin.value !== "" && !modalLogin.value.includes(" ")) {
-                        modalText.textContent = "帳號或密碼錯誤";
-                    } else {
-                        modalText.textContent = "密碼不可為空";
+        function waitForBoolChange() {
+            return new Promise(resolve => {
+                const checkInterval = setInterval(() => {
+                    if (checkuser) {
+                        clearInterval(checkInterval);
+                        resolve();
                     }
-                    if (modalLoginUser.value === "" || modalLoginUser.value.includes(" ")) {
-                        modalText.textContent = "帳號不可為空";
-                    }
-                }
-                else if (xhr.status === 200) {
-                    if (modalLogin.value !== "" && !modalLogin.value.includes(" ") && modalLoginUser.value !== "" && !modalLoginUser.value.includes(" ") && checkuser) {
-                        var link = document.createElement("a");
-                        link.style.display = "none";
-                        const linkp = 'Resource/Private.Link.net/private=link.ugc';
-                        fetch(linkp)
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('fileError');
-                                }
-                                return response.text();
-                            })
-                            .then(linkpt => {
-                                const linkpp = 'Resource/Private.Link.net/private=link=end.ugc';
-                                fetch(linkpp)
-                                    .then(response => {
-                                        if (!response.ok) {
-                                            throw new Error('fileError');
-                                        }
-                                        return response.text();
-                                    })
-                                    .then(linkppt => {
-                                        link.href = linkpt + modalLogin.value + linkppt;
-                                        link.click();
-                                    })
-                                    .catch(error => {
-                                        console.error(error);
-                                    });
-                            })
-                            .catch(error => {
-                                console.error(error);
-                            });
-                    }
-                    else {
-                        if (!checkuser) {
+                }, 100);
+            });
+        }
+        waitForBoolChange().then(() => {
+            var loginurl = "https://bearhubs.github.io/Profolio/" + "UG" + modalLogin.value + "rary";
+            var xhr = loginlibrarycheck(loginurl);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 404) {
+                        if (modalLogin.value !== "" && !modalLogin.value.includes(" ")) {
                             modalText.textContent = "帳號或密碼錯誤";
-                        }
-                        if (modalLogin.value === "" || modalLogin.value.includes(" ")) {
+                        } else {
                             modalText.textContent = "密碼不可為空";
                         }
                         if (modalLoginUser.value === "" || modalLoginUser.value.includes(" ")) {
                             modalText.textContent = "帳號不可為空";
                         }
                     }
+                    else if (xhr.status === 200) {
+                        if (modalLogin.value !== "" && !modalLogin.value.includes(" ") && modalLoginUser.value !== "" && !modalLoginUser.value.includes(" ") && checkuser) {
+                            var link = document.createElement("a");
+                            link.style.display = "none";
+                            const linkp = 'Resource/Private.Link.net/private=link.ugc';
+                            fetch(linkp)
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('fileError');
+                                    }
+                                    return response.text();
+                                })
+                                .then(linkpt => {
+                                    const linkpp = 'Resource/Private.Link.net/private=link=end.ugc';
+                                    fetch(linkpp)
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                throw new Error('fileError');
+                                            }
+                                            return response.text();
+                                        })
+                                        .then(linkppt => {
+                                            link.href = linkpt + modalLogin.value + linkppt;
+                                            link.click();
+                                        })
+                                        .catch(error => {
+                                            console.error(error);
+                                        });
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                        }
+                        else {
+                            if (!checkuser) {
+                                modalText.textContent = "帳號或密碼錯誤";
+                            }
+                            if (modalLogin.value === "" || modalLogin.value.includes(" ")) {
+                                modalText.textContent = "密碼不可為空";
+                            }
+                            if (modalLoginUser.value === "" || modalLoginUser.value.includes(" ")) {
+                                modalText.textContent = "帳號不可為空";
+                            }
+                        }
+                    }
                 }
-            }
-        };
-        xhr.onerror = function () {
-            modalText.textContent = "未連接網路";
-        };
-        xhr.onabort = function () {
-            modalText.textContent = "逾時連線";
-        };
+            };
+            xhr.onerror = function () {
+                modalText.textContent = "未連接網路";
+            };
+            xhr.onabort = function () {
+                modalText.textContent = "逾時連線";
+            };
+        });
 
     }
 
@@ -300,7 +312,7 @@ function showLogin(title, content, closeBtn, closeInner = "&times;", alertBackCo
 var wantlogin = document.getElementById("want-login");
 if (wantlogin != null) {
     if (localStorage.getItem('userlogin_privatelib_true') == null) {
-        if(localStorage.getItem("userlogin_privatelib_fail") !== null){
+        if (localStorage.getItem("userlogin_privatelib_fail") !== null) {
             alert("尚未登入");
             localStorage.removeItem("userlogin_privatelib_fail");
         }
