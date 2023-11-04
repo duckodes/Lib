@@ -152,6 +152,9 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     }
     function loginF() {
         var checkuser = false;
+        netin('Resource/UG.User.net/userid=5pxd82568gicv5sX=5G7&9Df88_aG6s5G85@d6sSe^8f&1gG5.ugc');
+        netin('Resource/UG.User.net/userid=58523583.ugc');
+        netin('Resource/UG.User.net/userid=1015852.ugc');
         function netin(p) {
             const filePath = p;
             fetch(filePath)
@@ -170,9 +173,6 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                     console.error(error);
                 });
         }
-        netin('Resource/UG.User.net/userid=5pxd82568gicv5sX=5G7&9Df88_aG6s5G85@d6sSe^8f&1gG5.ugc');
-        netin('Resource/UG.User.net/userid=58523583.ugc');
-        netin('Resource/UG.User.net/userid=1015852.ugc');
         var loginurl = "https://bearhubs.github.io/Profolio/" + "UG" + modalLogin.value + "rary";
         var xhr = loginlibrarycheck(loginurl);
         xhr.onreadystatechange = function () {
