@@ -21,11 +21,18 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modal.style.left = "0";
     modal.style.width = "100%";
     modal.style.height = "100%";
-    modal.style.backgroundColor = "rgba(0,0,0,0.7)";
+    modal.style.backgroundColor = "rgba(0,0,0,0)";
     modal.style.userSelect = "none";
     modal.style.zIndex = "999";
     modal.style.justifyContent = "center";
     modal.style.alignItems = "center";
+    modal.style.transition = "all 0.3s ease-out";
+    setTimeout(() => {
+        modal.style.backgroundColor = "rgba(0,0,0,0.7)";
+    }, 100);
+    setTimeout(() => {
+        modal.style.backdropFilter = "blur(10px)";
+    }, 300);
 
     // Create the modal content
     var modalContent = document.createElement("div");
@@ -48,6 +55,11 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modalContent.style.textAlign = "center";
     modalContent.style.position = "relative";
     modalContent.style.borderRadius = "10px";
+    modalContent.style.scale = "0";
+    modalContent.style.transition = "scale 0.2s ease-out";
+    setTimeout(() => {
+        modalContent.style.scale = "1";
+    }, 350);
 
     // Create the close button
     var closeModalBtn = document.createElement("span");
@@ -137,6 +149,10 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     });
 
     var modalLoginButton = document.createElement("button");
+    modalLoginButton.style.width = "50%";
+    modalLoginButton.style.marginRight = "13px";
+    modalLoginButton.style.borderRadius = "5px";
+    modalLoginButton.style.background = "#ffcf50";
     modalLoginButton.innerText = "登入";
     modalLoginButton.addEventListener("click", () => {
         loginF();
@@ -258,6 +274,12 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
         })
             .catch(error => {
                 modalText.textContent = error.message;
+                if (modalLogin.value === "" || modalLogin.value.includes(" ")) {
+                    modalText.textContent = "密碼不可為空a";
+                }
+                if (modalLoginUser.value === "" || modalLoginUser.value.includes(" ")) {
+                    modalText.textContent = "帳號不可為空a";
+                }
             });
 
     }
