@@ -12,10 +12,14 @@ fetch('Resource/Private.Link.net/private=link=end.ugc')
                 localStorage.setItem("userlogin_privatelib_fail", "true");
                 window.location.href = "main.html";
             }
+            else {
+                window.history.pushState({}, "", "UGPrivateLibrary");
+            }
         }
         else {
             localStorage.setItem("userlogin_privatelib_true", "lnv2kor@nkvof8mGo3pkE8s3v5g2e1d8c6sda&$SLgEMsdV");
-            window.history.pushState({}, "", "UGPrivateLibrary");
+            window.history.pushState({}, "", "UGPrivateLibrary.html");
+            window.location.reload();
         }
     })
     .catch(error => {
