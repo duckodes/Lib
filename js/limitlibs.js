@@ -3,3 +3,5 @@ if (localStorage.getItem("userlogin_privatelib_true") !== "lnv2kor@nkvof8mGo3pkE
     localStorage.setItem("userlogin_privatelib_fail", "true");
     window.location.href = "main.html";
 }
+
+window.history.pushState({}, "", "UGPrivateLibrary.html" + "?v=" + getParameterByName("v", window.location.href));

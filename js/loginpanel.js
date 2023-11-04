@@ -174,13 +174,17 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                 });
         }
         function waitForBoolChange() {
-            return new Promise(resolve => {
+            return new Promise((resolve, reject) => {
                 const checkInterval = setInterval(() => {
                     if (checkuser) {
                         clearInterval(checkInterval);
                         resolve();
                     }
                 }, 100);
+                timeout = setTimeout(() => {
+                    clearInterval(checkInterval);
+                    reject(new Error('帳號或密碼錯誤'));
+                }, 1000);
             });
         }
         waitForBoolChange().then(() => {
@@ -251,7 +255,10 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
             xhr.onabort = function () {
                 modalText.textContent = "逾時連線";
             };
-        });
+        })
+            .catch(error => {
+                modalText.textContent = error.message;
+            });
 
     }
 
