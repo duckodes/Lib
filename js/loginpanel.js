@@ -351,7 +351,6 @@ if (wantlogin != null) {
             slog.style.zIndex = "999";
             var f = document.getElementById("data-username");
             f.focus();
-            window.stop();
         });
     }
     else {
