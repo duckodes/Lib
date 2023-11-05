@@ -139,6 +139,11 @@ code::-webkit-scrollbar-corner {
     font-style: italic;
 }
 
+.mark-pinkred {
+    color: #ff4c6d;
+    font-weight: bolder;
+}
+
 .console-output::-webkit-scrollbar {
     width: 7px;
     height: 0px;

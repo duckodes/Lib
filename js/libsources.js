@@ -166,9 +166,9 @@ whitelibsources.forEach(function (element) {
         if (element.innerText === "U") {
             var alert = showAlert("U", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var exlink = Alinker("目前尚無資源", "#");
+            var UI_Sizerlink = Alinker("◆UI-Sizer", "UI-SizerLink.html");
             var whiteBackChild = alert.querySelector('.white-back');
-            whiteBackChild.appendChild(exlink);
+            whiteBackChild.appendChild(UI_Sizerlink);
         }
         if (element.innerText === "W") {
             var alert = showAlert("W", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);

@@ -10,7 +10,7 @@ searchbuttonarea.style.flexDirection = "column";
 searchbuttonarea.style.background = "#1a1b26";
 searchbuttonarea.style.borderRadius = "20px";
 navb.appendChild(searchbuttonarea);
-var source = ["Counter", "DraggablePanel", "Searcher"];
+var source = ["Counter", "DraggablePanel", "Searcher", "UI-Sizer"];
 var searchbar = document.querySelector('.search-bar');
 var searchbarfocus = true;
 searchbar.addEventListener("input", () => {
@@ -185,6 +185,12 @@ function onclicksearch(Text) {
             a.click();
         }, 100);
     }
+    else if (Text === "UI-Sizer") {
+        a.href = "UI-SizerLink.html" + "?v=" + searchbar.value;
+        setTimeout(() => {
+            a.click();
+        }, 100);
+    }
     else {
         a.href = "PrivateLibraryUnlink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
@@ -200,7 +206,7 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-if(window.location.pathname !== "/UGPrivateLibrary.html" && window.location.pathname !== "/Profolio/UGPrivateLibrary.html"){
+if (window.location.pathname !== "/UGPrivateLibrary.html" && window.location.pathname !== "/Profolio/UGPrivateLibrary.html") {
     searchbar.value = getParameterByName('v', window.location.href);
 }
 //searchbar.value = localStorage.getItem('SearchKeyword');

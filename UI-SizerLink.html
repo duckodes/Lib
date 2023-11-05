@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="hIM9VzpUGW4x0pEw9UNYO71x_m7h4uAdKhfuSwU8WhM" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="500x500" href="image/Logo_R.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="image/Logo_R_57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="image/Logo_R_60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="image/Logo_R_72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="image/Logo_R_76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="image/Logo_R_114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="image/Logo_R_120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="image/Logo_R_144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="image/Logo_R_152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/Logo_R_180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="image/Logo_R_192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/Logo_R_32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="image/Logo_R_96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/Logo_R_16.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main-scrollbar.css">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
+
+    <!--Avaiable Styles :
+    https://github.com/highlightjs/highlight.js/tree/main/src/styles
+    From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css
+    From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/tokyo-night-dark.min.css
+    From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/vs2015.min.css
+    From: css/tokyo-night-dark.css
+    From: css/tokyo-night-dark.min.css
+    From: css/default.min.css-->
+    <link rel="stylesheet" href="css/vs2015.min.css" id="code-style">
+
+    <title>UI-Sizer 介面縮放</title>
+    <link rel="stylesheet" href="css/private-library.css">
+    <style>
+        #lib-draggablepanel {
+            width: 30%;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        #lib-draggablepanel:hover {
+            opacity: 0.5;
+            width: 25%;
+        }
+    </style>
+</head>
+
+<body style="background-color: #252525;">
+    <!-- Nav -->
+    <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);
+    z-index: 2;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;">
+        <div class="container justify-content-center">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active text-light" aria-current="page" href="main.html">Home◆首頁</a>
+                </li>
+                <input type="text" class="search-bar" placeholder="🔍︎" />
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="UGPrivateLibrary.html">Library◆類庫</a>
+                </li>
+            </ul>
+            <div id="theme-button" style="margin-right: 100px;"></div>
+            <div style="color: white;margin-left: -100px;">⚠️主題</div>
+        </div>
+    </nav>
+
+    <div class="lib-sources no-select" id="scroll-drag">
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            A
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            B
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            C
+        </div>
+        <div class="white-lib-sources select-lib"
+            style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            D
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            E
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            F
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            G
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            H
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            I
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            J
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            K
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            L
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            M
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            N
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            O
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            P
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            Q
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            R
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            S
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            T
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            U
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            V
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            W
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            X
+        </div>
+        <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
+            Y
+        </div>
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+            Z
+        </div>
+    </div>
+
+    <!-- Code -->
+    <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
+    <br><br><h2>UI-Sizer 介面縮放</h2>
+            <h6>
+                作用: 使用 RectTransformSizer.cs 组件至 unity uGUI
+                可快速使uGUI包含的RectTransform核心組件，進行簡易的用戶互動
+                <span class="mark-pinkred">(如要進行快速整體變形，應使用 RectTransformScaler.cs 組件。使用該組件，僅能讓當層RectTransform進行SizeDelta變更，因此如果變更需Text或TMP組件，需要使用LegacyTextSizer.cs或是TMPTextSizer.cs)</span>
+
+                <span class="mark-place">
+                    <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
+                    <br>Rect Transform: 選擇要變更大小的核心組件
+                    <br>Option: 更改欲變更大小的互動方式
+                    <br>Mutiply Size: 相乘大小，該向量x與y是以原大小RectTransform組件內sizeDelta的x與y分別作乘積
+                    <br>Animation Speed: 動畫速度
+                    <br>Enter Speed: 互動'開始'的動畫曲線
+                    <br>Leave Speed: 互動'結束'的動畫曲線
+                </span>
+            </h6>
+<br><br></div><div id="code-copy-RectTransformSizer-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-RectTransformSizer-cs">
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class RectTransformSizer : MonoBehaviour, 
+    IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+{
+    private enum Option
+    {
+        Hover,
+        Click
+    }
+    [SerializeField] private RectTransform rectTransform;
+
+    [Tooltip("Activation")] [SerializeField] private Option option = Option.Hover;
+    [Tooltip("Rect size")] [SerializeField] private Vector2 mutiplySize = new Vector2(1.2f, 1.2f);
+    [Tooltip("Mutiply animation duration")] [Range(0, 2)] [SerializeField] private float animaitonSpeed = 0.5f;
+    [SerializeField]
+    private AnimationCurve EnterSpeed = new AnimationCurve(
+        new Keyframe(0, 0, 1, 2),
+        new Keyframe(1, 1, 0, 1)
+    );
+    [SerializeField]
+    private AnimationCurve LeaveSpeed = new AnimationCurve(
+        new Keyframe(0, 1, 1, 0),
+        new Keyframe(1, 0, -2, 1)
+    );
+    public void OnPointerEnter(PointerEventData pointerEventData) => isActive = option == Option.Hover ? true : isActive;
+    public void OnPointerExit(PointerEventData pointerEventData) => isActive = option == Option.Hover ? false : isActive;
+    public void OnPointerDown(PointerEventData pointerEventData) => isActive = option == Option.Click ? true : isActive;
+    public void OnPointerUp(PointerEventData pointerEventData) => isActive = option == Option.Click ? false : isActive;
+
+    private Vector2 defaultSizeDelta;
+    private Vector2 mutiplySizeDelta;
+    private bool isActive;
+    private float hoverTime;
+    private float animationDuration = 1f;
+    private void Start()
+    {
+        defaultSizeDelta = rectTransform.sizeDelta;
+    }
+    private void Update()
+    {
+        Active();
+    }
+    private void Active()
+    {
+        if (isActive)
+        {
+            mutiplySizeDelta = new Vector2(defaultSizeDelta.x * mutiplySize.x, defaultSizeDelta.y * mutiplySize.y);
+            if (hoverTime &lt; animationDuration * animaitonSpeed)
+            {
+                hoverTime += Time.deltaTime;
+                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
+                float curveValue = EnterSpeed.Evaluate(progress);
+                rectTransform.sizeDelta = Vector2.Lerp(defaultSizeDelta, mutiplySizeDelta, curveValue);
+            }
+            else
+            {
+                hoverTime = animationDuration * animaitonSpeed;
+            }
+        }
+        else
+        {
+            if (hoverTime > 0)
+            {
+                hoverTime -= Time.deltaTime;
+                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
+                float curveValue = LeaveSpeed.Evaluate(progress);
+                rectTransform.sizeDelta = Vector2.Lerp(mutiplySizeDelta, defaultSizeDelta, curveValue);
+            }
+            else
+            {
+                hoverTime = 0;
+            }
+        }
+    }
+}
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">RectTransformSizer.cs  </div></pre>
+
+    <!-- Code -->
+    <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
+    <br><br><h2>RectTransformScaler</h2>
+            <h6>
+                作用: 使用 RectTransformScaler.cs 组件至 unity uGUI
+                可快速使uGUI包含的RectTransform核心組件，進行簡易的用戶互動
+                <span class="mark-pinkred">(該組件是以 RectTransform 的 Scale 進行變更，因此父關係層能夠完整的控制子層的縮放。)</span>
+
+                <span class="mark-place">
+                    <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
+                    <br>Rect Transform: 選擇要變更大小的核心組件
+                    <br>Option: 更改欲變更大小的互動方式
+                    <br>Mutiply Size: 相乘大小，該向量x與y是以原大小RectTransform組件內 Local Scale 的x與y分別作乘積
+                    <br>Animation Speed: 動畫速度
+                    <br>Enter Speed: 互動'開始'的動畫曲線
+                    <br>Leave Speed: 互動'結束'的動畫曲線
+                </span>
+            </h6>
+<br><br></div><div id="code-copy-RectTransformScaler-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-RectTransformScaler-cs">
+using UnityEngine;
+using UnityEngine.EventSystems;
+
+public class RectTransformScaler : MonoBehaviour, 
+    IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+{
+    private enum Option
+    {
+        Hover,
+        Click
+    }
+    [SerializeField] private RectTransform rectTransform;
+
+    [Tooltip("Activation")] [SerializeField] private Option option = Option.Hover;
+    [Tooltip("Rect size")] [SerializeField] private Vector2 mutiplySize = new Vector2(1.2f, 1.2f);
+    [Tooltip("Mutiply animation duration")] [Range(0, 2)] [SerializeField] private float animaitonSpeed = 0.5f;
+    [SerializeField]
+    private AnimationCurve EnterSpeed = new AnimationCurve(
+        new Keyframe(0, 0, 1, 2),
+        new Keyframe(1, 1, 0, 1)
+    );
+    [SerializeField]
+    private AnimationCurve LeaveSpeed = new AnimationCurve(
+        new Keyframe(0, 1, 1, 0),
+        new Keyframe(1, 0, -2, 1)
+    );
+    public void OnPointerEnter(PointerEventData pointerEventData) => isActive = option == Option.Hover ? true : isActive;
+    public void OnPointerExit(PointerEventData pointerEventData) => isActive = option == Option.Hover ? false : isActive;
+    public void OnPointerDown(PointerEventData pointerEventData) => isActive = option == Option.Click ? true : isActive;
+    public void OnPointerUp(PointerEventData pointerEventData) => isActive = option == Option.Click ? false : isActive;
+
+    private Vector2 defaultSizeDelta;
+    private Vector2 mutiplySizeDelta;
+    private bool isActive;
+    private float hoverTime;
+    private float animationDuration = 1f;
+    private void Start()
+    {
+        defaultSizeDelta = rectTransform.localScale;
+    }
+    private void Update()
+    {
+        Active();
+    }
+    private void Active()
+    {
+        if (isActive)
+        {
+            mutiplySizeDelta = new Vector2(defaultSizeDelta.x * mutiplySize.x, defaultSizeDelta.y * mutiplySize.y);
+            if (hoverTime &lt; animationDuration * animaitonSpeed)
+            {
+                hoverTime += Time.deltaTime;
+                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
+                float curveValue = EnterSpeed.Evaluate(progress);
+                rectTransform.localScale = Vector2.Lerp(defaultSizeDelta, mutiplySizeDelta, curveValue);
+            }
+            else
+            {
+                hoverTime = animationDuration * animaitonSpeed;
+            }
+        }
+        else
+        {
+            if (hoverTime > 0)
+            {
+                hoverTime -= Time.deltaTime;
+                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
+                float curveValue = LeaveSpeed.Evaluate(progress);
+                rectTransform.localScale = Vector2.Lerp(mutiplySizeDelta, defaultSizeDelta, curveValue);
+            }
+            else
+            {
+                hoverTime = 0;
+            }
+        }
+    }
+}
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">RectTransformScaler.cs  </div></pre>
+
+    <!-- Code -->
+    <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
+    <br><br><h2>LegacyTextSizer</h2>
+            <h6>
+                作用: 使用 LegacyTextSizer.cs 组件至 unity uGUI
+                可快速使uGUI包含的Text組件，進行簡易的互動
+                <span class="mark-pinkred">(該組件以 Text 組件的 FontSize 進行變更，因此只能變更Font大小。如需X或Y縮放需使用RectTransformScaler.cs。)</span>
+
+                <span class="mark-place">
+                    <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
+                    <br>Rect Transform: 選擇要變更大小的核心組件
+                    <br>Option: 更改欲變更大小的互動方式
+                    <br>Mutiply Size: 相乘大小，該浮點與Text組件 FontSize 默認值，作乘積
+                    <br>Animation Speed: 動畫速度
+                    <br>Enter Speed: 互動'開始'的動畫曲線
+                    <br>Leave Speed: 互動'結束'的動畫曲線
+                </span>
+            </h6>
+<br><br></div><div id="code-copy-LegacyTextSizer-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-LegacyTextSizer-cs">
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
+public class LegacyTextSizer : MonoBehaviour, 
+    IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+{
+    private enum Option
+    {
+        Hover,
+        Click
+    }
+    [SerializeField] private Text text;
+
+    [Tooltip("Activation")] [SerializeField] private Option option = Option.Hover;
+    [Tooltip("Font size")] [Range(0, 1.8f)] [SerializeField] private float mutiplySize = 1.2f;
+    [Tooltip("Mutiply animation duration")] [Range(0, 2)] [SerializeField] private float animaitonSpeed = 0.5f;
+    [SerializeField]
+    private AnimationCurve EnterSpeed = new AnimationCurve(
+        new Keyframe(0, 0, 1, 2),
+        new Keyframe(1, 1, 0, 1)
+    );
+    [SerializeField]
+    private AnimationCurve LeaveSpeed = new AnimationCurve(
+        new Keyframe(0, 1, 1, 0),
+        new Keyframe(1, 0, -2, 1)
+    );
+    public void OnPointerEnter(PointerEventData pointerEventData) => isActive = option == Option.Hover ? true : isActive;
+    public void OnPointerExit(PointerEventData pointerEventData) => isActive = option == Option.Hover ? false : isActive;
+    public void OnPointerDown(PointerEventData pointerEventData) => isActive = option == Option.Click ? true : isActive;
+    public void OnPointerUp(PointerEventData pointerEventData) => isActive = option == Option.Click ? false : isActive;
+
+    private float defaultSizeDelta;
+    private float mutiplySizeDelta;
+    private bool isActive;
+    private float hoverTime;
+    private float animationDuration = 1f;
+    private void Start()
+    {
+        defaultSizeDelta = text.fontSize;
+    }
+    private void Update()
+    {
+        Active();
+    }
+    private void Active()
+    {
+        if (isActive)
+        {
+            mutiplySizeDelta = defaultSizeDelta * mutiplySize;
+            if (hoverTime &lt; animationDuration * animaitonSpeed)
+            {
+                hoverTime += Time.deltaTime;
+                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
+                float curveValue = EnterSpeed.Evaluate(progress);
+                text.fontSize = (int)Mathf.Lerp(defaultSizeDelta, mutiplySizeDelta, curveValue);
+            }
+            else
+            {
+                hoverTime = animationDuration * animaitonSpeed;
+            }
+        }
+        else
+        {
+            if (hoverTime > 0)
+            {
+                hoverTime -= Time.deltaTime;
+                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
+                float curveValue = LeaveSpeed.Evaluate(progress);
+                text.fontSize = (int)Mathf.Lerp(mutiplySizeDelta, defaultSizeDelta, curveValue);
+            }
+            else
+            {
+                hoverTime = 0;
+            }
+        }
+    }
+}
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">LegacyTextSizer.cs  </div></pre>
+
+    <!-- Code -->
+    <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
+    <br><br><h2>TMPTextSizer</h2>
+            <h6>
+                作用: 使用 TMPTextSizer.cs 组件至 unity uGUI
+                可快速使TextMeshPro包含的TextMeshProUGUI組件，進行簡易的互動
+                <span class="mark-pinkred">(該組件以 TextMeshProUGUI 組件的 FontSize 進行變更，因此只能變更Font大小。如需X或Y縮放需使用RectTransformScaler.cs。)</span>
+
+                <span class="mark-place">
+                    <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
+                    <br>Rect Transform: 選擇要變更大小的核心組件
+                    <br>Option: 更改欲變更大小的互動方式
+                    <br>Mutiply Size: 相乘大小，該浮點與TextMeshProUGUI組件 FontSize 默認值，作乘積
+                    <br>Animation Speed: 動畫速度
+                    <br>Enter Speed: 互動'開始'的動畫曲線
+                    <br>Leave Speed: 互動'結束'的動畫曲線
+                </span>
+            </h6>
+<br><br></div><div id="code-copy-TMPTextSizer-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-TMPTextSizer-cs">
+using UnityEngine;
+using UnityEngine.EventSystems;
+using TMPro;
+
+public class TMPTextSizer : MonoBehaviour, 
+    IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler, IPointerUpHandler
+{
+    private enum Option
+    {
+        Hover,
+        Click
+    }
+    [SerializeField] private TextMeshProUGUI textMeshProUGUI;
+
+    [Tooltip("Activation")] [SerializeField] private Option option = Option.Hover;
+    [Tooltip("Font size")] [Range(0, 1.8f)] [SerializeField] private float mutiplySize = 1.2f;
+    [Tooltip("Mutiply animation duration")] [Range(0, 2)] [SerializeField] private float animaitonSpeed = 0.5f;
+    [SerializeField]
+    private AnimationCurve EnterSpeed = new AnimationCurve(
+        new Keyframe(0, 0, 1, 2),
+        new Keyframe(1, 1, 0, 1)
+    );
+    [SerializeField]
+    private AnimationCurve LeaveSpeed = new AnimationCurve(
+        new Keyframe(0, 1, 1, 0),
+        new Keyframe(1, 0, -2, 1)
+    );
+    public void OnPointerEnter(PointerEventData pointerEventData) => isActive = option == Option.Hover ? true : isActive;
+    public void OnPointerExit(PointerEventData pointerEventData) => isActive = option == Option.Hover ? false : isActive;
+    public void OnPointerDown(PointerEventData pointerEventData) => isActive = option == Option.Click ? true : isActive;
+    public void OnPointerUp(PointerEventData pointerEventData) => isActive = option == Option.Click ? false : isActive;
+
+    private float defaultSizeDelta;
+    private float mutiplySizeDelta;
+    private bool isActive;
+    private float hoverTime;
+    private float animationDuration = 1f;
+    private void Start()
+    {
+        defaultSizeDelta = textMeshProUGUI.fontSize;
+    }
+    private void Update()
+    {
+        Active();
+    }
+    private void Active()
+    {
+        if (isActive)
+        {
+            mutiplySizeDelta = defaultSizeDelta * mutiplySize;
+            if (hoverTime &lt; animationDuration * animaitonSpeed)
+            {
+                hoverTime += Time.deltaTime;
+                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
+                float curveValue = EnterSpeed.Evaluate(progress);
+                textMeshProUGUI.fontSize = Mathf.Lerp(defaultSizeDelta, mutiplySizeDelta, curveValue);
+            }
+            else
+            {
+                hoverTime = animationDuration * animaitonSpeed;
+            }
+        }
+        else
+        {
+            if (hoverTime > 0)
+            {
+                hoverTime -= Time.deltaTime;
+                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
+                float curveValue = LeaveSpeed.Evaluate(progress);
+                textMeshProUGUI.fontSize = Mathf.Lerp(mutiplySizeDelta, defaultSizeDelta, curveValue);
+            }
+            else
+            {
+                hoverTime = 0;
+            }
+        }
+    }
+}
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">TMPTextSizer.cs  </div></pre>
+
+</body>
+
+<!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
+<script src="js/highlight.min.js"></script>
+<script>
+    hljs.highlightAll();
+</script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/search.js"></script>
+<script src="js/userprevent.js"></script>
+<script src="js/svglib/svglib.js"></script>
+<script src="js/copycode.js"></script>
+<script>
+    copycode("code-copy-RectTransformSizer-cs", "code-text-RectTransformSizer-cs");
+    copycode("code-copy-RectTransformScaler-cs", "code-text-RectTransformScaler-cs");
+    copycode("code-copy-LegacyTextSizer-cs", "code-text-LegacyTextSizer-cs");
+    copycode("code-copy-TMPTextSizer-cs", "code-text-TMPTextSizer-cs");
+</script>
+<script src="js/buttonthememodal.js"></script>
+<script src="js/alertmodal.js"></script>
+<script src="js/libsources.js"></script>
+<script src="js/downloadfile.js"></script>
+<script>
+    var downloadFiler = document.querySelectorAll('.download-file');
+    downloadFiler.forEach(function (e) {
+        e.addEventListener("click", () => {
+            if (e.innerText === "RectTransformSizer.cs  ") {
+                downloadFile('RectTransformSizer.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/RectTransformSizer.cs');
+            }
+            if (e.innerText === "RectTransformScaler.cs  ") {
+                downloadFile('RectTransformScaler.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/RectTransformScaler.cs');
+            }
+            if (e.innerText === "LegacyTextSizer.cs  ") {
+                downloadFile('LegacyTextSizer.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/LegacyTextSizer.cs');
+            }
+            if (e.innerText === "TMPTextSizer.cs  ") {
+                downloadFile('TMPTextSizer.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/TMPTextSizer.cs');
+            }
+        });
+    });
+</script>
+<script src="js/scrollmousedrag.js"></script>
+<script>
+    scrollmousedrag("scroll-drag");
+</script>
+<script src="js/scrollcheck.js"></script>
+<script>
+    winsy0(() => {
+        var libsrc = document.getElementById('scroll-drag');
+        libsrc.style.opacity = "1";
+        libsrc.style.marginLeft = "0px";
+    }, () => {
+        var libsrc = document.getElementById('scroll-drag');
+        libsrc.style.opacity = "1";
+        libsrc.style.marginLeft = "0px";
+    }, () => {
+        var libsrc = document.getElementById('scroll-drag');
+        libsrc.addEventListener('mousedown', () => {
+            libsrc.style.opacity = "1";
+        });
+        libsrc.addEventListener('touchstart', () => {
+            libsrc.style.opacity = "1";
+        });
+        libsrc.style.opacity = "0.2";
+        libsrc.style.marginLeft = "-15px";
+    });
+</script>
+
+<script src="js/limitlibs.js"></script>
+
+</html>
