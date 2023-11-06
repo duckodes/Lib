@@ -1,7 +1,12 @@
 using System;
-public class Example
+
+namespace Example
 {
-    static void main(){
-        Console.writeLine("Hello, World!");
+    public class Example
+    {
+        private static void Main(string[] args)
+        {
+            Console.WriteLine("Library Example!");    
+        }
     }
 }
