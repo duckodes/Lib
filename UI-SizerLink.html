@@ -554,8 +554,20 @@ public class TMPTextSizer : MonoBehaviour,
 
 <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
 <script src="js/highlight.min.js"></script>
-<script defer>
-    hljs.highlightAll();
+<script src="js/filetextinelement.js"></script>
+<script>
+    filetextinelements(['code-text-RectTransformSizer-cs',
+        'code-text-RectTransformScaler-cs',
+        'code-text-LegacyTextSizer-cs',
+        'code-text-TMPTextSizer-cs'],
+        ['Resource/OriginFile/csharpFile/UI/Sizer/RectTransformSizer.cs',
+            'Resource/OriginFile/csharpFile/UI/Sizer/RectTransformScaler.cs',
+            'Resource/OriginFile/csharpFile/UI/Sizer/LegacyTextSizer.cs',
+            'Resource/OriginFile/csharpFile/UI/Sizer/TMPTextSizer.cs'], (t, text) => {
+                t.textContent = text;
+            }, () => {
+                hljs.highlightAll();
+            });
 </script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/search.js"></script>
