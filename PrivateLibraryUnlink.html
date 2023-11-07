@@ -171,14 +171,15 @@
 <script src="js/filetextinelement.js"></script>
 <script>
     filetextinelement('code-text-Empty-cs', 'Resource/OriginFile/csharpFile/Empty.cs', (t, text) => {
-        t.textContent = text;
+        t.textContent = text.replace('Empty', searchbar.value).replace('Empty!', searchbar.value);
+    }, () => {
         hljs.highlightAll();
     });
 </script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/consoleoutput.js"></script>
 <script>
-    consoleswitch();
+    //consoleswitch();
 </script>
 <script src="js/search.js"></script>
 <script>
@@ -199,10 +200,16 @@
     var downloadFiler = document.querySelectorAll('.download-file');
     downloadFiler.forEach(function (e) {
         e.addEventListener("click", () => {
-            if (e.innerText === "Empty.cs  ") {
-                downloadFile('Empty.cs', 'Resource/OriginFile/csharpFile/Empty.cs');
+            if (e.innerText === searchbar.value + ".cs  ") {
+                //downloadFile('Empty.cs', 'Resource/OriginFile/csharpFile/Empty.cs');
+                var c = document.getElementById('code-text-Empty-cs');
+                downloadwritefile(c.textContent.replace('Empty', searchbar.value).replace('Empty!', searchbar.value), searchbar.value + '.cs');
             }
         });
+        if (e.innerText === "Empty.cs  "){
+            e.textContent = searchbar.value + ".cs  ";
+            console.log(e.textContent);
+        }
     });
 </script>
 <script src="js/scrollmousedrag.js"></script>

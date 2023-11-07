@@ -1,4 +1,4 @@
-function filetextinelement(id, filePath, fc) {
+function filetextinelement(id, filePath, fc, postFc) {
     var t = document.getElementById(id);
     fetch(filePath)
         .then(response => {
@@ -9,6 +9,9 @@ function filetextinelement(id, filePath, fc) {
         })
         .then(text => {
             fc(t, text);
+        })
+        .then(() => {
+            postFc();
         })
         .catch(error => {
             console.error(error);
