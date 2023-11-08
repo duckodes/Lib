@@ -35,7 +35,7 @@
     From: css/default.min.css-->
     <link rel="stylesheet" href="css/vs2015.min.css" id="code-style">
 
-    <title>Library 類庫</title>
+    <title>InitializationEvent 生命週期初始化事件</title>
     <link rel="stylesheet" href="css/private-library.css">
 </head>
 
@@ -54,14 +54,14 @@
                 </li>
                 <input type="text" class="search-bar" placeholder="🔍︎" />
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="UGPrivateLibrary.html">Library⚠️類庫</a>
+                    <a class="nav-link text-light" href="UGPrivateLibrary.html">Library◆類庫</a>
                 </li>
             </ul>
             <div id="theme-button" style="margin-right: 100px;"></div>
-            <div style="color: white;margin-left: -100px;">主題</div>
+            <div style="color: white;margin-left: -100px;">⚠️主題</div>
         </div>
     </nav>
-    
+
     <div class="lib-sources no-select" id="scroll-drag">
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
             A
@@ -72,7 +72,8 @@
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
             C
         </div>
-        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
+        <div class="white-lib-sources select-lib"
+            style="height: 100px;display: flex;align-items: center;justify-content: center;">
             D
         </div>
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
@@ -144,26 +145,19 @@
     </div>
 
     <!-- Code -->
-    <pre><div class="no-select" style="color: white;width: 100%;margin-bottom: -50px;text-align: center;white-space: pre-line;">
-    <br><br><h1 id="unlink-info">查無此類庫</h1>
-            <h6>
-            </h6>
-<br><br></div><div id="code-copy-Empty-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-Empty-cs">
-        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Empty.cs  </div></pre>
-    <!-- Code 
     <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
-    <br><br><h2>CodeEx</h2>
+    <br><br><h2>InitializationEvent 生命週期初始化事件</h2>
             <h6>
-                作用: CodeEx
+                作用: 可新增需要的Initialization對象作用的Event
 
-                <br>CodeEx
+                <span class="mark-place">
+                    <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
+                    <br>Add Initialization Event: 可開啟需要初始化對象的事件
+                    再次點擊關閉並不會移除之前新增的對象，必須要移除該Event內的對象，才會移除
+                </span>
             </h6>
-            <div  style="white-space: nowrap;">
-                <img src="CodeEx">
-            </div>
-<br><br></div><div id="code-copy-CodeEx-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-CodeEx-cs">
-
-        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">CodeEx.cs  </div></pre>-->
+<br><br></div><div id="code-copy-InitializationEvent-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-InitializationEvent-cs">
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">InitializationEvent.cs  </div></pre>
 
 </body>
 
@@ -171,27 +165,19 @@
 <script src="js/highlight.min.js"></script>
 <script src="js/filetextinelement.js"></script>
 <script>
-    filetextinelement('code-text-Empty-cs', 'Resource/OriginFile/csharpFile/Empty.cs', (t, text) => {
-        t.textContent = text.replace('Empty', searchbar.value).replace('Empty!', searchbar.value);
+    filetextinelement('code-text-InitializationEvent-cs', 'Resource/OriginFile/csharpFile/Event/InitializationEvent.cs', (t, text) => {
+        t.textContent = text;
     }, () => {
         hljs.highlightAll();
     });
 </script>
 <script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/consoleoutput.js"></script>
-<script>
-    //consoleswitch();
-</script>
 <script src="js/search.js"></script>
-<script>
-    document.title = searchbar.value + "查無此類庫";
-    document.getElementById('unlink-info').innerHTML = "您的搜索 - " + searchbar.value + " - 查無此類庫";
-</script>
 <script src="js/userprevent.js"></script>
 <script src="js/svglib/svglib.js"></script>
 <script src="js/copycode.js"></script>
 <script>
-    copycode("code-copy-Empty-cs", "code-text-Empty-cs");
+    copycode("code-copy-InitializationEvent-cs", "code-text-InitializationEvent-cs");
 </script>
 <script src="js/buttonthememodal.js"></script>
 <script src="js/alertmodal.js"></script>
@@ -201,15 +187,10 @@
     var downloadFiler = document.querySelectorAll('.download-file');
     downloadFiler.forEach(function (e) {
         e.addEventListener("click", () => {
-            if (e.innerText === searchbar.value + ".cs  ") {
-                //downloadFile('Empty.cs', 'Resource/OriginFile/csharpFile/Empty.cs');
-                var c = document.getElementById('code-text-Empty-cs');
-                downloadwritefile(c.textContent.replace('Empty', searchbar.value).replace('Empty!', searchbar.value), searchbar.value + '.cs');
+            if (e.innerText === "InitializationEvent.cs  ") {
+                downloadFile('InitializationEvent.cs', 'Resource/OriginFile/csharpFile/Event/InitializationEvent.cs');
             }
         });
-        if (e.innerText === "Empty.cs  ") {
-            e.textContent = searchbar.value + ".cs  ";
-        }
     });
 </script>
 <script src="js/scrollmousedrag.js"></script>

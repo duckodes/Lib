@@ -10,7 +10,7 @@ searchbuttonarea.style.flexDirection = "column";
 searchbuttonarea.style.background = "#1a1b26";
 searchbuttonarea.style.borderRadius = "20px";
 navb.appendChild(searchbuttonarea);
-var source = ["Counter", "DraggablePanel", "Searcher", "UI-Sizer"];
+var source = ["AudioCollection", "Counter", "DraggablePanel", "InitializationEvent", "Searcher", "UI-Sizer"];
 var searchbar = document.querySelector('.search-bar');
 var searchbarfocus = true;
 searchbar.addEventListener("input", () => {
@@ -167,7 +167,13 @@ function selectarrow() {
 function onclicksearch(Text) {
     var a = document.createElement("a");
     localStorage.setItem('SearchKeyword', Text);
-    if (Text === "Counter") {
+    if (Text === "AudioCollection") {
+        a.href = "AudioCollectionLink.html" + "?v=" + searchbar.value;
+        setTimeout(() => {
+            a.click();
+        }, 100);
+    }
+    else if (Text === "Counter") {
         a.href = "CounterLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
@@ -175,6 +181,12 @@ function onclicksearch(Text) {
     }
     else if (Text === "DraggablePanel") {
         a.href = "DraggablePanelLink.html" + "?v=" + searchbar.value;
+        setTimeout(() => {
+            a.click();
+        }, 100);
+    }
+    else if (Text === "InitializationEvent") {
+        a.href = "InitializationEventLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);

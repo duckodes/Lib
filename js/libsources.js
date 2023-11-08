@@ -5,9 +5,9 @@ blacklibsources.forEach(function (element) {
         if (element.innerText === "A") {
             var alert = showAlert("A", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var exlink = Alinker("目前尚無資源", "#");
+            var AudioCollectionlink = Alinker("◆AudioCollection", "AudioCollectionLink.html" + "?v=" + "AudioCollectionLink");
             var whiteBackChild = alert.querySelector('.white-back');
-            whiteBackChild.appendChild(exlink);
+            whiteBackChild.appendChild(AudioCollectionlink);
         }
         if (element.innerText === "C") {
             var alert = showAlert("C", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
@@ -114,9 +114,9 @@ whitelibsources.forEach(function (element) {
         if (element.innerText === "I") {
             var alert = showAlert("I", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
             alert.style.zIndex = "999";
-            var exlink = Alinker("目前尚無資源", "#");
+            var InitializationEventlink = Alinker("◆InitializationEvent", "InitializationEventLink.html" + "?v=" + "InitializationEvent");
             var whiteBackChild = alert.querySelector('.white-back');
-            whiteBackChild.appendChild(exlink);
+            whiteBackChild.appendChild(InitializationEventlink);
         }
         if (element.innerText === "K") {
             var alert = showAlert("K", "Libs", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
