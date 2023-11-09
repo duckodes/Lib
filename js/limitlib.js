@@ -25,3 +25,6 @@ fetch('Resource/Private.Link.net/private=link=end.ugc')
     .catch(error => {
         console.error(error);
     });
+
+//ask want to reload or close
+//window.onbeforeunload = () => {return ''};
