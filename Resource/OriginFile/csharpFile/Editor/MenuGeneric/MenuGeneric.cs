@@ -1,5 +1,7 @@
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
 namespace UGamie.Menu
 {
     /// <summary>
@@ -8,35 +10,36 @@ namespace UGamie.Menu
     /// </summary>
     public class MenuGeneric
     {
-        public void StartMenu(Vector2 position, out UnityEditor.GenericMenu menu, out Vector2 menuPosition)
+        public void StartMenu(Vector2 position, out GenericMenu menu, out Vector2 menuPosition)
         {
             menuPosition = new Vector2(position.x, position.y);
-            menu = new UnityEditor.GenericMenu();
+            menu = new GenericMenu();
 
         }
-        public void StartMenu(out UnityEditor.GenericMenu menu)
+        public void StartMenu(out GenericMenu menu)
         {
-            menu = new UnityEditor.GenericMenu();
+            menu = new GenericMenu();
 
         }
-        public void AddMenu(UnityEditor.GenericMenu menu, string itemName, bool check, UnityEditor.GenericMenu.MenuFunction menuFunction)
+        public void AddMenu(GenericMenu menu, string itemName, bool check, GenericMenu.MenuFunction menuFunction)
         {
             menu.AddItem(new GUIContent(itemName), check, menuFunction);
         }
-        public void AddDisabledMenu(UnityEditor.GenericMenu menu, string itemName, bool check)
+        public void AddDisabledMenu(GenericMenu menu, string itemName, bool check)
         {
             menu.AddDisabledItem(new GUIContent(itemName), check);
         }
-        public void EndMenu(UnityEditor.GenericMenu menu, Vector2 menuPosition)
+        public void EndMenu(GenericMenu menu, Vector2 menuPosition)
         {
             menu.ShowAsContext();
             menu.DropDown(new Rect(menuPosition.x, menuPosition.y, 0, 0));
             GUIUtility.ExitGUI();
         }
-        public void EndMenu(UnityEditor.GenericMenu menu)
+        public void EndMenu(GenericMenu menu)
         {
             menu.ShowAsContext();
             GUIUtility.ExitGUI();
         }
     }
 }
+#endif

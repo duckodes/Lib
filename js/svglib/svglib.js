@@ -87,6 +87,14 @@ function createSVGEye(strokeColor, width) {
     topPath.setAttribute("stroke-width", "3");
     svg.appendChild(topPath);
 
+    // Bottom
+    var bottomPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    bottomPath.setAttribute("d", "M40 55 C 50 65, 60 65, 80 55");
+    bottomPath.setAttribute("fill", "none");
+    bottomPath.setAttribute("stroke", "white");
+    bottomPath.setAttribute("stroke-width", "3");
+    svg.appendChild(bottomPath);
+
     // Circle
     var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
     circle.setAttribute("cx", "57");
@@ -97,13 +105,75 @@ function createSVGEye(strokeColor, width) {
     circle.setAttribute("stroke-width", "3");
     svg.appendChild(circle);
 
-    // Bottom
-    var bottomPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    bottomPath.setAttribute("d", "M40 55 C 50 65, 60 65, 80 55");
-    bottomPath.setAttribute("fill", "none");
-    bottomPath.setAttribute("stroke", "white");
-    bottomPath.setAttribute("stroke-width", "3");
-    svg.appendChild(bottomPath);
-
     return svg;
 }
+function useTaggers() {
+    class SVI extends HTMLElement {
+        constructor() {
+            super();
+
+            this.style.color = "black";
+            this.style.userSelect = "none";
+            if (this.getAttribute('con') === "anonymous-0") {
+                if (!this.hasAttribute("size")) {
+                    this.setAttribute("size", "55");
+                }
+                if (!this.hasAttribute("color")) {
+                    this.setAttribute("color", "white");
+                }
+                if (!this.hasAttribute("color-back")) {
+                    this.setAttribute("color-back", "black");
+                }
+                var main = createSVGAnonymous(this.getAttribute("size"), this.getAttribute("size"));
+                main.setAttribute('stroke', this.getAttribute('color'));
+                var children = main.children;
+                children[1].setAttribute('stroke', this.getAttribute('color'));
+                children[3].setAttribute('stroke', this.getAttribute('color'));
+                children[0].setAttribute('stroke', this.getAttribute('color'));
+                children[0].setAttribute('fill', this.getAttribute('color-back'));
+                children[2].setAttribute('stroke', this.getAttribute('color'));
+                children[2].setAttribute('fill', this.getAttribute('color-back'));
+                this.appendChild(main);
+            }
+            if (this.getAttribute('con') === "copy-0") {
+                if (!this.hasAttribute("size")) {
+                    this.setAttribute("size", "25");
+                }
+                if (!this.hasAttribute("color")) {
+                    this.setAttribute("color", "white");
+                }
+                if (!this.hasAttribute("color-back")) {
+                    this.setAttribute("color-back", "transparent");
+                }
+                var main = createSVGCopy(this.getAttribute('color'), this.getAttribute("size"));
+                var children = main.children;
+                children[0].setAttribute('fill', this.getAttribute('color-back'));
+                children[1].setAttribute('fill', this.getAttribute('color-back'));
+                this.appendChild(main);
+            }
+            if (this.getAttribute('con') === "eye-0") {
+                if (!this.hasAttribute("size")) {
+                    this.setAttribute("size", "50");
+                }
+                if (!this.hasAttribute("color")) {
+                    this.setAttribute("color", "white");
+                }
+                if (!this.hasAttribute("color-back")) {
+                    this.setAttribute("color-back", "transparent");
+                }
+                var main = createSVGEye(this.getAttribute('color'), this.getAttribute("size"));
+                var children = main.children;
+                children[0].setAttribute('stroke', this.getAttribute('color'));
+                children[1].setAttribute('stroke', this.getAttribute('color'));
+                children[2].setAttribute('stroke', this.getAttribute('color'));
+                children[0].setAttribute('fill', this.getAttribute('color-back'));
+                children[1].setAttribute('fill', this.getAttribute('color-back'));
+                children[2].setAttribute('fill', this.getAttribute('color-back'));
+                this.appendChild(main);
+            }
+        }
+    }
+
+    customElements.define('svg-i', SVI);
+}
+useTaggers();

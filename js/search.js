@@ -10,7 +10,7 @@ searchbuttonarea.style.flexDirection = "column";
 searchbuttonarea.style.background = "#1a1b26";
 searchbuttonarea.style.borderRadius = "20px";
 navb.appendChild(searchbuttonarea);
-var source = ["AudioCollection", "Counter", "DraggablePanel", "InitializationEvent", "Searcher", "UI-Sizer"];
+var source = ["AudioCollection", "Counter", "DraggablePanel", "InitializationEvent", "MenuGeneric", "Searcher", "UI-Sizer"];
 var searchbar = document.querySelector('.search-bar');
 var searchbarfocus = true;
 searchbar.addEventListener("input", () => {
@@ -46,6 +46,7 @@ searchbar.addEventListener("input", () => {
             onclicksearch(button.innerText);
         });
         searchbuttonarea.appendChild(button);
+        LibTags(button);
     });
     selectarrow();
 });
@@ -93,6 +94,7 @@ searchbar.addEventListener("click", () => {
             onclicksearch(button.innerText);
         });
         searchbuttonarea.appendChild(button);
+        LibTags(button);
     });
 });
 function clearButtons() {
@@ -164,40 +166,83 @@ function selectarrow() {
         });
     });
 }
+function LibTags(b) {
+    if (b.textContent === "AudioCollection") {
+        engine();
+    }
+    else if (b.textContent === "Counter") {
+        engine();
+    }
+    else if (b.textContent === "DraggablePanel") {
+        engine();
+    }
+    else if (b.textContent === "InitializationEvent") {
+        engine();
+    }
+    else if (b.textContent === "MenuGeneric") {
+        editor(); poco();
+    }
+    else if (b.textContent === "Searcher") {
+        engine(); poco();
+    }
+    else if (b.textContent === "UI-Sizer") {
+        engine();
+    }
+    function engine() {
+        b.innerHTML += "&nbsp;&nbsp;";
+        Addlibtag({ text: "#Engine", textcolor: "#cfffff", bgcolor: "#28d", parent: b });
+    }
+    function editor() {
+        b.innerHTML += "&nbsp;&nbsp;";
+        Addlibtag({ text: "#Editor", textcolor: "#cfffff", bgcolor: "#28d", parent: b });
+    }
+    function poco() {
+        //"Plain Old C# Object" (POCO)
+        b.innerHTML += "&nbsp;&nbsp;";
+        Addlibtag({ text: "#POCO", textcolor: "#cfffff", bgcolor: "#28d", parent: b });
+    }
+}
 function onclicksearch(Text) {
     var a = document.createElement("a");
     localStorage.setItem('SearchKeyword', Text);
-    if (Text === "AudioCollection") {
+    console.log(Text);
+    if (Text === "AudioCollection  #Engine") {
         a.href = "AudioCollectionLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);
     }
-    else if (Text === "Counter") {
+    else if (Text === "Counter  #Engine") {
         a.href = "CounterLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);
     }
-    else if (Text === "DraggablePanel") {
+    else if (Text === "DraggablePanel  #Engine") {
         a.href = "DraggablePanelLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);
     }
-    else if (Text === "InitializationEvent") {
+    else if (Text === "InitializationEvent  #Engine") {
         a.href = "InitializationEventLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);
     }
-    else if (Text === "Searcher") {
+    else if (Text === "MenuGeneric  #Editor  #POCO") {
+        a.href = "MenuGenericLink.html" + "?v=" + searchbar.value;
+        setTimeout(() => {
+            a.click();
+        }, 100);
+    }
+    else if (Text === "Searcher  #Engine  #POCO") {
         a.href = "SearcherLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);
     }
-    else if (Text === "UI-Sizer") {
+    else if (Text === "UI-Sizer  #Engine") {
         a.href = "UI-SizerLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
