@@ -180,7 +180,7 @@ function LibTags(b) {
         engine();
     }
     else if (b.textContent === "MenuGeneric") {
-        editor(); poco();
+        poco();
     }
     else if (b.textContent === "Searcher") {
         engine(); poco();
@@ -230,7 +230,7 @@ function onclicksearch(Text) {
             a.click();
         }, 100);
     }
-    else if (Text === "MenuGeneric  #Editor  #POCO") {
+    else if (Text === "MenuGeneric  #POCO") {
         a.href = "MenuGenericLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
