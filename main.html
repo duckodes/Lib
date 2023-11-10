@@ -51,7 +51,7 @@
     </div>
   </nav>
 
-  <div style="height: 1250px;">
+  <div>
     <div class="d-flex align-items-center justify-content-center h-75">
 
       <!-- Display -->
@@ -69,8 +69,8 @@
             </div>
           </div>
 
-          <div class="col-12 mx-auto display rounded d-flex align-items-center no-select"
-            style="background-color: #252525;">
+          <div class="col-12 mx-auto display rounded d-flex align-items-center justify-content-center no-select"
+            style="background-color: #252525; width: 100%;height:100%;">
 
             <!-- Pre -->
             <div class="pic-leftbtn pic-prvbtn" style="Color: #ffffff; font-size: 30px;" data-bs-toggle="tooltip"
@@ -99,7 +99,7 @@
                     aria-label="Slide 7"></button>
                 </div>
 
-                <div class="carousel-inner border border-5 border-warning rounded-3">
+                <div class="carousel-inner rounded-3" style="border: 5px solid;border-image: linear-gradient(to top right, transparent, #0099ff, transparent, #ff9900, transparent);border-image-slice: 1;">
                   <div class="carousel-item active pic-item" data-bs-interval="10000">
                     <div class="d-flex align-items-center justify-content-center h-100">
                       <img src="image/Popup_1.gif" class="d-block w-100 rounded-3 no-drag" alt="...">
@@ -154,30 +154,27 @@
 
           </div>
 
-          <!-- HashTag -->
-
-          <div class="container text-light" style="user-select: none;">
-            <div class="d-flex align-items-center justify-content-center">
-              <h1 style="font-size: 50px; padding-top: 50px;padding-bottom: 30px;">TAGs</h1>
-            </div>
-            <div style="display: flex;justify-content: center;align-items: center;">
-              <h6 id="TAG-tags-i">Ideal goal &ensp;<br></h6>
-              <h6 id="TAG-tags-a">Achieved<br></h6>
-            </div>
-            <div class="row"
-              style="display: flex; align-items: center; justify-content: center;flex-direction: column;">
-              <div class="col-6 mx-auto text-center"
-                style="background-color: #353535;display: flex; align-items: center; justify-content: center;border-radius: 20px;">
-                <h4 id="TAG-tags">
-                </h4>
-              </div>
-            </div>
-          </div>
-
         </div>
       </div>
     </div>
 
+  </div>
+
+  <!-- HashTag -->
+
+  <div class="container text-light" style="user-select: none;padding-top: 30px;padding-bottom: 30px;">
+    <div class="d-flex align-items-center justify-content-center">
+      <h6 id="TAG-tags-i" style="padding-right: 10px;display: flex;align-items: center;justify-content: center;"></h6>
+      <h1 style="font-size: 50px;background: linear-gradient(to right, #38f, #f83, transparent);background-clip: text;-webkit-background-clip: text; color: transparent;">TAGs</h1>
+      <h6 id="TAG-tags-a" style="padding-left: 10px;display: flex;align-items: center;justify-content: center;"><br></h6>
+    </div>
+    <div class="row">
+      <div class="col-6 mx-auto text-center"
+        style="background-color: #353535;display: flex; align-items: center; justify-content: center;border-radius: 20px;">
+        <h4 id="TAG-tags">
+        </h4>
+      </div>
+    </div>
   </div>
 
   <!-- End -->
@@ -269,8 +266,8 @@
   document.getElementById('TAG-tags').innerHTML += "&ensp;";
   Addlibtag({ textContent: "#ArtTechBlend", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
 
-  Addlibtag({ textContent: "Ideal goal", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags-i') });
-  Addlibtag({ textContent: "Achieved", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags-a') });
+  Addlibtag({ textContent: "Ideal goal", color: "#fff", backgroundColor: "linear-gradient(to right, transparent, #38f)", parent: document.getElementById('TAG-tags-i') });
+  Addlibtag({ textContent: "Achieved", color: "#fff", backgroundColor: "linear-gradient(to right, #f83, transparent)", parent: document.getElementById('TAG-tags-a') });
 
 </script>
 

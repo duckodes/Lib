@@ -3,7 +3,7 @@ function Addlibtag({ textContent = "text", color = "#000", backgroundColor = "#f
     d.textContent = textContent;
     d.style.color = color;
     d.style.borderRadius = "100px";
-    d.style.backgroundColor = backgroundColor;
+    d.style.background = backgroundColor;
     d.style.fontSize = "12px";
     d.style.display = "inline-block";
     d.style.textAlign = "center";
