@@ -156,15 +156,19 @@
 
           <!-- HashTag -->
 
-          <div class="container text-light">
-            <div class="d-flex align-items-center justify-content-center h-100">
-              <h1 style="font-size: 50px;">TAG</h1>
+          <div class="container text-light" style="user-select: none;">
+            <div class="d-flex align-items-center justify-content-center">
+              <h1 style="font-size: 50px; padding-top: 50px;padding-bottom: 30px;">TAGs</h1>
             </div>
-            <div class="row">
-              <div class="col-6 mx-auto text-center" style="background-color: #353535;">
-                <h4>
-                  #GameDev
-                  #SoftDev
+            <div style="display: flex;justify-content: center;align-items: center;">
+              <h6 id="TAG-tags-i">Ideal goal &ensp;<br></h6>
+              <h6 id="TAG-tags-a">Achieved<br></h6>
+            </div>
+            <div class="row"
+              style="display: flex; align-items: center; justify-content: center;flex-direction: column;">
+              <div class="col-6 mx-auto text-center"
+                style="background-color: #353535;display: flex; align-items: center; justify-content: center;border-radius: 20px;">
+                <h4 id="TAG-tags">
                 </h4>
               </div>
             </div>
@@ -223,5 +227,51 @@
 <script src="js/userprevent.js"></script>
 <script src="js/svglib/svglib.js"></script>
 <script src="js/loginpanel.js"></script>
+<script src="js/libtags.js"></script>
+<script>
+  Addlibtag({ textContent: "#CodingJoy", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#GameDevPassion", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#ArtisticCoder", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#TechEnthusiast", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#UnityMaster", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#CreativeDeveloper", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#ProgrammingLife", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#CSharpWizard", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#MultiTalentedDev", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#TechArtistry", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#ProblemSolver", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#InnovativeMind", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#GraduateDeveloper", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#FutureTechLeader", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#GameCreationJourney", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#CodeAndCanvas", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#TechExplorer", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#PassionateProgrammer", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#GameDevExplorer", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags') });
+  document.getElementById('TAG-tags').innerHTML += "&ensp;";
+  Addlibtag({ textContent: "#ArtTechBlend", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags') });
+
+  Addlibtag({ textContent: "Ideal goal", color: "#fff", backgroundColor: "#38f", parent: document.getElementById('TAG-tags-i') });
+  Addlibtag({ textContent: "Achieved", color: "#fff", backgroundColor: "#f83", parent: document.getElementById('TAG-tags-a') });
+
+</script>
 
 </html>

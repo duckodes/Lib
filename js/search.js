@@ -190,16 +190,16 @@ function LibTags(b) {
     }
     function engine() {
         b.innerHTML += "&nbsp;&nbsp;";
-        Addlibtag({ text: "#Engine", textcolor: "#cfffff", bgcolor: "#28d", parent: b });
+        Addlibtag({ textContent: "#Engine", color: "#cfffff", backgroundColor: "#28d", parent: b });
     }
     function editor() {
         b.innerHTML += "&nbsp;&nbsp;";
-        Addlibtag({ text: "#Editor", textcolor: "#cfffff", bgcolor: "#28d", parent: b });
+        Addlibtag({ textContent: "#Editor", color: "#cfffff", backgroundColor: "#28d", parent: b });
     }
     function poco() {
         //"Plain Old C# Object" (POCO)
         b.innerHTML += "&nbsp;&nbsp;";
-        Addlibtag({ text: "#POCO", textcolor: "#cfffff", bgcolor: "#28d", parent: b });
+        Addlibtag({ textContent: "#POCO", color: "#cfffff", backgroundColor: "#28d", parent: b });
     }
 }
 function onclicksearch(Text) {
