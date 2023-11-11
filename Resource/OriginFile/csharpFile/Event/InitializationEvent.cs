@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace UGamie.Core.Event
+namespace UGamie.Core.InitEvent
 {
     public class InitializationEvent : MonoBehaviour
     {

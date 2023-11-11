@@ -169,7 +169,7 @@
     StartMenu(new Vector2(0, 0), out GenericMenu menu, out Vector2 menuPosition);
     AddMenu(menu, "Test1", false, () => { //TODO:點擊菜單作用域 });
     EndMenu(menu, menuPosition);
-    
+
 示範寫法 2.
     StartMenu(out GenericMenu menu);
     AddMenu(menu, "Test2", false, () => { //TODO:點擊菜單作用域 });
@@ -183,7 +183,7 @@
 <script src="js/highlight.min.js"></script>
 <script src="js/filetextinelement.js"></script>
 <script>
-    filetextinelement('code-text-MenuGeneric-cs', 'Resource/OriginFile/csharpFile/Editor/MenuGeneric/MenuGeneric.cs', (t, text) => {
+    filetextinelement('code-text-MenuGeneric-cs', 'Resource/OriginFile/csharpFile/UI/MenuGeneric/MenuGeneric.cs', (t, text) => {
         t.textContent = text;
     }, () => {
         hljs.highlightAll();
@@ -206,7 +206,7 @@
     downloadFiler.forEach(function (e) {
         e.addEventListener("click", () => {
             if (e.innerText === "MenuGeneric.cs  ") {
-                downloadFile('MenuGeneric.cs', 'Resource/OriginFile/csharpFile/Editor/MenuGeneric/MenuGeneric.cs');
+                downloadFile('MenuGeneric.cs', 'Resource/OriginFile/csharpFile/UI/MenuGeneric/MenuGeneric.cs');
             }
         });
     });
