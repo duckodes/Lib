@@ -221,12 +221,12 @@
 
     <!-- Code -->
     <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
-    <br><br><h2>Search Extension</h2>
+    <br><br><h2>Search Extension1.0.2</h2>
             <h6>
-                作用: Search增強版
+                作用: Search增強版 版本:1.0.2
 
                 <span class="mark-place">
-                    <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
+                    <br>&lt;&lt;=== Unity New Inspector Display Variable ===&gt;&gt;
                     <br>EmptyHide: 當輸入框無任何字符，開啟或關閉生成的來源按鈕
                     *註記(例如: 搜尋框一開始隱藏所有來源、指令框會一開始出現所有指令等等..用法)
                     <br>Background Color, Background Texture2D: 調整背景顏色、背景貼圖
@@ -235,9 +235,32 @@
             </h6>
             <div  style="white-space: nowrap;">
             </div>
-<br><br></div><div id="code-copy-SearchEx-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-SearchEx-cs">
-        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Search.cs   </div></pre>
+<br><br></div><div id="code-copy-SearchEx1-0-2-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-SearchEx1-0-2-cs">
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Search.cs(1.0.2)   </div></pre>
 
+    <!-- Code -->
+    <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
+    <br><br><h2>Search Extension1.0.3</h2>
+            <h6>
+                作用: Search增強版 版本:1.0.3
+
+                <span class="mark-place">
+                    <br>&lt;&lt;=== Unity New Inspector Display Variable ===&gt;&gt;
+                    <br>UsePercentage(m_usePercentage): 此變數是用來轉換X(m_x)跟Y(m_y)的百分比
+                </span>
+                <span class="mark-pinkred">
+                    <br>&lt;&lt;=== New Function ===&gt;&gt;
+                    <br>GetSearchRect(): 用來提供Search面板的Rect，方便外部使用
+                    <br>SetUsePercentage(bool use): 用來設置UsePercentage(m_usePercentage)的值
+                    <br>SetShow(bool visible): 此為版本更新重點，該布爾值控制OnGUI是否要進行繪畫，其餘方法條件均會起作用，
+                    如果是以enabled來控制顯示，該腳本其餘方法條件均會停止作用。
+                    <br>SetOnMouse(): 此為版本更新第二重點，此方法會直接將X(m_x)與Y(m_y)百分比設無，接著將Search的位置填充進Mouse的位置
+                </span>
+            </h6>
+            <div  style="white-space: nowrap;">
+            </div>
+<br><br></div><div id="code-copy-SearchEx1-0-3-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-SearchEx1-0-3-cs">
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Search.cs(1.0.3)   </div></pre>
 </body>
 
 <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
@@ -247,11 +270,13 @@
     filetextinelements(['code-text-Searcher-cs',
         'code-text-CustomSearch-cs',
         'code-text-Search-cs',
-        'code-text-SearchEx-cs'],
+        'code-text-SearchEx1-0-2-cs',
+        'code-text-SearchEx1-0-3-cs'],
         ['Resource/OriginFile/csharpFile/UI/Searcher/Searcher.cs',
             'Resource/OriginFile/csharpFile/UI/Searcher/CustomSearch.cs',
             'Resource/OriginFile/csharpFile/UI/Searcher/Search.cs',
-            'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/Search.cs'], (t, text) => {
+            'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/1.0.2/Search.cs',
+            'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/1.0.3/Search.cs'], (t, text) => {
                 t.textContent = text;
             }, () => {
                 hljs.highlightAll();
@@ -266,7 +291,8 @@
     copycode("code-copy-Searcher-cs", "code-text-Searcher-cs");
     copycode("code-copy-CustomSearch-cs", "code-text-CustomSearch-cs");
     copycode("code-copy-Search-cs", "code-text-Search-cs");
-    copycode("code-copy-SearchEx-cs", "code-text-SearchEx-cs");
+    copycode("code-copy-SearchEx1-0-2-cs", "code-text-SearchEx1-0-2-cs");
+    copycode("code-copy-SearchEx1-0-3-cs", "code-text-SearchEx1-0-3-cs");
 </script>
 <script src="js/buttonthememodal.js"></script>
 <script src="js/alertimgmodal.js"></script>
@@ -296,8 +322,11 @@
             if (e.innerText === "Search.cs  ") {
                 downloadFile('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/Search.cs');
             }
-            if (e.innerText === "Search.cs   ") {
-                downloadFile('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/Search.cs');
+            if (e.innerText.includes('Search.cs(1.0.2)')) {
+                downloadFile('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/1.0.2/Search.cs');
+            }
+            if (e.innerText.includes('Search.cs(1.0.3)')) {
+                downloadFile('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/1.0.3/Search.cs');
             }
         });
     });
