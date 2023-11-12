@@ -2,7 +2,7 @@ using UnityEngine;
 
 #if UNITY_EDITOR
 using UnityEditor;
-namespace UGamie.Menu
+namespace UGamie.Core
 {
     /// <summary>
     /// This class Instantiate UnityEditor.GenericMenu
