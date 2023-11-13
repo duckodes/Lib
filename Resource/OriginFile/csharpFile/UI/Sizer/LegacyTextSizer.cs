@@ -10,30 +10,31 @@ public class LegacyTextSizer : MonoBehaviour,
         Hover,
         Click
     }
-    [SerializeField] private Text text;
+    [SerializeField] private Text m_text;
 
-    [Tooltip("Activation")] [SerializeField] private Option option = Option.Hover;
-    [Tooltip("Font size")] [Range(0, 1.8f)] [SerializeField] private float mutiplySize = 1.2f;
-    [Tooltip("Mutiply animation duration")] [Range(0, 2)] [SerializeField] private float animaitonSpeed = 0.5f;
+    [Tooltip("Activation")] [SerializeField] private Option m_option = Option.Hover;
+    [Tooltip("Font size")] [Range(0, 1.8f)] [SerializeField] private float m_mutiplySize = 1.2f;
+    [Tooltip("Mutiply animation duration")] [Range(0, 2)] [SerializeField] private float m_animaitonSpeed = 0.5f;
     [SerializeField]
-    private AnimationCurve EnterSpeed = new AnimationCurve(
+    private AnimationCurve m_enterSpeed = new AnimationCurve(
         new Keyframe(0, 0, 1, 2),
         new Keyframe(1, 1, 0, 1)
     );
     [SerializeField]
-    private AnimationCurve LeaveSpeed = new AnimationCurve(
+    private AnimationCurve m_leaveSpeed = new AnimationCurve(
         new Keyframe(0, 1, 1, 0),
         new Keyframe(1, 0, -2, 1)
     );
 
-    private float defaultSizeDelta;
-    private float mutiplySizeDelta;
-    private bool isActive;
-    private float hoverTime;
-    private float animationDuration = 1f;
+    private float m_defaultSizeDelta;
+    private float m_mutiplySizeDelta;
+    private bool m_isActive;
+    private float m_hoverTime;
+    private float m_animationDuration = 1f;
+
     private void Start()
     {
-        defaultSizeDelta = text.fontSize;
+        m_defaultSizeDelta = m_text.fontSize;
     }
     private void Update()
     {
@@ -41,39 +42,39 @@ public class LegacyTextSizer : MonoBehaviour,
     }
     private void Active()
     {
-        if (isActive)
+        if (m_isActive)
         {
-            mutiplySizeDelta = defaultSizeDelta * mutiplySize;
-            if (hoverTime < animationDuration * animaitonSpeed)
+            m_mutiplySizeDelta = m_defaultSizeDelta * m_mutiplySize;
+            if (m_hoverTime < m_animationDuration * m_animaitonSpeed)
             {
-                hoverTime += Time.deltaTime;
-                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
-                float curveValue = EnterSpeed.Evaluate(progress);
-                text.fontSize = (int)Mathf.Lerp(defaultSizeDelta, mutiplySizeDelta, curveValue);
+                m_hoverTime += Time.deltaTime;
+                float progress = Mathf.Clamp01(m_hoverTime / (m_animationDuration * m_animaitonSpeed));
+                float curveValue = m_enterSpeed.Evaluate(progress);
+                m_text.fontSize = (int)Mathf.Lerp(m_defaultSizeDelta, m_mutiplySizeDelta, curveValue);
             }
             else
             {
-                hoverTime = animationDuration * animaitonSpeed;
+                m_hoverTime = m_animationDuration * m_animaitonSpeed;
             }
         }
         else
         {
-            if (hoverTime > 0)
+            if (m_hoverTime > 0)
             {
-                hoverTime -= Time.deltaTime;
-                float progress = Mathf.Clamp01(hoverTime / (animationDuration * animaitonSpeed));
-                float curveValue = LeaveSpeed.Evaluate(progress);
-                text.fontSize = (int)Mathf.Lerp(mutiplySizeDelta, defaultSizeDelta, curveValue);
+                m_hoverTime -= Time.deltaTime;
+                float progress = Mathf.Clamp01(m_hoverTime / (m_animationDuration * m_animaitonSpeed));
+                float curveValue = m_leaveSpeed.Evaluate(progress);
+                m_text.fontSize = (int)Mathf.Lerp(m_mutiplySizeDelta, m_defaultSizeDelta, curveValue);
             }
             else
             {
-                hoverTime = 0;
+                m_hoverTime = 0;
             }
         }
     }
-    
-    public void OnPointerEnter(PointerEventData pointerEventData) => isActive = option == Option.Hover ? true : isActive;
-    public void OnPointerExit(PointerEventData pointerEventData) => isActive = option == Option.Hover ? false : isActive;
-    public void OnPointerDown(PointerEventData pointerEventData) => isActive = option == Option.Click ? true : isActive;
-    public void OnPointerUp(PointerEventData pointerEventData) => isActive = option == Option.Click ? false : isActive;
+
+    public void OnPointerEnter(PointerEventData pointerEventData) => m_isActive = m_option == Option.Hover ? true : m_isActive;
+    public void OnPointerExit(PointerEventData pointerEventData) => m_isActive = m_option == Option.Hover ? false : m_isActive;
+    public void OnPointerDown(PointerEventData pointerEventData) => m_isActive = m_option == Option.Click ? true : m_isActive;
+    public void OnPointerUp(PointerEventData pointerEventData) => m_isActive = m_option == Option.Click ? false : m_isActive;
 }

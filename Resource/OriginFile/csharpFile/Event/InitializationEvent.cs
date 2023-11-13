@@ -10,38 +10,38 @@ namespace UGamie.Core.InitEvent
         [UnityEditor.CustomEditor(typeof(InitializationEvent))]
         public class BeginEventEditor : UnityEditor.Editor
         {
-            private UnityEditor.SerializedProperty onAwake;
-            private UnityEditor.SerializedProperty onEnable;
-            private UnityEditor.SerializedProperty onStart;
-            private UnityEditor.SerializedProperty isAwake;
-            private UnityEditor.SerializedProperty isEnable;
-            private UnityEditor.SerializedProperty isStart;
+            private UnityEditor.SerializedProperty m_onAwake;
+            private UnityEditor.SerializedProperty m_onEnable;
+            private UnityEditor.SerializedProperty m_onStart;
+            private UnityEditor.SerializedProperty m_isAwake;
+            private UnityEditor.SerializedProperty m_isEnable;
+            private UnityEditor.SerializedProperty m_isStart;
 
             private void OnEnable()
             {
-                onAwake = serializedObject.FindProperty("onAwake");
-                onEnable = serializedObject.FindProperty("onEnable");
-                onStart = serializedObject.FindProperty("onStart");
-                isAwake = serializedObject.FindProperty("isAwake");
-                isEnable = serializedObject.FindProperty("isEnable");
-                isStart = serializedObject.FindProperty("isStart");
+                m_onAwake = serializedObject.FindProperty("m_onAwake");
+                m_onEnable = serializedObject.FindProperty("m_onEnable");
+                m_onStart = serializedObject.FindProperty("m_onStart");
+                m_isAwake = serializedObject.FindProperty("m_isAwake");
+                m_isEnable = serializedObject.FindProperty("m_isEnable");
+                m_isStart = serializedObject.FindProperty("m_isStart");
             }
 
             public override void OnInspectorGUI()
             {
                 serializedObject.Update();
 
-                if (isAwake.boolValue)
+                if (m_isAwake.boolValue)
                 {
-                    UnityEditor.EditorGUILayout.PropertyField(onAwake);
+                    UnityEditor.EditorGUILayout.PropertyField(m_onAwake);
                 }
-                if (isEnable.boolValue)
+                if (m_isEnable.boolValue)
                 {
-                    UnityEditor.EditorGUILayout.PropertyField(onEnable);
+                    UnityEditor.EditorGUILayout.PropertyField(m_onEnable);
                 }
-                if (isStart.boolValue)
+                if (m_isStart.boolValue)
                 {
-                    UnityEditor.EditorGUILayout.PropertyField(onStart);
+                    UnityEditor.EditorGUILayout.PropertyField(m_onStart);
                 }
 
                 GUILayout.BeginHorizontal();
@@ -49,36 +49,36 @@ namespace UGamie.Core.InitEvent
                 if (GUILayout.Button("  Add Initialization Event  "))
                 {
                     StartMenu(out UnityEditor.GenericMenu menu);
-                    AddMenu(menu, "On Awake", isAwake.boolValue, () => {
-                        if (isAwake.boolValue)
+                    AddMenu(menu, "On Awake", m_isAwake.boolValue, () => {
+                        if (m_isAwake.boolValue)
                         {
-                            isAwake.boolValue = false;
+                            m_isAwake.boolValue = false;
                         }
                         else
                         {
-                            isAwake.boolValue = true;
+                            m_isAwake.boolValue = true;
                         }
                         serializedObject.ApplyModifiedProperties();
                     });
-                    AddMenu(menu, "On Enable", isEnable.boolValue, () => {
-                        if (isEnable.boolValue)
+                    AddMenu(menu, "On Enable", m_isEnable.boolValue, () => {
+                        if (m_isEnable.boolValue)
                         {
-                            isEnable.boolValue = false;
+                            m_isEnable.boolValue = false;
                         }
                         else
                         {
-                            isEnable.boolValue = true;
+                            m_isEnable.boolValue = true;
                         }
                         serializedObject.ApplyModifiedProperties();
                     });
-                    AddMenu(menu, "On Start", isStart.boolValue, () => {
-                        if (isStart.boolValue)
+                    AddMenu(menu, "On Start", m_isStart.boolValue, () => {
+                        if (m_isStart.boolValue)
                         {
-                            isStart.boolValue = false;
+                            m_isStart.boolValue = false;
                         }
                         else
                         {
-                            isStart.boolValue = true;
+                            m_isStart.boolValue = true;
                         }
                         serializedObject.ApplyModifiedProperties();
                     });
@@ -89,12 +89,6 @@ namespace UGamie.Core.InitEvent
 
                 serializedObject.ApplyModifiedProperties();
             }
-            private void StartMenu(Vector2 position, out UnityEditor.GenericMenu menu, out Vector2 menuPosition)
-            {
-                menuPosition = new Vector2(position.x, position.y);
-                menu = new UnityEditor.GenericMenu();
-
-            }
             private void StartMenu(out UnityEditor.GenericMenu menu)
             {
                 menu = new UnityEditor.GenericMenu();
@@ -104,13 +98,6 @@ namespace UGamie.Core.InitEvent
             {
                 menu.AddItem(new GUIContent(itemName), check, menuFunction);
             }
-            private void EndMenu(UnityEditor.GenericMenu menu, Vector2 menuPosition)
-            {
-                menu.ShowAsContext();
-                menu.DropDown(new Rect(menuPosition.x, menuPosition.y, 0, 0));
-                GUIUtility.ExitGUI();
-            }
-            
             private void EndMenu(UnityEditor.GenericMenu menu)
             {
                 menu.ShowAsContext();
@@ -119,24 +106,24 @@ namespace UGamie.Core.InitEvent
         }
 #endif
         #endregion
-        [SerializeField] private UnityEvent onAwake;
-        [SerializeField] private UnityEvent onEnable;
-        [SerializeField] private UnityEvent onStart;
+        [SerializeField] private UnityEvent m_onAwake;
+        [SerializeField] private UnityEvent m_onEnable;
+        [SerializeField] private UnityEvent m_onStart;
 
-        [SerializeField] private bool isAwake;
-        [SerializeField] private bool isEnable;
-        [SerializeField] private bool isStart;
+        [SerializeField] private bool m_isAwake;
+        [SerializeField] private bool m_isEnable;
+        [SerializeField] private bool m_isStart;
         private void Awake()
         {
-            onAwake?.Invoke();
+            m_onAwake?.Invoke();
         }
         private void OnEnable()
         {
-            onEnable?.Invoke();
+            m_onEnable?.Invoke();
         }
         private void Start()
         {
-            onStart?.Invoke();
+            m_onStart?.Invoke();
         }
     }
 

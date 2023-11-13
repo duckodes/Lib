@@ -159,12 +159,16 @@
     </div>
     <pre style="border-radius: 10px;white-space: pre-wrap;"><code>類庫規則:
     1.命名空間 "UGamie.Core" 下，擁有 "#POCO" 標籤的實體具有特定的特徵
-    2.非所有類均具有命名空間，以類明長短以及是否違常用字段作考量
+    2.非所有類均具有命名空間，以類明長短以及是否常用字段作考量
+    3.優先選擇使用單行運算的行內方法，以提升代碼的簡潔性和可讀性。
+
+統一命名慣例:
+    1.欄位須加上 "m_" 開頭，然後以小寫為開頭命名
+    2.Enum列舉成員開頭須為大寫
     3.開放給UnityEvent使用的方法名需以 "On" 開頭 (例外:若一開始是開放給其他類使用的，變不需要以 "On" 為開頭)
-    4.優先選擇使用單行運算的行內方法，以提升代碼的簡潔性和可讀性。
 
 類(class)宣告順序(具有相同功能可放置一起無論公開或非公開):
-    自定義編輯器 (Custom Editor) => enum公開或非公開 => 序列化 => 公開變數 => 不公開變數 => 屬性 => 非對外開放變數 => 建構函式 => 非對外開放方法、函數 => 對外開放方法、函數</code></pre>
+    自定義編輯器 (Custom Editor) => 列舉 (enum) 公開或非公開 => 序列化 => 公開欄位 => 屬性 => 不公開欄位 => 建構函式(初始化) => 非對外開放方法、函數 => 對外開放方法、函數</code></pre>
     <pre><div id="code-copy-Example-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="language-csharp" id="code-text-Example-cs">
         </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Example.cs  </div></pre>
 
