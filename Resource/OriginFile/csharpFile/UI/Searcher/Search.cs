@@ -304,13 +304,6 @@ namespace UGamie.Core
         [SerializeField] private bool m_fieldArea;
         [SerializeField] private bool m_buttonArea;
         [SerializeField] private bool m_sliderArea;
-        public void SetSource(string[] source) => m_sources = source;
-        public void SetSource(List<string> source) => m_sources = source.ToArray();
-        public void SetX(float x) => m_x = x;
-        public void SetY(float y) => m_y = y;
-        public void SetSize(Vector2 size) => m_size = size;
-        public void SetButtonSize(Vector2 size) => m_buttonSize = size;
-        public void SetKeyword(string fieldText) => m_searcher.m_keyword = fieldText;
 
         private Searcher m_searcher;
 
@@ -489,5 +482,12 @@ namespace UGamie.Core
             return result;
         }
         
+        public void SetSource(string[] source) => m_sources = source;
+        public void SetSource(List<string> source) => m_sources = source.ToArray();
+        public void SetX(float x) => m_x = x;
+        public void SetY(float y) => m_y = y;
+        public void SetSize(Vector2 size) => m_size = size;
+        public void SetButtonSize(Vector2 size) => m_buttonSize = size;
+        public void SetKeyword(string fieldText) => m_searcher.m_keyword = fieldText;
     }
 }

@@ -24,10 +24,6 @@ public class RectTransformScaler : MonoBehaviour,
         new Keyframe(0, 1, 1, 0),
         new Keyframe(1, 0, -2, 1)
     );
-    public void OnPointerEnter(PointerEventData pointerEventData) => isActive = option == Option.Hover ? true : isActive;
-    public void OnPointerExit(PointerEventData pointerEventData) => isActive = option == Option.Hover ? false : isActive;
-    public void OnPointerDown(PointerEventData pointerEventData) => isActive = option == Option.Click ? true : isActive;
-    public void OnPointerUp(PointerEventData pointerEventData) => isActive = option == Option.Click ? false : isActive;
 
     private Vector2 defaultSizeDelta;
     private Vector2 mutiplySizeDelta;
@@ -74,4 +70,9 @@ public class RectTransformScaler : MonoBehaviour,
             }
         }
     }
+    
+    public void OnPointerEnter(PointerEventData pointerEventData) => isActive = option == Option.Hover ? true : isActive;
+    public void OnPointerExit(PointerEventData pointerEventData) => isActive = option == Option.Hover ? false : isActive;
+    public void OnPointerDown(PointerEventData pointerEventData) => isActive = option == Option.Click ? true : isActive;
+    public void OnPointerUp(PointerEventData pointerEventData) => isActive = option == Option.Click ? false : isActive;
 }

@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class CustomSearch : MonoBehaviour
 {
-    private Searcher m_searcher;
     // 要搜尋的資料
     [SerializeField] private string[] m_sources = new string[] { "ex1", "ex2", "ex3" };
+
+    private Searcher m_searcher;
+    
     private void OnEnable()
     {
         m_searcher = new Searcher();
