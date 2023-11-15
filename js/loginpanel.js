@@ -240,7 +240,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                                             return response.text();
                                         })
                                         .then(linkppt => {
-                                            link.href = linkpt + modalLogin.value + linkppt;
+                                            link.href = linkpt.replace("https://bearhubs.github.io/Profolio/", "") + modalLogin.value + linkppt;
                                             link.click();
                                         })
                                         .catch(error => {
