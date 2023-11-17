@@ -35,7 +35,7 @@
     From: css/default.min.css-->
     <link rel="stylesheet" href="css/vs2015.min.css" id="code-style">
 
-    <title>MenuGeneric 菜單</title>
+    <title>Timer 時間軸</title>
     <link rel="stylesheet" href="css/private-library.css">
 </head>
 
@@ -146,41 +146,48 @@
 
     <!-- Code -->
     <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
-    <br><br><h2>MenuGeneric 菜單工具</h2>
+    <br><br><h2>Timer 時間軸(生命週期調整)</h2>
             <h6>
-                作用: 運用UnityEditor.GenericMenu類，寫出簡易方法供使用，使用Start、Add、End方法即可完成菜單功能
+                作用: 可讓 生命週期Update()，進行時間調整
 
                 <span class="mark-place">
                     <br>&lt;&lt;=== Parameter ===&gt;&gt;
-                    <br>position: 生成菜單位置
-                    <br>menu: 這是一個out參數，將menu給予EndMenu即可
-                    當然在StartMenu與EndMenu之間也可以更改menu的設置
-                    <br>menuPosition: 這也是一個out參數，將menuPosition給予EndMenu即可
-                    <br>itemName: 菜單選項的名稱
-                    <br>check: 菜單選項是否要具有打勾
-                    <br>menuFunction: 菜單按下去運用方法
+                    <br>action: 在action裡面，會依照指定的時間進行變更
+                    <br>per: 每幾秒更新一次update
                 </span>
             </h6>
-<br><br></div><div id="code-copy-MenuGeneric-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-MenuGeneric-cs">
-        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">MenuGeneric.cs  </div></pre>
+<br><br></div><div id="code-copy-Timer-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-Timer-cs">
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Timer.cs  </div></pre>
     <pre style="border-radius: 10px;"><code>示範寫法 1.
-    StartMenu(new Vector2(0, 0), out GenericMenu menu, out Vector2 menuPosition);
-    AddMenu(menu, "Test1", false, () => { //TODO:點擊菜單作用域 });
-    EndMenu(menu, menuPosition);
+    public class Test : MonoBehaviour
+    {
+        private void Update()
+        {
+            Update(() => {
+                //TODO: 速度為每一秒更新一次
+            }, 1);
+        }
+    }
 
 示範寫法 2.
-    StartMenu(out GenericMenu menu);
-    AddMenu(menu, "Test2", false, () => { //TODO:點擊菜單作用域 });
-    EndMenu(menu);
+    public class Test : MonoBehaviour
+    {
+        private void Update()
+        {
+            Update((m_time) => {
+                //TODO: 速度為每一秒更新一次，並且傳入m_time值，可進行m_time操作
+            }, 1);
+        }
+    }
 
-(當然這需要被放入事件當中，如: if(UnityEngine.GUILayout.Button("Test Menu"))，或是滑鼠鍵盤等事件)</code></pre>
+進行初始化，Timer timer = new Timer()，會進行m_timer歸0</code></pre>
 </body>
 
 <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
 <script src="js/highlight.min.js"></script>
 <script src="js/filetextinelement.js"></script>
 <script>
-    filetextinelement('code-text-MenuGeneric-cs', 'Resource/OriginFile/csharpFile/UI/MenuGeneric/MenuGeneric.cs', (t, text) => {
+    filetextinelement('code-text-Timer-cs', 'Resource/OriginFile/csharpFile/Timer/Timer.cs', (t, text) => {
         t.textContent = text;
     }, () => {
         hljs.highlightAll();
@@ -192,7 +199,7 @@
 <script src="js/svglib/svglib.js"></script>
 <script src="js/copycode.js"></script>
 <script>
-    copycode("code-copy-MenuGeneric-cs", "code-text-MenuGeneric-cs");
+    copycode("code-copy-Timer-cs", "code-text-Timer-cs");
 </script>
 <script src="js/buttonthememodal.js"></script>
 <script src="js/alertmodal.js"></script>
@@ -202,8 +209,8 @@
     var downloadFiler = document.querySelectorAll('.download-file');
     downloadFiler.forEach(function (e) {
         e.addEventListener("click", () => {
-            if (e.innerText === "MenuGeneric.cs  ") {
-                downloadFile('MenuGeneric.cs', 'Resource/OriginFile/csharpFile/UI/MenuGeneric/MenuGeneric.cs');
+            if (e.innerText === "Timer.cs  ") {
+                downloadFile('Timer.cs', 'Resource/OriginFile/csharpFile/Timer/Timer.cs');
             }
         });
     });

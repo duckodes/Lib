@@ -10,7 +10,7 @@ searchbuttonarea.style.flexDirection = "column";
 searchbuttonarea.style.background = "#1a1b26";
 searchbuttonarea.style.borderRadius = "20px";
 navb.appendChild(searchbuttonarea);
-var source = ["AudioCollection", "Counter", "DraggablePanel", "InitializationEvent", "MenuGeneric", "Searcher", "UI-Sizer"];
+var source = ["AudioCollection", "Counter", "DraggablePanel", "InitializationEvent", "MenuGeneric", "Searcher", "Timer", "UI-Sizer"];
 var searchbar = document.querySelector('.search-bar');
 var searchbarfocus = true;
 searchbar.addEventListener("input", () => {
@@ -185,6 +185,9 @@ function LibTags(b) {
     else if (b.textContent === "Searcher") {
         engine(); poco();
     }
+    else if (b.textContent === "Timer") {
+        poco();
+    }
     else if (b.textContent === "UI-Sizer") {
         engine();
     }
@@ -238,6 +241,12 @@ function onclicksearch(Text) {
     }
     else if (Text === "Searcher  #Engine  #POCO") {
         a.href = "SearcherLink.html" + "?v=" + searchbar.value;
+        setTimeout(() => {
+            a.click();
+        }, 100);
+    }
+    else if (Text === "Timer  #POCO") {
+        a.href = "TimerLink.html" + "?v=" + searchbar.value;
         setTimeout(() => {
             a.click();
         }, 100);

@@ -10,19 +10,19 @@ namespace UGamie.Core
         {
             m_timer = 0.0f;
         }
-        public void Update(Action action, float m_Per)
+        public void Update(Action action, float per)
         {
             m_timer += Time.deltaTime;
-            if (m_timer >= m_Per)
+            if (m_timer >= per)
             {
                 action();
                 m_timer = 0.0f;
             }
         }
-        public void Update(Action<float> action, float m_Per)
+        public void Update(Action<float> action, float per)
         {
             m_timer += Time.deltaTime;
-            if (m_timer >= m_Per)
+            if (m_timer >= per)
             {
                 action(m_timer);
                 m_timer = 0.0f;
