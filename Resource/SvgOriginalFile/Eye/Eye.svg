@@ -1,0 +1,8 @@
+<!-- Eye -->
+<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45" viewBox="0 0 100 100">
+    <!-- top -->
+    <path d="M40 55 C 50 45, 60 45, 80 55" fill="none" stroke="white" stroke-width="3" />
+    <circle cx="57" cy="55" r="7" fill="none" stroke="white" stroke-width="3" />
+    <!-- bottom -->
+    <path d="M40 55 C 50 65, 60 65, 80 55" fill="none" stroke="white" stroke-width="3" />
+</svg>

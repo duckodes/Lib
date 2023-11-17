@@ -45,3 +45,33 @@ function filetextinelements(ids, filePaths, fc, postFc) {
             console.error(error);
         });
 }
+
+function ReadFileText(filePath, fc) {
+    fetch(filePath)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('fileError');
+            }
+            return response.text();
+        })
+        .then(text => {
+            fc(text);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}
+function ReadFilesText(urls, fc) {
+    const requests = urls.map(url => fetch(url));
+
+    Promise.all(requests)
+        .then(responses => Promise.all(responses.map(response => response.text())))
+        .then(data => {
+            data.forEach((content, index) => {
+                fc(content, index);
+            });
+        })
+        .catch(error => {
+            console.error(error);
+        });
+}

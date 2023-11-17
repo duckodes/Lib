@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <style>
+      .cls-1, .cls-2 {
+        fill: none;
+        stroke: #fff;
+      }
+
+      .cls-1 {
+        stroke-width: 2px;
+      }
+
+      .cls-2 {
+        stroke-width: 1px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <circle id="橢圓_1" data-name="橢圓 1" class="cls-1" cx="35.984" cy="34.984" r="22.484"/>
+  <path id="直線_1" data-name="直線 1" class="cls-2" d="M50.614,52.32l0.707-.706L85.292,85.585l-0.707.707Z"/>
+</svg>
