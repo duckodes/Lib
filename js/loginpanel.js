@@ -340,33 +340,35 @@ function showLogin(title, content, closeBtn, closeInner = "&times;", alertBackCo
 
 var wantlogin = document.getElementById("want-login");
 if (wantlogin != null) {
-    if (localStorage.getItem('userlogin_privatelib_true') == null) {
-        if (localStorage.getItem("userlogin_privatelib_fail") !== null) {
-            alert("尚未登入");
-            localStorage.removeItem("userlogin_privatelib_fail");
+    ReadFileText('Resource/Keep/key.ugc', (key) => {
+        if (localStorage.getItem(key) == null) {
+            if (localStorage.getItem("userlogin_privatelib_fail") !== null) {
+                alert("尚未登入");
+                localStorage.removeItem("userlogin_privatelib_fail");
+            }
+            wantlogin.style.cursor = "pointer";
+            wantlogin.addEventListener("click", function () {
+                var slog = showLogin("Login Account", "", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false)
+                slog.style.zIndex = "999";
+                var f = document.getElementById("data-username");
+                f.focus();
+            });
         }
-        wantlogin.style.cursor = "pointer";
-        wantlogin.addEventListener("click", function () {
-            var slog = showLogin("Login Account", "", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false)
-            slog.style.zIndex = "999";
-            var f = document.getElementById("data-username");
-            f.focus();
-        });
-    }
-    else {
-        wantlogin.innerHTML = "◆登出";
-        wantlogin.style.cursor = "pointer";
-        wantlogin.addEventListener("click", function () {
-            localStorage.removeItem('userlogin_privatelib_true');
-            window.location = "main.html";
-        });
-        var backtoPrLibs = document.createElement('li');
-        backtoPrLibs.className = "nav-item";
-        var backtoPrLibsalink = document.createElement('a');
-        backtoPrLibsalink.className = "nav-link text-light";
-        backtoPrLibsalink.href = "UGPrivateLibrary.html";
-        backtoPrLibsalink.innerHTML = "◆Library類庫";
-        backtoPrLibs.appendChild(backtoPrLibsalink);
-        wantlogin.parentElement.parentElement.appendChild(backtoPrLibs);
-    }
+        else {
+            wantlogin.innerHTML = "◆登出";
+            wantlogin.style.cursor = "pointer";
+            wantlogin.addEventListener("click", function () {
+                localStorage.removeItem(key);
+                window.location = "main.html";
+            });
+            var backtoPrLibs = document.createElement('li');
+            backtoPrLibs.className = "nav-item";
+            var backtoPrLibsalink = document.createElement('a');
+            backtoPrLibsalink.className = "nav-link text-light";
+            backtoPrLibsalink.href = "UGPrivateLibrary.html";
+            backtoPrLibsalink.innerHTML = "◆Library類庫";
+            backtoPrLibs.appendChild(backtoPrLibsalink);
+            wantlogin.parentElement.parentElement.appendChild(backtoPrLibs);
+        }
+    });
 }

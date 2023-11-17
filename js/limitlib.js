@@ -20,19 +20,6 @@ ReadFileText('Resource/Keep/key.ugc', (key) => {
         });
     });
 });
-fetch('Resource/Private.Link.net/private=link=end.ugc')
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('fileError');
-        }
-        return response.text();
-    })
-    .then(text => {
-        
-    })
-    .catch(error => {
-        console.error(error);
-    });
 
 //ask want to reload or close
 //window.onbeforeunload = () => {return ''};
