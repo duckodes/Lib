@@ -194,16 +194,16 @@ function initsearch() {
         }
         function engine() {
             b.innerHTML += "&nbsp;&nbsp;";
-            Addlibtag({ textContent: "#Engine", color: "#cfffff", backgroundColor: "#28d", parent: b });
+            libtags.Addlibtag({ textContent: "#Engine", color: "#cfffff", backgroundColor: "#28d", parent: b });
         }
         function editor() {
             b.innerHTML += "&nbsp;&nbsp;";
-            Addlibtag({ textContent: "#Editor", color: "#cfffff", backgroundColor: "#28d", parent: b });
+            libtags.Addlibtag({ textContent: "#Editor", color: "#cfffff", backgroundColor: "#28d", parent: b });
         }
         function poco() {
             //"Plain Old C# Object" (POCO)
             b.innerHTML += "&nbsp;&nbsp;";
-            Addlibtag({ textContent: "#POCO", color: "#cfffff", backgroundColor: "#28d", parent: b });
+            libtags.Addlibtag({ textContent: "#POCO", color: "#cfffff", backgroundColor: "#28d", parent: b });
         }
     }
     function onclicksearch(Text) {
