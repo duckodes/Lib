@@ -64,7 +64,7 @@
                 <li class="nav-item">
                     <a class="nav-link active text-light" aria-current="page" href="main.html">Home◆首頁</a>
                 </li>
-                <input type="text" class="search-bar" placeholder="🔍︎"/>
+                <input type="text" class="search-bar" placeholder="🔍︎" />
                 <li class="nav-item">
                     <a class="nav-link text-light" href="UGPrivateLibrary.html">Library◆類庫</a>
                 </li>
@@ -202,7 +202,22 @@
 <script>
     copycode("code-copy-DraggablePanel-cs", "code-text-DraggablePanel-cs");
 </script>
-<script src="js/buttonthememodal.js"></script>
+<script src="js/themeutils.js"></script>
+<script src="js/buttonutils.js"></script>
+<script>
+    var tb = document.getElementById("theme-button");
+    buttonutils.swb({
+        a: true, bW: "40px", cW: "14px", bH: "20px", cH: "14px", bR: "15px", cR: "15px", fs: 5,
+        bC: "#633", bCOn: "#336", cC: "#855", cCOn: "#558", ls: tb, fc(active) {
+            if (active) {
+                tokyonightdark();
+            }
+            else {
+                vs2015();
+            }
+        }
+    });
+</script>
 <script src="js/alertimgmodal.js"></script>
 <script>
     var libdraggablepanel = document.getElementById("lib-draggablepanel");
@@ -252,4 +267,5 @@
 <script src="js/libtags.js"></script>
 
 <script src="js/limitlibs.js"></script>
+
 </html>

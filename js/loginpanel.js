@@ -118,6 +118,12 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
             modalOnPasswordUser_checked = false;
         }
     });
+    modalOnPasswordUser.addEventListener("focus", () => {
+        if(document.activeElement === modalOnPasswordUser){
+            modalLogin.focus();
+            modalOnPasswordUser.blur();
+        }
+    });
 
     var modalLogin = document.createElement("input");
     modalLogin.style.width = "50%";

@@ -61,7 +61,7 @@
             <div style="color: white;margin-left: -100px;">主題</div>
         </div>
     </nav>
-    
+
     <div class="lib-sources no-select" id="scroll-drag">
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
             A
@@ -193,7 +193,22 @@
 <script>
     copycode("code-copy-Empty-cs", "code-text-Empty-cs");
 </script>
-<script src="js/buttonthememodal.js"></script>
+<script src="js/themeutils.js"></script>
+<script src="js/buttonutils.js"></script>
+<script>
+    var tb = document.getElementById("theme-button");
+    buttonutils.swb({
+        a: true, bW: "40px", cW: "14px", bH: "20px", cH: "14px", bR: "15px", cR: "15px", fs: 5,
+        bC: "#633", bCOn: "#336", cC: "#855", cCOn: "#558", ls: tb, fc(active) {
+            if (active) {
+                tokyonightdark();
+            }
+            else {
+                vs2015();
+            }
+        }
+    });
+</script>
 <script src="js/alertmodal.js"></script>
 <script src="js/libsources.js"></script>
 <script src="js/downloadfile.js"></script>
