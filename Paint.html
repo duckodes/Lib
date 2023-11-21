@@ -60,7 +60,7 @@
         canvas.addEventListener('mouseleave', function () {
             isDrawing = false;
         });
-
+        document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
         canvas.addEventListener("touchstart", function (e) {
             isDrawing = true;
             context.beginPath();
