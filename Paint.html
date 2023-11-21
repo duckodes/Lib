@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>畫布</title>
+    <style>
+        #myCanvas {
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="myCanvas" width="1000" height="700"></canvas>
+    <button onclick="undo()">撤銷</button>
+    <button onclick="redo()">重做</button>
+    <input type="range" min="1" max="20" value="5" id="lineWidthRange">
+    <label for="lineWidthRange">調整線條粗細</label>
+
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth - 20;
+        canvas.height = window.innerHeight - 50;
+
+        context.lineJoin = 'round';
+        context.lineCap = 'round';
+
+        var undoStack = [];
+        var redoStack = [];
+        var isDrawing = false;
+
+        canvas.addEventListener('mousedown', function (e) {
+            isDrawing = true;
+            context.beginPath();
+            undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
+            var mouseX = e.clientX - canvas.getBoundingClientRect().left;
+            var mouseY = e.clientY - canvas.getBoundingClientRect().top;
+            context.moveTo(mouseX, mouseY);
+            context.lineTo(mouseX, mouseY);
+            context.stroke();
+            redoStack = [];
+        });
+
+        canvas.addEventListener('mousemove', function (e) {
+            if (isDrawing) {
+                var mouseX = e.clientX - canvas.getBoundingClientRect().left;
+                var mouseY = e.clientY - canvas.getBoundingClientRect().top;
+                context.lineTo(mouseX, mouseY);
+                context.stroke();
+            }
+        });
+
+        canvas.addEventListener('mouseup', function () {
+            isDrawing = false;
+        });
+
+        canvas.addEventListener('mouseleave', function () {
+            isDrawing = false;
+        });
+
+        canvas.addEventListener("touchstart", function (e) {
+            isDrawing = true;
+            context.beginPath();
+            undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
+            var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+            var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+            context.moveTo(mouseX, mouseY);
+            context.lineTo(mouseX, mouseY);
+            context.stroke();
+            redoStack = [];
+        });
+        canvas.addEventListener("touchmove", function (e) {
+            if (isDrawing) {
+                var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+                var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+                context.lineTo(mouseX, mouseY);
+                context.stroke();
+            }
+        });
+        canvas.addEventListener("touchend", function () {
+            isDrawing = false;
+        });
+        canvas.addEventListener("touchcancel", function () {
+            isDrawing = false;
+        });
+
+        function undo() {
+            if (undoStack.length > 1) {
+                redoStack.push(undoStack.pop());
+                context.putImageData(undoStack[undoStack.length - 1], 0, 0);
+            }
+        }
+
+        function redo() {
+            if (redoStack.length > 0) {
+                undoStack.push(redoStack.pop());
+                context.putImageData(undoStack[undoStack.length - 1], 0, 0);
+            }
+        }
+
+        var lineWidthRange = document.getElementById('lineWidthRange');
+
+        // 初始化线条粗细
+        context.lineWidth = lineWidthRange.value;
+
+        // 监听线条粗细调整
+        lineWidthRange.addEventListener('input', function () {
+            context.lineWidth = lineWidthRange.value;
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.ctrlKey && event.key === 'z') {
+                undo();
+            }
+            else if (event.ctrlKey && event.shiftKey && event.key === 'Z') {
+                redo();
+            }
+        });
+
+        let initialWidth = window.innerWidth;
+        let initialHeight = window.innerHeight;
+        function recordSize() {
+            initialWidth = window.innerWidth;
+            initialHeight = window.innerHeight;
+        }
+
+        window.addEventListener('resize', function (event) {
+            recordSize();
+            if (confirm("調整大小遺失當前資料，確認是否要調整?")) {
+                canvas.width = window.innerWidth - 20;
+                canvas.height = window.innerHeight - 50;
+                context.lineJoin = 'round';
+                context.lineCap = 'round';
+                context.lineWidth = lineWidthRange.value;
+            } else {
+                window.resizeTo(initialWidth, initialHeight);
+            }
+        });
+        window.onbeforeunload = function () {
+            return "您確定要離開嗎？";
+        };
+    </script>
+
+</body>
+
+</html>
