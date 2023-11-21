@@ -111,5 +111,52 @@ var buttonutils = (function () {
                 }
             }
         });
+        b.addEventListener("touchstart", function (e) {
+            md = true;
+            var xPos = e.touches[0].clientX - bRect.left - (c.offsetWidth / 2);
+            if (xPos < 0) {
+                xPos = 0 + fs;
+            }
+            if (xPos + c.offsetWidth > b.offsetWidth) {
+                xPos = b.offsetWidth - c.offsetWidth - fs;
+            }
+            c.style.left = xPos + 'px';
+        });
+        document.addEventListener("touchmove", function (e) {
+            if (md) {
+                var xPos = e.touches[0].clientX - bRect.left - (c.offsetWidth / 2);
+                if (xPos < 0) {
+                    xPos = 0 + fs;
+                }
+                if (xPos + c.offsetWidth > b.offsetWidth) {
+                    xPos = b.offsetWidth - c.offsetWidth - fs;
+                }
+                c.style.left = xPos + 'px';
+                mm = true;
+            }
+        });
+        document.addEventListener("touchend", function (e) {
+            md = false;
+            setTimeout(() => {
+                mm = false;
+            }, 500);
+            if (mm) {
+                var xPos = event.changedTouches[0].clientX - bRect.left - (c.offsetWidth / 2);
+                if (xPos > b.offsetWidth / 2 - c.offsetWidth / 2) {
+                    c.style.left = b.offsetWidth - c.offsetWidth - fs + 'px';
+                    c.style.background = cCOn;
+                    b.style.background = bCOn;
+                    active = true;
+                    fc(active);
+                }
+                else {
+                    c.style.left = 0 + fs + 'px';
+                    c.style.background = cC;
+                    b.style.background = bC;
+                    active = false;
+                    fc(active);
+                }
+            }
+        });
     }
 }());
