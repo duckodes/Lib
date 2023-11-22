@@ -1,0 +1,26 @@
+var =>
+
+b: base
+c: control
+d: data
+e: event
+k: key
+l: lock
+n: number
+t: time
+u: url
+
+ae: a element
+be: br element
+de: div element
+fp: file path
+md: mouse down
+mm: mouse move
+
+atv: active
+bln: boolean
+dpy: display
+pat: parent
+src: source
+
+elmt: element

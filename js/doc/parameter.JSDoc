@@ -1,0 +1,22 @@
+*: replace to object's abbreviation; if only one object, then just replace to empty
+parameter =>
+
+a: active
+p: parent
+
+ck: check
+fc: function
+fs: fixed side
+
+num: number
+
+*sb: style background
+*sc: style color
+*sh: style height
+*sw: style width
+*su: style user select
+
+*sba: style background active
+*sbc: style background color
+
+*sbdr: style border radius

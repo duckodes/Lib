@@ -1,0 +1,7 @@
+function, method =>
+
+sd: setup div element
+
+swb: setup switch button
+
+init: initialize

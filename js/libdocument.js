@@ -82,7 +82,7 @@ var libdocument = (function () {
                     downloadFiler.forEach(function (e) {
                         e.addEventListener("click", () => {
                             if (e.innerText === "Counter.cs  ") {
-                                downloadFile('Counter.cs', 'Resource/OriginFile/csharpFile/UI/Counter/Counter.cs');
+                                fileutils.download('Counter.cs', 'Resource/OriginFile/csharpFile/UI/Counter/Counter.cs');
                             }
                         });
                     });
@@ -118,7 +118,7 @@ var libdocument = (function () {
                     downloadFiler.forEach(function (e) {
                         e.addEventListener("click", () => {
                             if (e.innerText === "AudioCollection.cs  ") {
-                                downloadFile('AudioCollection.cs', 'Resource/OriginFile/csharpFile/Audio/AudioCollection.cs');
+                                fileutils.download('AudioCollection.cs', 'Resource/OriginFile/csharpFile/Audio/AudioCollection.cs');
                             }
                         });
                     });
@@ -169,7 +169,7 @@ var libdocument = (function () {
                     downloadFiler.forEach(function (e) {
                         e.addEventListener("click", () => {
                             if (e.innerText === "DraggablePanel.cs  ") {
-                                downloadFile('DraggablePanel.cs', 'Resource/OriginFile/csharpFile/UI/DraggablePanel/DraggablePanel.cs');
+                                fileutils.download('DraggablePanel.cs', 'Resource/OriginFile/csharpFile/UI/DraggablePanel/DraggablePanel.cs');
                             }
                         });
                     });
@@ -205,7 +205,7 @@ var libdocument = (function () {
                     downloadFiler.forEach(function (e) {
                         e.addEventListener("click", () => {
                             if (e.innerText === "InitializationEvent.cs  ") {
-                                downloadFile('InitializationEvent.cs', 'Resource/OriginFile/csharpFile/Event/InitializationEvent.cs');
+                                fileutils.download('InitializationEvent.cs', 'Resource/OriginFile/csharpFile/Event/InitializationEvent.cs');
                             }
                         });
                     });
@@ -257,7 +257,7 @@ var libdocument = (function () {
                     downloadFiler.forEach(function (e) {
                         e.addEventListener("click", () => {
                             if (e.innerText === "MenuGeneric.cs  ") {
-                                downloadFile('MenuGeneric.cs', 'Resource/OriginFile/csharpFile/UI/MenuGeneric/MenuGeneric.cs');
+                                fileutils.download('MenuGeneric.cs', 'Resource/OriginFile/csharpFile/UI/MenuGeneric/MenuGeneric.cs');
                             }
                         });
                     });
@@ -394,19 +394,19 @@ var libdocument = (function () {
                             downloadFiler.forEach(function (e) {
                                 e.addEventListener("click", () => {
                                     if (e.innerText === "Searcher.cs  ") {
-                                        downloadFile('Searcher.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/Searcher.cs');
+                                        fileutils.download('Searcher.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/Searcher.cs');
                                     }
                                     if (e.innerText === "CustomSearch.cs  ") {
-                                        downloadFile('CustomSearch.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/CustomSearch.cs');
+                                        fileutils.download('CustomSearch.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/CustomSearch.cs');
                                     }
                                     if (e.innerText === "Search.cs  ") {
-                                        downloadFile('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/Search.cs');
+                                        fileutils.download('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/Search.cs');
                                     }
                                     if (e.innerText.includes('Search.cs(1.0.2)')) {
-                                        downloadFile('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/1.0.2/Search.cs');
+                                        fileutils.download('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/1.0.2/Search.cs');
                                     }
                                     if (e.innerText.includes('Search.cs(1.0.3)')) {
-                                        downloadFile('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/1.0.3/Search.cs');
+                                        fileutils.download('Search.cs', 'Resource/OriginFile/csharpFile/UI/Searcher/SearchExtension/1.0.3/Search.cs');
                                     }
                                 });
                             });
@@ -465,7 +465,7 @@ var libdocument = (function () {
                     downloadFiler.forEach(function (e) {
                         e.addEventListener("click", () => {
                             if (e.innerText === "Timer.cs  ") {
-                                downloadFile('Timer.cs', 'Resource/OriginFile/csharpFile/Timer/Timer.cs');
+                                fileutils.download('Timer.cs', 'Resource/OriginFile/csharpFile/Timer/Timer.cs');
                             }
                         });
                     });
@@ -580,16 +580,16 @@ var libdocument = (function () {
                             downloadFiler.forEach(function (e) {
                                 e.addEventListener("click", () => {
                                     if (e.innerText === "RectTransformSizer.cs  ") {
-                                        downloadFile('RectTransformSizer.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/RectTransformSizer.cs');
+                                        fileutils.download('RectTransformSizer.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/RectTransformSizer.cs');
                                     }
                                     if (e.innerText === "RectTransformScaler.cs  ") {
-                                        downloadFile('RectTransformScaler.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/RectTransformScaler.cs');
+                                        fileutils.download('RectTransformScaler.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/RectTransformScaler.cs');
                                     }
                                     if (e.innerText === "LegacyTextSizer.cs  ") {
-                                        downloadFile('LegacyTextSizer.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/LegacyTextSizer.cs');
+                                        fileutils.download('LegacyTextSizer.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/LegacyTextSizer.cs');
                                     }
                                     if (e.innerText === "TMPTextSizer.cs  ") {
-                                        downloadFile('TMPTextSizer.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/TMPTextSizer.cs');
+                                        fileutils.download('TMPTextSizer.cs', 'Resource/OriginFile/csharpFile/UI/Sizer/TMPTextSizer.cs');
                                     }
                                 });
                             });

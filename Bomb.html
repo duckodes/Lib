@@ -405,9 +405,9 @@
         var modalOption = document.createElement("div");
         modalOption.style.height = "80%";
 
-        var snumrow = showslider(numRows.toString(), "9", "30", "any");
-        var snumcol = showslider(numCols.toString(), "9", "30", "any");
-        var sbombnum = showslider(numMines.toString(), "10", ((Math.floor(snumrow.value) * Math.floor(snumcol.value)) * 0.3).toString(), "any");
+        var snumrow = sliderinput(numRows.toString(), "9", "30", "any");
+        var snumcol = sliderinput(numCols.toString(), "9", "30", "any");
+        var sbombnum = sliderinput(numMines.toString(), "10", ((Math.floor(snumrow.value) * Math.floor(snumcol.value)) * 0.3).toString(), "any");
         var bombnumtext = document.createElement("label");
         bombnumtext.innerText = "地雷" + sbombnum.value.toString();
         sbombnum.addEventListener("input", () => {

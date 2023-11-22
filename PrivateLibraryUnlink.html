@@ -144,7 +144,8 @@
     </div>
 
     <!-- Code -->
-    <pre class="re-link"><div class="no-select" style="color: white;width: 100%;margin-bottom: -50px;text-align: center;white-space: pre-line;">
+    <pre
+        class="re-link"><div class="no-select" style="color: white;width: 100%;margin-bottom: -50px;text-align: center;white-space: pre-line;">
     <br><br><h1 id="unlink-info">查無此類庫</h1>
             <h6>
             </h6>
@@ -178,6 +179,21 @@
     }, () => {
         hljs.highlightAll();
     });
+
+    var downloadFiler = document.querySelectorAll('.download-file');
+    downloadFiler.forEach(function (e) {
+        e.addEventListener("click", () => {
+            var searchbar = document.querySelector('.search-bar');
+            if (e.innerText === searchbar.value + ".cs  ") {
+                var c = document.getElementById('code-text-Empty-cs');
+                fileutils.downloadwriter(c.textContent.replace('Empty', searchbar.value).replace('Empty!', searchbar.value), searchbar.value + '.cs');
+            }
+        });
+        if (e.innerText === "Empty.cs  ") {
+            var searchbar = document.querySelector('.search-bar');
+            e.textContent = searchbar.value + ".cs  ";
+        }
+    });
 </script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/consoleoutput.js"></script>
@@ -199,42 +215,26 @@
 <script>
     copycode("code-copy-Empty-cs", "code-text-Empty-cs");
 </script>
+<script src="js/storageutils.js"></script>
 <script src="js/themeutils.js"></script>
 <script src="js/buttonutils.js"></script>
 <script>
     var tb = document.getElementById("theme-button");
     buttonutils.swb({
-        a: true, bW: "40px", cW: "14px", bH: "20px", cH: "14px", bR: "15px", cR: "15px", fs: 5,
-        bC: "#633", bCOn: "#336", cC: "#855", cCOn: "#558", ls: tb, fc(active) {
+        a: storageutils.get('active'), bsw: "40px", csw: "14px", bsh: "20px", csh: "14px", bsbdr: "15px", csbdr: "15px", fs: 5,
+        bsb: "#633", bsba: "#336", csb: "#855", csba: "#558", p: tb, fc(active) {
+            storageutils.set('active', active);
             if (active) {
-                tokyonightdark();
+                themeutils.tokyonightdark();
             }
             else {
-                vs2015();
+                themeutils.vs2015();
             }
         }
     });
 </script>
 <script src="js/alertmodal.js"></script>
 <script src="js/libsources.js"></script>
-<script src="js/downloadfile.js"></script>
-<script>
-    var downloadFiler = document.querySelectorAll('.download-file');
-    downloadFiler.forEach(function (e) {
-        e.addEventListener("click", () => {
-            var searchbar = document.querySelector('.search-bar');
-            if (e.innerText === searchbar.value + ".cs  ") {
-                //downloadFile('Empty.cs', 'Resource/OriginFile/csharpFile/Empty.cs');
-                var c = document.getElementById('code-text-Empty-cs');
-                downloadwritefile(c.textContent.replace('Empty', searchbar.value).replace('Empty!', searchbar.value), searchbar.value + '.cs');
-            }
-        });
-        if (e.innerText === "Empty.cs  ") {
-            var searchbar = document.querySelector('.search-bar');
-            e.textContent = searchbar.value + ".cs  ";
-        }
-    });
-</script>
 <script src="js/scrollmousedrag.js"></script>
 <script>
     scrollmousedrag("scroll-drag");

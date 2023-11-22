@@ -155,18 +155,20 @@
 <script src="js/userprevent.js"></script>
 <script src="js/svglib/svglib.js"></script>
 <script src="js/copycode.js"></script>
+<script src="js/storageutils.js"></script>
 <script src="js/themeutils.js"></script>
 <script src="js/buttonutils.js"></script>
 <script>
     var tb = document.getElementById("theme-button");
     buttonutils.swb({
-        a: true, bW: "40px", cW: "14px", bH: "20px", cH: "14px", bR: "15px", cR: "15px", fs: 5,
-        bC: "#633", bCOn: "#336", cC: "#855", cCOn: "#558", ls: tb, fc(active) {
+        a: storageutils.get('active'), bsw: "40px", csw: "14px", bsh: "20px", csh: "14px", bsbdr: "15px", csbdr: "15px", fs: 5,
+        bsb: "#633", bsba: "#336", csb: "#855", csba: "#558", p: tb, fc(active) {
+            storageutils.set('active', active);
             if (active) {
-                tokyonightdark();
+                themeutils.tokyonightdark();
             }
             else {
-                vs2015();
+                themeutils.vs2015();
             }
         }
     });
@@ -174,7 +176,6 @@
 <script src="js/alertimgmodal.js"></script>
 <script src="js/alertmodal.js"></script>
 <script src="js/libsources.js"></script>
-<script src="js/downloadfile.js"></script>
 <script src="js/scrollmousedrag.js"></script>
 <script>
     scrollmousedrag("scroll-drag");

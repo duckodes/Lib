@@ -3,7 +3,9 @@ var fileutils = (function (){
         ReadFileText: ReadFileText,
         ReadFilesText: ReadFilesText,
         filetextinelement: filetextinelement,
-        filetextinelements: filetextinelements
+        filetextinelements: filetextinelements,
+        download: download,
+        downloadwriter: downloadwriter
     };
     function ReadFileText(filePath, fc) {
         fetch(filePath)
@@ -80,5 +82,32 @@ var fileutils = (function (){
             .catch(error => {
                 console.error(error);
             });
+    }
+
+    function download(filename, fileurl) {
+        var fileUrl = fileurl;
+    
+        fetch(fileUrl)
+            .then(response => response.text())
+            .then(data => {
+                var blob = new Blob([data], { type: 'text/plain' });
+                var url = window.URL.createObjectURL(blob);
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => console.error('fail：', error));
+    }
+    
+    function downloadwriter(content, filename) {
+        var blob = new Blob([content], { type: 'text/plain' });
+        var url = window.URL.createObjectURL(blob);
+        var a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        window.URL.revokeObjectURL(url);
     }
 }());

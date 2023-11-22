@@ -5,62 +5,62 @@ var buttonutils = (function () {
         sd: sd,
         swb: swb
     };
-    function sd(w, h, b, r, p) {
-        var d = document.createElement("div");
+    function sd(sw, sh, sb, sbdr, p) {
+        var de = document.createElement("div");
 
-        d.style.width = w;
-        d.style.height = h;
-        d.style.background = b;
-        d.style.borderRadius = r;
-        d.style.userSelect = "none";
+        de.style.width = sw;
+        de.style.height = sh;
+        de.style.background = sb;
+        de.style.borderRadius = sbdr;
+        de.style.userSelect = "none";
 
-        p.appendChild(d);
+        p.appendChild(de);
 
-        return d;
+        return de;
     }
-    function swb({ a = false, bW = "40px", cW = "20px", bH = "20px", cH = "20px", bR = "15px", cR = "15px", fs = 5,
-        bC = "#ccc", bCOn = "#ccc", cC = "#aaa", cCOn = "#aaa", ls = document.body, fc }) {
-        var b = sd(bW, bH, bC, bR, ls);
+    function swb({ a = false, bsw = "40px", csw = "20px", bsh = "20px", csh = "20px", bsbdr = "15px", csbdr = "15px", fs = 5,
+        bsb = "#ccc", bsba = "#ccc", csb = "#aaa", csba = "#aaa", p = document.body, fc }) {
+        var b = sd(bsw, bsh, bsb, bsbdr, p);
         var bRect = b.getBoundingClientRect();
         b.style.cursor = "pointer";
         b.style.transition = "all 0.5s ease";
-        var c = sd(cW, cH, cC, cR, b);
+        var c = sd(csw, csh, csb, csbdr, b);
         c.style.position = "relative";
         c.style.left = 0 + fs + 'px';
         c.style.top = b.offsetHeight / 2 - c.offsetHeight / 2 + 'px';
         c.style.transition = "all 0.2s ease";
         c.style.pointerEvents = "none";
 
-        var active = a;
-        if (!active) {
+        var atv = a;
+        if (!atv) {
             c.style.left = 0 + fs + 'px';
-            c.style.background = cC;
-            b.style.background = bC;
+            c.style.background = csb;
+            b.style.background = bsb;
         }
-        else if (active) {
+        else if (atv) {
             c.style.left = b.offsetWidth - c.offsetWidth - fs + 'px';
-            c.style.background = cCOn;
-            b.style.background = bCOn;
+            c.style.background = csba;
+            b.style.background = bsba;
         }
-        fc(active);
+        fc(atv);
 
         var md = false;
         var mm = false;
         b.addEventListener("click", () => {
             if (!mm) {
-                if (!active) {
+                if (!atv) {
                     c.style.left = b.offsetWidth - c.offsetWidth - fs + 'px';
-                    c.style.background = cCOn;
-                    b.style.background = bCOn;
-                    active = true;
-                    fc(active);
+                    c.style.background = csba;
+                    b.style.background = bsba;
+                    atv = true;
+                    fc(atv);
                 }
-                else if (active) {
+                else if (atv) {
                     c.style.left = 0 + fs + 'px';
-                    c.style.background = cC;
-                    b.style.background = bC;
-                    active = false;
-                    fc(active);
+                    c.style.background = csb;
+                    b.style.background = bsb;
+                    atv = false;
+                    fc(atv);
                 }
             }
         });
@@ -97,17 +97,17 @@ var buttonutils = (function () {
                 var xPos = e.clientX - bRect.left - (c.offsetWidth / 2);
                 if (xPos > b.offsetWidth / 2 - c.offsetWidth / 2) {
                     c.style.left = b.offsetWidth - c.offsetWidth - fs + 'px';
-                    c.style.background = cCOn;
-                    b.style.background = bCOn;
-                    active = true;
-                    fc(active);
+                    c.style.background = csba;
+                    b.style.background = bsba;
+                    atv = true;
+                    fc(atv);
                 }
                 else {
                     c.style.left = 0 + fs + 'px';
-                    c.style.background = cC;
-                    b.style.background = bC;
-                    active = false;
-                    fc(active);
+                    c.style.background = csb;
+                    b.style.background = bsb;
+                    atv = false;
+                    fc(atv);
                 }
             }
         });
@@ -141,20 +141,20 @@ var buttonutils = (function () {
                 mm = false;
             }, 500);
             if (mm) {
-                var xPos = event.changedTouches[0].clientX - bRect.left - (c.offsetWidth / 2);
+                var xPos = e.changedTouches[0].clientX - bRect.left - (c.offsetWidth / 2);
                 if (xPos > b.offsetWidth / 2 - c.offsetWidth / 2) {
                     c.style.left = b.offsetWidth - c.offsetWidth - fs + 'px';
-                    c.style.background = cCOn;
-                    b.style.background = bCOn;
-                    active = true;
-                    fc(active);
+                    c.style.background = csba;
+                    b.style.background = bsba;
+                    atv = true;
+                    fc(atv);
                 }
                 else {
                     c.style.left = 0 + fs + 'px';
-                    c.style.background = cC;
-                    b.style.background = bC;
-                    active = false;
-                    fc(active);
+                    c.style.background = csb;
+                    b.style.background = bsb;
+                    atv = false;
+                    fc(atv);
                 }
             }
         });
