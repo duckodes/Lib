@@ -35,7 +35,7 @@
     From: css/default.min.css-->
     <link rel="stylesheet" href="css/vs2015.min.css" id="code-style">
 
-    <title>Timer 時間軸</title>
+    <title>Counter 計數</title>
     <link rel="stylesheet" href="css/private-library.css">
 </head>
 
@@ -146,48 +146,32 @@
 
     <!-- Code -->
     <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
-    <br><br><h2>Timer 時間軸(生命週期調整)</h2>
+    <br><br><h2>Counter 計數工具</h2>
             <h6>
-                作用: 可讓 生命週期Update()，進行時間調整
+                作用: 可產生計數 GUI
 
                 <span class="mark-place">
-                    <br>&lt;&lt;=== Parameter ===&gt;&gt;
-                    <br>action: 在action裡面，會依照指定的時間進行變更
-                    <br>per: 每幾秒更新一次update
+                    <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
+                    <br>Settings: 選項有UI、Normal，UI可調整GUI介面， Normal可調整變數等功能
+                    <br>Display: 該選項是控制數字的顯示方式，可顯示SI制或是只有秒，帶有Decimal 2為十進制，會顯示兩位數，如: 01、02
+                    <br>Option: KeyCode是由按鍵控制計數方式，DeltaTime是由時間控制
+                    <br>Calculation: 可選擇該數字是要增加還是減少
+                    <br>Default Count: 默認計數
+                    <br>Fluctuation: 計數要增加或減少的值
+                    <br>Per: 頻率，若為"1"該計數以每"1"秒運算一次，以此類推
+                    <br>Min Max: 設定計數最小值與最大值
                 </span>
             </h6>
-<br><br></div><div id="code-copy-Timer-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-Timer-cs">
-        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Timer.cs  </div></pre>
-    <pre style="border-radius: 10px;"><code>示範寫法 1.
-    public class Test : MonoBehaviour
-    {
-        private void Update()
-        {
-            Update(() => {
-                //TODO: 每一秒更新一次
-            }, 1);
-        }
-    }
+<br><br></div><div id="code-copy-Counter-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-Counter-cs">
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Counter.cs  </div></pre>
 
-示範寫法 2.
-    public class Test : MonoBehaviour
-    {
-        private void Update()
-        {
-            Update((m_time) => {
-                //TODO: 每一秒更新一次，並且傳入m_time值，可進行m_time操作
-            }, 1);
-        }
-    }
-
-進行初始化，Timer timer = new Timer()，會進行m_timer歸0</code></pre>
 </body>
 
 <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
-<script src="js/highlight.min.js"></script>
-<script src="js/filetextinelement.js"></script>
+<script src="js/highlight.min.js"></script> 
+<script src="js/fileutils.js"></script>
 <script>
-    filetextinelement('code-text-Timer-cs', 'Resource/OriginFile/csharpFile/Timer/Timer.cs', (t, text) => {
+    fileutils.filetextinelement('code-text-Counter-cs', 'Resource/OriginFile/csharpFile/UI/Counter/Counter.cs', (t, text) => {
         t.textContent = text;
     }, () => {
         hljs.highlightAll();
@@ -199,7 +183,7 @@
 <script src="js/svglib/svglib.js"></script>
 <script src="js/copycode.js"></script>
 <script>
-    copycode("code-copy-Timer-cs", "code-text-Timer-cs");
+    copycode("code-copy-Counter-cs", "code-text-Counter-cs");
 </script>
 <script src="js/themeutils.js"></script>
 <script src="js/buttonutils.js"></script>
@@ -224,8 +208,8 @@
     var downloadFiler = document.querySelectorAll('.download-file');
     downloadFiler.forEach(function (e) {
         e.addEventListener("click", () => {
-            if (e.innerText === "Timer.cs  ") {
-                downloadFile('Timer.cs', 'Resource/OriginFile/csharpFile/Timer/Timer.cs');
+            if (e.innerText === "Counter.cs  ") {
+                downloadFile('Counter.cs', 'Resource/OriginFile/csharpFile/UI/Counter/Counter.cs');
             }
         });
     });

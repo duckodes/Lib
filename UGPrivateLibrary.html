@@ -56,6 +56,11 @@
                 <li class="nav-item">
                     <a class="nav-link text-light" href="UGPrivateLibrary.html">Library⚠️類庫</a>
                 </li>
+                <li class="nav-item">
+                    <div class="nav-link text-light"
+                        style="background-color: #303030;border-radius: 20px;cursor: pointer;width: 34px;height: 34px;display: flex;align-items: center;justify-content: center;rotate: 90deg;">
+                        ⋮</div>
+                </li>
             </ul>
             <div id="theme-button" style="margin-right: 100px;"></div>
             <div style="color: white;margin-left: -100px;">主題</div>
@@ -188,9 +193,10 @@
 
 <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
 <script src="js/highlight.min.js"></script>
-<script src="js/filetextinelement.js"></script>
+<script src="js/paramname.js"></script>
+<script src="js/fileutils.js"></script>
 <script>
-    filetextinelement('code-text-Example-cs', 'Resource/OriginFile/csharpFile/Example.cs', (t, text) => {
+    fileutils.filetextinelement('code-text-Example-cs', 'Resource/OriginFile/csharpFile/Example.cs', (t, text) => {
         t.textContent = text;
     }, () => {
         hljs.highlightAll();

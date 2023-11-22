@@ -155,3 +155,36 @@ code::-webkit-scrollbar-corner {
     background: #707070;
     border-radius: 7px;
 }
+
+#lib-draggablepanel {
+    width: 30%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#lib-draggablepanel:hover {
+    opacity: 0.5;
+    width: 25%;
+}
+
+#lib-search-ex {
+    width: 20%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#lib-search-ex:hover {
+    opacity: 0.5;
+    width: 15%;
+}
+
+#lib-search-inspector {
+    width: 20%;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+#lib-search-inspector:hover {
+    opacity: 0.5;
+    width: 15%;
+}

@@ -4,6 +4,10 @@
 <head>
     <title>畫布</title>
     <style>
+        body{
+            user-select: none;
+            -webkit-user-select: none;
+        }
         #myCanvas {
             border: 1px solid #000;
         }
@@ -12,15 +16,26 @@
 
 <body>
 
-    <canvas id="myCanvas" width="1000" height="700"></canvas>
+    <button onclick="saveAsPNG()">儲存為PNG</button>
     <button onclick="undo()">撤銷</button>
     <button onclick="redo()">重做</button>
     <input type="range" min="1" max="20" value="5" id="lineWidthRange">
     <label for="lineWidthRange">調整線條粗細</label>
+    <input type="color" id="colorPicker">
+    <label for="colorPicker">颜色</label>
+    <input type="range" min="1" max="100" value="5" id="lineDashRange">
+    <label for="lineDashRange">虛線樣式</label>
+    <canvas id="myCanvas" width="1000" height="700"></canvas>
 
     <script>
         var canvas = document.getElementById('myCanvas');
         var context = canvas.getContext('2d');
+
+        var lineWidthRange = document.getElementById('lineDashRange');
+
+        lineDashRange.addEventListener('input', function () {
+            context.setLineDash([context.lineWidth, lineDashRange.value]);
+        });
 
         canvas.width = window.innerWidth - 20;
         canvas.height = window.innerHeight - 50;
@@ -31,6 +46,8 @@
         var undoStack = [];
         var redoStack = [];
         var isDrawing = false;
+        var recordMX;
+        var recordMY;
 
         canvas.addEventListener('mousedown', function (e) {
             isDrawing = true;
@@ -42,12 +59,28 @@
             context.lineTo(mouseX, mouseY);
             context.stroke();
             redoStack = [];
+            if (e.shiftKey) {
+                context.lineTo(recordMX, recordMY);
+                context.stroke();
+            }
+            recordMX = mouseX;
+            recordMY = mouseY;
         });
 
         canvas.addEventListener('mousemove', function (e) {
             if (isDrawing) {
                 var mouseX = e.clientX - canvas.getBoundingClientRect().left;
                 var mouseY = e.clientY - canvas.getBoundingClientRect().top;
+                if (e.shiftKey) {
+                    var dx = Math.abs(mouseX - recordMX);
+                    var dy = Math.abs(mouseY - recordMY);
+                    if (dx > dy) {
+                        mouseY = recordMY;
+                    }
+                    else {
+                        mouseX = recordMX;
+                    }
+                }
                 context.lineTo(mouseX, mouseY);
                 context.stroke();
             }
@@ -60,7 +93,6 @@
         canvas.addEventListener('mouseleave', function () {
             isDrawing = false;
         });
-        document.body.addEventListener('touchstart', function(e){ e.preventDefault(); });
         canvas.addEventListener("touchstart", function (e) {
             isDrawing = true;
             context.beginPath();
@@ -111,6 +143,16 @@
             context.lineWidth = lineWidthRange.value;
         });
 
+        var colorPicker = document.getElementById('colorPicker');
+
+        // 初始化线条颜色
+        context.strokeStyle = colorPicker.value;
+
+        // 监听颜色选择器的变化
+        colorPicker.addEventListener('input', function () {
+            context.strokeStyle = colorPicker.value;
+        });
+
         document.addEventListener('keydown', function (event) {
             if (event.ctrlKey && event.key === 'z') {
                 undo();
@@ -118,7 +160,18 @@
             else if (event.ctrlKey && event.shiftKey && event.key === 'Z') {
                 redo();
             }
+            if(event.ctrlKey && event.key === 's'){
+                event.preventDefault();
+                saveAsPNG();
+            }
         });
+
+        function saveAsPNG() {
+            var link = document.createElement('a');
+            link.download = 'canvas_image.png';
+            link.href = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+            link.click();
+        }
 
         let initialWidth = window.innerWidth;
         let initialHeight = window.innerHeight;
@@ -126,7 +179,6 @@
             initialWidth = window.innerWidth;
             initialHeight = window.innerHeight;
         }
-
         window.addEventListener('resize', function (event) {
             recordSize();
             if (confirm("調整大小遺失當前資料，確認是否要調整?")) {
@@ -135,6 +187,7 @@
                 context.lineJoin = 'round';
                 context.lineCap = 'round';
                 context.lineWidth = lineWidthRange.value;
+                context.strokeStyle = colorPicker.value;
             } else {
                 window.resizeTo(initialWidth, initialHeight);
             }
@@ -145,5 +198,8 @@
     </script>
 
 </body>
+
+<script src="js/fileutils.js"></script>
+<script src="js/limitlibs.js"></script>
 
 </html>

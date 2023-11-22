@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Svg Paint</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        #myCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="myCanvas"></canvas>
+
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        var context = canvas.getContext('2d');
+        var drawingData = []; // To save drawing data
+
+        function redraw() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < drawingData.length; i++) {
+                var data = drawingData[i];
+                context.beginPath();
+                context.moveTo(data[0].x, data[0].y);
+                for (var j = 1; j < data.length; j++) {
+                    context.lineTo(data[j].x, data[j].y);
+                }
+                context.stroke();
+            }
+        }
+
+        function saveDrawingData() {
+            var data = [];
+            var paths = document.querySelectorAll('.path');
+            paths.forEach(function (path) {
+                var points = [];
+                var pathCoords = path.getAttribute('d').split('L');
+                pathCoords.forEach(function (point) {
+                    var coords = point.split(',');
+                    points.push({ x: parseFloat(coords[0]), y: parseFloat(coords[1]) });
+                });
+                data.push(points);
+            });
+            drawingData = data;
+        }
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        var isDrawing = false;
+        var path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        var pathData = '';
+
+        canvas.addEventListener('mousedown', function (e) {
+            isDrawing = true;
+            var mouseX = e.clientX;
+            var mouseY = e.clientY;
+            pathData = `M${mouseX},${mouseY}L`;
+            path.setAttribute('class', 'path');
+            path.setAttribute('d', pathData);
+            document.querySelector('svg').appendChild(path);
+        });
+
+        canvas.addEventListener('mousemove', function (e) {
+            if (isDrawing) {
+                var mouseX = e.clientX;
+                var mouseY = e.clientY;
+                pathData += `${mouseX},${mouseY}L`;
+                path.setAttribute('d', pathData);
+            }
+        });
+
+        canvas.addEventListener('mouseup', function () {
+            isDrawing = false;
+            saveDrawingData();
+        });
+
+        canvas.addEventListener('mouseleave', function () {
+            if (isDrawing) {
+                isDrawing = false;
+                saveDrawingData();
+            }
+        });
+
+        window.addEventListener('resize', function () {
+            saveDrawingData();
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            redraw();
+        });
+
+        window.addEventListener('load', function () {
+            redraw();
+        });
+    </script>
+    <svg style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none;"></svg>
+
+</body>
+
+</html>

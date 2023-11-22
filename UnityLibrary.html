@@ -35,7 +35,7 @@
     From: css/default.min.css-->
     <link rel="stylesheet" href="css/vs2015.min.css" id="code-style">
 
-    <title>InitializationEvent 生命週期初始化事件</title>
+    <title>Counter 計數</title>
     <link rel="stylesheet" href="css/private-library.css">
 </head>
 
@@ -72,8 +72,7 @@
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
             C
         </div>
-        <div class="white-lib-sources select-lib"
-            style="height: 100px;display: flex;align-items: center;justify-content: center;">
+        <div class="white-lib-sources" style="height: 100px;display: flex;align-items: center;justify-content: center;">
             D
         </div>
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
@@ -144,41 +143,18 @@
         </div>
     </div>
 
-    <!-- Code -->
-    <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
-    <br><br><h2>InitializationEvent 生命週期初始化事件</h2>
-            <h6>
-                作用: 可新增需要的Initialization對象作用的Event
-
-                <span class="mark-place">
-                    <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
-                    <br>Add Initialization Event: 可開啟需要初始化對象的事件
-                    再次點擊關閉並不會移除之前新增的對象，必須要移除該Event內的對象，才會移除
-                </span>
-            </h6>
-<br><br></div><div id="code-copy-InitializationEvent-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-InitializationEvent-cs">
-        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">InitializationEvent.cs  </div></pre>
-
 </body>
 
 <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
 <script src="js/highlight.min.js"></script>
-<script src="js/filetextinelement.js"></script>
-<script>
-    filetextinelement('code-text-InitializationEvent-cs', 'Resource/OriginFile/csharpFile/Event/InitializationEvent.cs', (t, text) => {
-        t.textContent = text;
-    }, () => {
-        hljs.highlightAll();
-    });
-</script>
+<script src="js/paramname.js"></script>
+<script src="js/fileutils.js"></script>
+<script src="js/libdocument.js"></script>
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/search.js"></script>
 <script src="js/userprevent.js"></script>
 <script src="js/svglib/svglib.js"></script>
 <script src="js/copycode.js"></script>
-<script>
-    copycode("code-copy-InitializationEvent-cs", "code-text-InitializationEvent-cs");
-</script>
 <script src="js/themeutils.js"></script>
 <script src="js/buttonutils.js"></script>
 <script>
@@ -195,19 +171,10 @@
         }
     });
 </script>
+<script src="js/alertimgmodal.js"></script>
 <script src="js/alertmodal.js"></script>
 <script src="js/libsources.js"></script>
 <script src="js/downloadfile.js"></script>
-<script>
-    var downloadFiler = document.querySelectorAll('.download-file');
-    downloadFiler.forEach(function (e) {
-        e.addEventListener("click", () => {
-            if (e.innerText === "InitializationEvent.cs  ") {
-                downloadFile('InitializationEvent.cs', 'Resource/OriginFile/csharpFile/Event/InitializationEvent.cs');
-            }
-        });
-    });
-</script>
 <script src="js/scrollmousedrag.js"></script>
 <script>
     scrollmousedrag("scroll-drag");

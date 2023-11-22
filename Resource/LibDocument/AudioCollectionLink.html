@@ -35,7 +35,7 @@
     From: css/default.min.css-->
     <link rel="stylesheet" href="css/vs2015.min.css" id="code-style">
 
-    <title>Counter 計數</title>
+    <title>AudioCollection 音頻收集驅動器</title>
     <link rel="stylesheet" href="css/private-library.css">
 </head>
 
@@ -146,32 +146,26 @@
 
     <!-- Code -->
     <pre><div class="no-select" style="color: white;width: 100%; margin-bottom: -50px;text-align: center;white-space: pre-line;">
-    <br><br><h2>Counter 計數工具</h2>
+    <br><br><h2>AudioCollection 音頻驅動器</h2>
             <h6>
-                作用: 可產生計數 GUI
+                作用: 可設置需要的音频源(AudioSource)，及對應的音頻數據資料源(AudioClip)
+                <span class="mark-pinkred">(若使用AudioCollection.cs內方法，如:使用Play()方法，AudioSource就會在方法裡面對應AudioClip)</span>
 
                 <span class="mark-place">
                     <br>&lt;&lt;=== Unity Inspector Display Variable ===&gt;&gt;
-                    <br>Settings: 選項有UI、Normal，UI可調整GUI介面， Normal可調整變數等功能
-                    <br>Display: 該選項是控制數字的顯示方式，可顯示SI制或是只有秒，帶有Decimal 2為十進制，會顯示兩位數，如: 01、02
-                    <br>Option: KeyCode是由按鍵控制計數方式，DeltaTime是由時間控制
-                    <br>Calculation: 可選擇該數字是要增加還是減少
-                    <br>Default Count: 默認計數
-                    <br>Fluctuation: 計數要增加或減少的值
-                    <br>Per: 頻率，若為"1"該計數以每"1"秒運算一次，以此類推
-                    <br>Min Max: 設定計數最小值與最大值
+                    <br>Audio Collector: 該List包含兩個置入，為AudioSource、AudioClip
                 </span>
             </h6>
-<br><br></div><div id="code-copy-Counter-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-Counter-cs">
-        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Counter.cs  </div></pre>
+<br><br></div><div id="code-copy-AudioCollection-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="languange-hlsl" id="code-text-AudioCollection-cs">
+        </code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">AudioCollection.cs  </div></pre>
 
 </body>
 
 <!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
 <script src="js/highlight.min.js"></script>
-<script src="js/filetextinelement.js"></script>
+<script src="js/fileutils.js"></script>
 <script>
-    filetextinelement('code-text-Counter-cs', 'Resource/OriginFile/csharpFile/UI/Counter/Counter.cs', (t, text) => {
+    fileutils.filetextinelement('code-text-AudioCollection-cs', 'Resource/OriginFile/csharpFile/Audio/AudioCollection.cs', (t, text) => {
         t.textContent = text;
     }, () => {
         hljs.highlightAll();
@@ -183,7 +177,7 @@
 <script src="js/svglib/svglib.js"></script>
 <script src="js/copycode.js"></script>
 <script>
-    copycode("code-copy-Counter-cs", "code-text-Counter-cs");
+    copycode("code-copy-AudioCollection-cs", "code-text-AudioCollection-cs");
 </script>
 <script src="js/themeutils.js"></script>
 <script src="js/buttonutils.js"></script>
@@ -208,8 +202,8 @@
     var downloadFiler = document.querySelectorAll('.download-file');
     downloadFiler.forEach(function (e) {
         e.addEventListener("click", () => {
-            if (e.innerText === "Counter.cs  ") {
-                downloadFile('Counter.cs', 'Resource/OriginFile/csharpFile/UI/Counter/Counter.cs');
+            if (e.innerText === "AudioCollection.cs  ") {
+                downloadFile('AudioCollection.cs', 'Resource/OriginFile/csharpFile/Audio/AudioCollection.cs');
             }
         });
     });

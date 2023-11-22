@@ -346,7 +346,7 @@ function showLogin(title, content, closeBtn, closeInner = "&times;", alertBackCo
 
 var wantlogin = document.getElementById("want-login");
 if (wantlogin != null) {
-    ReadFileText('Resource/Keep/key.ugc', (key) => {
+    fileutils.ReadFileText('Resource/Keep/key.ugc', (key) => {
         if (localStorage.getItem(key) == null) {
             if (localStorage.getItem("userlogin_privatelib_fail") !== null) {
                 alert("尚未登入");
