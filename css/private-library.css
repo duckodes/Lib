@@ -188,3 +188,15 @@ code::-webkit-scrollbar-corner {
     opacity: 0.5;
     width: 15%;
 }
+
+#option{
+    background-color: #303030;
+}
+
+#option:hover{
+    background-color: #353535;
+}
+
+#option:active{
+    background-color: #151515;
+}

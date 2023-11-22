@@ -57,8 +57,8 @@
                     <a class="nav-link text-light" href="UGPrivateLibrary.html">Library⚠️類庫</a>
                 </li>
                 <li class="nav-item">
-                    <div class="nav-link text-light"
-                        style="background-color: #303030;border-radius: 20px;cursor: pointer;width: 34px;height: 34px;display: flex;align-items: center;justify-content: center;rotate: 90deg;">
+                    <div id="option" class="nav-link text-light"
+                        style="border-radius: 20px;cursor: pointer;width: 34px;height: 34px;display: flex;align-items: center;justify-content: center;rotate: 90deg;">
                         ⋮</div>
                 </li>
             </ul>
@@ -214,14 +214,23 @@
 <script src="js/buttonutils.js"></script>
 <script>
     var tb = document.getElementById("theme-button");
+    var swbdata;
+    if (localStorage.getItem('active') === '1') {
+        swbdata = true;
+    }
+    else {
+        swbdata = false;
+    }
     buttonutils.swb({
-        a: true, bW: "40px", cW: "14px", bH: "20px", cH: "14px", bR: "15px", cR: "15px", fs: 5,
+        a: swbdata, bW: "40px", cW: "14px", bH: "20px", cH: "14px", bR: "15px", cR: "15px", fs: 5,
         bC: "#633", bCOn: "#336", cC: "#855", cCOn: "#558", ls: tb, fc(active) {
             if (active) {
                 tokyonightdark();
+                localStorage.setItem('active', '1');
             }
             else {
                 vs2015();
+                localStorage.setItem('active', '0');
             }
         }
     });
