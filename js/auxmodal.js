@@ -97,7 +97,7 @@ function showAux(title, content, closeBtn, closeInner = "&times;", alertBackColo
     }
     // Close the modal when clicking outside the modal
     window.onclick = function (event) {
-        if (event.target == customModal) {
+        if (event.target === customModal) {
             customModal.style.display = "none";
         }
     }

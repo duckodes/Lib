@@ -1,22 +1,23 @@
-*: replace to object's abbreviation; if only one object, then just replace to empty
+*: 1.object's abbreviation add front([ex: var time; timea;] => [time + a] => [time + active]); if only one object, then just keep empty
+2. meant function's parameter => main: main call, sub: auxiliary call
 parameter =>
 
 a: active
 p: parent
+t: text
 
 ck: check
-fc: function
+fc: function (main)
 fs: fixed side
+sb: element style background
+sc: element style color
+sh: element style height
+sw: element style width
+su: element style user select
 
 num: number
+sba: element style background active
+sbc: element style background color
 
-*sb: style background
-*sc: style color
-*sh: style height
-*sw: style width
-*su: style user select
-
-*sba: style background active
-*sbc: style background color
-
-*sbdr: style border radius
+sbdr: element style border radius
+styf: style function (sub)
