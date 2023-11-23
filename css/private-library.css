@@ -189,14 +189,22 @@ code::-webkit-scrollbar-corner {
     width: 15%;
 }
 
-#option{
+#option {
     background-color: #303030;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    rotate: 90deg;
 }
 
-#option:hover{
+#option:hover {
     background-color: #353535;
 }
 
-#option:active{
+#option:active {
     background-color: #151515;
 }

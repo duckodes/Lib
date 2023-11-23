@@ -27,7 +27,7 @@ option.addEventListener("click", () => {
     contextmenuutils.addItem("", () => { }, (c) => {
         buttonutils.swb({
             a: storageutils.get('active'), bsw: "40px", csw: "14px", bsh: "20px", csh: "14px", bsbdr: "15px", csbdr: "15px", fs: 5,
-            bsb: "#633", bsba: "#336", csb: "#855", csba: "#558", p: c, fc(active) {
+            bsb: "#777", bsba: "#336", csb: "#333", csba: "#558", p: c, fc(active) {
                 storageutils.set('active', active);
                 if (active) {
                     themeutils.tokyonightdark();
