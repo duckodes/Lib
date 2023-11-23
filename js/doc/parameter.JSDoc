@@ -1,23 +1,26 @@
-*: 1.object's abbreviation add front([ex: var time; timea;] => [time + a] => [time + active]); if only one object, then just keep empty
-2. meant function's parameter => main: main call, sub: auxiliary call
+*: replace '*' to object abbreviation ([ex: var time; timea;] => [time + a] => [time + active]); if only one object, then just keep empty
+none '*': can add front or add last of abbreviation; has '*': add fixed
 parameter =>
 
 a: active
+c: class
+k: key
 p: parent
 t: text
 
 ck: check
-fc: function (main)
+fc: function
 fs: fixed side
-sb: element style background
-sc: element style color
-sh: element style height
-sw: element style width
-su: element style user select
+id: id
+*sb: element style background
+*sc: element style color
+*sh: element style height
+*sw: element style width
+*su: element style user select
 
+bln: boolean
 num: number
-sba: element style background active
-sbc: element style background color
+*sba: element style background active
+*sbc: element style background color
 
-sbdr: element style border radius
-styf: style function (sub)
+*sbdr: element style border radius

@@ -1,10 +1,12 @@
+*: replace '*' to object abbreviation ([ex: var time; timea;] => [time + a] => [time + active]); if only one object, then just keep empty
+none '*': can add front or add last of abbreviation; has '*': add fixed
 var =>
 
 b: base
 c: control
 d: data
 e: event
-k: key
+i: id
 l: lock
 n: number
 t: time
@@ -16,9 +18,10 @@ de: div element
 fp: file path
 md: mouse down
 mm: mouse move
+ri: random index
 
 atv: active
-bln: boolean
+cls: class
 dpy: display
 pat: parent
 src: source

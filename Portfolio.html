@@ -85,7 +85,7 @@
           <div class="card_pic" id="changeOpacity2">
             <img src="image/UnityArktosPainter/MainApple6.png" class="card-img" alt="...">
           </div>
-          <div class="card-img-overlay cardword_pic" id="hoverTarget2">
+          <div class="card-img-overlay cardword_pic weee" id="hoverTarget2">
             <h5 class="card-title" style="font-size: 35px;">Color Tools</h5>
             <p class="card-text">unity引擎為基礎設計的插件，方便開發者進行簡易繪圖。<br>
               (Plugin based on the Unity engine, designed to facilitate developers with simple drawing.)</p>
@@ -129,7 +129,10 @@
 </body>
 
 <script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/snowflakemotion.js"></script>
+<script src="js/motionbackground.js"></script>
+<script>
+  motionbackground.initsnowflake();
+</script>
 <script src="js/userprevent.js"></script>
 <script src="js/auxmodal.js"></script>
 <script>
@@ -138,9 +141,9 @@
   clickShowAux("hoverTarget3", "Custom Dialogue Tools", "unity引擎為基礎設計的插件，方便開發者產生對話框，進行自訂義對話框更改", true, "&times;", "#f4f4f4", "10px", null, null, "10px", false);
 </script>
 
-<script src="js/linkprocess.js"></script>
+<script src="js/linkprocessutils.js"></script>
 <script>
-  isetlink("hoverTarget4", "Bomb.html");
+  linkprocessutils.isetlink("hoverTarget4", "Bomb.html");
 </script>
 
 <!--OWN-->

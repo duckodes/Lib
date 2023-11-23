@@ -5,7 +5,7 @@ var contextmenuutils = (function () {
         remove: remove
     };
     var atv = false;
-    function init(p, styf) {
+    function init(p, fc) {
         if (!atv) {
             var b = document.createElement("div");
             b.id = "ins-contextmenu-base";
@@ -26,7 +26,7 @@ var contextmenuutils = (function () {
             p.appendChild(c);
 
             if (typeof fc === 'function') {
-                styf(b);
+                fc(b, c);
             }
 
             window.onclick = function (e) {
@@ -41,7 +41,7 @@ var contextmenuutils = (function () {
             remove();
         }
     }
-    function addItem(t, fc, styf) {
+    function addItem(t, fc) {
         if (atv) {
             var contextmenu = document.getElementById("ins-contextmenu");
             var c = document.createElement("div");
@@ -60,15 +60,9 @@ var contextmenuutils = (function () {
             c.style.fontFamily = "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif";
             contextmenu.appendChild(c);
 
-            if (typeof styf === 'function') {
-                styf(c);
+            if (typeof fc === 'function') {
+                fc(c);
             }
-
-            c.addEventListener("click", () => {
-                if (typeof fc === 'function') {
-                    fc();
-                }
-            });
         }
     }
     function remove() {

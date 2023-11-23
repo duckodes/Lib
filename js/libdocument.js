@@ -1,3 +1,10 @@
+/**
+ * [Reference]
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * @version 1.0.0
+ */
 var libdocument = (function () {
     return {
         init: init

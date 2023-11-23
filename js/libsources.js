@@ -1,3 +1,14 @@
+/**
+ * [Reference]
+ * 
+ * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
+ * 
+ * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * @version 1.0.0
+ */
 var libsources = (function () {
     return {
         init: init
