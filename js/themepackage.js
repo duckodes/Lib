@@ -26,12 +26,12 @@ var themepackage = (function () {
         }
     }
     function tokyonightdark(id) {
-        var linkstyle = document.getElementById(id);
-        linkstyle.href = "css/tokyo-night-dark.min.css";
+        var b = document.getElementById(id);
+        b.href = "css/tokyo-night-dark.min.css";
     }
     function vs2015(id) {
-        var linkstyle = document.getElementById(id);
-        linkstyle.href = "css/vs2015.min.css";
+        var b = document.getElementById(id);
+        b.href = "css/vs2015.min.css";
     }
 }());
 themepackage.init("code-style");

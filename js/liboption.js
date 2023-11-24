@@ -17,7 +17,9 @@ var liboption = (function () {
         var option = document.getElementById("option");
 
         option.addEventListener("click", () => {
-            contextmenuutils.init(option.parentElement);
+            contextmenuutils.init(option.parentElement, (b, c) => {
+                c.style.marginLeft = "-50px";
+            });
             contextmenuutils.addItem("Settings", (c) => {
                 c.addEventListener("click", () => {
                     contextmenuutils.remove();
