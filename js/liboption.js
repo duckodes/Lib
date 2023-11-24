@@ -22,6 +22,14 @@ var liboption = (function () {
             });
             contextmenuutils.addItem("Settings", (c) => {
                 c.addEventListener("click", () => {
+                    var alert = showAlert("Settings", "", true, closeInner = "&times;", alertBackColor = "#f4f4f4", top = "10px", bottom = null, left = null, right = "10px", wantCloseBtnBorder = false);
+                    alert.style.zIndex = "999";
+                    buttonutils.swb({
+                        a: false, bsw: "40px", csw: "14px", bsh: "20px", csh: "14px", bsbdr: "15px", csbdr: "15px", fs: 5,
+                        bsb: "#777", bsba: "#336", csb: "#333", csba: "#558", p: alert.firstChild, fc(active) {
+                            
+                        }
+                    });
                     contextmenuutils.remove();
                 });
                 c.addEventListener("mouseenter", () => {

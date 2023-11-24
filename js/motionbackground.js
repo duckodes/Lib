@@ -13,12 +13,12 @@
  */
 var motionbackground = (function () {
     return {
-        initsnowflake: initsnowflake
+        initsnow: initsnow
     };
-    function initsnowflake() {
+    function initsnow() {
         var symbols = ["❆", "❅", "❀"];
 
-        function createSnowflake() {
+        function createsnow() {
             var b = document.createElement("span");
             var ri = Math.floor(Math.random() * symbols.length);
 
@@ -40,7 +40,7 @@ var motionbackground = (function () {
         }
 
         setInterval(function () {
-            createSnowflake();
+            createsnow();
         }, 1500);
     }
 }());

@@ -24,6 +24,7 @@ atv: active
 cls: class
 dpy: display
 pat: parent
+rmb: remove button
 src: source
 
 elmt: element

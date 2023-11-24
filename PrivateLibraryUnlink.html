@@ -184,15 +184,13 @@
     var downloadFiler = document.querySelectorAll('.download-file');
     downloadFiler.forEach(function (e) {
         e.addEventListener("click", () => {
-            var searchbar = document.querySelector('.search-bar');
             if (e.innerText === searchbar.value + ".cs  ") {
                 var c = document.getElementById('code-text-Empty-cs');
-                fileutils.downloadwriter(c.textContent.replace('Empty', searchbar.value).replace('Empty!', searchbar.value), searchbar.value + '.cs');
+                fileutils.downloadwriter(c.textContent.replace('Empty', searchbar.value).replace('Empty!', searchbar.value), paramname.getParameterByName('v', window.location.href) + '.cs');
             }
         });
         if (e.innerText === "Empty.cs  ") {
-            var searchbar = document.querySelector('.search-bar');
-            e.textContent = searchbar.value + ".cs  ";
+            e.textContent = paramname.getParameterByName('v', window.location.href) + ".cs  ";
         }
     });
 </script>
