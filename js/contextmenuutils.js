@@ -1,3 +1,16 @@
+/**
+ * [Reference]
+ * 
+ * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
+ * 
+ * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * [liboption.js](liboption.js)
+ * 
+ * @version 1.1.0
+ */
 var contextmenuutils = (function () {
     return {
         init: init,
@@ -5,6 +18,7 @@ var contextmenuutils = (function () {
         remove: remove
     };
     var atv = false;
+    /** @param fc ( b, c ) */
     function init(p, fc) {
         if (!atv) {
             var b = document.createElement("div");
@@ -25,9 +39,7 @@ var contextmenuutils = (function () {
             p.appendChild(b);
             p.appendChild(c);
 
-            if (typeof fc === 'function') {
-                fc(b, c);
-            }
+            fc(b, c);
 
             window.onclick = function (e) {
                 if (e.target === b) {
@@ -41,6 +53,7 @@ var contextmenuutils = (function () {
             remove();
         }
     }
+    /** @param fc ( c ) */
     function addItem(t, fc) {
         if (atv) {
             var contextmenu = document.getElementById("ins-contextmenu");
@@ -60,9 +73,7 @@ var contextmenuutils = (function () {
             c.style.fontFamily = "'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif";
             contextmenu.appendChild(c);
 
-            if (typeof fc === 'function') {
-                fc(c);
-            }
+            fc(c);
         }
     }
     function remove() {

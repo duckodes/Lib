@@ -1,0 +1,220 @@
+{
+	// Place your Profolio workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	//
+	// BEGIN =>
+	// contextmenuutils:
+	"contextmenuutils.addItem": {
+	"scope": "javascript,typescript",
+	"prefix": "contextmenuutils.addItem",
+	"body": [
+		"contextmenuutils.addItem(\"$1\", (c) => {$2$0",
+		"});",
+	],
+	"contextmenuutils.init": {
+	"scope": "javascript,typescript",
+	"prefix": "contextmenuutils.init",
+	"body": [
+		"contextmenuutils.init($1, (b, c) => {$2$0",
+		"});",
+	],
+	"description": "initialize base menu"
+	},
+	"description": "add items for base menu"
+	},
+	
+	// fileutils:
+	"fileutils.ReadFileText": {
+	"scope": "javascript,typescript",
+	"prefix": "fileutils.ReadFileText",
+	"body": [
+		"fileutils.ReadFileText('$1', (text) => {$2$0",
+		"});",
+	],
+	"description": "read the file with file path"
+	},
+
+	// alertutils:
+	"(AUX)alertutils.init": {
+	"scope": "javascript,typescript",
+	"prefix": "alertutils.init",
+	"body": [
+		"alertutils.init(document.body, (b, c, ti, rmb) => {",
+		"	ti.textContent = \"$1\";",
+		"	rmb.addEventListener(\"click\", () => { ${2:b.remove();} });",
+		"	${0:window.onclick = function (event) {",
+		"		if (event.target === b) {",
+		"			b.remove();",
+		"		}",
+		"	}}",
+		"});",
+	],
+	"description": "init auxiliary alert"
+	},
+	"alertutils.init": {
+	"scope": "javascript,typescript",
+	"prefix": "alertutils.init",
+	"body": [
+		"alertutils.init(document.body, (b, c, ti, rmb) => {",
+		"	ti.textContent = \"$1\";",
+		"	rmb.addEventListener(\"click\", () => { ${2:b.remove();} });",
+		"});",
+	],
+	"description": "init alert"
+	},
+
+	// buttonutils:
+	"buttonutils.sd": {
+	"scope": "javascript,typescript",
+	"prefix": "buttonutils.sd",
+	"body": [
+		"buttonutils.sd(\"${1:50px}\", \"${2:50px}\", \"${3:#000}\", \"${4:30px}\", ${0:document.body});",
+	],
+	"description": "setup div element"
+	},
+	"buttonutils.swb": {
+	"scope": "javascript,typescript",
+	"prefix": "buttonutils.swb",
+	"body": [
+		"buttonutils.swb({",
+		"	a: ${1:false}, bsw: \"40px\", csw: \"14px\", bsh: \"20px\", csh: \"14px\", bsbdr: \"15px\", csbdr: \"15px\", fs: 5,",
+		"	bsb: \"#ccc\", bsba: \"#ccc\", csb: \"#333\", csba: \"#558\", p: bbtn, fc(atv) {",
+		"		$2",
+		"	}",
+		"});",
+	],
+	"description": "setup switch button"
+	},
+	
+	// randomutils:
+	"randomutils.float": {
+	"scope": "javascript,typescript",
+	"prefix": "randomutils.float",
+	"body": [
+		"randomutils.float(${1:1}, ${2:16})",
+	],
+	"description": "generate random float"
+	},
+	"randomutils.int": {
+	"scope": "javascript,typescript",
+	"prefix": "randomutils.int",
+	"body": [
+		"randomutils.int(${1:1}, ${2:16})",
+	],
+	"description": "generate random int"
+	},
+	"randomutils.string": {
+	"scope": "javascript,typescript",
+	"prefix": "randomutils.string",
+	"body": [
+		"randomutils.string(${1:16})",
+	],
+	"description": "generate random string"
+	},
+
+	// scrollcheck
+	"scrollcheck.winsy0": {
+	"scope": "javascript,typescript",
+	"prefix": "scrollcheck.winsy0",
+	"body": [
+		"scrollcheck.winsy0(() => {$1}, () => {$2}, () => {$3});$0",
+	],
+	"description": "(property) idrag: (id: any) => void [use mouse drag to scroll from id]"
+	},
+
+	// scrollmousedrag
+	"scrollmousedrag.idrag": {
+	"scope": "javascript,typescript",
+	"prefix": "scrollmousedrag.idrag",
+	"body": [
+		"scrollmousedrag.idrag(\"$1\");$0",
+	],
+	"description": "(property) idrag: (id: any) => void [use mouse drag to scroll from id]"
+	},
+
+	// scrollviewutils:
+	"scrollviewutils.cto": {
+	"scope": "javascript,typescript",
+	"prefix": "scrollviewutils.cto",
+	"body": [
+		"scrollviewutils.cto($1);$0",
+	],
+	"description": "(property) cto: (c: any) => void [use class to scroll into view]"
+	},
+	"scrollviewutils.ito": {
+	"scope": "javascript,typescript",
+	"prefix": "scrollviewutils.ito",
+	"body": [
+		"scrollviewutils.ito($1);$0",
+	],
+	"description": "(property) ito: (id: any) => void [use id to scroll into view]"
+	},
+
+	// sliderutils:
+	"sliderutils.init": {
+	"scope": "javascript,typescript",
+	"prefix": "sliderutils.init",
+	"body": [
+		"sliderutils.init(${1:\"0\"}, ${2:\"0\"}, ${3:\"20\"}, ${4:\"1\"});$0",
+	],
+	"description": "(property) init: (v: any, min: any, max: any, s?: string) => HTMLInputElement [generate input slider]"
+	},
+
+	// storageutils:
+	"storageutils.get": {
+	"scope": "javascript,typescript",
+	"prefix": "storageutils.get",
+	"body": [
+		"storageutils.get($1);$0",
+	],
+	"description": "(property) get: (k: any) => any [localstorage.getItem with JSON.parse]"
+	},
+	"storageutils.set": {
+	"scope": "javascript,typescript",
+	"prefix": "storageutils.set",
+	"body": [
+		"storageutils.set($1, $2);$0",
+	],
+	"description": "(property) set: (k: any, bln: any) => void [localstorage.setItem]"
+	},
+
+	// themepackage:
+	"themepackage.vs2015": {
+	"scope": "javascript,typescript",
+	"prefix": "themepackage.vs2015",
+	"body": [
+		"themepackage.vs2015(\"$2\");$0",
+	],
+	"description": "(property) vs2015: (id: any) => void [change <code> to vs2015 theme]"
+	},
+	"themepackage.tokyonightdark": {
+	"scope": "javascript,typescript",
+	"prefix": "themepackage.tokyonightdark",
+	"body": [
+		"themepackage.tokyonightdark(\"$2\");$0",
+	],
+	"description": "(property) tokyonightdark: (id: any) => void [change <code> to tokyonightdark theme]"
+	},
+	"themepackage.init": {
+	"scope": "javascript,typescript",
+	"prefix": "themepackage.init",
+	"body": [
+		"themepackage.init();$0",
+	],
+	"description": "(property) init: (id: any) => void [initialize themepackage]"
+	},
+
+	// userprevent:
+	"userprevent.init": {
+	"scope": "javascript,typescript",
+	"prefix": "userprevent.init",
+	"body": [
+		"userprevent.init();$0",
+	],
+	"description": "(property) init: () => void [basic user prevent]"
+	},
+}

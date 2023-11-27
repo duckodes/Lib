@@ -17,7 +17,7 @@
  * 
  * [UnityLibrary.html](../UnityLibrary.html)
  * 
- * @version 1.0.0
+ * @version 1.1.0
  */
 var userprevent = (function () {
     return {

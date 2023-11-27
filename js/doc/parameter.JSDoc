@@ -3,10 +3,15 @@ none '*': can add front or add last of abbreviation; has '*': add fixed
 parameter =>
 
 a: active
+b: bottom
 c: class
 k: key
+l: length
+m: middle
 p: parent
+s: step
 t: text
+v: value
 
 ck: check
 fc: function
@@ -15,8 +20,9 @@ id: id
 *sb: element style background
 *sc: element style color
 *sh: element style height
-*sw: element style width
 *su: element style user select
+*sw: element style width
+tp: top
 
 bln: boolean
 num: number

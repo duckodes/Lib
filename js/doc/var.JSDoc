@@ -1,14 +1,16 @@
 *: replace '*' to object abbreviation ([ex: var time; timea;] => [time + a] => [time + active]); if only one object, then just keep empty
 none '*': can add front or add last of abbreviation; has '*': add fixed
-var =>
+var || const || let =>
 
 b: base
 c: control
 d: data
 e: event
+h: height
 i: id
 l: lock
 n: number
+r: result
 t: time
 u: url
 
@@ -19,12 +21,18 @@ fp: file path
 md: mouse down
 mm: mouse move
 ri: random index
+rn: random number
+ti: title
+tp: top
 
 atv: active
 cls: class
+doc: document
 dpy: display
 pat: parent
 rmb: remove button
 src: source
+win: window
 
+char: character || characters
 elmt: element

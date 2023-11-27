@@ -8,11 +8,6 @@ var linkprocessutils = (function () {
         isetlink: isetlink,
         csetlink: csetlink
     };
-    /**
-     * simply function to process a id with link
-     * @param {string} id - target id
-     * @param {string} url - link
-     */
     function isetlink(id, url) {
         if (id !== null) {
             const i = document.getElementById(id);
@@ -21,11 +16,6 @@ var linkprocessutils = (function () {
             });
         }
     }
-    /**
-     * simply function to process a id with link
-     * @param {string} cls - target class (must add . at begin)
-     * @param {string} url - link
-     */
     function csetlink(cls, url) {
         if (cls !== null) {
             const c = document.querySelector(cls);

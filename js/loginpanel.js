@@ -375,6 +375,7 @@ if (wantlogin != null) {
             backtoPrLibsalink.innerHTML = "◆Library類庫";
             backtoPrLibs.appendChild(backtoPrLibsalink);
             wantlogin.parentElement.parentElement.appendChild(backtoPrLibs);
+            wantlogin.parentElement.parentElement.insertBefore(backtoPrLibsalink, wantlogin.parentElement.parentElement.children[4]);
         }
     });
 }

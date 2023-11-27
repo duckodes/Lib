@@ -6,3 +6,8 @@
 ==translate==>
 1.ugsoft 的 javascript 檔案，內容開頭必須要命名一個變數，變數名為該javascript的檔案名稱，如果沒有命名，便只能寫入一個方法，不能添加額外的方法或是函數，並且該方法名是javascript的檔案名稱。
 2.變數和參數註釋文本如果一樣的解釋，必須用有不同的縮寫。
+
+==version==>
+"1".0.0 => first letter: major updates
+1."0".0 => second letter: finish version jsnippets.code-snippets settings
+1.0."0" => third letter: regular updates

@@ -11,7 +11,9 @@
  * 
  * [liboption.js](liboption.js)
  * 
- * @version 1.0.0
+ * [libsources.js](libsources.js)
+ * 
+ * @version 1.1.0
  */
 var storageutils = (function (){
     return{

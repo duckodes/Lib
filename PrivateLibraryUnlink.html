@@ -63,7 +63,7 @@
         </div>
     </nav>
 
-    <div class="lib-sources no-select" id="scroll-drag">
+    <div class="lib-sources no-select" id="scroll-drag" style="display: none;">
         <div class="black-lib-sources" style="height: 70px;display: flex;align-items: center;justify-content: center;">
             A
         </div>
@@ -220,14 +220,15 @@
 <script src="js/contextmenuutils.js"></script>
 <script src="js/liboption.js"></script>
 <script src="js/alertmodal.js"></script>
+<script src="js/alertutils.js"></script>
 <script src="js/libsources.js"></script>
 <script src="js/scrollmousedrag.js"></script>
 <script>
-    scrollmousedrag("scroll-drag");
+    scrollmousedrag.idrag("scroll-drag");
 </script>
 <script src="js/scrollcheck.js"></script>
 <script>
-    winsy0(() => {
+    scrollcheck.winsy0(() => {
         var libsrc = document.getElementById('scroll-drag');
         libsrc.style.opacity = "1";
         libsrc.style.marginLeft = "0px";

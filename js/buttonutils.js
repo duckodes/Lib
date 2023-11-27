@@ -1,3 +1,16 @@
+/**
+ * [Reference]
+ * 
+ * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
+ * 
+ * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * [liboption.js](liboption.js)
+ * 
+ * @version 1.1.0
+ */
 var buttonutils = (function () {
     'use strict';
 
@@ -18,6 +31,7 @@ var buttonutils = (function () {
 
         return de;
     }
+    /** @param fc ( atv ) */
     function swb({ a = false, bsw = "40px", csw = "20px", bsh = "20px", csh = "20px", bsbdr = "15px", csbdr = "15px", fs = 5,
         bsb = "#ccc", bsba = "#ccc", csb = "#aaa", csba = "#aaa", p = document.body, fc }) {
         var b = sd(bsw, bsh, bsb, bsbdr, p);

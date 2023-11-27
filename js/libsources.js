@@ -7,13 +7,25 @@
  * 
  * [UnityLibrary.html](../UnityLibrary.html)
  * 
+ * [liboption.js](liboption.js)
+ * 
  * @version 1.0.0
  */
 var libsources = (function () {
     return {
-        init: init
+        init: init,
+        show: show,
+        hide: hide
     };
     function init() {
+        fileutils.ReadFileText('Resource/Register/localstorage.ordinary-level/i9RL6x1tAAUC0rKwbveo.localstorage', (text) => {
+            if (storageutils.get(text)) {
+                show();
+            }
+            else {
+                hide();
+            }
+        });
         var blacklibsources = document.querySelectorAll('.black-lib-sources');
         var whitelibsources = document.querySelectorAll('.white-lib-sources');
         blacklibsources.forEach(function (element) {
@@ -219,6 +231,14 @@ var libsources = (function () {
     function BR() {
         var br = document.createElement("br");
         return br;
+    }
+    function show() {
+        var libsrc = document.querySelector('.lib-sources.no-select');
+        libsrc.style.display = "";
+    }
+    function hide() {
+        var libsrc = document.querySelector('.lib-sources.no-select');
+        libsrc.style.display = "none";
     }
 }());
 libsources.init();

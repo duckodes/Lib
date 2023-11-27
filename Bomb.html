@@ -139,7 +139,7 @@
 
 <script src="js/userprevent.js"></script>
 <script src="js/alertmodal.js"></script>
-<script src="js/sliderinput.js"></script>
+<script src="js/sliderutils.js"></script>
 
 <!--OWN-->
 <script>
@@ -404,9 +404,9 @@
         var modalOption = document.createElement("div");
         modalOption.style.height = "80%";
 
-        var snumrow = sliderinput(numRows.toString(), "9", "30", "any");
-        var snumcol = sliderinput(numCols.toString(), "9", "30", "any");
-        var sbombnum = sliderinput(numMines.toString(), "10", ((Math.floor(snumrow.value) * Math.floor(snumcol.value)) * 0.3).toString(), "any");
+        var snumrow = sliderutils.init(numRows.toString(), "9", "30", "any");
+        var snumcol = sliderutils.init(numCols.toString(), "9", "30", "any");
+        var sbombnum = sliderutils.init(numMines.toString(), "10", ((Math.floor(snumrow.value) * Math.floor(snumcol.value)) * 0.3).toString(), "any");
         var bombnumtext = document.createElement("label");
         bombnumtext.innerText = "地雷" + sbombnum.value.toString();
         sbombnum.addEventListener("input", () => {

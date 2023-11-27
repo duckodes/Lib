@@ -1,14 +1,21 @@
 /**
  * [Reference]
  * 
- * []()
+ * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
  * 
- * @version 1.0.0
+ * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * [liboption.js](liboption.js)
+ * 
+ * @version 1.1.0
  */
 var alertutils = (function () {
     return {
         init: init
     };
+    /** @param fc ( b, c, ti, rmb ) */
     function init(p, fc) {
         var b = document.createElement("div");
         b.style.position = "fixed";
@@ -19,6 +26,7 @@ var alertutils = (function () {
         b.style.backgroundColor = "rgba(0,0,0,0.7)";
         b.style.userSelect = "none";
         b.style.zIndex = "999";
+        b.style.display = "flex";
         b.style.justifyContent = "center";
         b.style.alignItems = "center";
 
@@ -34,25 +42,28 @@ var alertutils = (function () {
         c.style.position = "relative";
         c.style.borderRadius = "10px";
 
+        var tp = document.createElement("div");
+        tp.style.display = "flex";
+        tp.style.justifyContent = "right";
+
+        var ti = document.createElement('h2');
+
         var rmb = document.createElement("span");
         rmb.innerHTML = "&times;";
-        rmb.style.position = "absolute";
-        rmb.style.top = "10px";
-        rmb.style.right = "10px";
-        rmb.style.border = "2px solid #353535";
-        rmb.style.borderRadius = "5px";
+        rmb.style.marginTop = "-10px";
         rmb.style.fontSize = "20px";
         rmb.style.fontWeight = "bold";
         rmb.style.cursor = "pointer";
 
-        if (typeof fc === 'function') {
-            fc(b, c, rmb);
-        }
 
         p.appendChild(b);
 
         b.appendChild(c);
 
-        c.appendChild(rmb);
+        c.appendChild(tp);
+        tp.appendChild(ti);
+        tp.appendChild(rmb);
+
+        fc(b, c, ti, rmb);
     }
 }());
