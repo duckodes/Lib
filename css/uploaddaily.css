@@ -1,0 +1,123 @@
+body {
+    user-select: none;
+}
+
+#backtosite {
+    border: 0px;
+    padding: 10px 70px;
+    background-color: #383838;
+    color: white;
+    outline: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+#signin,
+#signout {
+    border: 0px;
+    padding: 10px 70px;
+    background-color: #383838;
+    color: white;
+    outline: none;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
+    cursor: pointer;
+    display: none;
+    border-radius: 8px;
+}
+
+textarea {
+    width: calc(100% - 40px);
+    height: 450px;
+    margin: 20px auto;
+    margin-left: 20px;
+    background-color: rgb(224, 224, 224, 0.2);
+    border: 2px solid rgb(224, 224, 224, 1);
+    outline: none;
+    padding: 10px 20px;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 18px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.upload {
+    border: 0px;
+    outline: none;
+    padding: 8px 30px;
+    display: block;
+    font-size: large;
+    border: 2px solid rgb(224, 224, 224, 1);
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    float: right;
+    color: #3c84f8;
+}
+
+.list ul li {
+    list-style: none;
+    background-color: #3c84f8;
+    color: white;
+    display: inline-block;
+    padding: 15px 60px 15px 20px;
+    width: 80%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    border-radius: 8px;
+}
+
+.list ul li span {
+    position: relative;
+    top: -1px;
+}
+
+.list ul li svg {
+    fill: white;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    right: 15px;
+    top: 12px;
+    background-color: #ffffff20;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.expand-container {
+    width: 150px;
+    height: 0px;
+    position: absolute;
+}
+
+.expand-container ul {
+    position: relative;
+    left: -40px;
+    top: -10px;
+    width: 100%;
+}
+
+.expand-container ul li {
+    text-align: left;
+    list-style: none;
+    border: 1px solid rgb(207, 207, 207);
+    border-bottom: 0px;
+    background-color: rgb(94, 94, 94);
+    color: white;
+    padding: 10px 0px;
+    padding-left: 16px;
+    cursor: pointer;
+}
+
+.expand-container ul li:last-child {
+    border-bottom: 1px solid rgb(207, 207, 207);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.expand-container ul li:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}

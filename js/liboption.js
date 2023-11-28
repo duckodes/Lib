@@ -107,8 +107,8 @@ var liboption = (function () {
             });
             contextmenuutils.addItem("..", (c) => {
                 c.addEventListener("click", () => {
-                    c.innerText = "Paint";
-                    if(c.innerText === "Paint"){
+                    c.innerText = "paint";
+                    if(c.innerText === "paint"){
                         c.addEventListener("click", () => {
                             window.location.href = "Paint.html";
                         });
@@ -124,7 +124,7 @@ var liboption = (function () {
                             c.style.background = "";
                         });
                     });
-                    contextmenuutils.addItem("Upload Daily", (c) => {
+                    contextmenuutils.addItem("upload daily", (c) => {
                         c.addEventListener("click", () => {
                             window.location.href = "UploadDaily.html";
                         });

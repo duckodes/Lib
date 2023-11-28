@@ -24,47 +24,7 @@
     <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
     <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
     <title>Record 日誌</title>
-    <style>
-        #signin,
-        #signout {
-            border: 0px;
-            padding: 10px 70px;
-            background-color: #3c84f8;
-            color: white;
-            outline: none;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 20px;
-            display: none;
-        }
-
-        textarea {
-            width: calc(100% - 40px);
-            height: 450px;
-            margin: 20px auto;
-            background-color: rgb(224, 224, 224, 0.2);
-            border: 2px solid rgb(224, 224, 224, 1);
-            outline: none;
-            padding: 10px 20px;
-            font-family: 'Noto Sans KR', sans-serif;
-            font-size: 18px;
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-        }
-
-        .upload {
-            border: 0px;
-            outline: none;
-            padding: 8px 30px;
-            display: block;
-            font-size: large;
-            border: 2px solid rgb(224, 224, 224, 1);
-            font-family: 'Noto Sans KR', sans-serif;
-            cursor: pointer;
-            float: right;
-            color: #3c84f8;
-        }
-    </style>
+    <link rel="stylesheet" href="css/uploaddaily.css">
 </head>
 
 <body style="background-color: #d3d3d3">
@@ -73,26 +33,17 @@
         <div class="container justify-content-center">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link text-light" aria-current="page" href="main.html">Home◆首頁</a>
+                    <button id="backtosite" class="nav-link text-light" onclick="window.location.href = 'UGPrivateLibrary.html'">返回</button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="Portfolio.html">Portfolio◆製作</a>
+                    <button id="signin">登入</button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active text-light" href="Daily.html">Daily◆日誌</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="Introduction.html">Contact◆簡介</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="UGPrivateLibrary.html">Library◆類庫</a>
+                    <button id="signout">登出</button>
                 </li>
             </ul>
         </div>
     </nav>
-
-    <button id="signin">登入</button>
-    <button id="signout">登出</button>
     <div class="actions">
         <textarea placeholder="Enter text ..."></textarea>
         <button class="upload" onclick="upload()">上傳</button>
@@ -117,54 +68,5 @@
 <script src="js/uploaddaily.js"></script>
 <script async="" defer="" src="https://apis.google.com/js/api.js" gapi_processed="true"></script>
 <script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
-<script src="js/contextmenuutils.js"></script>
-<script>
-    var uploaddaily = (function () {
-        return {
-            init: init
-        };
-        function init() {
-            var container = document.querySelector('.list');
-            container.addEventListener("click", () => {
-                contextmenuutils.init(document.body, (b, c) => {
-                });
-                contextmenuutils.addItem("Read", (c) => {
-                    c.setAttribute("onclick", "readEditDownload(this, 'read')");
-                    c.addEventListener("mouseenter", () => {
-                        c.style.background = "#202020";
-                    });
-                    c.addEventListener("mouseleave", () => {
-                        c.style.background = "";
-                    });
-                });
-                contextmenuutils.addItem("Edit", (c) => {
-                    c.addEventListener("mouseenter", () => {
-                        c.style.background = "#202020";
-                    });
-                    c.addEventListener("mouseleave", () => {
-                        c.style.background = "";
-                    });
-                });
-                contextmenuutils.addItem("download", (c) => {
-                    c.addEventListener("mouseenter", () => {
-                        c.style.background = "#202020";
-                    });
-                    c.addEventListener("mouseleave", () => {
-                        c.style.background = "";
-                    });
-                });
-                contextmenuutils.addItem("Delete", (c) => {
-                    c.addEventListener("mouseenter", () => {
-                        c.style.background = "#202020";
-                    });
-                    c.addEventListener("mouseleave", () => {
-                        c.style.background = "";
-                    });
-                });
-            });
-        }
-    }());
-    uploaddaily.init();
-</script>
 
 </html>

@@ -156,8 +156,8 @@ function expand(v) {
         expandContainerUl.setAttribute('data-name', '');
     } else {
         expandContainer.style.display = 'block';
-        expandContainer.style.left = (click_position.left + window.scrollX) - 120 + 'px';
-        expandContainer.style.top = (click_position.top + window.scrollY) + 25 + 'px';
+        expandContainer.style.left = (click_position.left + window.scrollX) + 20 + 'px';
+        expandContainer.style.top = (click_position.top + window.scrollY) + 30 + 'px';
         // get data name & id and store it to the options
         expandContainerUl.setAttribute('data-id', v.parentElement.getAttribute('data-id'));
         expandContainerUl.setAttribute('data-name', v.parentElement.getAttribute('data-name'));
