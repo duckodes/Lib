@@ -1,3 +1,16 @@
+/**
+ * [Reference]
+ * 
+ * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
+ * 
+ * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * [libdocument.js](libdocument.js)
+ * 
+ * @version 1.0.0
+ */
 function copycode(copybuttonid, textcopyid) {
     var copyButton = document.getElementById(copybuttonid);
     var textToCopy = document.getElementById(textcopyid);

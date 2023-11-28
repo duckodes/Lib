@@ -36,4 +36,3 @@ var themepackage = (function () {
         b.href = "css/vs2015.min.css";
     }
 }());
-themepackage.init("code-style");

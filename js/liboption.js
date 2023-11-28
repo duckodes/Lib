@@ -126,7 +126,7 @@ var liboption = (function () {
                     });
                     contextmenuutils.addItem("upload daily", (c) => {
                         c.addEventListener("click", () => {
-                            window.location.href = "UploadDaily.html";
+                            window.location.href = "+Data.html";
                         });
                         c.addEventListener("mouseenter", () => {
                             c.style.background = "#202020";

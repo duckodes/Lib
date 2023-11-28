@@ -47,6 +47,7 @@
         <li class="nav-item">
           <a class="nav-link text-light" id="want-login">◆Login登入◆</a>
         </li>
+
       </ul>
     </div>
   </nav>
@@ -99,7 +100,8 @@
                     aria-label="Slide 7"></button>
                 </div>
 
-                <div class="carousel-inner rounded-3" style="border: 5px solid;border-image: linear-gradient(to top right, transparent, #0099ff, transparent, #ff9900, transparent);border-image-slice: 1;">
+                <div class="carousel-inner rounded-3"
+                  style="border: 5px solid;border-image: linear-gradient(to top right, transparent, #0099ff, transparent, #ff9900, transparent);border-image-slice: 1;">
                   <div class="carousel-item active pic-item" data-bs-interval="10000">
                     <div class="d-flex align-items-center justify-content-center h-100">
                       <img src="image/Popup_1.gif" class="d-block w-100 rounded-3 no-drag" alt="...">
@@ -165,8 +167,11 @@
   <div class="container text-light" style="user-select: none;padding-top: 30px;padding-bottom: 30px;">
     <div class="d-flex align-items-center justify-content-center">
       <h6 id="TAG-tags-i" style="padding-right: 10px;display: flex;align-items: center;justify-content: center;"></h6>
-      <h1 style="font-size: 50px;background: linear-gradient(to right, #38f, #f83, transparent);background-clip: text;-webkit-background-clip: text; color: transparent;">TAGs</h1>
-      <h6 id="TAG-tags-a" style="padding-left: 10px;display: flex;align-items: center;justify-content: center;"><br></h6>
+      <h1
+        style="font-size: 50px;background: linear-gradient(to right, #38f, #f83, transparent);background-clip: text;-webkit-background-clip: text; color: transparent;">
+        TAGs</h1>
+      <h6 id="TAG-tags-a" style="padding-left: 10px;display: flex;align-items: center;justify-content: center;"><br>
+      </h6>
     </div>
     <div class="row">
       <div class="col-6 mx-auto text-center"
@@ -209,7 +214,8 @@
           </div>
         </div>
 
-        <div class="col-6" style="font-size: 10px;"><br><br><br><br><br><br><br><br><br><br><br><br><br>o'U'r 'G'ame<br>© 2023 UGsoft
+        <div class="col-6" style="font-size: 10px;"><br><br><br><br><br><br><br><br><br><br><br><br><br>o'U'r
+          'G'ame<br>© 2023 UGsoft
           LLC. All rights reserved.<br>© 2023 UGamie LLC.</div>
       </div>
 
@@ -274,5 +280,8 @@
   libtags.Addlibtag({ textContent: "Goal", color: "#fff", backgroundColor: "linear-gradient(to right, #f83, transparent)", parent: document.getElementById('TAG-tags-a') });
 
 </script>
+<script src="js/mainlogin.js"></script>
+<script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+<script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
 
 </html>

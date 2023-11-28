@@ -28,6 +28,22 @@ body {
     border-radius: 8px;
 }
 
+#checksave {
+    padding: 10px 20px;
+    color: red;
+    height: 50px;
+    text-align: center;
+    display: none;
+}
+
+#filename {
+    width: calc(100% - 40px);
+    margin-top: 35px;
+    margin-left: 20px;
+    text-align: center;
+    word-wrap: break-word;
+}
+
 textarea {
     width: calc(100% - 40px);
     height: 450px;
@@ -45,14 +61,24 @@ textarea {
 .upload {
     border: 0px;
     outline: none;
-    padding: 8px 30px;
+    padding: 8px 14px;
     display: block;
     font-size: large;
     border: 2px solid rgb(224, 224, 224, 1);
+    border-radius: 38px;
+    margin-right: 25px;
     font-family: 'Noto Sans KR', sans-serif;
     cursor: pointer;
     float: right;
     color: #3c84f8;
+}
+
+.upload:hover {
+    box-shadow: rgba(100, 100, 111, 0.3) 0px 7px 29px 0px;
+}
+
+.upload:active {
+    background: #b9c2cf;
 }
 
 .list ul li {
@@ -104,11 +130,15 @@ textarea {
     list-style: none;
     border: 1px solid rgb(207, 207, 207);
     border-bottom: 0px;
-    background-color: rgb(94, 94, 94);
+    background-color: rgb(85, 85, 85);
     color: white;
     padding: 10px 0px;
     padding-left: 16px;
     cursor: pointer;
+}
+
+.expand-container ul li:hover {
+    background-color: rgb(122, 122, 122);
 }
 
 .expand-container ul li:last-child {
@@ -120,4 +150,35 @@ textarea {
 .expand-container ul li:first-child {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
+}
+
+#exbtn:hover {
+    box-shadow: rgba(100, 100, 111, 0.5) 0px 7px 29px 0px;
+}
+
+#exbtn:active {
+    box-shadow: rgba(100, 100, 111, 1) 0px 7px 29px 0px;
+    background: #68686859;
+}
+
+#loadarrow {
+    animation-name: rotate;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bolder;
+    padding-bottom: 2.7px;
+    margin-top: 20px;
+    position: absolute;
+    top: 150px;
+    left: 50%;
+    display: none;
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(360deg);
+    }
 }

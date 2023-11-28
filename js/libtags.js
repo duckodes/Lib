@@ -1,3 +1,18 @@
+/**
+ * [Reference]
+ * 
+ * [main.html](../main.html)
+ * 
+ * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
+ * 
+ * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * [libsearch.js](libsearch.js)
+ * 
+ * @version 1.1.0
+ */
 var libtags = (function(){
     return{
         Addlibtag: Addlibtag

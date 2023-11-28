@@ -20,8 +20,8 @@ var storageutils = (function (){
         set: set,
         get: get
     };
-    function set(k, bln){
-        localStorage.setItem(k, bln);
+    function set(k, v){
+        localStorage.setItem(k, v);
     }
     function get(k){
         return JSON.parse(localStorage.getItem(k));

@@ -289,6 +289,21 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
             });
 
     }
+    var modalGloginbtn = document.createElement("button");
+    modalGloginbtn.id = "signin";
+    modalGloginbtn.innerHTML = "G";
+    modalGloginbtn.style.border = "2px solid #eb6";
+    modalGloginbtn.style.borderRadius = "8px";
+    modalGloginbtn.style.background = "#da5";
+    modalGloginbtn.style.color = "white";
+    modalGloginbtn.title = "Google";
+    modalGloginbtn.onclick = () => handleAuthClick();
+    modalGloginbtn.addEventListener("mouseenter", () => {
+        modalGloginbtn.style.background = "#fc7";
+    });
+    modalGloginbtn.addEventListener("mouseleave", () => {
+        modalGloginbtn.style.background = "#da5";
+    });
 
     var modalText = document.createElement("p");
     modalText.textContent = content;
@@ -309,6 +324,8 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
     modalContent.appendChild(modalOnPassword);
     modalContent.appendChild(br);
     modalContent.appendChild(modalLoginButton);
+    modalContent.appendChild(br);
+    modalContent.appendChild(modalGloginbtn);
     modalContent.appendChild(modalText);
 
     // Append modal content to modal container
@@ -365,6 +382,9 @@ if (wantlogin != null) {
             wantlogin.style.cursor = "pointer";
             wantlogin.addEventListener("click", function () {
                 localStorage.removeItem(key);
+                handleSignoutClick();
+                localStorage.removeItem("firstimelogin");
+
                 window.location = "main.html";
             });
             var backtoPrLibs = document.createElement('li');

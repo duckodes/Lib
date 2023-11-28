@@ -1,7 +1,7 @@
 /**
  * [Portfolio.html](../Portfolio.html)
  * 
- * @version 1.0.0
+ * @version 1.1.0
  */
 var linkprocessutils = (function () {
     return {

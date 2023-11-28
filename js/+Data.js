@@ -12,6 +12,7 @@ var signoutButton = document.getElementById('signout');
 let tokenClient;
 let gapiInited = false;
 let gisInited = false;
+var isupload = true;
 
 function gapiLoaded() {
     gapi.load('client', initializeGapiClient);
@@ -38,7 +39,17 @@ function gisLoaded() {
 
 function maybeEnableButtons() {
     if (gapiInited && gisInited) {
-        signinButton.style.display = 'block'
+        signinButton.style.display = 'block';
+        fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
+            gapi.client.setToken(localStorage.getItem(t));
+            autologin();
+        });
+    }
+}
+function autologin() {
+    const token = gapi.client.getToken();
+    if (token !== null) {
+        handleAuthClick();
     }
 }
 
@@ -50,7 +61,18 @@ function handleAuthClick() {
         }
         signinButton.style.display = 'none'
         signoutButton.style.display = 'block'
-        checkFolder()
+        checkFolder();
+        document.querySelector('textarea').addEventListener('input', function () {
+            if (document.querySelector('textarea').value.trim() !== '') {
+                document.getElementById("checksave").style.display = "block";
+                window.onbeforeunload = function () {
+                    return "您確定要離開嗎？";
+                };
+            }
+        });
+        fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
+            localStorage.setItem(t, gapi.client.getToken());
+        });
     };
 
     if (gapi.client.getToken() === null) {
@@ -66,6 +88,9 @@ function handleSignoutClick() {
     if (token !== null) {
         google.accounts.oauth2.revoke(token.access_token);
         gapi.client.setToken('');
+        fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
+            localStorage.removeItem(t);
+        });
         signinButton.style.display = 'block'
         signoutButton.style.display = 'none'
     }
@@ -110,7 +135,10 @@ function upload() {
         var formData = new FormData();
         formData.append("metadata", new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
         formData.append("file", blob);
-
+        var updateBtn = document.getElementsByClassName('upload')[0];
+        updateBtn.style.visibility = "hidden";
+        document.querySelector('textarea').style.background = "#ccc";
+        document.getElementById("loadarrow").style.display = "block";
         fetch("https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart", {
             method: 'POST',
             headers: new Headers({ "Authorization": "Bearer " + gapi.auth.getToken().access_token }),
@@ -120,8 +148,17 @@ function upload() {
         }).then(function (value) {
             console.log(value);
             // also update list on file upload
+            isupload = false;
             showList();
         });
+    }
+    else {
+        document.getElementById('filename').innerHTML = "未輸入文字!";
+        document.getElementById('filename').style.color = "red";
+        setTimeout(() => {
+            document.getElementById('filename').innerHTML = "";
+            document.getElementById('filename').style = "";
+        }, 2000);
     }
 }
 
@@ -154,13 +191,27 @@ function expand(v) {
         expandContainer.style.display = 'none';
         expandContainerUl.setAttribute('data-id', '');
         expandContainerUl.setAttribute('data-name', '');
+        window.removeEventListener("click", winclick);
     } else {
-        expandContainer.style.display = 'block';
-        expandContainer.style.left = (click_position.left + window.scrollX) + 20 + 'px';
-        expandContainer.style.top = (click_position.top + window.scrollY) + 30 + 'px';
-        // get data name & id and store it to the options
-        expandContainerUl.setAttribute('data-id', v.parentElement.getAttribute('data-id'));
-        expandContainerUl.setAttribute('data-name', v.parentElement.getAttribute('data-name'));
+        window.addEventListener("click", winclick);
+        setTimeout(() => {
+            expandContainer.style.display = 'block';
+            expandContainer.style.left = (click_position.left + window.scrollX) + 20 + 'px';
+            expandContainer.style.top = (click_position.top + window.scrollY) + 30 + 'px';
+            // get data name & id and store it to the options
+            expandContainerUl.setAttribute('data-id', v.parentElement.getAttribute('data-id'));
+            expandContainerUl.setAttribute('data-name', v.parentElement.getAttribute('data-name'));
+        }, 1);
+    }
+}
+function winclick(e) {
+    if (e.target !== expandContainer) {
+        if (expandContainer.style.display == 'block') {
+            expandContainer.style.display = 'none';
+            expandContainerUl.setAttribute('data-id', '');
+            expandContainerUl.setAttribute('data-name', '');
+            window.removeEventListener("click", winclick);
+        }
     }
 }
 
@@ -178,13 +229,27 @@ function showList() {
                 
                 <li data-id="${files[i].id}" data-name="${files[i].name}">
                 <span>${files[i].name}</span>
-                <svg onclick="expand(this)" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
+                <svg id="exbtn" onclick="expand(this)" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
                 </li>
                 
                 `;
             }
         } else {
             listcontainer.innerHTML = '<div style="text-align: center;">No Files</div>'
+        }
+        var updateBtn = document.getElementsByClassName('upload')[0];
+        updateBtn.style.visibility = "";
+        document.querySelector('textarea').style.background = "";
+        document.getElementById("loadarrow").style.display = "none";
+        if (!isupload) {
+            updateBtn.innerHTML = '↻';
+            updateBtn.setAttribute('onClick', 'update()');
+            document.querySelector('textarea').setAttribute('data-update-id', files[0].id);
+            document.getElementById('filename').innerHTML = files[0].name;
+            document.querySelector('textarea').readOnly = false;
+            document.getElementById("checksave").style.display = "none";
+            window.onbeforeunload = null
+            isupload = true;
         }
     })
 }
@@ -193,6 +258,9 @@ function decodeUTF8(encodedString) {
     return decodedString;
 }
 function readEditDownload(v, condition) {
+    document.querySelector('textarea').readOnly = true;
+    document.querySelector('textarea').style.background = "#aaa";
+    document.getElementById("loadarrow").style.display = "block";
     var id = v.parentElement.getAttribute('data-id');
     var name = v.parentElement.getAttribute('data-name');
     v.innerHTML = '...';
@@ -200,7 +268,11 @@ function readEditDownload(v, condition) {
         fileId: id,
         alt: 'media'
     }).then(function (res) {
+        document.querySelector('textarea').readOnly = false;
+        document.querySelector('textarea').style.background = "";
+        document.getElementById("loadarrow").style.display = "none";
         expandContainer.style.display = 'none';
+        document.getElementById('filename').innerHTML = name;
         expandContainerUl.setAttribute('data-id', '');
         expandContainerUl.setAttribute('data-name', '');
         if (condition == 'read') {
@@ -208,16 +280,36 @@ function readEditDownload(v, condition) {
             document.querySelector('textarea').value = decodeUTF8(res.body);
             document.documentElement.scrollTop = 0;
             console.log('Read Now')
+
+            var updateBtn = document.getElementsByClassName('upload')[0];
+            updateBtn.innerHTML = '✚';
+            document.getElementById('filename').innerHTML = "";
+            updateBtn.setAttribute('onClick', 'upload()');
+            document.getElementById("checksave").style.display = "block";
+            window.onbeforeunload = function () {
+                return "您確定要離開嗎？";
+            };
         } else if (condition == 'edit') {
             v.innerHTML = 'Edit';
             document.querySelector('textarea').value = decodeUTF8(res.body);
             document.documentElement.scrollTop = 0;
             var updateBtn = document.getElementsByClassName('upload')[0];
-            updateBtn.innerHTML = '更新';
+            updateBtn.innerHTML = '↻';
             // we will make the update function later
+            updateBtn.addEventListener("click", () => {
+                updateBtn.style.visibility = "hidden";
+                document.querySelector('textarea').readOnly = true;
+                document.querySelector('textarea').style.background = "#ccc";
+                document.getElementById("loadarrow").style.display = "block";
+            });
             updateBtn.setAttribute('onClick', 'update()');
             document.querySelector('textarea').setAttribute('data-update-id', id);
             console.log('File ready for update');
+
+            updateBtn.style.visibility = "";
+            document.querySelector('textarea').readOnly = false;
+            document.getElementById("checksave").style.display = "none";
+            window.onbeforeunload = null;
         } else {
             v.innerHTML = 'Download';
             var blob = new Blob([decodeUTF8(res.body)], { type: 'plain/text' });
@@ -231,6 +323,8 @@ function readEditDownload(v, condition) {
 
 // new create update function
 function update() {
+    document.querySelector('textarea').style.background = "#ccc";
+    document.getElementById("loadarrow").style.display = "block";
     var updateId = document.querySelector('textarea').getAttribute('data-update-id');
     var url = 'https://www.googleapis.com/upload/drive/v3/files/' + updateId + '?uploadType=media';
     fetch(url, {
@@ -242,26 +336,63 @@ function update() {
         body: document.querySelector('textarea').value
     }).then(value => {
         console.log('File updated successfully');
-        document.querySelector('textarea').setAttribute('data-update-id', '');
+        //document.querySelector('textarea').setAttribute('data-update-id', '');
         var updateBtn = document.getElementsByClassName('upload')[0];
-        updateBtn.innerHTML = '上傳';
-        updateBtn.setAttribute('onClick', 'uploaded()');
+        updateBtn.innerHTML = '↻';
+        //updateBtn.innerHTML = '✚';
+        updateBtn.style.visibility = "";
+        document.querySelector('textarea').readOnly = false;
+        document.querySelector('textarea').style.background = "";
+        document.getElementById("loadarrow").style.display = "none";
+        //updateBtn.setAttribute('onClick', 'uploaded()');
+
+        document.getElementById("checksave").style.display = "none";
+        window.onbeforeunload = null;
     }).catch(err => console.error(err))
 }
 
 function deleteFile(v) {
-    var id = v.parentElement.getAttribute('data-id');
-    v.innerHTML = '...';
-    var request = gapi.client.drive.files.delete({
-        'fileId': id
-    });
-    request.execute(function (res) {
-        console.log('File Deleted');
-        v.innerHTML = 'Delete';
-        expandContainer.style.display = 'none';
-        expandContainerUl.setAttribute('data-id', '');
-        expandContainerUl.setAttribute('data-name', '');
-        // after delete update the list
-        showList();
-    })
+    if (document.querySelector('textarea').getAttribute('data-update-id') !== expandContainerUl.getAttribute('data-id')) {
+        var id = v.parentElement.getAttribute('data-id');
+        v.innerHTML = '...';
+        var request = gapi.client.drive.files.delete({
+            'fileId': id
+        });
+        request.execute(function (res) {
+            console.log('File Deleted');
+            v.innerHTML = 'Delete';
+            expandContainer.style.display = 'none';
+            expandContainerUl.setAttribute('data-id', '');
+            expandContainerUl.setAttribute('data-name', '');
+
+            // after delete update the list
+            showList();
+        })
+    }
+    else {
+        var id = v.parentElement.getAttribute('data-id');
+        v.innerHTML = '...';
+        var request = gapi.client.drive.files.delete({
+            'fileId': id
+        });
+        request.execute(function (res) {
+            console.log('File Deleted');
+            v.innerHTML = 'Delete';
+            expandContainer.style.display = 'none';
+            expandContainerUl.setAttribute('data-id', '');
+            expandContainerUl.setAttribute('data-name', '');
+
+            var updateBtn = document.getElementsByClassName('upload')[0];
+            updateBtn.innerHTML = '✚';
+            updateBtn.setAttribute('onClick', 'upload()');
+            document.getElementById('filename').innerHTML = "";
+            document.getElementById("checksave").style.display = "block";
+            window.onbeforeunload = function () {
+                return "您確定要離開嗎？";
+            };
+
+            // after delete update the list
+            showList();
+        })
+    }
 }

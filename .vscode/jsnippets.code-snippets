@@ -7,41 +7,17 @@
 	// Placeholders with the same ids are connected.
 	//
 	// BEGIN =>
-	// contextmenuutils:
-	"contextmenuutils.addItem": {
-	"scope": "javascript,typescript",
-	"prefix": "contextmenuutils.addItem",
-	"body": [
-		"contextmenuutils.addItem(\"${1:Item Name}\", (c) => {$2$0",
-		"});",
-	],
-	"description": "add items for base menu"
-	},
-	"contextmenuutils.init": {
-	"scope": "javascript,typescript",
-	"prefix": "contextmenuutils.init",
-	"body": [
-		"contextmenuutils.init(${1:document.body}, (b, c) => {$2$0",
-		"});",
-	],
-	"description": "initialize base menu"
-	},
-	
-	// fileutils:
-	"fileutils.ReadFileText": {
-	"scope": "javascript,typescript",
-	"prefix": "fileutils.ReadFileText",
-	"body": [
-		"fileutils.ReadFileText('$1', (text) => {$2$0",
-		"});",
-	],
-	"description": "read the file with file path"
-	},
+
+	// svglib:
+
+	// alertimgmodal:
+
+	// alertmodal:
 
 	// alertutils:
 	"(AUX)alertutils.init": {
 	"scope": "javascript,typescript",
-	"prefix": "alertutils.init",
+	"prefix": "l: alertutils.init",
 	"body": [
 		"alertutils.init(document.body, (b, c, ti, rmb) => {",
 		"	ti.textContent = \"$1\";",
@@ -53,178 +29,342 @@
 		"	}}",
 		"});",
 	],
-	"description": "init auxiliary alert"
+	"description": "[init auxiliary alert]"
 	},
 	"alertutils.init": {
 	"scope": "javascript,typescript",
-	"prefix": "alertutils.init",
+	"prefix": "l: alertutils.init",
 	"body": [
 		"alertutils.init(document.body, (b, c, ti, rmb) => {",
 		"	ti.textContent = \"$1\";",
 		"	rmb.addEventListener(\"click\", () => { ${2:b.remove();} });",
 		"});",
 	],
-	"description": "init alert"
+	"description": "[init alert]"
 	},
+
+	// alertvediomodal:
+
+	// auxmodal:
 
 	// buttonutils:
 	"buttonutils.sd": {
 	"scope": "javascript,typescript",
-	"prefix": "buttonutils.sd",
+	"prefix": "l: buttonutils.sd",
 	"body": [
-		"buttonutils.sd(\"${1:50px}\", \"${2:50px}\", \"${3:#000}\", \"${4:30px}\", ${0:document.body});",
+		"buttonutils.sd(${1:\"width\"}, ${2:\"height\"}, ${3:\"background\"}, ${4:\"border radius\"}, ${0:parent});",
 	],
-	"description": "setup div element"
+	"description": "[setup div element]"
 	},
 	"buttonutils.swb": {
 	"scope": "javascript,typescript",
-	"prefix": "buttonutils.swb",
+	"prefix": "l: buttonutils.swb",
 	"body": [
 		"buttonutils.swb({",
-		"	a: ${1:false}, bsw: \"40px\", csw: \"14px\", bsh: \"20px\", csh: \"14px\", bsbdr: \"15px\", csbdr: \"15px\", fs: 5,",
-		"	bsb: \"#ccc\", bsba: \"#ccc\", csb: \"#333\", csba: \"#558\", p: bbtn, fc(atv) {",
+		"	a: ${1:false}, bsw: ${2:\"40px\"}, csw: ${3:\"20px\"}, bsh: ${4:\"20px\"}, csh: ${5:\"20px\"}, bsbdr: ${6:\"15px\"}, csbdr: ${6:\"15px\"}, fs: ${7:5},",
+		"	bsb: ${8:\"#ccc\"}, bsba: ${9:\"#ccc\"}, csb: ${10:\"#aaa\"}, csba: ${11:\"#aaa\"}, p: ${12:document.body}, fc(atv) {",
 		"		$2",
 		"	}",
 		"});",
 	],
-	"description": "setup switch button"
+	"description": "[setup switch button]"
 	},
 	
+	// consoleoutput
+	"consoleoutput.init": {
+	"scope": "javascript,typescript",
+	"prefix": "l: consoleoutput.init",
+	"body": [
+		"consoleoutput.init();$0",
+	],
+	"description": "[initialize console output in html]"
+	},
+
+	// contextmenuutils:
+	"contextmenuutils.remove": {
+	"scope": "javascript,typescript",
+	"prefix": "l: contextmenuutils.remove",
+	"body": [
+		"contextmenuutils.remove();$0",
+	],
+	"description": "[remove menu]"
+	},
+	"contextmenuutils.addItem": {
+	"scope": "javascript,typescript",
+	"prefix": "l: contextmenuutils.addItem",
+	"body": [
+		"contextmenuutils.addItem(\"${1:Item Name}\", (c) => {$2$0",
+		"});",
+	],
+	"description": "[add items for base menu]"
+	},
+	"contextmenuutils.init": {
+	"scope": "javascript,typescript",
+	"prefix": "l: contextmenuutils.init",
+	"body": [
+		"contextmenuutils.init(${1:document.body}, (b, c) => {$2$0",
+		"});",
+	],
+	"description": "[initialize base menu]"
+	},
+
+	// copycode:
+
+	// editable:
+	"editable.editablecontent": {
+	"scope": "javascript,typescript",
+	"prefix": "l: editable.editablecontent",
+	"body": [
+		"editable.editablecontent(${1:\"id\"});$0",
+	],
+	"description": "[active target id editable]"
+	},
+
+	// fileutils:
+	"fileutils.downloadwriter": {
+	"scope": "javascript,typescript",
+	"prefix": "l: fileutils.downloadwriter",
+	"body": [
+		"fileutils.downloadwriter('${1:content}', '${2:file name}');$0",
+	],
+	"description": "[download the file with given content]"
+	},
+	"fileutils.download": {
+	"scope": "javascript,typescript",
+	"prefix": "l: fileutils.download",
+	"body": [
+		"fileutils.download('${1:file name}', '${2:url}');$0",
+	],
+	"description": "[download the file with url]"
+	},
+	"fileutils.filetextinelements": {
+	"scope": "javascript,typescript",
+	"prefix": "l: fileutils.filetextinelements",
+	"body": [
+		"fileutils.filetextinelements([${1:'id1', 'id2', 'etc...'}], [${2:'url1', 'url2', 'etc...'}], (t, text) => {$3}, () => {$4});$0",
+	],
+	"description": "[(mutiple) use id to get the file text]"
+	},
+	"fileutils.filetextinelement": {
+	"scope": "javascript,typescript",
+	"prefix": "l: fileutils.filetextinelement",
+	"body": [
+		"fileutils.filetextinelement(${1:'id'}, '${2:url}', (t, text) => {$3}, () => {$4});$0",
+	],
+	"description": "[use id to get the file text]"
+	},
+	"fileutils.ReadFilesText": {
+	"scope": "javascript,typescript",
+	"prefix": "l: fileutils.ReadFilesText",
+	"body": [
+		"fileutils.ReadFilesText([${1:'url1', 'url2', 'etc...'}], (content, index) => {$2});$0",
+	],
+	"description": "[(mutiple) read file]"
+	},
+	"fileutils.ReadFileText": {
+	"scope": "javascript,typescript",
+	"prefix": "l: fileutils.ReadFileText",
+	"body": [
+		"fileutils.ReadFileText('${1:url}', (text) => {$2});$0",
+	],
+	"description": "[read file]"
+	},
+
+	// libdocument:
+
+	// liboption:
+
+	// libsearch:
+
+	// libsources:
+	
+	// libtags:
+	"libtags.Addlibtag": {
+	"scope": "javascript,typescript",
+	"prefix": "l: libtags.Addlibtag",
+	"body": [
+		"libtags.Addlibtag({ textContent: ${1:\"text\"}, color: ${2:\"#000\"}, backgroundColor: ${3:\"#fff\"}, border: ${4:\"1px solid white\"}, parent: ${5:document.body} });$0",
+	],
+	"description": "[add custom tags]",
+	},
+
+	// limitlib:
+
+	// limitlibs:
+
+	// linkprocessutils:
+	"linkprocessutils.csetlink": {
+	"scope": "javascript,typescript",
+	"prefix": "l: linkprocessutils.csetlink",
+	"body": [
+		"linkprocessutils.csetlink(${1:'.class'}, ${2:\"link url\"});$0",
+	],
+	"description": "[to link the class to url]"
+	},
+	"linkprocessutils.isetlink": {
+	"scope": "javascript,typescript",
+	"prefix": "l: linkprocessutils.isetlink",
+	"body": [
+		"linkprocessutils.isetlink(${1:\"id\"}, ${2:\"link url\"});$0",
+	],
+	"description": "[to link the id to url]"
+	},
+
+	// loginpanel:
+
+	// motionbackground:
+	"motionbackground.initsnow": {
+	"scope": "javascript,typescript",
+	"prefix": "l: motionbackground.initsnow",
+	"body": [
+		"motionbackground.initsnow();$0",
+	],
+	"description": "[initialize motion snow in background]"
+	},
+
 	// paramname:
 	"paramname.getParameterByName": {
 	"scope": "javascript,typescript",
-	"prefix": "paramname.getParameterByName",
+	"prefix": "l: paramname.getParameterByName",
 	"body": [
-		"paramname.getParameterByName(\"${1:v}\", $2);$0",
+		"paramname.getParameterByName(${1:\"name\"}, ${2:\"analysis url\"});$0",
 	],
-	"description": "(property) getParameterByName: (name: any, url: any) => string [get parameter by name]"
+	"description": "[get parameter by name]"
 	},
 	
 	// randomutils:
 	"randomutils.float": {
 	"scope": "javascript,typescript",
-	"prefix": "randomutils.float",
+	"prefix": "l: randomutils.float",
 	"body": [
-		"randomutils.float(${1:1}, ${2:16});$0",
+		"randomutils.float(${1:min}, ${2:max});$0",
 	],
-	"description": "(property) float: (min: any, max: any) => any [generate random float]"
+	"description": "[generate random float]"
 	},
 	"randomutils.int": {
 	"scope": "javascript,typescript",
-	"prefix": "randomutils.int",
+	"prefix": "l: randomutils.int",
 	"body": [
-		"randomutils.int(${1:1}, ${2:16});$0",
+		"randomutils.int(${1:min}, ${2:max});$0",
 	],
-	"description": "(property) int: (min: any, max: any) => any [generate random int]"
+	"description": "[generate random int]"
 	},
 	"randomutils.string": {
 	"scope": "javascript,typescript",
-	"prefix": "randomutils.string",
+	"prefix": "l: randomutils.string",
 	"body": [
-		"randomutils.string(${1:16});$0",
+		"randomutils.string(${1:length});$0",
 	],
-	"description": "(property) string: (l: any) => string [generate random string]"
+	"description": "[generate random string]"
 	},
 
-	// scrollcheck
+	// scrollcheck:
 	"scrollcheck.winsy0": {
 	"scope": "javascript,typescript",
-	"prefix": "scrollcheck.winsy0",
+	"prefix": "l: scrollcheck.winsy0",
 	"body": [
-		"scrollcheck.winsy0(() => {$1}, () => {$2}, () => {$3});$0",
+		"scrollcheck.winsy0(() => {",
+		"${1://scroll at top}",
+		"}, () => {",
+		"${2://scroll at bottom}",
+		"}, () => {",
+		"${3://scroll at middle}",
+		"});$0",
 	],
-	"description": "(property) idrag: (id: any) => void [use mouse drag to scroll from id]"
+	"description": "[use mouse drag to scroll from id]"
 	},
 
-	// scrollmousedrag
+	// scrollmousedrag:
 	"scrollmousedrag.idrag": {
 	"scope": "javascript,typescript",
-	"prefix": "scrollmousedrag.idrag",
+	"prefix": "l: scrollmousedrag.idrag",
 	"body": [
-		"scrollmousedrag.idrag(\"$1\");$0",
+		"scrollmousedrag.idrag(${1:\"id\"});$0",
 	],
-	"description": "(property) idrag: (id: any) => void [use mouse drag to scroll from id]"
+	"description": "[use mouse drag to scroll from id]"
 	},
 
 	// scrollviewutils:
 	"scrollviewutils.cto": {
 	"scope": "javascript,typescript",
-	"prefix": "scrollviewutils.cto",
+	"prefix": "l: scrollviewutils.cto",
 	"body": [
-		"scrollviewutils.cto($1);$0",
+		"scrollviewutils.cto(${1:'.class'});$0",
 	],
-	"description": "(property) cto: (c: any) => void [use class to scroll into view]"
+	"description": "[use class to scroll into view]"
 	},
 	"scrollviewutils.ito": {
 	"scope": "javascript,typescript",
-	"prefix": "scrollviewutils.ito",
+	"prefix": "l: scrollviewutils.ito",
 	"body": [
-		"scrollviewutils.ito($1);$0",
+		"scrollviewutils.ito(${1:\"id\"});$0",
 	],
-	"description": "(property) ito: (id: any) => void [use id to scroll into view]"
+	"description": "[use id to scroll into view]"
 	},
 
 	// sliderutils:
 	"sliderutils.init": {
 	"scope": "javascript,typescript",
-	"prefix": "sliderutils.init",
+	"prefix": "l: sliderutils.init",
 	"body": [
-		"sliderutils.init(${1:\"0\"}, ${2:\"0\"}, ${3:\"20\"}, ${4:\"1\"});$0",
+		"sliderutils.init(${1:\"value\"}, ${2:\"min\"}, ${3:\"max\"}, ${4:\"step\"});$0",
 	],
-	"description": "(property) init: (v: any, min: any, max: any, s?: string) => HTMLInputElement [generate input slider]"
+	"description": "[generate input slider]"
 	},
 
 	// storageutils:
 	"storageutils.get": {
 	"scope": "javascript,typescript",
-	"prefix": "storageutils.get",
+	"prefix": "l: storageutils.get",
 	"body": [
-		"storageutils.get($1);$0",
+		"storageutils.get(${1:\"key\"});$0",
 	],
-	"description": "(property) get: (k: any) => any [localstorage.getItem with JSON.parse]"
+	"description": "[localstorage.getItem with JSON.parse]"
 	},
 	"storageutils.set": {
 	"scope": "javascript,typescript",
-	"prefix": "storageutils.set",
+	"prefix": "l: storageutils.set",
 	"body": [
-		"storageutils.set($1, $2);$0",
+		"storageutils.set(${1:\"key\"}, ${2:\"value\"});$0",
 	],
-	"description": "(property) set: (k: any, bln: any) => void [localstorage.setItem]"
+	"description": "[localstorage.setItem]"
 	},
 
 	// themepackage:
 	"themepackage.vs2015": {
 	"scope": "javascript,typescript",
-	"prefix": "themepackage.vs2015",
+	"prefix": "l: themepackage.vs2015",
 	"body": [
-		"themepackage.vs2015(\"$2\");$0",
+		"themepackage.vs2015(${1:\"id\"});$0",
 	],
-	"description": "(property) vs2015: (id: any) => void [change <code> to vs2015 theme]"
+	"description": "[change <code> to vs2015 theme]"
 	},
 	"themepackage.tokyonightdark": {
 	"scope": "javascript,typescript",
-	"prefix": "themepackage.tokyonightdark",
+	"prefix": "l: themepackage.tokyonightdark",
 	"body": [
-		"themepackage.tokyonightdark(\"$2\");$0",
+		"themepackage.tokyonightdark(${1:\"id\"});$0",
 	],
-	"description": "(property) tokyonightdark: (id: any) => void [change <code> to tokyonightdark theme]"
+	"description": "[change <code> to tokyonightdark theme]"
 	},
 	"themepackage.init": {
 	"scope": "javascript,typescript",
-	"prefix": "themepackage.init",
+	"prefix": "l: themepackage.init",
 	"body": [
 		"themepackage.init();$0",
 	],
-	"description": "(property) init: (id: any) => void [initialize themepackage]"
+	"description": "[initialize themepackage]"
 	},
+
+	// uploaddaily:
 
 	// userprevent:
 	"userprevent.init": {
 	"scope": "javascript,typescript",
-	"prefix": "userprevent.init",
+	"prefix": "l: userprevent.init",
 	"body": [
 		"userprevent.init();$0",
 	],
-	"description": "(property) init: () => void [basic user prevent]"
+	"description": "[basic user prevent]"
 	},
 }

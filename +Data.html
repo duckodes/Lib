@@ -35,22 +35,25 @@
                 <li class="nav-item">
                     <button id="backtosite" class="nav-link text-light" onclick="window.location.href = 'UGPrivateLibrary.html'">返回</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="display: none;">
                     <button id="signin">登入</button>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" style="display: none;">
                     <button id="signout">登出</button>
                 </li>
             </ul>
         </div>
     </nav>
+    <p id="loadarrow">↻</p>
     <div class="actions">
+        <h3 id="checksave">*未儲存</h3>
+        <h2 id="filename"></h2>
         <textarea placeholder="Enter text ..."></textarea>
-        <button class="upload" onclick="upload()">上傳</button>
+        <button class="upload" onclick="upload()">✚</button>
     </div>
     <div class="list">
         <ul>
-            <div style="text-align: center;">Sign In First</div>
+            <div style="text-align: center;">Sign In First<br>(Use Google Account To Sign In)</div>
         </ul>
     </div>
     <div class="expand-container" style="display: none;">
@@ -65,7 +68,10 @@
 
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/userprevent.js"></script>
-<script src="js/uploaddaily.js"></script>
+<script src="js/fileutils.js"></script>
+<script src="js/paramname.js"></script>
+<script src="js/limitlibs.js"></script>
+<script src="js/+Data.js"></script>
 <script async="" defer="" src="https://apis.google.com/js/api.js" gapi_processed="true"></script>
 <script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
 

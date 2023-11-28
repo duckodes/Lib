@@ -1,3 +1,38 @@
+/**
+ * [Reference]
+ * 
+ * [main.html](../main.html)
+ * 
+ * [Paint.html](../Paint.html)
+ * 
+ * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
+ * 
+ * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * [UploadDaily.html](../UploadDaily.html)
+ * 
+ * [uploaddaily.js](uploaddaily.js)
+ * 
+ * [themepackage.js](themepackage.js)
+ * 
+ * [mainlogin.js](mainlogin.js)
+ * 
+ * [loginpanel.js](loginpanel.js)
+ * 
+ * [limitlibs.js](limitlibs.js)
+ * 
+ * [limitlib.js](limitlib.js)
+ * 
+ * [libsources.js](libsources.js)
+ * 
+ * [liboption.js](liboption.js)
+ * 
+ * [libdocument.js](libdocument.js)
+ * 
+ * @version 1.1.0
+ */
 var fileutils = (function (){
     return{
         ReadFileText: ReadFileText,
