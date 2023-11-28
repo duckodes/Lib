@@ -12,19 +12,19 @@
 	"scope": "javascript,typescript",
 	"prefix": "contextmenuutils.addItem",
 	"body": [
-		"contextmenuutils.addItem(\"$1\", (c) => {$2$0",
+		"contextmenuutils.addItem(\"${1:Item Name}\", (c) => {$2$0",
 		"});",
 	],
+	"description": "add items for base menu"
+	},
 	"contextmenuutils.init": {
 	"scope": "javascript,typescript",
 	"prefix": "contextmenuutils.init",
 	"body": [
-		"contextmenuutils.init($1, (b, c) => {$2$0",
+		"contextmenuutils.init(${1:document.body}, (b, c) => {$2$0",
 		"});",
 	],
 	"description": "initialize base menu"
-	},
-	"description": "add items for base menu"
 	},
 	
 	// fileutils:
@@ -90,30 +90,40 @@
 	"description": "setup switch button"
 	},
 	
+	// paramname:
+	"paramname.getParameterByName": {
+	"scope": "javascript,typescript",
+	"prefix": "paramname.getParameterByName",
+	"body": [
+		"paramname.getParameterByName(\"${1:v}\", $2);$0",
+	],
+	"description": "(property) getParameterByName: (name: any, url: any) => string [get parameter by name]"
+	},
+	
 	// randomutils:
 	"randomutils.float": {
 	"scope": "javascript,typescript",
 	"prefix": "randomutils.float",
 	"body": [
-		"randomutils.float(${1:1}, ${2:16})",
+		"randomutils.float(${1:1}, ${2:16});$0",
 	],
-	"description": "generate random float"
+	"description": "(property) float: (min: any, max: any) => any [generate random float]"
 	},
 	"randomutils.int": {
 	"scope": "javascript,typescript",
 	"prefix": "randomutils.int",
 	"body": [
-		"randomutils.int(${1:1}, ${2:16})",
+		"randomutils.int(${1:1}, ${2:16});$0",
 	],
-	"description": "generate random int"
+	"description": "(property) int: (min: any, max: any) => any [generate random int]"
 	},
 	"randomutils.string": {
 	"scope": "javascript,typescript",
 	"prefix": "randomutils.string",
 	"body": [
-		"randomutils.string(${1:16})",
+		"randomutils.string(${1:16});$0",
 	],
-	"description": "generate random string"
+	"description": "(property) string: (l: any) => string [generate random string]"
 	},
 
 	// scrollcheck

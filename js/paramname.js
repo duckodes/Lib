@@ -1,3 +1,22 @@
+/**
+ * [Reference]
+ * 
+ * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
+ * 
+ * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * [limitlibs.js](limitlibs.js)
+ * 
+ * [limitlib.js](limitlib.js)
+ * 
+ * [libsearch.js](libsearch.js)
+ * 
+ * [libdocument.js](libdocument.js)
+ * 
+ * @version 1.1.0
+ */
 var paramname = (function () {
     return {
         getParameterByName: getParameterByName

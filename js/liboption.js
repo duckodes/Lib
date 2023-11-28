@@ -124,6 +124,17 @@ var liboption = (function () {
                             c.style.background = "";
                         });
                     });
+                    contextmenuutils.addItem("Upload Daily", (c) => {
+                        c.addEventListener("click", () => {
+                            window.location.href = "UploadDaily.html";
+                        });
+                        c.addEventListener("mouseenter", () => {
+                            c.style.background = "#202020";
+                        });
+                        c.addEventListener("mouseleave", () => {
+                            c.style.background = "";
+                        });
+                    });
                 });
                 c.addEventListener("mouseenter", () => {
                     c.style.background = "#202020";

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="500x500" href="image/Logo_R.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="image/Logo_R_57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="image/Logo_R_60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="image/Logo_R_72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="image/Logo_R_76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="image/Logo_R_114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="image/Logo_R_120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="image/Logo_R_144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="image/Logo_R_152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="image/Logo_R_180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="image/Logo_R_192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="image/Logo_R_32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="image/Logo_R_96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="image/Logo_R_16.png">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main-scrollbar.css">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
+    <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
+    <title>Record 日誌</title>
+    <style>
+        #signin,
+        #signout {
+            border: 0px;
+            padding: 10px 70px;
+            background-color: #3c84f8;
+            color: white;
+            outline: none;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            display: none;
+        }
+
+        textarea {
+            width: calc(100% - 40px);
+            height: 450px;
+            margin: 20px auto;
+            background-color: rgb(224, 224, 224, 0.2);
+            border: 2px solid rgb(224, 224, 224, 1);
+            outline: none;
+            padding: 10px 20px;
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 18px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+
+        .upload {
+            border: 0px;
+            outline: none;
+            padding: 8px 30px;
+            display: block;
+            font-size: large;
+            border: 2px solid rgb(224, 224, 224, 1);
+            font-family: 'Noto Sans KR', sans-serif;
+            cursor: pointer;
+            float: right;
+            color: #3c84f8;
+        }
+    </style>
+</head>
+
+<body style="background-color: #d3d3d3">
+    <!-- Nav -->
+    <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);">
+        <div class="container justify-content-center">
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link text-light" aria-current="page" href="main.html">Home◆首頁</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="Portfolio.html">Portfolio◆製作</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active text-light" href="Daily.html">Daily◆日誌</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="Introduction.html">Contact◆簡介</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="UGPrivateLibrary.html">Library◆類庫</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <button id="signin">登入</button>
+    <button id="signout">登出</button>
+    <div class="actions">
+        <textarea placeholder="Enter text ..."></textarea>
+        <button class="upload" onclick="upload()">上傳</button>
+    </div>
+    <div class="list">
+        <ul>
+            <div style="text-align: center;">Sign In First</div>
+        </ul>
+    </div>
+    <div class="expand-container" style="display: none;">
+        <ul>
+            <li onclick="readEditDownload(this, 'read')">Read</li>
+            <li onclick="readEditDownload(this, 'edit')">Edit</li>
+            <li onclick="readEditDownload(this, 'download')">Download</li>
+            <li onclick="deleteFile(this)">Delete</li>
+        </ul>
+    </div>
+</body>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/userprevent.js"></script>
+<script src="js/uploaddaily.js"></script>
+<script async="" defer="" src="https://apis.google.com/js/api.js" gapi_processed="true"></script>
+<script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
+<script src="js/contextmenuutils.js"></script>
+<script>
+    var uploaddaily = (function () {
+        return {
+            init: init
+        };
+        function init() {
+            var container = document.querySelector('.list');
+            container.addEventListener("click", () => {
+                contextmenuutils.init(document.body, (b, c) => {
+                });
+                contextmenuutils.addItem("Read", (c) => {
+                    c.setAttribute("onclick", "readEditDownload(this, 'read')");
+                    c.addEventListener("mouseenter", () => {
+                        c.style.background = "#202020";
+                    });
+                    c.addEventListener("mouseleave", () => {
+                        c.style.background = "";
+                    });
+                });
+                contextmenuutils.addItem("Edit", (c) => {
+                    c.addEventListener("mouseenter", () => {
+                        c.style.background = "#202020";
+                    });
+                    c.addEventListener("mouseleave", () => {
+                        c.style.background = "";
+                    });
+                });
+                contextmenuutils.addItem("download", (c) => {
+                    c.addEventListener("mouseenter", () => {
+                        c.style.background = "#202020";
+                    });
+                    c.addEventListener("mouseleave", () => {
+                        c.style.background = "";
+                    });
+                });
+                contextmenuutils.addItem("Delete", (c) => {
+                    c.addEventListener("mouseenter", () => {
+                        c.style.background = "#202020";
+                    });
+                    c.addEventListener("mouseleave", () => {
+                        c.style.background = "";
+                    });
+                });
+            });
+        }
+    }());
+    uploaddaily.init();
+</script>
+
+</html>
