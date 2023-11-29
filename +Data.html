@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="css/Bootrap5css/bootstrap.css">
     <link rel="stylesheet" href="css/Bootrap5css/bootstrap.min.css">
     <title>Record 日誌</title>
-    <link rel="stylesheet" href="css/uploaddaily.css">
+    <link rel="stylesheet" href="css/+Data.css">
 </head>
 
 <body style="background-color: #d3d3d3">
@@ -33,7 +33,8 @@
         <div class="container justify-content-center">
             <ul class="nav justify-content-center">
                 <li class="nav-item">
-                    <button id="backtosite" class="nav-link text-light" onclick="window.location.href = 'UGPrivateLibrary.html'">返回</button>
+                    <button id="backtosite" class="nav-link text-light"
+                        onclick="window.location.href = 'UGPrivateLibrary.html'">返回</button>
                 </li>
                 <li class="nav-item" style="display: none;">
                     <button id="signin">登入</button>
@@ -41,9 +42,14 @@
                 <li class="nav-item" style="display: none;">
                     <button id="signout">登出</button>
                 </li>
+                <li class="nav-item" style="color: white;">
+                    &emsp;預覽
+                    <input type="checkbox" id="showcontent">
+                </li>
             </ul>
         </div>
     </nav>
+    <pre id="content"></pre>
     <p id="loadarrow">↻</p>
     <div class="actions">
         <h3 id="checksave">*未儲存</h3>
@@ -74,5 +80,66 @@
 <script src="js/+Data.js"></script>
 <script async="" defer="" src="https://apis.google.com/js/api.js" gapi_processed="true"></script>
 <script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
+<script>
+    resizeY("content");
+    function resizeY(id) {
+        const resizableDiv = document.getElementById(id);
+        let isResizing = false;
+        let initialHeight;
+
+        resizableDiv.addEventListener('mousedown', (e) => {
+            const bottomEdge = resizableDiv.getBoundingClientRect().bottom;
+            const mouseY = e.clientY;
+
+            if (mouseY >= bottomEdge - 20) { // Adjust the threshold as needed
+                isResizing = true;
+                initialHeight = resizableDiv.clientHeight;
+                const startY = e.clientY;
+
+                document.addEventListener('mousemove', (e) => {
+                    if (!isResizing) return;
+                    const newHeight = initialHeight + (e.clientY - startY);
+                    resizableDiv.style.height = newHeight + 'px';
+                    resizableDiv.style.minHeight = "5%";
+                    resizableDiv.style.maxHeight = "90%";
+                });
+
+                document.addEventListener('mouseup', () => {
+                    isResizing = false;
+                });
+            }
+        });
+
+        resizableDiv.addEventListener('mousemove', (e) => {
+            const bottomEdge = resizableDiv.getBoundingClientRect().bottom;
+            const mouseY = e.clientY;
+
+            if (mouseY >= bottomEdge - 20) { // Adjust the threshold as needed
+                resizableDiv.style.cursor = "ns-resize";
+            } else {
+                resizableDiv.style.cursor = "";
+            }
+        });
+    }
+    const checkbox = document.getElementById('showcontent');
+    checkbox.style.transform = "scale(1.5)";
+    checkbox.style.margin = "15px";
+
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            document.getElementById("content").style.display = "flex";
+            document.getElementById("backtosite").style.display = "none";
+        } else {
+            document.getElementById("content").style.display = "none";
+            document.getElementById("backtosite").style.display = "";
+        }
+    });
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Tab") {
+            e.preventDefault();
+            document.execCommand("insertText", false, "    ");
+        }
+    });
+</script>
 
 </html>

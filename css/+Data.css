@@ -182,3 +182,34 @@ textarea {
         transform: rotate(360deg);
     }
 }
+
+.data-prev {
+    background-color: #d4d4d4;
+}
+
+#content {
+    white-space: pre-wrap;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 5px solid #383838;
+}
+
+.contentbody {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding: 20px;
+    max-width: 50%;
+    min-width: 50%;
+    background: rgba(175, 175, 175, 0.418);
+    font-size: 18px;
+    box-shadow: rgba(100, 100, 111, 0.5) 0px 7px 29px 0px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.createtimebody {   
+    position: relative;
+    width: 50%;
+    text-align: right;
+}

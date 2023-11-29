@@ -73,6 +73,8 @@ function handleAuthClick() {
         fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
             localStorage.setItem(t, gapi.client.getToken());
         });
+        await initlistfiles();
+        await getcreatetime();
     };
 
     if (gapi.client.getToken() === null) {
@@ -149,6 +151,8 @@ function upload() {
             console.log(value);
             // also update list on file upload
             isupload = false;
+            initlistfiles();
+            getcreatetime();
             showList();
         });
     }
@@ -335,6 +339,8 @@ function update() {
         }),
         body: document.querySelector('textarea').value
     }).then(value => {
+        initlistfiles();
+        getcreatetime();
         console.log('File updated successfully');
         //document.querySelector('textarea').setAttribute('data-update-id', '');
         var updateBtn = document.getElementsByClassName('upload')[0];
@@ -366,6 +372,8 @@ function deleteFile(v) {
             expandContainerUl.setAttribute('data-name', '');
 
             // after delete update the list
+            initlistfiles();
+            getcreatetime();
             showList();
         })
     }
@@ -394,5 +402,75 @@ function deleteFile(v) {
             // after delete update the list
             showList();
         })
+    }
+}
+
+async function initlistfiles() {
+    document.getElementById('content').innerHTML = null;
+    let response;
+    try {
+        response = await gapi.client.drive.files.list({
+            'q': `parents in "${localStorage.getItem('parent_folder')}"`,
+            'pageSize': 10,
+            'fields': 'files(id, name)',
+        });
+    } catch (err) {
+        document.getElementById('content').innerText = err.message;
+        return;
+    }
+    const files = response.result.files;
+    if (!files || files.length == 0) {
+        document.getElementById('content').innerText = 'No files found.';
+        return;
+    }
+    // Flatten to string to display
+    /*const output = files.reduce(
+        (str, file) => `${str}${file.name} (${file.id})\n`,
+        'Files:\n');
+    document.getElementById('content').innerText = output;*/
+
+    for (let i = 0; i < files.length; i++) {
+        gapi.client.drive.files.get({
+            fileId: files[i].id,
+            alt: 'media'
+        }).then(function (res) {
+            gapi.client.drive.files.get({
+                'fileId': files[i].id,
+                'fields': 'modifiedTime'
+            }).then(function (response) {
+                document.getElementById('content').innerHTML += "<span title=\"" + "上次修改時間: " + new Date(response.result.modifiedTime).toLocaleString() + "\"" + "class=\"contentbody\" style=\"order: " + (i + i) + "\">" + decodeUTF8(res.body) + "</span>" + "\n";
+                showList();
+            }, function (err) {
+                console.error('Error getting file details:', err);
+            });
+        });
+    }
+}
+async function getcreatetime() {
+    let response;
+    try {
+        response = await gapi.client.drive.files.list({
+            'q': `parents in "${localStorage.getItem('parent_folder')}"`,
+            'pageSize': 10,
+            'fields': 'files(id, name)',
+        });
+    } catch (err) {
+        document.getElementById('content').innerText = err.message;
+        return;
+    }
+    const files = response.result.files;
+    if (!files || files.length == 0) {
+        document.getElementById('content').innerText = 'No files found.';
+        return;
+    }
+    for (let i = 0; i < files.length; i++) {
+        gapi.client.drive.files.get({
+            'fileId': files[i].id,
+            'fields': 'createdTime'
+        }).then(function (response) {
+            document.getElementById('content').innerHTML += "<span class=\"createtimebody\" style=\"order: " + (i + i + 1) + "\">" + "建立日期:" + new Date(response.result.createdTime).toLocaleString() + "</span>" + "\n";
+        }, function (err) {
+            console.error('Error getting file details:', err);
+        });
     }
 }

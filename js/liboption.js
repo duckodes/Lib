@@ -107,13 +107,13 @@ var liboption = (function () {
             });
             contextmenuutils.addItem("..", (c) => {
                 c.addEventListener("click", () => {
-                    c.innerText = "paint";
+                    c.innerText = "Paint";
                     if(c.innerText === "paint"){
                         c.addEventListener("click", () => {
                             window.location.href = "Paint.html";
                         });
                     }
-                    contextmenuutils.addItem("svg Paint", (c) => {
+                    contextmenuutils.addItem("SVG Paint", (c) => {
                         c.addEventListener("click", () => {
                             window.location.href = "SvgPaint.html";
                         });
@@ -124,7 +124,7 @@ var liboption = (function () {
                             c.style.background = "";
                         });
                     });
-                    contextmenuutils.addItem("upload daily", (c) => {
+                    contextmenuutils.addItem("Data", (c) => {
                         c.addEventListener("click", () => {
                             window.location.href = "+Data.html";
                         });
