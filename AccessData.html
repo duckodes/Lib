@@ -42,27 +42,23 @@
                 <li class="nav-item" style="display: none;">
                     <button id="signout">登出</button>
                 </li>
-                <li class="nav-item" style="color: white;">
-                    &emsp;預覽
-                    <input type="checkbox" id="showcontent">
-                </li>
             </ul>
         </div>
     </nav>
-    <pre id="content"></pre>
+    <pre id="content" style="display: flex;border: none;"></pre>
     <p id="loadarrow">↻</p>
-    <div class="actions">
+    <div class="actions" style="display: none;">
         <h3 id="checksave">*未儲存</h3>
         <h2 id="filename"></h2>
-        <textarea placeholder="Enter file name ..."></textarea>
+        <textarea placeholder="Enter text ..."></textarea>
         <button class="upload" onclick="upload()">✚</button>
     </div>
-    <div class="list">
+    <div class="list" style="display: none;">
         <ul>
             <div style="text-align: center;">Sign In First<br>(Use Google Account To Sign In)</div>
         </ul>
     </div>
-    <div class="expand-container" style="display: none;">
+    <div class="expand-container" style="display: none;" style="display: none;">
         <ul>
             <li onclick="readEditDownload(this, 'read')">Read</li>
             <li onclick="readEditDownload(this, 'edit')">Edit</li>
@@ -80,66 +76,5 @@
 <script src="js/+Data.js"></script>
 <script async="" defer="" src="https://apis.google.com/js/api.js" gapi_processed="true"></script>
 <script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
-<script>
-    resizeY("content");
-    function resizeY(id) {
-        const resizableDiv = document.getElementById(id);
-        let isResizing = false;
-        let initialHeight;
-
-        resizableDiv.addEventListener('mousedown', (e) => {
-            const bottomEdge = resizableDiv.getBoundingClientRect().bottom;
-            const mouseY = e.clientY;
-
-            if (mouseY >= bottomEdge - 20) { // Adjust the threshold as needed
-                isResizing = true;
-                initialHeight = resizableDiv.clientHeight;
-                const startY = e.clientY;
-
-                document.addEventListener('mousemove', (e) => {
-                    if (!isResizing) return;
-                    const newHeight = initialHeight + (e.clientY - startY);
-                    resizableDiv.style.height = newHeight + 'px';
-                    resizableDiv.style.minHeight = "5%";
-                    resizableDiv.style.maxHeight = "90%";
-                });
-
-                document.addEventListener('mouseup', () => {
-                    isResizing = false;
-                });
-            }
-        });
-
-        resizableDiv.addEventListener('mousemove', (e) => {
-            const bottomEdge = resizableDiv.getBoundingClientRect().bottom;
-            const mouseY = e.clientY;
-
-            if (mouseY >= bottomEdge - 20) { // Adjust the threshold as needed
-                resizableDiv.style.cursor = "ns-resize";
-            } else {
-                resizableDiv.style.cursor = "";
-            }
-        });
-    }
-    const checkbox = document.getElementById('showcontent');
-    checkbox.style.transform = "scale(1.5)";
-    checkbox.style.margin = "15px";
-
-    checkbox.addEventListener('change', function () {
-        if (this.checked) {
-            document.getElementById("content").style.display = "flex";
-            document.getElementById("backtosite").style.display = "none";
-        } else {
-            document.getElementById("content").style.display = "none";
-            document.getElementById("backtosite").style.display = "";
-        }
-    });
-    document.addEventListener("keydown", function (e) {
-        if (e.key === "Tab") {
-            e.preventDefault();
-            document.execCommand("insertText", false, "    ");
-        }
-    });
-</script>
 
 </html>

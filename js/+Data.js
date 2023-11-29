@@ -200,8 +200,8 @@ function expand(v) {
         window.addEventListener("click", winclick);
         setTimeout(() => {
             expandContainer.style.display = 'block';
-            expandContainer.style.left = (click_position.left + window.scrollX) + 20 + 'px';
-            expandContainer.style.top = (click_position.top + window.scrollY) + 30 + 'px';
+            expandContainer.style.left = (click_position.left + window.scrollX) - 95 + 'px';
+            expandContainer.style.top = (click_position.top + window.scrollY) - 150 + 'px';
             // get data name & id and store it to the options
             expandContainerUl.setAttribute('data-id', v.parentElement.getAttribute('data-id'));
             expandContainerUl.setAttribute('data-name', v.parentElement.getAttribute('data-name'));
@@ -252,7 +252,8 @@ function showList() {
             document.getElementById('filename').innerHTML = files[0].name;
             document.querySelector('textarea').readOnly = false;
             document.getElementById("checksave").style.display = "none";
-            window.onbeforeunload = null
+            document.querySelector('textarea').placeholder = "Enter text ...";
+            window.onbeforeunload = null;
             isupload = true;
         }
     })
@@ -290,6 +291,7 @@ function readEditDownload(v, condition) {
             document.getElementById('filename').innerHTML = "";
             updateBtn.setAttribute('onClick', 'upload()');
             document.getElementById("checksave").style.display = "block";
+            document.querySelector('textarea').placeholder = "Enter file name ...";
             window.onbeforeunload = function () {
                 return "您確定要離開嗎？";
             };
@@ -313,6 +315,7 @@ function readEditDownload(v, condition) {
             updateBtn.style.visibility = "";
             document.querySelector('textarea').readOnly = false;
             document.getElementById("checksave").style.display = "none";
+            document.querySelector('textarea').placeholder = "Enter text ...";
             window.onbeforeunload = null;
         } else {
             v.innerHTML = 'Download';
@@ -353,6 +356,7 @@ function update() {
         //updateBtn.setAttribute('onClick', 'uploaded()');
 
         document.getElementById("checksave").style.display = "none";
+        document.querySelector('textarea').placeholder = "Enter text ...";
         window.onbeforeunload = null;
     }).catch(err => console.error(err))
 }
@@ -395,6 +399,7 @@ function deleteFile(v) {
             updateBtn.setAttribute('onClick', 'upload()');
             document.getElementById('filename').innerHTML = "";
             document.getElementById("checksave").style.display = "block";
+            document.querySelector('textarea').placeholder = "Enter file name ...";
             window.onbeforeunload = function () {
                 return "您確定要離開嗎？";
             };

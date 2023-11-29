@@ -94,7 +94,8 @@ var liboption = (function () {
                         window.onclick = function (event) {
                             if (event.target === b) {
                                 b.remove();
-                        }}
+                            }
+                        }
                     });
                     contextmenuutils.remove();
                 });
@@ -107,12 +108,23 @@ var liboption = (function () {
             });
             contextmenuutils.addItem("..", (c) => {
                 c.addEventListener("click", () => {
-                    c.innerText = "Paint";
-                    if(c.innerText === "paint"){
+                    c.innerText = "Daily";
+                    if (c.innerText === "Daily") {
+                        c.addEventListener("click", () => {
+                            window.location.href = "AccessData.html";
+                        });
+                    }
+                    contextmenuutils.addItem("Paint", (c) => {
                         c.addEventListener("click", () => {
                             window.location.href = "Paint.html";
                         });
-                    }
+                        c.addEventListener("mouseenter", () => {
+                            c.style.background = "#202020";
+                        });
+                        c.addEventListener("mouseleave", () => {
+                            c.style.background = "";
+                        });
+                    });
                     contextmenuutils.addItem("SVG Paint", (c) => {
                         c.addEventListener("click", () => {
                             window.location.href = "SvgPaint.html";
@@ -143,7 +155,7 @@ var liboption = (function () {
                     c.style.background = "";
                 });
             });
-            
+
         });
     }
 }());
