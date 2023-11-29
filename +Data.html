@@ -32,7 +32,7 @@
     <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);">
         <div class="container justify-content-center">
             <ul class="nav justify-content-center">
-                <li class="nav-item">
+                <li class="nav-item" style="display: none;">
                     <button id="backtosite" class="nav-link text-light"
                         onclick="window.location.href = 'UGPrivateLibrary.html'">返回</button>
                 </li>
@@ -42,9 +42,14 @@
                 <li class="nav-item" style="display: none;">
                     <button id="signout">登出</button>
                 </li>
-                <li class="nav-item" style="color: white;">
+                <li class="nav-item" style="color: white;margin-top: 10px;" id="showswb">
+                </li>
+                <li class="nav-item" style="color: white;display: none;">
                     &emsp;預覽
                     <input type="checkbox" id="showcontent">
+                </li>
+                <li class="nav-item">
+                    <div id="ordermenu" class="nav-link text-light">⋮</div>
                 </li>
             </ul>
         </div>
@@ -77,9 +82,11 @@
 <script src="js/fileutils.js"></script>
 <script src="js/paramname.js"></script>
 <script src="js/limitlibs.js"></script>
+<script src="js/buttonutils.js"></script>
 <script src="js/+Data.js"></script>
 <script async="" defer="" src="https://apis.google.com/js/api.js" gapi_processed="true"></script>
 <script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
+<script src="js/contextmenuutils.js"></script>
 <script>
     resizeY("content");
     function resizeY(id) {
@@ -138,6 +145,19 @@
         if (e.key === "Tab") {
             e.preventDefault();
             document.execCommand("insertText", false, "    ");
+        }
+    });
+    buttonutils.swb({
+        a: true, bsw: "40px", csw: "15px", bsh: "20px", csh: "15px", bsbdr: "15px", csbdr: "15px", fs: 5,
+        bsb: "#ccc", bsba: "#8e8", csb: "#aaa", csba: "#4a4", p: document.getElementById("showswb"), fc(atv) {
+            if (atv) {
+                document.getElementById("content").style.display = "flex";
+                document.getElementById("backtosite").style.display = "none";
+            }
+            else {
+                document.getElementById("content").style.display = "none";
+                document.getElementById("backtosite").style.display = "";
+            }
         }
     });
 </script>

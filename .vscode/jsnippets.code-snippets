@@ -63,7 +63,7 @@
 		"buttonutils.swb({",
 		"	a: ${1:false}, bsw: ${2:\"40px\"}, csw: ${3:\"20px\"}, bsh: ${4:\"20px\"}, csh: ${5:\"20px\"}, bsbdr: ${6:\"15px\"}, csbdr: ${6:\"15px\"}, fs: ${7:5},",
 		"	bsb: ${8:\"#ccc\"}, bsba: ${9:\"#ccc\"}, csb: ${10:\"#aaa\"}, csba: ${11:\"#aaa\"}, p: ${12:document.body}, fc(atv) {",
-		"		$2",
+		"		$0",
 		"	}",
 		"});",
 	],

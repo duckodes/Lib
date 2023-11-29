@@ -32,7 +32,7 @@
     <nav class="navbar no-select" style="background-color: rgb(35, 35, 35);">
         <div class="container justify-content-center">
             <ul class="nav justify-content-center">
-                <li class="nav-item">
+                <li class="nav-item" style="display: none;">
                     <button id="backtosite" class="nav-link text-light"
                         onclick="window.location.href = 'UGPrivateLibrary.html'">返回</button>
                 </li>
@@ -41,6 +41,9 @@
                 </li>
                 <li class="nav-item" style="display: none;">
                     <button id="signout">登出</button>
+                </li>
+                <li class="nav-item">
+                    <div id="ordermenu" class="nav-link text-light">⋮</div>
                 </li>
             </ul>
         </div>
@@ -76,5 +79,6 @@
 <script src="js/+Data.js"></script>
 <script async="" defer="" src="https://apis.google.com/js/api.js" gapi_processed="true"></script>
 <script async="" defer="" src="https://accounts.google.com/gsi/client"></script>
+<script src="js/contextmenuutils.js"></script>
 
 </html>

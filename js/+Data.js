@@ -14,6 +14,17 @@ let gapiInited = false;
 let gisInited = false;
 var isupload = true;
 
+//ORDER
+var listorder = 'folder,modifiedTime desc,name';
+var order_createTime = 'createdTime';
+var order_createTimeRE = 'createdTime desc';
+var order_modifiedTime = 'modifiedTime';
+var order_modifiedTimeRE = 'modifiedTime desc';
+var order_name = 'name';
+var order_nameRE = 'name desc';
+var order_name_nature = 'name_natural';
+var order_name_natureRE = 'name_natural desc';
+
 function gapiLoaded() {
     gapi.load('client', initializeGapiClient);
 }
@@ -75,6 +86,7 @@ function handleAuthClick() {
         });
         await initlistfiles();
         await getcreatetime();
+        initordermenu();
     };
 
     if (gapi.client.getToken() === null) {
@@ -223,7 +235,8 @@ function winclick(e) {
 function showList() {
     gapi.client.drive.files.list({
         // get parent folder id from localstorage
-        'q': `parents in "${localStorage.getItem('parent_folder')}"`
+        'q': `parents in "${localStorage.getItem('parent_folder')}"`,
+        'orderBy': listorder
     }).then(function (response) {
         var files = response.result.files;
         if (files && files.length > 0) {
@@ -375,6 +388,16 @@ function deleteFile(v) {
             expandContainerUl.setAttribute('data-id', '');
             expandContainerUl.setAttribute('data-name', '');
 
+            var updateBtn = document.getElementsByClassName('upload')[0];
+            updateBtn.innerHTML = '✚';
+            updateBtn.setAttribute('onClick', 'upload()');
+            document.getElementById('filename').innerHTML = "";
+            document.getElementById("checksave").style.display = "block";
+            document.querySelector('textarea').placeholder = "Enter file name ...";
+            window.onbeforeunload = function () {
+                return "您確定要離開嗎？";
+            };
+
             // after delete update the list
             initlistfiles();
             getcreatetime();
@@ -405,6 +428,8 @@ function deleteFile(v) {
             };
 
             // after delete update the list
+            initlistfiles();
+            getcreatetime();
             showList();
         })
     }
@@ -418,6 +443,7 @@ async function initlistfiles() {
             'q': `parents in "${localStorage.getItem('parent_folder')}"`,
             'pageSize': 10,
             'fields': 'files(id, name)',
+            'orderBy': listorder
         });
     } catch (err) {
         document.getElementById('content').innerText = err.message;
@@ -458,6 +484,7 @@ async function getcreatetime() {
             'q': `parents in "${localStorage.getItem('parent_folder')}"`,
             'pageSize': 10,
             'fields': 'files(id, name)',
+            'orderBy': listorder
         });
     } catch (err) {
         document.getElementById('content').innerText = err.message;
@@ -476,6 +503,245 @@ async function getcreatetime() {
             document.getElementById('content').innerHTML += "<span class=\"createtimebody\" style=\"order: " + (i + i + 1) + "\">" + "建立日期:" + new Date(response.result.createdTime).toLocaleString() + "</span>" + "\n";
         }, function (err) {
             console.error('Error getting file details:', err);
+        });
+    }
+}
+
+function initordermenu() {
+    var p = document.getElementById("ordermenu");
+
+    var clickindex = { value: 3 };
+    defineproperty(clickindex, 'value', 'valueChanged');
+
+    clickindex.value = 3;
+    p.addEventListener("click", () => {
+        contextmenuutils.init(p.parentElement, (b, c) => {
+            c.style.zIndex = "999";
+        });
+        contextmenuutils.addItem("返回", (c) => {
+            c.addEventListener("click", () => {
+                window.location.href = "UGPrivateLibrary.html";
+            });
+            c.addEventListener("mouseenter", () => {
+                c.style.background = "#202020";
+            });
+            c.addEventListener("mouseleave", () => {
+                c.style.background = "";
+            });
+        });
+        contextmenuutils.addItem("排序", (c) => {
+            c.style.cursor = "";
+        });
+        contextmenuutils.addItem("建立時間 ⇊", (c) => {
+            c.addEventListener("click", () => {
+                listorder = order_createTimeRE;
+                clickindex.value = 1;
+                initlistfiles();
+                getcreatetime();
+                showList();
+                c.style.background = "#d56";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#e67";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "#d56";
+                });
+                contextmenuutils.remove();
+            });
+            quickshort(c, 1);
+            c.style.fontFamily = '"Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif';
+        });
+        contextmenuutils.addItem("建立時間 ⇈", (c) => {
+            c.addEventListener("click", () => {
+                listorder = order_createTime;
+                clickindex.value = 2;
+                initlistfiles();
+                getcreatetime();
+                showList();
+                c.style.background = "#d56";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#e67";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "#d56";
+                });
+                contextmenuutils.remove();
+            });
+            quickshort(c, 2);
+            c.style.fontFamily = '"Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif';
+        });
+        contextmenuutils.addItem("上次修改時間 ⇈", (c) => {
+            c.addEventListener("click", () => {
+                listorder = order_modifiedTimeRE;
+                clickindex.value = 3;
+                initlistfiles();
+                getcreatetime();
+                showList();
+                c.style.background = "#d56";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#e67";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "#d56";
+                });
+                contextmenuutils.remove();
+            });
+            quickshort(c, 3);
+            c.style.fontFamily = '"Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif';
+        });
+        contextmenuutils.addItem("上次修改時間 ⇊", (c) => {
+            c.addEventListener("click", () => {
+                listorder = order_modifiedTime;
+                clickindex.value = 4;
+                initlistfiles();
+                getcreatetime();
+                showList();
+                c.style.background = "#d56";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#e67";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "#d56";
+                });
+                contextmenuutils.remove();
+            });
+            quickshort(c, 4);
+            c.style.fontFamily = '"Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif';
+        });
+        contextmenuutils.addItem("名稱 ⇊", (c) => {
+            c.addEventListener("click", () => {
+                listorder = order_nameRE;
+                clickindex.value = 5;
+                initlistfiles();
+                getcreatetime();
+                showList();
+                c.style.background = "#d56";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#e67";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "#d56";
+                });
+                contextmenuutils.remove();
+            });
+            quickshort(c, 5);
+            c.style.fontFamily = '"Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif';
+        });
+        contextmenuutils.addItem("名稱 ⇈", (c) => {
+            c.addEventListener("click", () => {
+                listorder = order_name;
+                clickindex.value = 6;
+                initlistfiles();
+                getcreatetime();
+                showList();
+                c.style.background = "#d56";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#e67";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "#d56";
+                });
+                contextmenuutils.remove();
+            });
+            quickshort(c, 6);
+            c.style.fontFamily = '"Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif';
+        });
+        contextmenuutils.addItem("名稱(0~9) ⇊", (c) => {
+            c.addEventListener("click", () => {
+                listorder = order_name_natureRE;
+                clickindex.value = 7;
+                initlistfiles();
+                getcreatetime();
+                showList();
+                c.style.background = "#d56";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#e67";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "#d56";
+                });
+                contextmenuutils.remove();
+            });
+            quickshort(c, 7);
+            c.style.fontFamily = '"Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif';
+        });
+        contextmenuutils.addItem("名稱(0~9) ⇈", (c) => {
+            c.addEventListener("click", () => {
+                listorder = order_name_nature;
+                clickindex.value = 8;
+                initlistfiles();
+                getcreatetime();
+                showList();
+                c.style.background = "#d56";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#e67";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "#d56";
+                });
+                contextmenuutils.remove();
+            });
+            quickshort(c, 8);
+            c.style.marginBottom = "20px";
+            c.style.fontFamily = '"Helvetica", "Arial","LiHei Pro","黑體-繁","微軟正黑體", sans-serif';
+        });
+    });
+    function quickshort(c, index) {
+        if (clickindex.value !== index) {
+            c.addEventListener("mouseenter", () => {
+                c.style.background = "#202020";
+            });
+            c.addEventListener("mouseleave", () => {
+                c.style.background = "";
+            });
+        }
+        else {
+            c.style.background = "#d56";
+            c.addEventListener("mouseenter", () => {
+                c.style.background = "#e67";
+            });
+            c.addEventListener("mouseleave", () => {
+                c.style.background = "#d56";
+            });
+        }
+        valuechangeevent('valueChanged', (v) => {
+            if (clickindex.value !== index) {
+                c.style.background = "";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#202020";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "";
+                });
+            }
+            else {
+                c.style.background = "#d56";
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#e67";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "#d56";
+                });
+            }
+        });
+    }
+    function defineproperty(obj, propertykey, eventstring) {
+        Object.defineProperty(obj, propertykey, {
+            get: function () {
+                return this._value;
+            },
+            set: function (newValue) {
+                if (this._value !== newValue) {
+                    this._value = newValue;
+                    const event = new CustomEvent(eventstring, { detail: newValue });
+                    window.dispatchEvent(event);
+                }
+            }
+        });
+    }
+    function valuechangeevent(eventstring, fc) {
+        window.addEventListener(eventstring, function (event) {
+            fc(event.detail);
         });
     }
 }
