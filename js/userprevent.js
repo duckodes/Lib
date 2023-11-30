@@ -39,6 +39,7 @@ var userprevent = (function () {
                 e.preventDefault();
             }
         });
+        consoleprohibit.init();
     }
 }());
 userprevent.init();

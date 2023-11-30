@@ -111,7 +111,7 @@ var liboption = (function () {
                     c.innerText = "Daily";
                     if (c.innerText === "Daily") {
                         c.addEventListener("click", () => {
-                            window.location.href = "AccessData.html";
+                            window.location.href = "AccessData.html?v=user";
                         });
                     }
                     contextmenuutils.addItem("Paint", (c) => {
