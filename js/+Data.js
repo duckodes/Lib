@@ -2,7 +2,12 @@ window.onload = () => {
     gapiLoaded();
     gisLoaded();
 }
-
+window.addEventListener('message', (e) => {
+    if (e.source === window && e.data && e.data.__command__ === 'console') {
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+    }
+}, true);
 var CLIENT_ID = '759707094526-rbodqs1pg8r2a8igkvstf05dnrrp17gb.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyBKBn3FbJyLj8z60Qcrdaxgm-HZMAAllVo';
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
@@ -163,7 +168,63 @@ function checkUserFolder(parentFolderId) {
             showUserFolderContents(userFolder.id);
         } else {
             // User's folder doesn't exist, create it
-            createUserFolder(parentFolderId);
+            gapi.client.drive.files.get({
+                'fileId': localStorage.getItem('parent_folder'),
+                'fields': 'id, name, mimeType'
+            }).then(function (response) {
+                var file = response.result;
+                if (file && file.mimeType === 'application/vnd.google-apps.folder') {
+                    fileutils.ReadFileText('Resource/Register/Private/3jF7D9g2E5h6K1l8.lock', (lock) => {
+                        gapi.client.drive.about.get({
+                            'fields': 'user'
+                        }).then(function (response) {
+                            var currentUser = response.result.user;
+                            var userName = currentUser.displayName || currentUser.emailAddress || 'User';
+                            gapi.client.drive.files.list({
+                                q: "mimeType='application/vnd.google-apps.folder'",
+                            }).then(function (response) {
+                                var files = response.result.files;
+                                if (files && files.length > 0) {
+                                    // 檢查每個資料夾是否包含使用者名稱
+                                    var folder = files.find(function (file) {
+                                        return file.name.includes(userName);
+                                    });
+
+                                    if (folder) {
+                                        console.log('找到包含 ' + userName + ' 的資料夾。');
+                                        console.log('該資料夾的 ID 是:', folder.id);
+                                        move(folder.id, lock);
+                                    } else {
+                                        console.log('未找到包含 ' + userName + ' 的資料夾。');
+                                        createUserFolder(parentFolderId);
+                                    }
+                                } else {
+                                    console.log('沒有資料夾存在。');
+                                }
+                            }).catch(function (err) {
+                                console.error('查詢時出現錯誤:', err);
+                            });
+                        });
+                    });
+                } else {
+                    console.log('Item is not a folder or does not exist with');
+                }
+            }).catch(function (error) {
+                createUserFolder(parentFolderId);
+                console.error('Error checking folder:', error);
+            });
+            function move(folderIdToMove, newParentFolderId) {
+                gapi.client.drive.files.update({
+                    fileId: folderIdToMove,
+                    addParents: newParentFolderId,
+                    fields: 'id, parents'
+                }).then(function (response) {
+                    console.log('成功移動資料夾:', response.result);
+                    showUserFolderContents(folderIdToMove);
+                }).catch(function (err) {
+                    console.error('移動資料夾時出現錯誤:', err);
+                });
+            }
         }
     });
 }
@@ -358,53 +419,48 @@ function winclick(e) {
 
 // function for files list
 function showList() {
-    fileutils.ReadFileText('Resource/Register/Private/3jF7D9g2E5h6K1l8.lock', (lock) => {
-        if (paramname.getParameterByName('v', window.location.href) !== 'user') {
-            check(`'${localStorage.getItem('parent_folder')}' in parents`);
-        }
-        else {
-            check(`parents in "${lock}"`);
-        }
-        function check(q) {
-            gapi.client.drive.files.list({
-                // get parent folder id from localstorage
-                'q': q,
-                'orderBy': listorder
-            }).then(function (response) {
-                var files = response.result.files;
-                if (files && files.length > 0) {
-                    listcontainer.innerHTML = '';
-                    for (var i = 0; i < files.length; i++) {
-                        listcontainer.innerHTML += `
-                        
-                        <li data-id="${files[i].id}" data-name="${files[i].name}">
-                        <span>${files[i].name}</span>
-                        <svg id="exbtn" onclick="expand(this)" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
-                        </li>
-                        
-                        `;
-                    }
-                } else {
-                    listcontainer.innerHTML = '<div style="text-align: center;">No Files</div>'
+    if (paramname.getParameterByName('v', window.location.href) !== 'user') {
+        check(`'${localStorage.getItem('parent_folder')}' in parents`);
+    }
+    function check(q) {
+        gapi.client.drive.files.list({
+            // get parent folder id from localstorage
+            'q': q,
+            'orderBy': listorder
+        }).then(function (response) {
+            var files = response.result.files;
+            if (files && files.length > 0) {
+                listcontainer.innerHTML = '';
+                for (var i = 0; i < files.length; i++) {
+                    listcontainer.innerHTML += `
+                    
+                    <li data-id="${files[i].id}" data-name="${files[i].name}">
+                    <span>${files[i].name}</span>
+                    <svg id="exbtn" onclick="expand(this)" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M24 24H0V0h24v24z" fill="none" opacity=".87"/><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"/></svg>
+                    </li>
+                    
+                    `;
                 }
-                var updateBtn = document.getElementsByClassName('upload')[0];
-                updateBtn.style.visibility = "";
-                document.querySelector('textarea').style.background = "";
-                document.getElementById("loadarrow").style.display = "none";
-                if (!isupload) {
-                    updateBtn.innerHTML = '↻';
-                    updateBtn.setAttribute('onClick', 'update()');
-                    document.querySelector('textarea').setAttribute('data-update-id', files[0].id);
-                    document.getElementById('filename').innerHTML = files[0].name;
-                    document.querySelector('textarea').readOnly = false;
-                    document.getElementById("checksave").style.display = "none";
-                    document.querySelector('textarea').placeholder = "Enter text ...";
-                    window.onbeforeunload = null;
-                    isupload = true;
-                }
-            })
-        }
-    });
+            } else {
+                listcontainer.innerHTML = '<div style="text-align: center;">No Files</div>'
+            }
+            var updateBtn = document.getElementsByClassName('upload')[0];
+            updateBtn.style.visibility = "";
+            document.querySelector('textarea').style.background = "";
+            document.getElementById("loadarrow").style.display = "none";
+            if (!isupload) {
+                updateBtn.innerHTML = '↻';
+                updateBtn.setAttribute('onClick', 'update()');
+                document.querySelector('textarea').setAttribute('data-update-id', files[0].id);
+                document.getElementById('filename').innerHTML = files[0].name;
+                document.querySelector('textarea').readOnly = false;
+                document.getElementById("checksave").style.display = "none";
+                document.querySelector('textarea').placeholder = "Enter text ...";
+                window.onbeforeunload = null;
+                isupload = true;
+            }
+        })
+    }
 }
 function decodeUTF8(encodedString) {
     const decodedString = decodeURIComponent(escape(encodedString));
@@ -596,12 +652,7 @@ function deleteFile(v) {
 }
 async function share_initlistfiles() {
     fileutils.ReadFileText('Resource/Register/Private/3jF7D9g2E5h6K1l8.lock', (lock) => {
-        if (paramname.getParameterByName('v', window.location.href) !== 'user') {
-            check(`'${localStorage.getItem('parent_folder')}' in parents`);
-        }
-        else {
-            check(`parents in "${lock}"`);
-        }
+        check(`'${lock}' in parents`);
         async function check(q) {
             document.getElementById('content').innerHTML = null;
             let response;
@@ -633,7 +684,7 @@ async function share_initlistfiles() {
                 }).then(function (response) {
                     var files = response.result.files;
                     if (files && files.length > 0) {
-                        //console.log('Files found in folder:', folderId);
+                        console.log('Files found in folder:', folderId);
                         files.forEach(function (file, index) {
                             //console.log(file.name, file.id, file.mimeType);
                             if (file.mimeType === 'application/vnd.google-apps.folder') {
@@ -683,12 +734,7 @@ async function share_initlistfiles() {
 }
 async function share_getcreatetime() {
     fileutils.ReadFileText('Resource/Register/Private/3jF7D9g2E5h6K1l8.lock', (lock) => {
-        if (paramname.getParameterByName('v', window.location.href) !== 'user') {
-            check(`'${localStorage.getItem('parent_folder')}' in parents`);
-        }
-        else {
-            check(`parents in "${lock}"`);
-        }
+        check(`'${lock}' in parents`);
         async function check(q) {
             let response;
             try {
@@ -748,108 +794,94 @@ async function share_getcreatetime() {
     });
 }
 async function initlistfiles() {
-    fileutils.ReadFileText('Resource/Register/Private/3jF7D9g2E5h6K1l8.lock', (lock) => {
-        if (paramname.getParameterByName('v', window.location.href) !== 'user') {
-            check(`'${localStorage.getItem('parent_folder')}' in parents`);
+    check(`'${localStorage.getItem('parent_folder')}' in parents`);
+    async function check(q) {
+        document.getElementById('content').innerHTML = null;
+        let response;
+        try {
+            response = await gapi.client.drive.files.list({
+                'q': q,
+                'pageSize': 10,
+                'fields': 'files(id, name)',
+                'orderBy': listorder
+            });
+        } catch (err) {
+            document.getElementById('content').innerText = err.message;
+            return;
         }
-        else {
-            check(`parents in "${lock}"`);
+        const files = response.result.files;
+        if (!files || files.length == 0) {
+            document.getElementById('content').innerText = 'No files found.';
+            return;
         }
-        async function check(q) {
-            document.getElementById('content').innerHTML = null;
-            let response;
-            try {
-                response = await gapi.client.drive.files.list({
-                    'q': q,
-                    'pageSize': 10,
-                    'fields': 'files(id, name)',
-                    'orderBy': listorder
-                });
-            } catch (err) {
-                document.getElementById('content').innerText = err.message;
-                return;
-            }
-            const files = response.result.files;
-            if (!files || files.length == 0) {
-                document.getElementById('content').innerText = 'No files found.';
-                return;
-            }
 
-            // Flatten to string to display
-            /*const output = files.reduce(
-                (str, file) => `${str}${file.name} (${file.id})\n`,
-                'Files:\n');
-            document.getElementById('content').innerText = output;*/
+        // Flatten to string to display
+        /*const output = files.reduce(
+            (str, file) => `${str}${file.name} (${file.id})\n`,
+            'Files:\n');
+        document.getElementById('content').innerText = output;*/
 
-            for (let i = 0; i < files.length; i++) {
-                gapi.client.drive.files.get({
-                    fileId: files[i].id,
-                    alt: 'media'
-                }).then(function (res) {
-                    gapi.client.drive.files.get({
-                        'fileId': files[i].id,
-                        'fields': 'modifiedTime'
-                    }).then(function (response) {
-                        gapi.client.drive.files.get({
-                            'fileId': files[i].id,
-                            'fields': 'lastModifyingUser'
-                        }).then(function (resuser) {
-                            let lastModifyingUser = resuser.result.lastModifyingUser;
-                            if (lastModifyingUser) {
-                                document.getElementById('content').innerHTML += "<span title=\"" + "最後編輯: " + lastModifyingUser.displayName + "上次修改時間: " + new Date(response.result.modifiedTime).toLocaleString() + "\"" + "class=\"contentbody\" style=\"order: " + (i + i) + "\">" + decodeUTF8(res.body) + "</span>" + "\n";
-                                showList();
-                            } else {
-                                console.log('Last Modifying User not found.');
-                            }
-                        }).catch(function (err) {
-                            console.error('Error getting file info:', err);
-                        });
-                    }, function (err) {
-                        console.error('Error getting file details:', err);
-                    });
-                });
-            }
-        }
-    });
-}
-async function getcreatetime() {
-    fileutils.ReadFileText('Resource/Register/Private/3jF7D9g2E5h6K1l8.lock', (lock) => {
-        if (paramname.getParameterByName('v', window.location.href) !== 'user') {
-            check(`'${localStorage.getItem('parent_folder')}' in parents`);
-        }
-        else {
-            check(`parents in "${lock}"`);
-        }
-        async function check(q) {
-            let response;
-            try {
-                response = await gapi.client.drive.files.list({
-                    'q': q,
-                    'pageSize': 10,
-                    'fields': 'files(id, name)',
-                    'orderBy': listorder
-                });
-            } catch (err) {
-                document.getElementById('content').innerText = err.message;
-                return;
-            }
-            const files = response.result.files;
-            if (!files || files.length == 0) {
-                document.getElementById('content').innerText = 'No files found.';
-                return;
-            }
-            for (let i = 0; i < files.length; i++) {
+        for (let i = 0; i < files.length; i++) {
+            gapi.client.drive.files.get({
+                fileId: files[i].id,
+                alt: 'media'
+            }).then(function (res) {
                 gapi.client.drive.files.get({
                     'fileId': files[i].id,
-                    'fields': 'createdTime'
+                    'fields': 'modifiedTime'
                 }).then(function (response) {
-                    document.getElementById('content').innerHTML += "<span class=\"createtimebody\" style=\"order: " + (i + i + 1) + "\">" + "建立日期:" + new Date(response.result.createdTime).toLocaleString() + "</span>" + "\n";
+                    gapi.client.drive.files.get({
+                        'fileId': files[i].id,
+                        'fields': 'lastModifyingUser'
+                    }).then(function (resuser) {
+                        let lastModifyingUser = resuser.result.lastModifyingUser;
+                        if (lastModifyingUser) {
+                            document.getElementById('content').innerHTML += "<span title=\"" + "最後編輯: " + lastModifyingUser.displayName + "上次修改時間: " + new Date(response.result.modifiedTime).toLocaleString() + "\"" + "class=\"contentbody\" style=\"order: " + (i + i) + "\">" + decodeUTF8(res.body) + "</span>" + "\n";
+                            showList();
+                        } else {
+                            console.log('Last Modifying User not found.');
+                        }
+                    }).catch(function (err) {
+                        console.error('Error getting file info:', err);
+                    });
                 }, function (err) {
                     console.error('Error getting file details:', err);
                 });
-            }
+            });
         }
-    });
+    }
+}
+async function getcreatetime() {
+    check(`'${localStorage.getItem('parent_folder')}' in parents`);
+    async function check(q) {
+        let response;
+        try {
+            response = await gapi.client.drive.files.list({
+                'q': q,
+                'pageSize': 10,
+                'fields': 'files(id, name)',
+                'orderBy': listorder
+            });
+        } catch (err) {
+            document.getElementById('content').innerText = err.message;
+            return;
+        }
+        const files = response.result.files;
+        if (!files || files.length == 0) {
+            document.getElementById('content').innerText = 'No files found.';
+            return;
+        }
+        for (let i = 0; i < files.length; i++) {
+            gapi.client.drive.files.get({
+                'fileId': files[i].id,
+                'fields': 'createdTime'
+            }).then(function (response) {
+                document.getElementById('content').innerHTML += "<span class=\"createtimebody\" style=\"order: " + (i + i + 1) + "\">" + "建立日期:" + new Date(response.result.createdTime).toLocaleString() + "</span>" + "\n";
+            }, function (err) {
+                console.error('Error getting file details:', err);
+            });
+        }
+    }
 }
 
 function initordermenu() {

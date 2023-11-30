@@ -39,7 +39,7 @@ var userprevent = (function () {
                 e.preventDefault();
             }
         });
-        consoleprohibit.init();
+        //consoleprohibit.init();
     }
 }());
 userprevent.init();

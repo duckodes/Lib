@@ -33,5 +33,20 @@ var consoleprohibit = (function () {
             writable: false,
             configurable: false
         });
+        Object.defineProperty(window, 'alert', {
+            value: null,
+            writable: false,
+            configurable: false
+        });
+        Object.defineProperty(URL, 'createObjectURL', {
+            value: null,
+            writable: false,
+            configurable: false
+        });
+        Object.defineProperty(window, 'Blob', {
+            value: null,
+            writable: false,
+            configurable: false
+        });
     }
 }());
