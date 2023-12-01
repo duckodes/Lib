@@ -241,7 +241,7 @@ function showUserFolderContents(userFolderId) {
         initordermenu();
     }
     else {
-        share_initlistfiles(); share_getcreatetime();
+        share_initlistfiles(); //share_getcreatetime();
         initordermenu();
     }
 }
@@ -305,7 +305,7 @@ function createUserFolder(parentFolderId) {
                     initordermenu();
                 }
                 else {
-                    share_initlistfiles(); share_getcreatetime();
+                    share_initlistfiles(); //share_getcreatetime();
                     initordermenu();
                 }
             }).catch(function (error) {
@@ -399,7 +399,7 @@ function expand(v) {
         setTimeout(() => {
             expandContainer.style.display = 'block';
             expandContainer.style.left = (click_position.left + window.scrollX) - 95 + 'px';
-            expandContainer.style.top = (click_position.top + window.scrollY) - 150 + 'px';
+            expandContainer.style.top = (click_position.top + window.scrollY) - 200 + 'px';
             // get data name & id and store it to the options
             expandContainerUl.setAttribute('data-id', v.parentElement.getAttribute('data-id'));
             expandContainerUl.setAttribute('data-name', v.parentElement.getAttribute('data-name'));
@@ -449,7 +449,7 @@ function showList() {
             document.querySelector('textarea').style.background = "";
             document.getElementById("loadarrow").style.display = "none";
             if (!isupload) {
-                updateBtn.innerHTML = '↻';
+                updateBtn.innerHTML = '⇮';
                 updateBtn.setAttribute('onClick', 'update()');
                 document.querySelector('textarea').setAttribute('data-update-id', files[0].id);
                 document.getElementById('filename').innerHTML = files[0].name;
@@ -504,7 +504,7 @@ function readEditDownload(v, condition) {
             document.querySelector('textarea').value = decodeUTF8(res.body);
             document.documentElement.scrollTop = 0;
             var updateBtn = document.getElementsByClassName('upload')[0];
-            updateBtn.innerHTML = '↻';
+            updateBtn.innerHTML = '⇮';
             // we will make the update function later
             updateBtn.addEventListener("click", () => {
                 updateBtn.style.visibility = "hidden";
@@ -521,6 +521,19 @@ function readEditDownload(v, condition) {
             document.getElementById("checksave").style.display = "none";
             document.querySelector('textarea').placeholder = "Enter text ...";
             window.onbeforeunload = null;
+        } else if (condition == 'rename') {
+            v.innerHTML = 'Rename';
+            var updateBtn = document.getElementsByClassName('upload')[0];
+            updateBtn.innerHTML = '↻';
+            document.querySelector('textarea').value = name;
+            updateBtn.addEventListener("click", () => {
+                updateBtn.style.visibility = "hidden";
+                document.querySelector('textarea').readOnly = true;
+                document.querySelector('textarea').style.background = "#ccc";
+                document.getElementById("loadarrow").style.display = "block";
+            });
+            updateBtn.setAttribute('onClick', "rename(document.querySelector('textarea').value)");
+            document.querySelector('textarea').setAttribute('data-update-id', id);
         } else {
             v.innerHTML = 'Download';
             var blob = new Blob([decodeUTF8(res.body)], { type: 'plain/text' });
@@ -575,7 +588,7 @@ function update() {
                 console.log('File updated successfully');
                 //document.querySelector('textarea').setAttribute('data-update-id', '');
                 var updateBtn = document.getElementsByClassName('upload')[0];
-                updateBtn.innerHTML = '↻';
+                updateBtn.innerHTML = '⇮';
                 //updateBtn.innerHTML = '✚';
                 updateBtn.style.visibility = "";
                 document.querySelector('textarea').readOnly = false;
@@ -650,6 +663,25 @@ function deleteFile(v) {
         })
     }
 }
+
+function rename(v) {
+    var updateId = document.querySelector('textarea').getAttribute('data-update-id');
+    gapi.client.drive.files.update({
+        fileId: updateId,
+        name: v
+    }).then(function (response) {
+        console.log('成功更改檔案名稱:', response.result);
+        document.getElementById('filename').innerHTML = v;
+        var updateBtn = document.getElementsByClassName('upload')[0];
+        updateBtn.innerHTML = '✚';
+        updateBtn.setAttribute('onClick', 'upload()');
+        document.querySelector('textarea').readOnly = false;
+        showList();
+    }).catch(function (err) {
+        console.error('更改檔案名稱時出現錯誤:', err);
+    });
+}
+
 async function share_initlistfiles() {
     fileutils.ReadFileText('Resource/Register/Private/3jF7D9g2E5h6K1l8.lock', (lock) => {
         check(`'${lock}' in parents`);
@@ -680,16 +712,17 @@ async function share_initlistfiles() {
             function listAllFilesInFolder(folderId, i) {
                 gapi.client.drive.files.list({
                     'q': `'${folderId}' in parents`,
-                    'fields': 'files(id, name, mimeType)' // Specify the fields you want to retrieve
+                    'fields': 'files(id, name, mimeType)', // Specify the fields you want to retrieve
+                    'orderBy': listorder
                 }).then(function (response) {
                     var files = response.result.files;
                     if (files && files.length > 0) {
                         console.log('Files found in folder:', folderId);
-                        files.forEach(function (file, index) {
+                        files.forEach(function (file) {
                             //console.log(file.name, file.id, file.mimeType);
                             if (file.mimeType === 'application/vnd.google-apps.folder') {
                                 // If it's a folder, recursively list its contents
-                                //listAllFilesInFolder(file.id);
+                                listAllFilesInFolder(file.id);
                             } else {
                                 // If it's a file, do something with it (you can log, process, or store the file information)
                                 //console.log('File:', file.name);
@@ -699,27 +732,15 @@ async function share_initlistfiles() {
                                 }).then(function (res) {
                                     gapi.client.drive.files.get({
                                         'fileId': file.id,
-                                        'fields': 'modifiedTime'
+                                        'fields': 'modifiedTime,lastModifyingUser,createdTime'
                                     }).then(function (response) {
-                                        gapi.client.drive.files.get({
-                                            'fileId': file.id,
-                                            'fields': 'lastModifyingUser'
-                                        }).then(function (resuser) {
-                                            let lastModifyingUser = resuser.result.lastModifyingUser;
-                                            if (lastModifyingUser) {
-                                                document.getElementById('content').innerHTML += "<span title=\"" + "最後編輯: " + lastModifyingUser.displayName + "上次修改時間: " + new Date(response.result.modifiedTime).toLocaleString() + "\"" + "class=\"contentbody\" style=\"order: " + (i + i + index) + "\">" + decodeUTF8(res.body) + "</span>" + "\n";
-                                                showList();
-                                            } else {
-                                                console.log('Last Modifying User not found.');
-                                            }
-                                        }).catch(function (err) {
-                                            console.error('Error getting file info:', err);
-                                        });
+                                        document.getElementById('content').innerHTML += "<span title=\"" + "最後編輯: " + response.result.lastModifyingUser.displayName + "上次修改時間: " + new Date(response.result.modifiedTime).toLocaleString() + "\"" + "class=\"contentbody\"" + ">" + decodeUTF8(res.body) + "</span>" + "\n";
+                                        document.getElementById('content').innerHTML += "<span class=\"createtimebody\">" + "建立日期:" + new Date(response.result.createdTime).toLocaleString() + "</span>" + "\n";
+                                        showList();
                                     }, function (err) {
                                         console.error('Error getting file details:', err);
                                     });
                                 });
-                                // Here you can perform actions with the file
                             }
                         });
                     } else {
@@ -887,10 +908,10 @@ async function getcreatetime() {
 function initordermenu() {
     var p = document.getElementById("ordermenu");
 
-    var clickindex = { value: 3 };
+    var clickindex = { value: 4 };
     defineproperty(clickindex, 'value', 'valueChanged');
 
-    clickindex.value = 3;
+    clickindex.value = 4;
     p.addEventListener("click", () => {
         contextmenuutils.init(p.parentElement, (b, c) => {
             c.style.zIndex = "999";
@@ -1031,7 +1052,18 @@ function initordermenu() {
             showList();
         }
         else {
-            share_initlistfiles(); share_getcreatetime();
+            share_initlistfiles(); //share_getcreatetime();
         }
     }
 }
+window.addEventListener('load', function () {
+    var popupTest = window.open('https://accounts.google.com/o/oauth2/v2/auth?gsiwebsdk=3&client_id=759707094526-rbodqs1pg8r2a8igkvstf05dnrrp17gb.apps.googleusercontent.com&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive&redirect_uri=storagerelay%3A%2F%2Fhttp%2F127.0.0.1%3A5500%3Fid%3Dauth411334&response_type=token&include_granted_scopes=true&enable_granular_consent=true');
+    if (!popupTest || popupTest.closed || typeof popupTest.closed == 'undefined') {
+        document.querySelectorAll('.nav-item')[1].style.display = "";
+        document.getElementById('signin').style.display = "";
+        console.log("popup WINDOW ban by user");
+    } else {
+        console.log("popup WINDOW SUCCESS to open!");
+        popupTest.close();
+    }
+});

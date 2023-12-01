@@ -1,3 +1,34 @@
+/**
+ * [Reference]
+ * 
+ * [AccessData.html](../AccessData.html)
+ * 
+ * [+Data.html](../+Data.html)
+ * 
+ * [Bomb.html](../Bomb.html)
+ * 
+ * [Daily.html](../Daily.html)
+ * 
+ * [Introduction.html](../Introduction.html)
+ * 
+ * [main.html](../main.html)
+ * 
+ * [Paint.html](../Paint.html)
+ * 
+ * [Portfolio.html](../Portfolio.html)
+ * 
+ * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
+ * 
+ * [SvgPaint.html](../SvgPaint.html)
+ * 
+ * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
+ * 
+ * [UnityLibrary.html](../UnityLibrary.html)
+ * 
+ * [userprevent.js](userprevent.js)
+ * 
+ * @version 1.0.0
+ */
 var consoleprohibit = (function () {
     return {
         init: init
@@ -39,11 +70,6 @@ var consoleprohibit = (function () {
             configurable: false
         });
         Object.defineProperty(URL, 'createObjectURL', {
-            value: null,
-            writable: false,
-            configurable: false
-        });
-        Object.defineProperty(window, 'Blob', {
             value: null,
             writable: false,
             configurable: false

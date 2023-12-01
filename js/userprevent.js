@@ -13,15 +13,17 @@
  * 
  * [main.html](../main.html)
  * 
+ * [Paint.html](../Paint.html)
+ * 
  * [Portfolio.html](../Portfolio.html)
  * 
  * [PrivateLibraryUnlink.html](../PrivateLibraryUnlink.html)
  * 
+ * [SvgPaint.html](../SvgPaint.html)
+ * 
  * [UGPrivateLibrary.html](../UGPrivateLibrary.html)
  * 
  * [UnityLibrary.html](../UnityLibrary.html)
- * 
- * [UploadDaily.html](../UploadDaily.html)
  * 
  * @version 1.1.0
  */
@@ -39,7 +41,9 @@ var userprevent = (function () {
                 e.preventDefault();
             }
         });
-        //consoleprohibit.init();
+        window.addEventListener('load', function() {
+            consoleprohibit.init();
+        });
     }
 }());
 userprevent.init();
