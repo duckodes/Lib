@@ -45,25 +45,25 @@ function autologin() {
 }
 
 function handleAuthClick() {
-    tokenClient.callback = async (resp) => {
-        if (resp.error !== undefined) {
-            throw (resp);
-        }
-        fileutils.ReadFileText('Resource/Private.Link.net/private=link=all.lock', (token) => {
-            if(localStorage.getItem("firstimelogin") === null){
+    if (localStorage.getItem("firstimelogin") === null) {
+        tokenClient.callback = async (resp) => {
+            if (resp.error !== undefined) {
+                throw (resp);
+            }
+            fileutils.ReadFileText('Resource/Private.Link.net/private=link=all.lock', (token) => {
                 window.location.href = token;
                 localStorage.setItem("firstimelogin", "1");
-            }
-        });
-        fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
-            localStorage.setItem(t, gapi.client.getToken());
-        });
-    };
-
-    if (gapi.client.getToken() === null) {
-        tokenClient.requestAccessToken({ prompt: 'consent' });
-    } else {
-        tokenClient.requestAccessToken({ prompt: '' });
+            });
+            fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
+                localStorage.setItem(t, gapi.client.getToken());
+            });
+        };
+    
+        if (gapi.client.getToken() === null) {
+            tokenClient.requestAccessToken({ prompt: 'consent' });
+        } else {
+            tokenClient.requestAccessToken({ prompt: '' });
+        }
     }
 }
 
