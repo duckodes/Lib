@@ -42,7 +42,7 @@ var userprevent = (function () {
             }
         });
         window.addEventListener('load', function() {
-            //consoleprohibit.init();
+            consoleprohibit.init();
         });
     }
 }());
