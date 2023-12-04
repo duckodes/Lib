@@ -108,23 +108,12 @@ var liboption = (function () {
             });
             contextmenuutils.addItem("..", (c) => {
                 c.addEventListener("click", () => {
-                    c.innerText = "Daily";
-                    if (c.innerText === "Daily") {
-                        c.addEventListener("click", () => {
-                            window.location.href = "AccessData.html?v=user";
-                        });
-                    }
-                    contextmenuutils.addItem("Paint", (c) => {
+                    c.innerText = "Paint";
+                    if (c.innerText === "Paint") {
                         c.addEventListener("click", () => {
                             window.location.href = "Paint.html";
                         });
-                        c.addEventListener("mouseenter", () => {
-                            c.style.background = "#202020";
-                        });
-                        c.addEventListener("mouseleave", () => {
-                            c.style.background = "";
-                        });
-                    });
+                    }
                     contextmenuutils.addItem("SVG Paint", (c) => {
                         c.addEventListener("click", () => {
                             window.location.href = "SvgPaint.html";
@@ -136,7 +125,29 @@ var liboption = (function () {
                             c.style.background = "";
                         });
                     });
-                    contextmenuutils.addItem("Data", (c) => {
+                    contextmenuutils.addItem("Convert", (c) => {
+                        c.addEventListener("click", () => {
+                            window.location.href = "Convert.html";
+                        });
+                        c.addEventListener("mouseenter", () => {
+                            c.style.background = "#202020";
+                        });
+                        c.addEventListener("mouseleave", () => {
+                            c.style.background = "";
+                        });
+                    });
+                    contextmenuutils.addItem("Community", (c) => {
+                        c.addEventListener("click", () => {
+                            window.location.href = "AccessData.html?v=user";
+                        });
+                        c.addEventListener("mouseenter", () => {
+                            c.style.background = "#202020";
+                        });
+                        c.addEventListener("mouseleave", () => {
+                            c.style.background = "";
+                        });
+                    });
+                    contextmenuutils.addItem("Profile", (c) => {
                         c.addEventListener("click", () => {
                             window.location.href = "+Data.html";
                         });

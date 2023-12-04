@@ -7,7 +7,8 @@
  */
 var editable = (function () {
     return {
-        editablecontent: editablecontent
+        editablecontent: editablecontent,
+        editablecontentHTML: editablecontentHTML
     };
     function editablecontent(id) {
         const editor = document.getElementById(id);
@@ -192,7 +193,7 @@ var editable = (function () {
                     range.collapse(true);
                     selection.removeAllRanges();
                     selection.addRange(range);
-                } else if (getCharacterBeforeCursor(editor).trim() === key && getCharacterAfterCursor(editor).trim() === key2) {
+                } else if (getCharacterBeforeCursor(editor).trim() === key && getCharacterAfterCursor(editor).trim() === key) {
                     event.preventDefault();
                     moveCursorForward(1);
                 }
@@ -451,5 +452,241 @@ var editable = (function () {
                 }
             }
         }
+    }
+    function editablecontentHTML(id) {
+        const editor = document.getElementById(id);
+        editor.setAttribute("contenteditable", "true");
+        editor.addEventListener('blur', () => {
+            editor.innerHTML = hljs.highlightAuto(editor.innerText).value;
+        });
+        editor.addEventListener("input", () => {
+            editor.scrollTop = editor.scrollHeight;
+            console.log(getCharacterBeforeCursor(editor));
+            console.log(getCharacterAfterCursor(editor));
+        });
+        editor.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                const selection = window.getSelection();
+                const range = selection.getRangeAt(0);
+                const preCaretRange = range.cloneRange();
+                preCaretRange.selectNodeContents(editor);
+                preCaretRange.setEnd(range.endContainer, range.endOffset);
+
+                const text = preCaretRange.toString();
+                const lines = text.split('\n');
+
+                const cursorPosition = range.startOffset;
+
+                // 找到當前行有 { 或 } 符號的行
+                let currentLine = null;
+                for (let i = cursorPosition; i >= 0; i--) {
+                    if (lines[i] && (lines[i].includes('{') || lines[i].includes('}'))) {
+                        currentLine = i;
+                        break;
+                    }
+                }
+                if (currentLine !== null) {
+                    if (ckcfront(editor) === '{') {
+                        if (getCharacterBeforeCursor() === '{' && getCharacterAfterCursor(editor) === '}') {
+                            const leadingSpaces = lines[currentLine].match(/^\s*/)[0] || ''; // 匹配開頭空格
+
+                            // Insert the indentation at the beginning of the new line
+                            document.execCommand('insertText', false, '\n' + leadingSpaces + '    ' + '\n' + leadingSpaces);
+
+                            moveCursorToPreviousLine();
+                            moveCursorToLineEnd();
+                            /*setTimeout(() => {
+                                //insertTextAfterCursor('\n' + leadingSpaces);
+                            }, 1);*/
+                            // 防止 Enter 鍵的默認行為
+                            event.preventDefault();
+                        }
+                        else {
+                            const leadingSpaces = lines[currentLine].match(/^\s*/)[0] || ''; // 匹配開頭空格
+
+                            // Insert the indentation at the beginning of the new line
+                            document.execCommand('insertText', false, '\n' + leadingSpaces);
+
+                            // 防止 Enter 鍵的默認行為
+                            event.preventDefault();
+                        }
+                    } else {
+                        const leadingSpaces = lines[currentLine].match(/^\s*/)[0] || ''; // 匹配開頭空格
+
+                        // Insert the indentation at the beginning of the new line
+                        document.execCommand('insertText', false, '\n' + leadingSpaces);
+
+                        // 防止 Enter 鍵的默認行為
+                        event.preventDefault();
+
+                    }
+                }
+            } else if (event.key === 'Backspace') {
+                const selection = window.getSelection();
+                const range = selection.getRangeAt(0);
+                const preCaretRange = range.cloneRange();
+                preCaretRange.selectNodeContents(editor);
+                preCaretRange.setEnd(range.endContainer, range.endOffset);
+
+                const text = preCaretRange.toString();
+                const lines = text.split('\n');
+
+                let cursorPosition = range.startOffset;
+
+                let lineWithBrace = null;
+                for (let i = 0; i < lines.length; i++) {
+                    if (lines[i].includes('{') || lines[i].includes('}')) {
+                        lineWithBrace = i;
+                        break;
+                    }
+                }
+
+                if (lineWithBrace !== null) {
+                    const lineText = lines[lineWithBrace];
+                    const braceIndex = lineText.indexOf('{') !== -1 ? lineText.indexOf('{') : lineText.indexOf('}');
+                    const braceType = braceIndex !== -1 ? lineText.charAt(braceIndex) : null;
+
+                    const leadingSpaces = lineText.substring(0, braceIndex).search(/\S|$/);
+
+                    if (braceType === '{') {
+                        let spacesToDelete = 0;
+                        for (let i = cursorPosition - 1; i >= 0; i--) {
+                            if (lineText.charAt(i) === ' ') {
+                                spacesToDelete++;
+                            } else {
+                                break;
+                            }
+                        }
+                        if (spacesToDelete > leadingSpaces + 1) {
+                            event.preventDefault();
+                            document.execCommand('delete', false, null);
+                        }
+                    } else if (braceType === '}') {
+                        let spacesToDelete = 0;
+                        for (let i = cursorPosition - 1; i >= 0; i--) {
+                            if (lineText.charAt(i) === ' ') {
+                                spacesToDelete++;
+                            } else {
+                                break;
+                            }
+                        }
+                        if (spacesToDelete > leadingSpaces) {
+                            event.preventDefault();
+                            document.execCommand('delete', false, null);
+                        }
+                    }
+                }
+
+                checkLRSelect("{", "}");
+                checkLRSelect("[", "]");
+                checkLRSelect("(", ")");
+                checkLRSelect('"', '"');
+                checkLRSelect("'", "'");
+                function checkLRSelect(key, key2) {
+                    if (getCharacterBeforeCursor(editor).trim() === key && getCharacterAfterCursor(editor).trim() === key2) {
+                        selectWordAtCursorLR();
+                    }
+                }
+            } else if (event.key === '{') {
+                checkdoublekey("{", "}");
+                wantcheckkeytoadddouble("[", "]", '{', '}');
+                wantcheckkeytoadddouble("(", ")", '{', '}');
+                wantcheckkeytoadddouble('"', '"', '{', '}');
+                wantcheckkeytoadddouble("'", "'", '{', '}');
+            } else if (event.key === '}') {
+                checkskip("{", "}");
+            }
+            else if (event.key === '[') {
+                checkdoublekey('[', ']');
+                wantcheckkeytoadddouble('{', '}', '[', ']');
+                wantcheckkeytoadddouble("(", ")", '[', ']');
+                wantcheckkeytoadddouble('"', '"', '[', ']');
+                wantcheckkeytoadddouble("'", "'", '[', ']');
+            }
+            else if (event.key === ']') {
+                checkskip('[', ']');
+            }
+            else if (event.key === '(') {
+                checkdoublekey('(', ')');
+                wantcheckkeytoadddouble('{', '}', '(', ')');
+                wantcheckkeytoadddouble("[", "]", '(', ')');
+                wantcheckkeytoadddouble('"', '"', '(', ')');
+                wantcheckkeytoadddouble("'", "'", '(', ')');
+            }
+            else if (event.key === ')') {
+                checkskip('(', ')');
+            }
+            else if (event.key === '"') {
+                checkonlykey('"');
+            }
+            else if (event.key === "'") {
+                checkonlykey("'");
+            }
+            function checkonlykey(key) {
+                const selection = window.getSelection();
+                const range = selection.getRangeAt(0);
+                const selectionText = window.getSelection().toString();
+                if (getCharacterAfterCursor(editor).trim() === '' && getCharacterAfterCursor(editor).trim() !== key) {
+                    event.preventDefault();
+                    document.execCommand('insertText', false, key + selectionText + key);
+                    range.setStart(range.endContainer, range.endOffset + 1);
+                    range.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                } else if (getCharacterBeforeCursor(editor).trim() === key && getCharacterAfterCursor(editor).trim() === key) {
+                    event.preventDefault();
+                    moveCursorForward(1);
+                }
+            }
+            function checkdoublekey(key, key2) {
+                const selection = window.getSelection();
+                const range = selection.getRangeAt(0);
+                const selectionText = window.getSelection().toString();
+                if (getCharacterAfterCursor(editor).trim() === '' && getCharacterAfterCursor(editor).trim() !== key) {
+                    event.preventDefault();
+                    document.execCommand('insertText', false, key + selectionText + key2);
+                    range.setStart(range.endContainer, range.endOffset + 1);
+                    range.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                } else if (getCharacterBeforeCursor(editor).trim() === key && getCharacterAfterCursor(editor).trim() === key2) {
+                    event.preventDefault();
+                    document.execCommand('insertText', false, key + selectionText + key2);
+                    range.setStart(range.endContainer, range.endOffset + 1);
+                    range.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            }
+            function checkskip(key, key2) {
+                if (getCharacterBeforeCursor(editor).trim() === key && getCharacterAfterCursor(editor).trim() === key2) {
+                    event.preventDefault();
+                    moveCursorForward(1);
+                }
+            }
+            function wantcheckkeytoadddouble(key, key2, wantkey, wantkey2) {
+                const selection = window.getSelection();
+                const range = selection.getRangeAt(0);
+                const selectionText = window.getSelection().toString();
+                if (getCharacterBeforeCursor(editor).trim() === key && getCharacterAfterCursor(editor).trim() === key2) {
+                    event.preventDefault();
+                    document.execCommand('insertText', false, wantkey + selectionText + wantkey2);
+                    range.setStart(range.endContainer, range.endOffset + 1);
+                    range.collapse(true);
+                    selection.removeAllRanges();
+                    selection.addRange(range);
+                }
+            }
+        });
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Tab" && e.shiftKey) {
+                e.preventDefault();
+                disTabsBeforeSelection();
+            } else if (e.key === "Tab") {
+                e.preventDefault();
+                //document.execCommand("insertText", false, "    ");
+                insertTabsBeforeSelection();
+            }
+        });
     }
 }());

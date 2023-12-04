@@ -56,17 +56,32 @@ function gisLoaded() {
 function maybeEnableButtons() {
     if (gapiInited && gisInited) {
         signinButton.style.display = 'block';
-        fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
-            gapi.client.setToken(localStorage.getItem(t));
-            autologin();
-        });
+        requestcallback();
+        tokenClient.requestAccessToken({ prompt: '' });
+        const nw = window.open('', '_blank');
+        nw.document.write('<html><body>新窗口</body></html>');
+        nw.close();
     }
 }
-function autologin() {
-    const token = gapi.client.getToken();
-    if (token !== null) {
-        handleAuthClick();
-    }
+
+function requestcallback() {
+    tokenClient.callback = async (resp) => {
+        if (resp.error !== undefined) {
+            throw (resp);
+        }
+        signinButton.style.display = 'none'
+        signoutButton.style.display = 'block'
+
+        checkFolder();
+        document.querySelector('textarea').addEventListener('input', function () {
+            if (document.querySelector('textarea').value.trim() !== '') {
+                document.getElementById("checksave").style.display = "block";
+                window.onbeforeunload = function () {
+                    return "您確定要離開嗎？";
+                };
+            }
+        });
+    };
 }
 
 signinButton.onclick = () => handleAuthClick()
@@ -87,9 +102,6 @@ function handleAuthClick() {
                 };
             }
         });
-        fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
-            localStorage.setItem(t, gapi.client.getToken());
-        });
     };
 
     if (gapi.client.getToken() === null) {
@@ -105,9 +117,6 @@ function handleSignoutClick() {
     if (token !== null) {
         google.accounts.oauth2.revoke(token.access_token);
         gapi.client.setToken('');
-        fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
-            localStorage.removeItem(t);
-        });
         signinButton.style.display = 'block'
         signoutButton.style.display = 'none'
     }

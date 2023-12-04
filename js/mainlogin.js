@@ -16,7 +16,7 @@ async function initializeGapiClient() {
         discoveryDocs: [DISCOVERY_DOC],
     });
     gapiInited = true;
-    maybeEnableButtons();
+    startRequest();
 }
 
 function gisLoaded() {
@@ -26,44 +26,43 @@ function gisLoaded() {
         callback: '',
     });
     gisInited = true;
-    maybeEnableButtons();
+    startRequest();
 }
 
-function maybeEnableButtons() {
+function startRequest() {
     if (gapiInited && gisInited) {
-        fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
-            gapi.client.setToken(localStorage.getItem(t));
-            autologin();
-        });
+        requestcallback();
     }
 }
-function autologin() {
-    const token = gapi.client.getToken();
-    if (token !== null) {
-        handleAuthClick();
-    }
-}
-
-function handleAuthClick() {
-    if (localStorage.getItem("firstimelogin") === null) {
+function requestcallback() {
+    if (localStorage.getItem("wantautologin") === "1") {
+        tokenClient.requestAccessToken({ prompt: '' });
+        const nw = window.open('', '_blank');
+        nw.document.write('<html><body>新窗口</body></html>');
+        nw.close();
         tokenClient.callback = async (resp) => {
             if (resp.error !== undefined) {
                 throw (resp);
             }
-            fileutils.ReadFileText('Resource/Private.Link.net/private=link=all.lock', (token) => {
-                window.location.href = token;
-                localStorage.setItem("firstimelogin", "1");
-            });
-            fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
-                localStorage.setItem(t, gapi.client.getToken());
-            });
         };
-    
-        if (gapi.client.getToken() === null) {
-            tokenClient.requestAccessToken({ prompt: 'consent' });
-        } else {
-            tokenClient.requestAccessToken({ prompt: '' });
+    }
+}
+
+function handleAuthClick() {
+    tokenClient.callback = async (resp) => {
+        if (resp.error !== undefined) {
+            throw (resp);
         }
+        fileutils.ReadFileText('Resource/Private.Link.net/private=link=all.lock', (token) => {
+            window.location.href = token;
+            localStorage.setItem("wantautologin", "1");
+        });
+    };
+
+    if (gapi.client.getToken() === null) {
+        tokenClient.requestAccessToken({ prompt: 'consent' });
+    } else {
+        tokenClient.requestAccessToken({ prompt: '' });
     }
 }
 
@@ -72,8 +71,6 @@ function handleSignoutClick() {
     if (token !== null) {
         google.accounts.oauth2.revoke(token.access_token);
         gapi.client.setToken('');
-        fileutils.ReadFileText('Resource/Register/localstorage.high-level/7Rm5Np9AqL3tEw2F.localstorage', (t) => {
-            localStorage.removeItem(t);
-        });
+        localStorage.removeItem("wantautologin");
     }
 }

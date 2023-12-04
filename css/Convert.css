@@ -1,0 +1,43 @@
+body {
+    background-color: #3b3b3b;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    user-select: none;
+}
+
+button {
+    border: 0px;
+    outline: none;
+    padding: 8px 14px;
+    display: block;
+    font-size: large;
+    font-weight: bold;
+    border: 2px solid rgb(224, 224, 224, 1);
+    border-radius: 38px;
+    font-family: 'Noto Sans KR', sans-serif;
+    cursor: pointer;
+    float: right;
+    color: #3c84f8;
+}
+
+.r0 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: auto;
+}
+
+.r1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+#result {
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}

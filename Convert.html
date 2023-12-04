@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/tokyo-night-dark.min.css" id="code-style">
+    <link rel="stylesheet" href="css/Convert.css">
+    <link rel="stylesheet" href="css/all-scrollbar.css">
+    <title>converter</title>
+</head>
+
+<body>
+    <div>
+        <h1 style="color: azure;">
+            HTML To JS
+        </h1>
+    </div>
+    <pre><div id="code-copy-Example-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="language-csharp" id="code-text-Example-cs" style="height: 500px;"></code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Converter.txt  </div></pre>
+    <div class="r0">
+        <div class="r1">
+            <button id="convert">轉換</button>
+            <button id="implement">執行JS</button>
+        </div>
+        <h3 style="color: azure;">
+            RESULT
+        </h3>
+        <div id="result">
+
+        </div>
+    </div>
+</body>
+<!--From: https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js-->
+<script src="js/highlight.min.js"></script>
+<script>
+    hljs.highlightAll();
+</script>
+<script src="js/paramname.js"></script>
+<script src="js/editable.js"></script>
+<script>
+    editable.editablecontentHTML('code-text-Example-cs');
+</script>
+<script src="js/copycode.js"></script>
+<script>
+    copycode("code-copy-Example-cs", "code-text-Example-cs");
+</script>
+<script src="js/fileutils.js"></script>
+<script>
+    var downloadFiler = document.querySelectorAll('.download-file');
+    downloadFiler.forEach(function (e) {
+        e.addEventListener("click", () => {
+            if (e.innerText === "Converter.txt  ") {
+                fileutils.downloadwriter(document.getElementById('code-text-Example-cs').innerText, 'Converter.txt');
+            }
+        });
+    });
+</script>
+<script src="js/convertutils.js"></script>
+<script>
+    document.getElementById("convert").addEventListener("click", () => {
+        document.getElementById('code-text-Example-cs').innerText = convertutils.DOMparserAll(document.getElementById('code-text-Example-cs').innerText);
+    });
+    document.getElementById("implement").addEventListener("click", () => {
+        document.getElementById('result').innerHTML = "";
+        function get(text) {
+            const lines = text.split('\n');
+            const matches = [];
+
+            for (const line of lines) {
+                const trimmedLine = line.trim();
+                if (trimmedLine.startsWith('const') && trimmedLine.includes('1')) {
+                    const match = trimmedLine.match(/const\s+(\w+)/);
+                    if (match) {
+                        matches.push(match[1]);
+                    }
+                }
+            }
+
+            return matches;
+        }
+        var recordvalue = document.getElementById('code-text-Example-cs').innerText;
+        if (!document.getElementById('code-text-Example-cs').innerText.includes('\ndocument.getElementById("result").appendChild(' + get(document.getElementById('code-text-Example-cs').innerText) + ');')) {
+            document.getElementById('code-text-Example-cs').innerText += '\ndocument.getElementById("result").appendChild(' + get(document.getElementById('code-text-Example-cs').innerText) + ');';
+        }
+        eval(document.getElementById('code-text-Example-cs').innerText);
+        document.getElementById('code-text-Example-cs').innerText = recordvalue;
+    });
+</script>
+
+<script src="js/limitlibs.js"></script>
+
+</html>

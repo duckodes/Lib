@@ -383,8 +383,6 @@ if (wantlogin != null) {
             wantlogin.addEventListener("click", function () {
                 localStorage.removeItem(key);
                 handleSignoutClick();
-                localStorage.removeItem("firstimelogin");
-
                 window.location = "main.html";
             });
             var backtoPrLibs = document.createElement('li');
