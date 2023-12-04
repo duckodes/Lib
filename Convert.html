@@ -16,11 +16,11 @@
             HTML To JS
         </h1>
     </div>
-    <pre><div id="code-copy-Example-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="language-csharp" id="code-text-Example-cs" style="height: 500px;"></code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Converter.txt  </div></pre>
+    <pre style="white-space: pre-line;width: 50%;"><div id="code-copy-Example-cs" class="no-select" style="z-index: 1;cursor: pointer;color: white;background-color: #1e1e1e;position: relative;margin-bottom: 0px;height: 21px; border-top-left-radius: 7px;border-top-right-radius: 7px;"> <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="icon-sm" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg> copy </div><code class="language-csharp" id="code-text-Example-cs"></code><div class="no-select download-file" style="cursor: pointer;z-index: 0.5;color: white;background-color: #303030;margin-top: 0px;height: 25px; border-bottom-left-radius: 7px;border-bottom-right-radius: 7px;display: flex;align-items: center;justify-content: right;" title="下載">Converter&emsp;&emsp;</div></pre>
     <div class="r0">
         <div class="r1">
-            <button id="convert">轉換</button>
-            <button id="implement">執行JS</button>
+            <button id="convert">⟳</button>
+            <button id="implement">➫JS</button>
         </div>
         <h3 style="color: azure;">
             RESULT
@@ -49,8 +49,8 @@
     var downloadFiler = document.querySelectorAll('.download-file');
     downloadFiler.forEach(function (e) {
         e.addEventListener("click", () => {
-            if (e.innerText === "Converter.txt  ") {
-                fileutils.downloadwriter(document.getElementById('code-text-Example-cs').innerText, 'Converter.txt');
+            if (e.innerText.includes("Converter")) {
+                fileutils.downloadwriter(document.getElementById('code-text-Example-cs').innerText, 'Converter.txt.cs');
             }
         });
     });
