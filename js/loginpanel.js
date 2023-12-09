@@ -210,7 +210,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
             });
         }
         waitForBoolChange().then(() => {
-            var loginurl = "https://bearhubs.github.io/Profolio/" + "UG" + modalLogin.value + "rary";
+            var loginurl = "https://duckodes.github.io/Lib/" + "UG" + modalLogin.value + "rary";
             var xhr = loginlibrarycheck(loginurl);
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4) {
@@ -246,7 +246,7 @@ function createLoginModal(title, content, closeBtn, closeInner, wantCloseBtnBord
                                             return response.text();
                                         })
                                         .then(linkppt => {
-                                            link.href = linkpt.replace("https://bearhubs.github.io/Profolio/", "") + modalLogin.value + linkppt;
+                                            link.href = linkpt.replace("https://duckodes.github.io/Lib/", "") + modalLogin.value + linkppt;
                                             link.click();
                                         })
                                         .catch(error => {
