@@ -242,5 +242,9 @@ var motionbackground = (function () {
 
         createParticles();
         animateParticles();
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
     }
 }());
