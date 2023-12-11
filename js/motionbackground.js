@@ -145,9 +145,11 @@ var motionbackground = (function () {
         window.addEventListener("resize", () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            ctx.font = `${15}px Arial`;
+            ctx.fillStyle = "#00000020";
         });
     }
-    function initdotor() {
+    function initdotor(color1, color2) {
         const canvas = document.createElement('canvas');
         canvas.style.position = "fixed";
         canvas.style.bottom = "0";
@@ -209,8 +211,8 @@ var motionbackground = (function () {
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size);
-                gradient.addColorStop(0, 'rgba(255,0,255,0.5)');
-                gradient.addColorStop(0.8, 'rgba(255,0,255,0)');
+                gradient.addColorStop(0, color1);
+                gradient.addColorStop(0.8, color2);
                 ctx.fillStyle = gradient;
                 ctx.fill();
             }
