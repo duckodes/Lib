@@ -49,6 +49,7 @@ var motionbackground = (function () {
         const canvas = document.createElement('canvas');
         canvas.style.position = "fixed";
         canvas.style.bottom = "0";
+        canvas.style.zIndex = "-999";
         document.body.appendChild(canvas);
         const ctx = canvas.getContext('2d');
 
@@ -153,6 +154,7 @@ var motionbackground = (function () {
         const canvas = document.createElement('canvas');
         canvas.style.position = "fixed";
         canvas.style.bottom = "0";
+        canvas.style.zIndex = "-999";
         document.body.appendChild(canvas);
         const ctx = canvas.getContext('2d');
 
