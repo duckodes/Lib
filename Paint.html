@@ -7,59 +7,162 @@
         body {
             user-select: none;
             -webkit-user-select: none;
+            margin: 20;
         }
 
-        #myCanvas {
+        #opentool {
+            position: fixed;
+            width: 95%;
+            height: 35px;
+            font-size: 25px;
+            bottom: 5px;
+            right: 2.5%;
+            text-align: center;
+        }
+
+        .tools {
+            border-radius: 8px;
+            background-color: #f0f0f0;
+            position: fixed;
+            width: 90%;
+            bottom: 0;
+            right: 2.5%;
+            padding: 2.5%;
+            margin-left: 2.5%;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .btn {
+            background-color: #f0f0f0;
+            font-size: 37px;
+            border-radius: 100px;
+            border: 0;
+            cursor: pointer;
+            width: 100px;
+            height: 100px;
+            margin-left: 5px;
+
+            box-shadow:
+                -10px -10px 15px rgba(255, 255, 255, 0.5),
+                10px 10px 15px rgba(70, 70, 70, 0.12);
+        }
+
+        .row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .m-bottom-50 {
+            margin-bottom: 50px;
+        }
+
+        #colorPicker {
+            width: 100px;
+            height: 100px;
+            margin-left: 5px;
+        }
+
+        .hashadow:hover {
+            box-shadow:
+                -10px -10px 15px rgba(255, 255, 255, 0.5),
+                10px 10px 15px rgba(70, 70, 70, 0.12),
+                inset -10px -10px 15px rgba(255, 255, 255, 0.5),
+                inset 10px 10px 15px rgba(70, 70, 70, 0.06);
+        }
+
+        .hashadow:active {
+            box-shadow:
+                -10px -10px 15px rgba(255, 255, 255, 0.5),
+                10px 10px 15px rgba(70, 70, 70, 0.12),
+                inset -10px -10px 15px rgba(255, 255, 255, 0.5),
+                inset 10px 10px 15px rgba(70, 70, 70, 0.15);
+        }
+
+        #lineWidth {
+            position: fixed;
+            width: 95%;
+            left: 2.5%;
+        }
+
+        #lineDash {
+            width: 100%;
+        }
+
+        #PaintCanvas {
             border: 1px solid #000;
+            box-shadow: 5px 5px 10px #000;
+            background-image: url(image/background/transbg_100x_144ppi.png);
+            margin-top: 25px;
         }
     </style>
 </head>
 
 <body>
+    <input type="range" min="1" max="100" value="30" id="lineWidth">
+    <div class="tools m-bottom-50">
+        <label for="lineDash" style="font-weight: 800;">增加虛線間隔</label>
+        <input type="range" min="1" max="100" value="0" id="lineDash">
 
-    <button onclick="saveAsPNG()">儲存為PNG</button>
-    <button onclick="undo()">撤銷</button>
-    <button onclick="redo()">重做</button>
-    <input type="range" min="1" max="20" value="5" id="lineWidthRange">
-    <label for="lineWidthRange">調整線條粗細</label>
-    <input type="color" id="colorPicker">
-    <label for="colorPicker">颜色</label>
-    <input type="range" min="1" max="100" value="5" id="lineDashRange">
-    <label for="lineDashRange">虛線樣式</label>
-    <canvas id="myCanvas" width="1000" height="700"></canvas>
+        <div class="row">
+            <button onclick="saveAsPNG()" class="btn center hashadow">PNG</button>
+            <button onclick="saveAsJPGWhite()" class="btn center hashadow">JPG 白底</button>
+            <button onclick="saveAsJPG()" class="btn center hashadow">JPG 黑底</button>
+            <div id="undo-btn" class="btn center hashadow">↻</div>
+            <div id="redo-btn" class="btn center hashadow">↺</div>
+            <div id="brush" class="btn center hashadow">🖌️</div>
+            <div id="eraser" class="btn center hashadow">🧼</div>
+
+            <input type="color" id="colorPicker">
+        </div>
+    </div>
+    <canvas id="PaintCanvas" width="1000" height="700"></canvas>
+    <div id="opentool" class="hashadow">▲</div>
 
     <script>
-        var canvas = document.getElementById('myCanvas');
-        var context = canvas.getContext('2d');
+        const canvas = document.getElementById('PaintCanvas');
 
-        var lineWidthRange = document.getElementById('lineDashRange');
+        const context = canvas.getContext('2d');
 
-        lineDashRange.addEventListener('input', function () {
-            context.setLineDash([context.lineWidth, lineDashRange.value]);
-        });
+        const tools = document.querySelector(".tools");
+        const undoBtn = document.getElementById("undo-btn");
+        const redoBtn = document.getElementById("redo-btn");
+        const lineWidth = document.getElementById("lineWidth");
+        const lineDash = document.getElementById("lineDash");
+        const colorPicker = document.getElementById('colorPicker');
+        const brush = document.getElementById("brush");
+        const eraser = document.getElementById("eraser");
+        const opentool = document.getElementById("opentool");
+        const toolId = {
+            brush: 0,
+            eraser: 1
+        };
 
-        canvas.width = window.innerWidth - 20;
-        canvas.height = window.innerHeight - 50;
+        let undoStack = [context.getImageData(0, 0, canvas.width, canvas.height)];
+        let redoStack = [];
+        let isDrawing = false;
+        let recordMX;
+        let recordMY;
+        let intervalId;
+        let brushWidth = 30;
+        let eraserWidth = 50;
+        let selectools = toolId.brush;
 
-        context.lineJoin = 'round';
-        context.lineCap = 'round';
+        init();
 
-        var undoStack = [];
-        var redoStack = [];
-        var isDrawing = false;
-        var recordMX;
-        var recordMY;
-
-        canvas.addEventListener('mousedown', function (e) {
+        canvas.addEventListener('mousedown', e => {
             isDrawing = true;
             context.beginPath();
-            undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
             var mouseX = e.clientX - canvas.getBoundingClientRect().left;
             var mouseY = e.clientY - canvas.getBoundingClientRect().top;
             context.moveTo(mouseX, mouseY);
             context.lineTo(mouseX, mouseY);
             context.stroke();
-            redoStack = [];
             if (e.shiftKey) {
                 context.lineTo(recordMX, recordMY);
                 context.stroke();
@@ -68,7 +171,7 @@
             recordMY = mouseY;
         });
 
-        canvas.addEventListener('mousemove', function (e) {
+        canvas.addEventListener('mousemove', e => {
             if (isDrawing) {
                 var mouseX = e.clientX - canvas.getBoundingClientRect().left;
                 var mouseY = e.clientY - canvas.getBoundingClientRect().top;
@@ -87,25 +190,25 @@
             }
         });
 
-        canvas.addEventListener('mouseup', function () {
+        canvas.addEventListener('mouseup', () => {
+            undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
+            redoStack = [];
             isDrawing = false;
         });
 
-        canvas.addEventListener('mouseleave', function () {
+        canvas.addEventListener('mouseleave', () => {
             isDrawing = false;
         });
-        canvas.addEventListener("touchstart", function (e) {
+        canvas.addEventListener("touchstart", e => {
             isDrawing = true;
             context.beginPath();
-            undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
             var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
             var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
             context.moveTo(mouseX, mouseY);
             context.lineTo(mouseX, mouseY);
             context.stroke();
-            redoStack = [];
         });
-        canvas.addEventListener("touchmove", function (e) {
+        canvas.addEventListener("touchmove", e => {
             if (isDrawing && e.touches.length < 2) {
                 e.preventDefault();
                 var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
@@ -114,64 +217,165 @@
                 context.stroke();
             }
         }, { passive: false });
-        canvas.addEventListener("touchend", function () {
+        canvas.addEventListener("touchend", () => {
+            undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
+            redoStack = [];
             isDrawing = false;
         });
-        canvas.addEventListener("touchcancel", function () {
+        canvas.addEventListener("touchcancel", () => {
             isDrawing = false;
         });
 
+        undoBtn.addEventListener('mousedown', () => {
+            undo();
+            if (event.button === 0) {
+                intervalId = setInterval(undo, 200);
+            }
+        });
+        undoBtn.addEventListener('touchstart', () => {
+            intervalId = setInterval(undo, 200);
+        });
+        redoBtn.addEventListener('mousedown', () => {
+            redo();
+            if (event.button === 0) {
+                intervalId = setInterval(redo, 200);
+            }
+        });
+        redoBtn.addEventListener('touchstart', () => {
+            intervalId = setInterval(redo, 200);
+        });
+        lineWidth.addEventListener('input', () => {
+            context.lineWidth = lineWidth.value;
+            switch (selectools) {
+                case 0:
+                    brushWidth = context.lineWidth;
+                    break;
+                case 1:
+                    eraserWidth = context.lineWidth;
+                    break;
+                default:
+                    break;
+            }
+        });
+
+        lineDash.addEventListener('input', () => {
+            context.setLineDash([context.lineWidth, lineDash.value]);
+        });
+
+        colorPicker.addEventListener('input', () => {
+            context.strokeStyle = colorPicker.value;
+        });
+
+        brush.addEventListener('click', () => {
+            context.lineWidth = lineWidth.value = brushWidth;
+            selectools = toolId.brush;
+            setools();
+        });
+
+        eraser.addEventListener('click', () => {
+            context.lineWidth = lineWidth.value = eraserWidth;
+            selectools = toolId.eraser;
+            setools();
+        });
+
+        opentool.addEventListener('click', () => {
+            if (opentool.textContent === "▲") {
+                tools.style.bottom = "0";
+                opentool.textContent = "▼";
+            } else {
+                toolscloseprefix();
+                opentool.textContent = "▲";
+            }
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.ctrlKey && e.key === 'z') {
+                undo();
+            }
+            else if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
+                redo();
+            }
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                saveAsPNG();
+            }
+        });
+        document.addEventListener('mouseup', () => {
+            clearInterval(intervalId);
+        });
+        document.addEventListener('touchend', () => {
+            clearInterval(intervalId);
+        });
+        function init() {
+            canvas.width = window.innerWidth - 20;
+            canvas.height = window.innerHeight - 80;
+            context.lineJoin = 'round';
+            context.lineCap = 'round';
+            context.lineWidth = lineWidth.value;
+
+            toolscloseprefix();
+            setools();
+        }
+        function toolscloseprefix() {
+            tools.style.bottom = -1 * (tools.offsetHeight + 100) + "px";
+        }
+        function setools() {
+            switch (selectools) {
+                case 0:
+                    context.globalCompositeOperation = 'source-over';
+                    context.strokeStyle = colorPicker.value;
+                    eraser.style = "";
+                    brush.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
+                    break;
+                case 1:
+                    context.globalCompositeOperation = 'destination-out';
+                    context.strokeStyle = 'rgba(0, 0, 0, 1)';
+                    brush.style = "";
+                    eraser.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
+                    break;
+                default:
+                    break;
+            }
+        }
         function undo() {
             if (undoStack.length > 1) {
                 redoStack.push(undoStack.pop());
                 context.putImageData(undoStack[undoStack.length - 1], 0, 0);
             }
         }
-
         function redo() {
             if (redoStack.length > 0) {
                 undoStack.push(redoStack.pop());
                 context.putImageData(undoStack[undoStack.length - 1], 0, 0);
             }
         }
-
-        var lineWidthRange = document.getElementById('lineWidthRange');
-
-        // 初始化线条粗细
-        context.lineWidth = lineWidthRange.value;
-
-        // 监听线条粗细调整
-        lineWidthRange.addEventListener('input', function () {
-            context.lineWidth = lineWidthRange.value;
-        });
-
-        var colorPicker = document.getElementById('colorPicker');
-
-        // 初始化线条颜色
-        context.strokeStyle = colorPicker.value;
-
-        // 监听颜色选择器的变化
-        colorPicker.addEventListener('input', function () {
-            context.strokeStyle = colorPicker.value;
-        });
-
-        document.addEventListener('keydown', function (event) {
-            if (event.ctrlKey && event.key === 'z') {
-                undo();
-            }
-            else if (event.ctrlKey && event.shiftKey && event.key === 'Z') {
-                redo();
-            }
-            if (event.ctrlKey && event.key === 's') {
-                event.preventDefault();
-                saveAsPNG();
-            }
-        });
-
         function saveAsPNG() {
             var link = document.createElement('a');
             link.download = 'canvas_image.png';
             link.href = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
+            link.click();
+        }
+        function saveAsJPG() {
+            var link = document.createElement('a');
+            link.download = 'canvas_image.jpg';
+            link.href = canvas.toDataURL('image/jpeg', 0.8);
+            link.click();
+        }
+        function saveAsJPGWhite() {
+            var newCanvas = document.createElement('canvas');
+            var newCtx = newCanvas.getContext('2d');
+
+            newCanvas.width = canvas.width;
+            newCanvas.height = canvas.height;
+
+            newCtx.fillStyle = 'white';
+            newCtx.fillRect(0, 0, newCanvas.width, newCanvas.height);
+
+            newCtx.drawImage(canvas, 0, 0);
+
+            var link = document.createElement('a');
+            link.download = 'canvas_image.jpg';
+            link.href = newCanvas.toDataURL('image/jpeg', 0.8);
             link.click();
         }
 
@@ -188,15 +392,14 @@
                 canvas.height = window.innerHeight - 50;
                 context.lineJoin = 'round';
                 context.lineCap = 'round';
-                context.lineWidth = lineWidthRange.value;
+                context.lineWidth = lineWidth.value;
                 context.strokeStyle = colorPicker.value;
             } else {
                 window.resizeTo(initialWidth, initialHeight);
             }
         });*/
-        window.onbeforeunload = function () {
-            return "您確定要離開嗎？";
-        };
+
+        window.onbeforeunload = () => { return "您確定要離開嗎？"; }
     </script>
 
 </body>
