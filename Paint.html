@@ -106,8 +106,8 @@
             redoStack = [];
         });
         canvas.addEventListener("touchmove", function (e) {
-            e.preventDefault();
             if (isDrawing) {
+                e.preventDefault();
                 var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
                 var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
                 context.lineTo(mouseX, mouseY);
