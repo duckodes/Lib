@@ -4,10 +4,11 @@
 <head>
     <title>畫布</title>
     <style>
-        body{
+        body {
             user-select: none;
             -webkit-user-select: none;
         }
+
         #myCanvas {
             border: 1px solid #000;
         }
@@ -105,13 +106,14 @@
             redoStack = [];
         });
         canvas.addEventListener("touchmove", function (e) {
+            e.preventDefault();
             if (isDrawing) {
                 var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
                 var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
                 context.lineTo(mouseX, mouseY);
                 context.stroke();
             }
-        });
+        }, { passive: false });
         canvas.addEventListener("touchend", function () {
             isDrawing = false;
         });
@@ -160,7 +162,7 @@
             else if (event.ctrlKey && event.shiftKey && event.key === 'Z') {
                 redo();
             }
-            if(event.ctrlKey && event.key === 's'){
+            if (event.ctrlKey && event.key === 's') {
                 event.preventDefault();
                 saveAsPNG();
             }
