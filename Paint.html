@@ -106,7 +106,7 @@
             redoStack = [];
         });
         canvas.addEventListener("touchmove", function (e) {
-            if (isDrawing) {
+            if (isDrawing && e.touches.length < 2) {
                 e.preventDefault();
                 var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
                 var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
@@ -175,7 +175,7 @@
             link.click();
         }
 
-        let initialWidth = window.innerWidth;
+        /*let initialWidth = window.innerWidth;
         let initialHeight = window.innerHeight;
         function recordSize() {
             initialWidth = window.innerWidth;
@@ -193,7 +193,7 @@
             } else {
                 window.resizeTo(initialWidth, initialHeight);
             }
-        });
+        });*/
         window.onbeforeunload = function () {
             return "您確定要離開嗎？";
         };
