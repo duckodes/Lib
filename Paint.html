@@ -10,6 +10,30 @@
             margin: 20;
         }
 
+        ::-webkit-scrollbar {
+            width: 15px;
+            height: 15px;
+            border-radius: 7px;
+            color: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #949494;
+            border-radius: 15px;
+            background-clip: content-box;
+            border: 5px solid transparent;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #aeaeae;
+            background-clip: content-box;
+            border: 5px solid transparent;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1e1e1e00;
+        }
+
         #opentool {
             position: fixed;
             width: 95%;
@@ -39,12 +63,17 @@
             border: 0;
             cursor: pointer;
             width: 100px;
+            min-width: 100px;
             height: 100px;
             margin-left: 5px;
 
             box-shadow:
                 -10px -10px 15px rgba(255, 255, 255, 0.5),
                 10px 10px 15px rgba(70, 70, 70, 0.12);
+        }
+
+        .btn:active {
+            cursor: grabbing;
         }
 
         .row {
@@ -62,8 +91,13 @@
             margin-bottom: 50px;
         }
 
+        .orf-auto {
+            overflow: auto;
+        }
+
         #colorPicker {
             width: 100px;
+            min-width: 100px;
             height: 100px;
             margin-left: 5px;
         }
@@ -84,10 +118,19 @@
                 inset 10px 10px 15px rgba(70, 70, 70, 0.15);
         }
 
+        .draggable {
+            cursor: grab;
+        }
+
+        .draggable:active {
+            cursor: grabbing;
+        }
+
         #lineWidth {
             position: fixed;
             width: 95%;
             left: 2.5%;
+            background-color: #f0f0f0;
         }
 
         #lineDash {
@@ -97,19 +140,27 @@
         #PaintCanvas {
             border: 1px solid #000;
             box-shadow: 5px 5px 10px #000;
-            background-image: url(image/background/transbg_100x_144ppi.png);
             margin-top: 25px;
+        }
+
+        #GUICanvas {
+            background-image: url(image/background/transbg_100x_144ppi.png);
+            border: 1px solid #000;
+            position: fixed;
+            margin-top: 25px;
+            left: 8px;
+            z-index: -999;
         }
     </style>
 </head>
 
 <body>
-    <input type="range" min="1" max="100" value="30" id="lineWidth">
+    <input type="range" min="1" max="100" value="5" id="lineWidth">
     <div class="tools m-bottom-50">
         <label for="lineDash" style="font-weight: 800;">增加虛線間隔</label>
         <input type="range" min="1" max="100" value="0" id="lineDash">
 
-        <div class="row">
+        <div class="row orf-auto draggable">
             <button onclick="saveAsPNG()" class="btn center hashadow">PNG</button>
             <button onclick="saveAsJPGWhite()" class="btn center hashadow">JPG 白底</button>
             <button onclick="saveAsJPG()" class="btn center hashadow">JPG 黑底</button>
@@ -117,17 +168,31 @@
             <div id="redo-btn" class="btn center hashadow">↺</div>
             <div id="brush" class="btn center hashadow">🖌️</div>
             <div id="eraser" class="btn center hashadow">🧼</div>
+            <div id="rectools" class="btn center hashadow">▢</div>
 
             <input type="color" id="colorPicker">
         </div>
     </div>
+    <canvas id="GUICanvas" width="1000" height="700"></canvas>
     <canvas id="PaintCanvas" width="1000" height="700"></canvas>
     <div id="opentool" class="hashadow">▲</div>
 
     <script>
+        // **
+        // e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left === e.offsetX
+        // ctx.lineJoin:
+        // "round"：透過填滿一個額外的，圓心在相連部分末端的扇形，繪製角落的形狀。圓角的半徑是線段的寬度。
+        // "bevel"：在相連部分的末端填滿一個額外的以三角形為底的區域，每個部分都有各自獨立的矩形角落。
+        // "miter"：透過延伸相連部分的外緣，使其相交於一點，形成一個額外的菱形區域。這個設定可以透過miterLimit屬性看到效果。
+        // ctx.lineCap:
+        // "butt"：線段終止以方形結束。
+        // "round"：線段終止以圓形結束。
+        // "square"：線段終止以方形結束，但增加了一個寬度和線段相同，高度是線段厚度的一半區域。
         const canvas = document.getElementById('PaintCanvas');
+        const GUIcanvas = document.getElementById('GUICanvas');
 
         const context = canvas.getContext('2d');
+        const GUIctx = GUIcanvas.getContext('2d');
 
         const tools = document.querySelector(".tools");
         const undoBtn = document.getElementById("undo-btn");
@@ -138,10 +203,13 @@
         const brush = document.getElementById("brush");
         const eraser = document.getElementById("eraser");
         const opentool = document.getElementById("opentool");
+        const rectools = document.getElementById("rectools");
         const toolId = {
             brush: 0,
-            eraser: 1
+            eraser: 1,
+            rect: 2
         };
+        let selectools = toolId.brush;
 
         let undoStack = [context.getImageData(0, 0, canvas.width, canvas.height)];
         let redoStack = [];
@@ -149,48 +217,86 @@
         let recordMX;
         let recordMY;
         let intervalId;
-        let brushWidth = 30;
+        let brushWidth = 12;
         let eraserWidth = 50;
-        let selectools = toolId.brush;
+        let rectWidth = 12;
+        let rectX, rectY, rectwidth, rectheight;
 
         init();
 
         canvas.addEventListener('mousedown', e => {
-            isDrawing = true;
-            context.beginPath();
-            var mouseX = e.clientX - canvas.getBoundingClientRect().left;
-            var mouseY = e.clientY - canvas.getBoundingClientRect().top;
-            context.moveTo(mouseX, mouseY);
-            context.lineTo(mouseX, mouseY);
-            context.stroke();
-            if (e.shiftKey) {
-                context.lineTo(recordMX, recordMY);
-                context.stroke();
+            switch (selectools) {
+                case 0:
+                case 1:
+                    isDrawing = true;
+                    context.beginPath();
+                    var mouseX = e.clientX - canvas.getBoundingClientRect().left;
+                    var mouseY = e.clientY - canvas.getBoundingClientRect().top;
+                    context.moveTo(mouseX, mouseY);
+                    context.lineTo(mouseX, mouseY);
+                    context.stroke();
+                    if (e.shiftKey) {
+                        context.lineTo(recordMX, recordMY);
+                        context.stroke();
+                    }
+                    recordMX = mouseX;
+                    recordMY = mouseY;
+                    break;
+                case 2:
+                    isDrawing = true;
+                    rectX = e.offsetX;
+                    rectY = e.offsetY;
+                    break;
+                default:
+                    break;
             }
-            recordMX = mouseX;
-            recordMY = mouseY;
+
         });
 
         canvas.addEventListener('mousemove', e => {
-            if (isDrawing) {
-                var mouseX = e.clientX - canvas.getBoundingClientRect().left;
-                var mouseY = e.clientY - canvas.getBoundingClientRect().top;
-                if (e.shiftKey) {
-                    var dx = Math.abs(mouseX - recordMX);
-                    var dy = Math.abs(mouseY - recordMY);
-                    if (dx > dy) {
-                        mouseY = recordMY;
+            switch (selectools) {
+                case 0:
+                case 1:
+                    if (isDrawing) {
+                        var mouseX = e.clientX - canvas.getBoundingClientRect().left;
+                        var mouseY = e.clientY - canvas.getBoundingClientRect().top;
+                        if (e.shiftKey) {
+                            var dx = Math.abs(mouseX - recordMX);
+                            var dy = Math.abs(mouseY - recordMY);
+                            if (dx > dy) {
+                                mouseY = recordMY;
+                            }
+                            else {
+                                mouseX = recordMX;
+                            }
+                        }
+                        context.lineTo(mouseX, mouseY);
+                        context.stroke();
                     }
-                    else {
-                        mouseX = recordMX;
+                    break;
+                case 2:
+                    if (isDrawing) {
+                        rectwidth = e.offsetX - rectX;
+                        rectheight = e.offsetY - rectY;
+                        drawRect();
+                        previewRect(e);
                     }
-                }
-                context.lineTo(mouseX, mouseY);
-                context.stroke();
+                    break;
+                default:
+                    break;
             }
         });
 
         canvas.addEventListener('mouseup', () => {
+            switch (selectools) {
+                case 2:
+                    context.stroke();
+                    GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+                    break;
+
+                default:
+                    break;
+            }
             undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
             redoStack = [];
             isDrawing = false;
@@ -200,29 +306,78 @@
             isDrawing = false;
         });
         canvas.addEventListener("touchstart", e => {
-            isDrawing = true;
-            context.beginPath();
-            var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
-            var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
-            context.moveTo(mouseX, mouseY);
-            context.lineTo(mouseX, mouseY);
-            context.stroke();
+            switch (selectools) {
+                case 0:
+                case 1:
+                    isDrawing = true;
+                    context.beginPath();
+                    var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+                    var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+                    context.moveTo(mouseX, mouseY);
+                    context.lineTo(mouseX, mouseY);
+                    context.stroke();
+                    break;
+                case 2:
+                    isDrawing = true;
+                    rectX = e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left;
+                    rectY = e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top;
+                    break;
+                default:
+                    break;
+            }
         });
         canvas.addEventListener("touchmove", e => {
-            if (isDrawing && e.touches.length < 2) {
-                e.preventDefault();
-                var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
-                var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
-                context.lineTo(mouseX, mouseY);
-                context.stroke();
+            switch (selectools) {
+                case 0:
+                case 1:
+                    if (isDrawing && e.touches.length < 2) {
+                        e.preventDefault();
+                        var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+                        var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+                        context.lineTo(mouseX, mouseY);
+                        context.stroke();
+                    }
+                    break;
+                case 2:
+                    if (isDrawing && e.touches.length < 2) {
+                        e.preventDefault();
+                        rectwidth = e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left - rectX;
+                        rectheight = e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top - rectY;
+                        drawRect();
+                        previewRect_touch(e);
+                    }
+                    break;
+
+                default:
+                    break;
             }
         }, { passive: false });
         canvas.addEventListener("touchend", () => {
+            switch (selectools) {
+                case 2:
+                    context.stroke();
+                    GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+                    break;
+
+                default:
+                    break;
+            }
             undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
             redoStack = [];
             isDrawing = false;
         });
         canvas.addEventListener("touchcancel", () => {
+            switch (selectools) {
+                case 2:
+                    context.stroke();
+                    GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+                    break;
+
+                default:
+                    break;
+            }
+            undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
+            redoStack = [];
             isDrawing = false;
         });
 
@@ -246,12 +401,16 @@
         });
         lineWidth.addEventListener('input', () => {
             context.lineWidth = lineWidth.value;
+            GUIctx.lineWidth = context.lineWidth;
             switch (selectools) {
                 case 0:
                     brushWidth = context.lineWidth;
                     break;
                 case 1:
                     eraserWidth = context.lineWidth;
+                    break;
+                case 2:
+                    rectWidth = context.lineWidth;
                     break;
                 default:
                     break;
@@ -267,24 +426,27 @@
         });
 
         brush.addEventListener('click', () => {
-            context.lineWidth = lineWidth.value = brushWidth;
             selectools = toolId.brush;
             setools();
         });
 
         eraser.addEventListener('click', () => {
-            context.lineWidth = lineWidth.value = eraserWidth;
             selectools = toolId.eraser;
             setools();
         });
 
+        rectools.addEventListener('click', () => {
+            selectools = toolId.rect;
+            setools();
+        });
+
         opentool.addEventListener('click', () => {
-            if (opentool.textContent === "▲") {
+            if (opentool.textContent === "▼") {
+                toolscloseprefix();
+                setopentool();
+            } else {
                 tools.style.bottom = "0";
                 opentool.textContent = "▼";
-            } else {
-                toolscloseprefix();
-                opentool.textContent = "▲";
             }
         });
 
@@ -313,8 +475,15 @@
             context.lineCap = 'round';
             context.lineWidth = lineWidth.value;
 
+            GUIcanvas.width = canvas.width;
+            GUIcanvas.height = canvas.height;
+            GUIctx.lineJoin = context.lineJoin;
+            GUIctx.lineCap = context.lineWidth;
+            GUIctx.lineWidth = context.lineWidth;
+
             toolscloseprefix();
             setools();
+            setopentool();
         }
         function toolscloseprefix() {
             tools.style.bottom = -1 * (tools.offsetHeight + 100) + "px";
@@ -322,20 +491,75 @@
         function setools() {
             switch (selectools) {
                 case 0:
+                    context.lineWidth = lineWidth.value = brushWidth;
                     context.globalCompositeOperation = 'source-over';
                     context.strokeStyle = colorPicker.value;
-                    eraser.style = "";
+                    eraser.style = ""; rectools.style = "";
                     brush.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
                     break;
                 case 1:
+                    context.lineWidth = lineWidth.value = eraserWidth;
                     context.globalCompositeOperation = 'destination-out';
                     context.strokeStyle = 'rgba(0, 0, 0, 1)';
-                    brush.style = "";
+                    brush.style = ""; rectools.style = "";
                     eraser.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
+                    break;
+                case 2:
+                    GUIctx.lineWidth = context.lineWidth = lineWidth.value = rectWidth;
+                    context.globalCompositeOperation = 'source-over';
+                    context.strokeStyle = colorPicker.value;
+                    eraser.style = ""; brush.style = "";
+                    rectools.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
                     break;
                 default:
                     break;
             }
+        }
+        function setopentool() {
+            switch (selectools) {
+                case 0:
+                    opentool.textContent = "🖌️";
+                    break;
+                case 1:
+                    opentool.textContent = "🧼";
+                    break;
+                case 2:
+                    opentool.textContent = "▢";
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        function drawRect() {
+            context.beginPath();
+            context.rect(rectX, rectY, rectwidth, rectheight);
+        }
+        function previewRect(e) {
+            var mouseX = e.offsetX;
+            var mouseY = e.offsetY;
+
+            var width = mouseX - rectX;
+            var height = mouseY - rectY;
+
+            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+
+            GUIctx.beginPath();
+            GUIctx.rect(rectX, rectY, width, height);
+            GUIctx.stroke();
+        }
+        function previewRect_touch(e) {
+            var mouseX = e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left;
+            var mouseY = e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top;
+
+            var width = mouseX - rectX;
+            var height = mouseY - rectY;
+
+            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+
+            GUIctx.beginPath();
+            GUIctx.rect(rectX, rectY, width, height);
+            GUIctx.stroke();
         }
         function undo() {
             if (undoStack.length > 1) {
@@ -400,6 +624,34 @@
         });*/
 
         window.onbeforeunload = () => { return "您確定要離開嗎？"; }
+    </script>
+    <script>
+        idrag(document.querySelector('.draggable'));
+        function idrag(scrollContainer) {
+
+            let isDragging = false;
+            let startX, startY, scrollLeft, scrollTop;
+
+            scrollContainer.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.clientX - scrollContainer.getBoundingClientRect().left;
+                startY = e.clientY - scrollContainer.getBoundingClientRect().top;
+                scrollLeft = scrollContainer.scrollLeft;
+                scrollTop = scrollContainer.scrollTop;
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                const deltaX = e.clientX - scrollContainer.getBoundingClientRect().left - startX;
+                const deltaY = e.clientY - scrollContainer.getBoundingClientRect().top - startY;
+                scrollContainer.scrollLeft = scrollLeft - deltaX;
+                scrollContainer.scrollTop = scrollTop - deltaY;
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDragging = false;
+            });
+        }
     </script>
 
 </body>
