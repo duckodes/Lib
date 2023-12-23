@@ -54,6 +54,7 @@
             padding: 2.5%;
             margin-left: 2.5%;
             transition: all 0.2s ease-in-out;
+            z-index: 999;
         }
 
         .btn {
@@ -79,6 +80,11 @@
         .row {
             display: flex;
             flex-direction: row;
+        }
+
+        .col {
+            display: flex;
+            flex-direction: column;
         }
 
         .center {
@@ -137,27 +143,68 @@
             width: 100%;
         }
 
+        #rectround {
+            width: 38px;
+            height: 38px;
+        }
+
+        #Cap {
+            width: 38px;
+            height: 38px;
+        }
+
+        #rectfill {
+            width: 38px;
+            height: 38px;
+        }
+
+        #rectfill-color {
+            width: 38px;
+            height: 38px;
+        }
+
         #PaintCanvas {
+            background-image: url(image/background/transbg_100x_144ppi.png);
             border: 1px solid #000;
             box-shadow: 5px 5px 10px #000;
             margin-top: 25px;
         }
 
         #GUICanvas {
-            background-image: url(image/background/transbg_100x_144ppi.png);
             border: 1px solid #000;
             position: fixed;
             margin-top: 25px;
             left: 8px;
-            z-index: -999;
         }
     </style>
 </head>
 
 <body>
     <input type="range" min="1" max="100" value="5" id="lineWidth">
-    <div class="tools m-bottom-50">
-        <label for="lineDash" style="font-weight: 800;">增加虛線間隔</label>
+    <div class="tools m-bottom-50 col">
+        <div class="row">
+            <label for="Cap" style="font-weight: 800;">方形線段</label>
+            <input type="checkbox" id="Cap">
+        </div>
+        <div class="row">
+            <label for="rectfill" style="font-weight: 800;">填滿</label>
+            <input type="checkbox" id="rectfill">
+            <input type="color" id="rectfill-color" style="display: none;">
+            <label for="rectround" style="font-weight: 800;">圓角</label>
+            <input type="checkbox" id="rectround">
+            <div class="col" id="rectround-switch" style="display: none;">
+                <div class="row">
+                    <input type="number" min="0" value="0" id="rrtl">
+                    <input type="number" min="0" value="0" id="rrtr">
+                </div>
+                <div class="row">
+                    <input type="number" min="0" value="0" id="rrbr">
+                    <input type="number" min="0" value="0" id="rrbl">
+                </div>
+            </div>
+        </div>
+
+        <label for="lineDash" style="font-weight: 800;">增加線段間隔</label>
         <input type="range" min="1" max="100" value="0" id="lineDash">
 
         <div class="row orf-auto draggable">
@@ -173,8 +220,8 @@
             <input type="color" id="colorPicker">
         </div>
     </div>
-    <canvas id="GUICanvas" width="1000" height="700"></canvas>
     <canvas id="PaintCanvas" width="1000" height="700"></canvas>
+    <canvas id="GUICanvas" width="1000" height="700"></canvas>
     <div id="opentool" class="hashadow">▲</div>
 
     <script>
@@ -204,6 +251,15 @@
         const eraser = document.getElementById("eraser");
         const opentool = document.getElementById("opentool");
         const rectools = document.getElementById("rectools");
+        const rectround = document.getElementById("rectround");
+        const rrtl = document.getElementById("rrtl");
+        const rrtr = document.getElementById("rrtr");
+        const rrbl = document.getElementById("rrbl");
+        const rrbr = document.getElementById("rrbr");
+        const rectround_switch = document.getElementById("rectround-switch");
+        const Cap = document.getElementById("Cap");
+        const rectfill = document.getElementById("rectfill");
+        const rectfill_color = document.getElementById("rectfill-color");
         const toolId = {
             brush: 0,
             eraser: 1,
@@ -217,14 +273,14 @@
         let recordMX;
         let recordMY;
         let intervalId;
-        let brushWidth = 12;
+        let brushWidth = 8;
         let eraserWidth = 50;
-        let rectWidth = 12;
+        let rectWidth = 8;
         let rectX, rectY, rectwidth, rectheight;
 
         init();
 
-        canvas.addEventListener('mousedown', e => {
+        GUIcanvas.addEventListener('mousedown', e => {
             switch (selectools) {
                 case 0:
                 case 1:
@@ -252,8 +308,7 @@
             }
 
         });
-
-        canvas.addEventListener('mousemove', e => {
+        document.addEventListener('mousemove', e => {
             switch (selectools) {
                 case 0:
                 case 1:
@@ -273,6 +328,7 @@
                         context.lineTo(mouseX, mouseY);
                         context.stroke();
                     }
+                    setCursor(e);
                     break;
                 case 2:
                     if (isDrawing) {
@@ -286,10 +342,13 @@
                     break;
             }
         });
-
-        canvas.addEventListener('mouseup', () => {
+        GUIcanvas.addEventListener('mouseup', e => {
             switch (selectools) {
                 case 2:
+                    if (rectfill.checked) {
+                        context.fillStyle = rectfill_color.value;
+                        context.fill();
+                    }
                     context.stroke();
                     GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
                     break;
@@ -301,11 +360,10 @@
             redoStack = [];
             isDrawing = false;
         });
-
-        canvas.addEventListener('mouseleave', () => {
-            isDrawing = false;
+        GUIcanvas.addEventListener('mouseleave', () => {
+            //isDrawing = false;
         });
-        canvas.addEventListener("touchstart", e => {
+        GUIcanvas.addEventListener("touchstart", e => {
             switch (selectools) {
                 case 0:
                 case 1:
@@ -326,7 +384,7 @@
                     break;
             }
         });
-        canvas.addEventListener("touchmove", e => {
+        GUIcanvas.addEventListener("touchmove", e => {
             switch (selectools) {
                 case 0:
                 case 1:
@@ -337,6 +395,7 @@
                         context.lineTo(mouseX, mouseY);
                         context.stroke();
                     }
+                    setCursor_touch(e);
                     break;
                 case 2:
                     if (isDrawing && e.touches.length < 2) {
@@ -352,9 +411,13 @@
                     break;
             }
         }, { passive: false });
-        canvas.addEventListener("touchend", () => {
+        GUIcanvas.addEventListener("touchend", () => {
             switch (selectools) {
                 case 2:
+                    if (rectfill.checked) {
+                        context.fillStyle = rectfill_color.value;
+                        context.fill();
+                    }
                     context.stroke();
                     GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
                     break;
@@ -366,9 +429,13 @@
             redoStack = [];
             isDrawing = false;
         });
-        canvas.addEventListener("touchcancel", () => {
+        GUIcanvas.addEventListener("touchcancel", () => {
             switch (selectools) {
                 case 2:
+                    if (rectfill.checked) {
+                        context.fillStyle = rectfill_color.value;
+                        context.fill();
+                    }
                     context.stroke();
                     GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
                     break;
@@ -401,7 +468,6 @@
         });
         lineWidth.addEventListener('input', () => {
             context.lineWidth = lineWidth.value;
-            GUIctx.lineWidth = context.lineWidth;
             switch (selectools) {
                 case 0:
                     brushWidth = context.lineWidth;
@@ -411,18 +477,51 @@
                     break;
                 case 2:
                     rectWidth = context.lineWidth;
+                    GUIctx.lineWidth = context.lineWidth;
                     break;
                 default:
                     break;
             }
         });
 
+        rectfill.addEventListener('change', () => {
+            if (rectfill.checked) {
+                rectfill_color.style.display = "";
+            } else {
+                rectfill_color.style.display = "none";
+            }
+        });
+
+        Cap.addEventListener('change', () => {
+            if (!Cap.checked) {
+                context.lineJoin = 'round';
+                context.lineCap = 'round';
+                GUIctx.lineJoin = 'round';
+                GUIctx.lineCap = 'round';
+            } else {
+                context.lineJoin = 'miter';
+                context.lineCap = 'butt';
+                GUIctx.lineJoin = 'miter';
+                GUIctx.lineCap = 'butt';
+            }
+        });
+
+        rectround.addEventListener('change', () => {
+            if (rectround.checked) {
+                rectround_switch.style.display = "";
+            } else {
+                rectround_switch.style.display = "none";
+            }
+        });
+
         lineDash.addEventListener('input', () => {
             context.setLineDash([context.lineWidth, lineDash.value]);
+            GUIctx.setLineDash([GUIctx.lineWidth, lineDash.value]);
         });
 
         colorPicker.addEventListener('input', () => {
             context.strokeStyle = colorPicker.value;
+            GUIctx.strokeStyle = context.strokeStyle;
         });
 
         brush.addEventListener('click', () => {
@@ -477,8 +576,8 @@
 
             GUIcanvas.width = canvas.width;
             GUIcanvas.height = canvas.height;
-            GUIctx.lineJoin = context.lineJoin;
-            GUIctx.lineCap = context.lineWidth;
+            GUIctx.lineJoin = 'round';
+            GUIctx.lineCap = 'round';
             GUIctx.lineWidth = context.lineWidth;
 
             toolscloseprefix();
@@ -491,6 +590,8 @@
         function setools() {
             switch (selectools) {
                 case 0:
+                    GUIcanvas.style.cursor = "none";
+                    GUIctx.lineWidth = 1;
                     context.lineWidth = lineWidth.value = brushWidth;
                     context.globalCompositeOperation = 'source-over';
                     context.strokeStyle = colorPicker.value;
@@ -498,6 +599,8 @@
                     brush.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
                     break;
                 case 1:
+                    GUIcanvas.style.cursor = "none";
+                    GUIctx.lineWidth = 1;
                     context.lineWidth = lineWidth.value = eraserWidth;
                     context.globalCompositeOperation = 'destination-out';
                     context.strokeStyle = 'rgba(0, 0, 0, 1)';
@@ -505,6 +608,8 @@
                     eraser.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
                     break;
                 case 2:
+                    GUIcanvas.style.cursor = "";
+                    GUIctx.strokeStyle = context.strokeStyle;
                     GUIctx.lineWidth = context.lineWidth = lineWidth.value = rectWidth;
                     context.globalCompositeOperation = 'source-over';
                     context.strokeStyle = colorPicker.value;
@@ -531,9 +636,37 @@
                     break;
             }
         }
+        function setCursor(e) {
+            GUIctx.beginPath();
+            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+            GUIctx.arc(e.clientX - 8, e.clientY - 32, (context.lineWidth / 2), 0, 2 * Math.PI);
+            GUIctx.strokeStyle = "#fff";
+            GUIctx.stroke();
+
+            GUIctx.beginPath();
+            GUIctx.arc(e.clientX - 8, e.clientY - 32, (context.lineWidth / 2 + 1), 0, 2 * Math.PI);
+            GUIctx.strokeStyle = "#000";
+            GUIctx.stroke();
+        }
+        function setCursor_touch(e) {
+            GUIctx.beginPath();
+            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+            GUIctx.arc(e.touches[0].clientX - 8, e.touches[0].clientY - 32, (context.lineWidth / 2), 0, 2 * Math.PI);
+            GUIctx.strokeStyle = "#fff";
+            GUIctx.stroke();
+
+            GUIctx.beginPath();
+            GUIctx.arc(e.touches[0].clientX - 8, e.touches[0].clientY - 32, (context.lineWidth / 2 + 1), 0, 2 * Math.PI);
+            GUIctx.strokeStyle = "#000";
+            GUIctx.stroke();
+        }
         function drawRect() {
             context.beginPath();
-            context.rect(rectX, rectY, rectwidth, rectheight);
+            if (!rectround.checked) {
+                context.rect(rectX, rectY, rectwidth, rectheight);
+            } else {
+                context.roundRect(rectX, rectY, rectwidth, rectheight, [rrtl.value, rrtr.value, rrbl.value, rrbr.value]);
+            }
         }
         function previewRect(e) {
             var mouseX = e.offsetX;
@@ -545,7 +678,21 @@
             GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
 
             GUIctx.beginPath();
-            GUIctx.rect(rectX, rectY, width, height);
+            if (!rectround.checked) {
+                GUIctx.rect(rectX, rectY, width, height);
+
+                if (rectfill.checked) {
+                    GUIctx.fillStyle = rectfill_color.value;
+                    GUIctx.fill();
+                }
+            } else {
+                GUIctx.roundRect(rectX, rectY, width, height, [rrtl.value, rrtr.value, rrbl.value, rrbr.value]);
+
+                if (rectfill.checked) {
+                    GUIctx.fillStyle = rectfill_color.value;
+                    GUIctx.fill();
+                }
+            }
             GUIctx.stroke();
         }
         function previewRect_touch(e) {
@@ -558,7 +705,21 @@
             GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
 
             GUIctx.beginPath();
-            GUIctx.rect(rectX, rectY, width, height);
+            if (!rectround.checked) {
+                GUIctx.rect(rectX, rectY, width, height);
+
+                if (rectfill.checked) {
+                    GUIctx.fillStyle = rectfill_color.value;
+                    GUIctx.fill();
+                }
+            } else {
+                GUIctx.roundRect(rectX, rectY, width, height, [rrtl.value, rrtr.value, rrbl.value, rrbr.value]);
+
+                if (rectfill.checked) {
+                    GUIctx.fillStyle = rectfill_color.value;
+                    GUIctx.fill();
+                }
+            }
             GUIctx.stroke();
         }
         function undo() {
