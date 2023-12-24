@@ -166,13 +166,14 @@
         #PaintCanvas {
             background-image: url(image/background/transbg_100x_144ppi.png);
             border: 1px solid #000;
+            position: absolute;
             box-shadow: 5px 5px 10px #000;
             margin-top: 25px;
         }
 
         #GUICanvas {
             border: 1px solid #000;
-            position: fixed;
+            position: absolute;
             margin-top: 25px;
             left: 8px;
         }
@@ -273,10 +274,11 @@
         let recordMX;
         let recordMY;
         let intervalId;
-        let brushWidth = 8;
+        let brushWidth = 5;
         let eraserWidth = 50;
-        let rectWidth = 8;
+        let rectWidth = 5;
         let rectX, rectY, rectwidth, rectheight;
+        let unsetCursor = false;
 
         init();
 
@@ -328,7 +330,9 @@
                         context.lineTo(mouseX, mouseY);
                         context.stroke();
                     }
-                    setCursor(e);
+                    if (!unsetCursor) {
+                        setCursor(e);
+                    }
                     break;
                 case 2:
                     if (isDrawing) {
@@ -361,7 +365,14 @@
             isDrawing = false;
         });
         GUIcanvas.addEventListener('mouseleave', () => {
-            //isDrawing = false;
+            unsetCursor = true;
+            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+        });
+        GUIcanvas.addEventListener('mouseenter', () => {
+            unsetCursor = false;
+        });
+        document.addEventListener('mouseup', () => {
+            isDrawing = false;
         });
         GUIcanvas.addEventListener("touchstart", e => {
             switch (selectools) {
@@ -639,24 +650,24 @@
         function setCursor(e) {
             GUIctx.beginPath();
             GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
-            GUIctx.arc(e.clientX - 8, e.clientY - 32, (context.lineWidth / 2), 0, 2 * Math.PI);
+            GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
             GUIctx.strokeStyle = "#fff";
             GUIctx.stroke();
 
             GUIctx.beginPath();
-            GUIctx.arc(e.clientX - 8, e.clientY - 32, (context.lineWidth / 2 + 1), 0, 2 * Math.PI);
+            GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 0.5), 0, 2 * Math.PI);
             GUIctx.strokeStyle = "#000";
             GUIctx.stroke();
         }
         function setCursor_touch(e) {
             GUIctx.beginPath();
             GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
-            GUIctx.arc(e.touches[0].clientX - 8, e.touches[0].clientY - 32, (context.lineWidth / 2), 0, 2 * Math.PI);
+            GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
             GUIctx.strokeStyle = "#fff";
             GUIctx.stroke();
 
             GUIctx.beginPath();
-            GUIctx.arc(e.touches[0].clientX - 8, e.touches[0].clientY - 32, (context.lineWidth / 2 + 1), 0, 2 * Math.PI);
+            GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 0.5), 0, 2 * Math.PI);
             GUIctx.strokeStyle = "#000";
             GUIctx.stroke();
         }
