@@ -164,7 +164,7 @@
         }
 
         #PaintCanvas {
-            background-image: url(image/background/transbg_100x_144ppi.png);
+            background-image: url(img/bg/transbg_100x_144ppi.png);
             border: 1px solid #000;
             position: absolute;
             box-shadow: 5px 5px 10px #000;
@@ -264,7 +264,8 @@
         const toolId = {
             brush: 0,
             eraser: 1,
-            rect: 2
+            rect: 2,
+            colorPipette: 3
         };
         let selectools = toolId.brush;
 
@@ -276,9 +277,15 @@
         let intervalId;
         let brushWidth = 5;
         let eraserWidth = 50;
+        let isdrawrect = false;
         let rectWidth = 5;
         let rectX, rectY, rectwidth, rectheight;
-        let unsetCursor = false;
+        let leaveGUIcanvas = false;
+        let isPipette = false;
+        let isAlt = false;
+        let isM0 = false;
+        let retool = null;
+        let epos;
 
         init();
 
@@ -286,19 +293,21 @@
             switch (selectools) {
                 case 0:
                 case 1:
-                    isDrawing = true;
-                    context.beginPath();
-                    var mouseX = e.clientX - canvas.getBoundingClientRect().left;
-                    var mouseY = e.clientY - canvas.getBoundingClientRect().top;
-                    context.moveTo(mouseX, mouseY);
-                    context.lineTo(mouseX, mouseY);
-                    context.stroke();
-                    if (e.shiftKey) {
-                        context.lineTo(recordMX, recordMY);
+                    if (!isAlt) {
+                        isDrawing = true;
+                        context.beginPath();
+                        var mouseX = e.clientX - canvas.getBoundingClientRect().left;
+                        var mouseY = e.clientY - canvas.getBoundingClientRect().top;
+                        context.moveTo(mouseX, mouseY);
+                        context.lineTo(mouseX, mouseY);
                         context.stroke();
+                        if (e.shiftKey) {
+                            context.lineTo(recordMX, recordMY);
+                            context.stroke();
+                        }
+                        recordMX = mouseX;
+                        recordMY = mouseY;
                     }
-                    recordMX = mouseX;
-                    recordMY = mouseY;
                     break;
                 case 2:
                     isDrawing = true;
@@ -308,7 +317,6 @@
                 default:
                     break;
             }
-
         });
         document.addEventListener('mousemove', e => {
             switch (selectools) {
@@ -330,8 +338,8 @@
                         context.lineTo(mouseX, mouseY);
                         context.stroke();
                     }
-                    if (!unsetCursor) {
-                        setCursor(e);
+                    if (!leaveGUIcanvas) {
+                        setPointer(e);
                     }
                     break;
                 case 2:
@@ -349,12 +357,13 @@
         GUIcanvas.addEventListener('mouseup', e => {
             switch (selectools) {
                 case 2:
-                    if (rectfill.checked) {
+                    if (isdrawrect && rectfill.checked) {
                         context.fillStyle = rectfill_color.value;
                         context.fill();
                     }
+                    isdrawrect = false;
                     context.stroke();
-                    GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+                    clear(GUIctx, GUIcanvas);
                     break;
 
                 default:
@@ -365,11 +374,11 @@
             isDrawing = false;
         });
         GUIcanvas.addEventListener('mouseleave', () => {
-            unsetCursor = true;
-            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+            leaveGUIcanvas = true;
+            clear(GUIctx, GUIcanvas);
         });
         GUIcanvas.addEventListener('mouseenter', () => {
-            unsetCursor = false;
+            leaveGUIcanvas = false;
         });
         document.addEventListener('mouseup', () => {
             isDrawing = false;
@@ -406,7 +415,7 @@
                         context.lineTo(mouseX, mouseY);
                         context.stroke();
                     }
-                    setCursor_touch(e);
+                    setPointer_touch(e);
                     break;
                 case 2:
                     if (isDrawing && e.touches.length < 2) {
@@ -430,7 +439,7 @@
                         context.fill();
                     }
                     context.stroke();
-                    GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+                    clear(GUIctx, GUIcanvas);
                     break;
 
                 default:
@@ -448,7 +457,7 @@
                         context.fill();
                     }
                     context.stroke();
-                    GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+                    clear(GUIctx, GUIcanvas);
                     break;
 
                 default:
@@ -531,23 +540,25 @@
         });
 
         colorPicker.addEventListener('input', () => {
-            context.strokeStyle = colorPicker.value;
-            GUIctx.strokeStyle = context.strokeStyle;
+            ColorPickerChange();
         });
 
         brush.addEventListener('click', () => {
             selectools = toolId.brush;
             setools();
+            setCursor();
         });
 
         eraser.addEventListener('click', () => {
             selectools = toolId.eraser;
             setools();
+            setCursor();
         });
 
         rectools.addEventListener('click', () => {
             selectools = toolId.rect;
             setools();
+            setCursor();
         });
 
         opentool.addEventListener('click', () => {
@@ -571,9 +582,73 @@
                 e.preventDefault();
                 saveAsPNG();
             }
+            if (e.altKey) {
+                e.preventDefault();
+                isAlt = true;
+                if (retool === null) {
+                    isPipette = true;
+
+                    retool = selectools;
+                    clear(GUIctx, GUIcanvas);
+                    selectools = toolId.colorPipette;
+                    setCursor();
+                }
+            }
         });
-        document.addEventListener('mouseup', () => {
+        document.addEventListener("keyup", e => {
+            if (!e.altKey) {
+                isAlt = false;
+                if (retool !== null && !isM0) {
+                    selectools = retool;
+                    setools();
+                    setCursor();
+                    if (!leaveGUIcanvas) {
+                        setPointer(epos);
+                    }
+                    retool = null;
+                }
+            }
+        });
+        document.addEventListener('mousedown', e => {
             clearInterval(intervalId);
+            if (isAlt) {
+                setColorPipette(e.clientX, e.clientY);
+            }
+            if (e.button === 0) {
+                isM0 = true;
+            }
+        });
+        document.addEventListener('mousemove', e => {
+            epos = e;
+            if (isAlt && isM0) {
+                setColorPipette(e.clientX, e.clientY);
+                if (!leaveGUIcanvas) {
+                    setPointer(epos);
+                }
+            } else if (isPipette && isM0) {
+                setColorPipette(e.clientX, e.clientY);
+                if (!leaveGUIcanvas) {
+                    setPointer(epos);
+                }
+            } else if (isAlt && !isM0) {
+                clear(GUIctx, GUIcanvas);
+            }
+        });
+        document.addEventListener('mouseup', e => {
+            if (e.button === 0) {
+                isM0 = false;
+            }
+            if (!isAlt && e.button === 0) {
+                isAlt = false;
+                if (retool !== null) {
+                    selectools = retool;
+                    setools();
+                    setCursor();
+                    isPipette = false;
+                    clear(GUIctx, GUIcanvas);
+                    retool = null;
+                }
+            }
         });
         document.addEventListener('touchend', () => {
             clearInterval(intervalId);
@@ -593,6 +668,7 @@
 
             toolscloseprefix();
             setools();
+            setCursor();
             setopentool();
         }
         function toolscloseprefix() {
@@ -601,7 +677,6 @@
         function setools() {
             switch (selectools) {
                 case 0:
-                    GUIcanvas.style.cursor = "none";
                     GUIctx.lineWidth = 1;
                     context.lineWidth = lineWidth.value = brushWidth;
                     context.globalCompositeOperation = 'source-over';
@@ -610,7 +685,6 @@
                     brush.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
                     break;
                 case 1:
-                    GUIcanvas.style.cursor = "none";
                     GUIctx.lineWidth = 1;
                     context.lineWidth = lineWidth.value = eraserWidth;
                     context.globalCompositeOperation = 'destination-out';
@@ -619,7 +693,6 @@
                     eraser.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
                     break;
                 case 2:
-                    GUIcanvas.style.cursor = "";
                     GUIctx.strokeStyle = context.strokeStyle;
                     GUIctx.lineWidth = context.lineWidth = lineWidth.value = rectWidth;
                     context.globalCompositeOperation = 'source-over';
@@ -647,21 +720,53 @@
                     break;
             }
         }
-        function setCursor(e) {
-            GUIctx.beginPath();
-            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
-            GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
-            GUIctx.strokeStyle = "#fff";
-            GUIctx.stroke();
-
-            GUIctx.beginPath();
-            GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 0.5), 0, 2 * Math.PI);
-            GUIctx.strokeStyle = "#000";
-            GUIctx.stroke();
+        function setCursor() {
+            switch (selectools) {
+                case 0:
+                case 1:
+                    GUIcanvas.style.cursor = 'none';
+                    break;
+                case 2:
+                    GUIcanvas.style.cursor = 'crosshair';
+                    break;
+                case 3:
+                    GUIcanvas.style.cursor = 'url("img/cursor/pipette_cursor_32x.png") 12 34, auto';
+                    break;
+                default:
+                    break;
+            }
         }
-        function setCursor_touch(e) {
+        function setPointer(e) {
+            switch (selectools) {
+                case 0:
+                case 1:
+                    GUIctx.beginPath();
+                    clear(GUIctx, GUIcanvas);
+                    GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
+                    GUIctx.strokeStyle = "#fff";
+                    GUIctx.stroke();
+
+                    GUIctx.beginPath();
+                    GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 0.5), 0, 2 * Math.PI);
+                    GUIctx.strokeStyle = "#000";
+                    GUIctx.stroke();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    GUIctx.beginPath();
+                    clear(GUIctx, GUIcanvas);
+                    GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, 50, 0.5 * Math.PI, 0.9 * Math.PI);
+                    GUIctx.strokeStyle = colorPicker.value;
+                    GUIctx.stroke();
+                    break;
+                default:
+                    break;
+            }
+        }
+        function setPointer_touch(e) {
             GUIctx.beginPath();
-            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+            clear(GUIctx, GUIcanvas);
             GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
             GUIctx.strokeStyle = "#fff";
             GUIctx.stroke();
@@ -678,6 +783,7 @@
             } else {
                 context.roundRect(rectX, rectY, rectwidth, rectheight, [rrtl.value, rrtr.value, rrbl.value, rrbr.value]);
             }
+            isdrawrect = true;
         }
         function previewRect(e) {
             var mouseX = e.offsetX;
@@ -686,7 +792,7 @@
             var width = mouseX - rectX;
             var height = mouseY - rectY;
 
-            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+            clear(GUIctx, GUIcanvas);
 
             GUIctx.beginPath();
             if (!rectround.checked) {
@@ -713,7 +819,7 @@
             var width = mouseX - rectX;
             var height = mouseY - rectY;
 
-            GUIctx.clearRect(0, 0, GUIcanvas.width, GUIcanvas.height);
+            clear(GUIctx, GUIcanvas);
 
             GUIctx.beginPath();
             if (!rectround.checked) {
@@ -732,6 +838,34 @@
                 }
             }
             GUIctx.stroke();
+        }
+        function getPixelColor(x, y) {
+            const context = canvas.getContext('2d');
+            const pixelData = context.getImageData(x, y, 1, 1).data;
+            const color = [pixelData[0], pixelData[1], pixelData[2]];
+            return color;
+        }
+        function rgbToHex(r, g, b) {
+            const red = Math.max(0, Math.min(255, r));
+            const green = Math.max(0, Math.min(255, g));
+            const blue = Math.max(0, Math.min(255, b));
+
+            const hexRed = red.toString(16).padStart(2, '0');
+            const hexGreen = green.toString(16).padStart(2, '0');
+            const hexBlue = blue.toString(16).padStart(2, '0');
+
+            return `#${hexRed}${hexGreen}${hexBlue}`;
+        }
+        function clear(ctx, cvs) {
+            ctx.clearRect(0, 0, cvs.width, cvs.height);
+        }
+        function ColorPickerChange() {
+            context.strokeStyle = colorPicker.value;
+            GUIctx.strokeStyle = context.strokeStyle;
+        }
+        function setColorPipette(x, y) {
+            colorPicker.value = rgbToHex(...getPixelColor(x - canvas.getBoundingClientRect().left, y - canvas.getBoundingClientRect().top));
+            ColorPickerChange();
         }
         function undo() {
             if (undoStack.length > 1) {
