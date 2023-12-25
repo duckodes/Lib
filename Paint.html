@@ -186,8 +186,6 @@
         <div class="row">
             <label for="Cap" style="font-weight: 800;">方形線段</label>
             <input type="checkbox" id="Cap">
-        </div>
-        <div class="row">
             <label for="rectfill" style="font-weight: 800;">填滿</label>
             <input type="checkbox" id="rectfill">
             <input type="color" id="rectfill-color" style="display: none;">
@@ -217,6 +215,7 @@
             <div id="brush" class="btn center hashadow">🖌️</div>
             <div id="eraser" class="btn center hashadow">🧼</div>
             <div id="rectools" class="btn center hashadow">▢</div>
+            <div id="pipette" class="btn center hashadow"><img src="img/cursor/pipette_cursor_32x.png" alt=""></div>
 
             <input type="color" id="colorPicker">
         </div>
@@ -253,6 +252,7 @@
         const opentool = document.getElementById("opentool");
         const rectools = document.getElementById("rectools");
         const rectround = document.getElementById("rectround");
+        const rectroundlabel = document.querySelector(`label[for="rectround"]`);
         const rrtl = document.getElementById("rrtl");
         const rrtr = document.getElementById("rrtr");
         const rrbl = document.getElementById("rrbl");
@@ -260,7 +260,9 @@
         const rectround_switch = document.getElementById("rectround-switch");
         const Cap = document.getElementById("Cap");
         const rectfill = document.getElementById("rectfill");
+        const rectfilllabel = document.querySelector(`label[for="rectfill"]`);
         const rectfill_color = document.getElementById("rectfill-color");
+        const pipette = document.getElementById("pipette");
         const toolId = {
             brush: 0,
             eraser: 1,
@@ -560,6 +562,11 @@
             setools();
             setCursor();
         });
+        pipette.addEventListener('click', () => {
+            selectools = toolId.colorPipette;
+            setools();
+            setCursor();
+        });
 
         opentool.addEventListener('click', () => {
             if (opentool.textContent === "▼") {
@@ -586,8 +593,6 @@
                 e.preventDefault();
                 isAlt = true;
                 if (retool === null) {
-                    isPipette = true;
-
                     retool = selectools;
                     clear(GUIctx, GUIcanvas);
                     selectools = toolId.colorPipette;
@@ -602,30 +607,30 @@
                     selectools = retool;
                     setools();
                     setCursor();
-                    if (!leaveGUIcanvas) {
+                    if (!leaveGUIcanvas && selectools !== toolId.colorPipette) {
                         setPointer(epos);
                     }
                     retool = null;
                 }
             }
         });
-        document.addEventListener('mousedown', e => {
-            clearInterval(intervalId);
-            if (isAlt) {
+        GUIcanvas.addEventListener('mousedown', e => {
+            if (isAlt && e.button === 0) {
+                isPipette = true;
                 setColorPipette(e.clientX, e.clientY);
+                setPointer(epos);
             }
             if (e.button === 0) {
                 isM0 = true;
             }
-        });
-        document.addEventListener('mousemove', e => {
-            epos = e;
-            if (isAlt && isM0) {
+            if (selectools === toolId.colorPipette) {
+                isPipette = true;
                 setColorPipette(e.clientX, e.clientY);
-                if (!leaveGUIcanvas) {
-                    setPointer(epos);
-                }
-            } else if (isPipette && isM0) {
+                setPointer(epos);
+            }
+        });
+        GUIcanvas.addEventListener('mousemove', e => {
+            if (isPipette) {
                 setColorPipette(e.clientX, e.clientY);
                 if (!leaveGUIcanvas) {
                     setPointer(epos);
@@ -634,19 +639,63 @@
                 clear(GUIctx, GUIcanvas);
             }
         });
+        GUIcanvas.addEventListener('touchstart', e => {
+            if (selectools === toolId.colorPipette) {
+                isPipette = true;
+                setColorPipette(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        });
+        GUIcanvas.addEventListener('touchmove', e => {
+            epos = e;
+            if (isPipette && e.touches.length < 2) {
+                e.preventDefault();
+                setColorPipette(e.touches[0].clientX, e.touches[0].clientY);
+                if (!leaveGUIcanvas) {
+                    setPointer_touch(epos);
+                }
+            }
+        }, { passive: false });
+        GUIcanvas.addEventListener('touchend', () => {
+            if (selectools === toolId.colorPipette) {
+                isPipette = false;
+                clear(GUIctx, GUIcanvas);
+            }
+        });
+        GUIcanvas.addEventListener('touchcancel', () => {
+            if (selectools === toolId.colorPipette) {
+                isPipette = false;
+                clear(GUIctx, GUIcanvas);
+            }
+        });
+        document.addEventListener('mousedown', e => {
+            clearInterval(intervalId);
+        });
+        document.addEventListener('mousemove', e => {
+            epos = e;
+        });
         document.addEventListener('mouseup', e => {
             if (e.button === 0) {
                 isM0 = false;
+                isPipette = false;
+                if (selectools === toolId.colorPipette) {
+                    clear(GUIctx, GUIcanvas);
+                }
             }
             if (!isAlt && e.button === 0) {
-                isAlt = false;
                 if (retool !== null) {
                     selectools = retool;
                     setools();
                     setCursor();
-                    isPipette = false;
                     clear(GUIctx, GUIcanvas);
+                    if (!leaveGUIcanvas) {
+                        setPointer(epos);
+                    }
                     retool = null;
+                }
+            } else if (isAlt && e.button === 0) {
+                clear(GUIctx, GUIcanvas);
+                if (!leaveGUIcanvas) {
+                    setPointer(epos);
                 }
             }
         });
@@ -677,28 +726,36 @@
         function setools() {
             switch (selectools) {
                 case 0:
+                    rectround.style.display = "none"; rectfill.style.display = "none"; rectroundlabel.style.display = "none"; rectfilllabel.style.display = "none";
                     GUIctx.lineWidth = 1;
                     context.lineWidth = lineWidth.value = brushWidth;
                     context.globalCompositeOperation = 'source-over';
                     context.strokeStyle = colorPicker.value;
-                    eraser.style = ""; rectools.style = "";
+                    eraser.style = ""; rectools.style = ""; pipette.style = "";
                     brush.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
                     break;
                 case 1:
+                    rectround.style.display = "none"; rectfill.style.display = "none"; rectroundlabel.style.display = "none"; rectfilllabel.style.display = "none";
                     GUIctx.lineWidth = 1;
                     context.lineWidth = lineWidth.value = eraserWidth;
                     context.globalCompositeOperation = 'destination-out';
                     context.strokeStyle = 'rgba(0, 0, 0, 1)';
-                    brush.style = ""; rectools.style = "";
+                    brush.style = ""; rectools.style = ""; pipette.style = "";
                     eraser.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
                     break;
                 case 2:
+                    rectround.style.display = ""; rectfill.style.display = ""; rectroundlabel.style.display = ""; rectfilllabel.style.display = "";
                     GUIctx.strokeStyle = context.strokeStyle;
                     GUIctx.lineWidth = context.lineWidth = lineWidth.value = rectWidth;
                     context.globalCompositeOperation = 'source-over';
                     context.strokeStyle = colorPicker.value;
-                    eraser.style = ""; brush.style = "";
+                    eraser.style = ""; brush.style = ""; pipette.style = "";
                     rectools.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
+                    break;
+                case 3:
+                    rectround.style.display = "none"; rectfill.style.display = "none"; rectroundlabel.style.display = "none"; rectfilllabel.style.display = "none";
+                    eraser.style = ""; brush.style = ""; rectools.style = "";
+                    pipette.style.boxShadow = "inset -10px -10px 15px rgba(255, 255, 255, 0.6),inset 10px 10px 15px rgba(70, 70, 70, 0.08)";
                     break;
                 default:
                     break;
@@ -743,38 +800,84 @@
                     GUIctx.beginPath();
                     clear(GUIctx, GUIcanvas);
                     GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
-                    GUIctx.strokeStyle = "#fff";
+                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top)) >= 0.5 ? '#fff' : '#000';
                     GUIctx.stroke();
 
                     GUIctx.beginPath();
                     GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 0.5), 0, 2 * Math.PI);
-                    GUIctx.strokeStyle = "#000";
+                    GUIctx.lineWidth = 1.3;
+                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top)) > 0.5 ? '#000' : '#fff';
                     GUIctx.stroke();
                     break;
                 case 2:
                     break;
                 case 3:
-                    GUIctx.beginPath();
+                    let reLineJoin = GUIctx.lineJoin;
+                    let reLineCap = GUIctx.lineJoin;
+                    GUIctx.lineJoin = 'miter';
+                    GUIctx.lineCap = 'butt';
+
                     clear(GUIctx, GUIcanvas);
+                    GUIctx.beginPath();
+                    GUIctx.lineWidth = 15;
+                    GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, 50, 0.49 * Math.PI, 0.91 * Math.PI);
+                    GUIctx.strokeStyle = brightness(colorPicker.value) > 0.5 ? '#000' : '#fff';
+                    GUIctx.stroke();
+                    GUIctx.beginPath();
+                    GUIctx.lineWidth = 12;
                     GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, 50, 0.5 * Math.PI, 0.9 * Math.PI);
                     GUIctx.strokeStyle = colorPicker.value;
                     GUIctx.stroke();
+
+                    GUIctx.lineJoin = reLineJoin;
+                    GUIctx.lineCap = reLineCap;
                     break;
                 default:
                     break;
             }
         }
         function setPointer_touch(e) {
-            GUIctx.beginPath();
-            clear(GUIctx, GUIcanvas);
-            GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
-            GUIctx.strokeStyle = "#fff";
-            GUIctx.stroke();
+            switch (selectools) {
+                case 0:
+                case 1:
+                    GUIctx.beginPath();
+                    clear(GUIctx, GUIcanvas);
+                    GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
+                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top)) >= 0.5 ? '#fff' : '#000';
+                    GUIctx.stroke();
 
-            GUIctx.beginPath();
-            GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 0.5), 0, 2 * Math.PI);
-            GUIctx.strokeStyle = "#000";
-            GUIctx.stroke();
+                    GUIctx.beginPath();
+                    GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 0.5), 0, 2 * Math.PI);
+                    GUIctx.lineWidth = 1.3;
+                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top)) > 0.5 ? '#000' : '#fff';
+                    GUIctx.stroke();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    let reLineJoin = GUIctx.lineJoin;
+                    let reLineCap = GUIctx.lineJoin;
+                    GUIctx.lineJoin = 'miter';
+                    GUIctx.lineCap = 'butt';
+
+                    clear(GUIctx, GUIcanvas);
+                    GUIctx.beginPath();
+                    GUIctx.lineWidth = 15;
+                    GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, 150, 0.49 * Math.PI, 0.91 * Math.PI);
+                    GUIctx.strokeStyle = brightness(colorPicker.value) > 0.5 ? '#000' : '#fff';
+                    GUIctx.stroke();
+                    GUIctx.beginPath();
+                    GUIctx.lineWidth = 12;
+                    GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, 150, 0.5 * Math.PI, 0.9 * Math.PI);
+                    GUIctx.strokeStyle = colorPicker.value;
+                    GUIctx.stroke();
+
+                    GUIctx.lineJoin = reLineJoin;
+                    GUIctx.lineCap = reLineCap;
+                    break;
+                default:
+                    break;
+            }
         }
         function drawRect() {
             context.beginPath();
@@ -856,6 +959,21 @@
 
             return `#${hexRed}${hexGreen}${hexBlue}`;
         }
+        function HexReverse(hexColor) {
+            hexColor = hexColor.replace('#', '');
+
+            var r = parseInt(hexColor.substring(0, 2), 16);
+            var g = parseInt(hexColor.substring(2, 4), 16);
+            var b = parseInt(hexColor.substring(4, 6), 16);
+
+            var wr = 255 - r;
+            var wg = 255 - g;
+            var wb = 255 - b;
+
+            var result = "#" + ('00' + wr.toString(16)).slice(-2) + ('00' + wg.toString(16)).slice(-2) + ('00' + wb.toString(16)).slice(-2);
+
+            return result;
+        }
         function clear(ctx, cvs) {
             ctx.clearRect(0, 0, cvs.width, cvs.height);
         }
@@ -866,6 +984,18 @@
         function setColorPipette(x, y) {
             colorPicker.value = rgbToHex(...getPixelColor(x - canvas.getBoundingClientRect().left, y - canvas.getBoundingClientRect().top));
             ColorPickerChange();
+        }
+        function brightness(hexColor) {
+            hexColor = hexColor.replace('#', '');
+            var r = parseInt(hexColor.substring(0, 2), 16);
+            var g = parseInt(hexColor.substring(2, 4), 16);
+            var b = parseInt(hexColor.substring(4, 6), 16);
+
+            var brightness = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+            return brightness;
+        }
+        function brightness_RGB(r, g, b) {
+            return (0.299 * r + 0.587 * g + 0.114 * b) / 255;
         }
         function undo() {
             if (undoStack.length > 1) {
