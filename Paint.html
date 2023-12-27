@@ -2,8 +2,14 @@
 <html>
 
 <head>
+    <link rel="stylesheet" href="https://lib.duckode.com/css/font-face.css">
+    <link rel="stylesheet" href="https://lib.duckode.com/css/contextmenuutils.css">
     <title>畫布</title>
     <style>
+        html {
+            font-family: Poiret_One;
+        }
+
         body {
             user-select: none;
             -webkit-user-select: none;
@@ -153,6 +159,11 @@
             height: 38px;
         }
 
+        #penpressure {
+            width: 38px;
+            height: 38px;
+        }
+
         #rectfill {
             width: 38px;
             height: 38px;
@@ -181,15 +192,17 @@
 </head>
 
 <body>
-    <input type="range" min="1" max="100" value="5" id="lineWidth">
+    <input type="range" min="1" max="300" value="5" id="lineWidth">
     <div class="tools m-bottom-50 col">
         <div class="row">
-            <label for="Cap" style="font-weight: 800;">方形線段</label>
+            <label for="Cap" style="font-weight: 800;">Square End</label>
             <input type="checkbox" id="Cap">
-            <label for="rectfill" style="font-weight: 800;">填滿</label>
+            <label for="penpressure" style="font-weight: 800;">Pressure</label>
+            <input type="checkbox" id="penpressure">
+            <label for="rectfill" style="font-weight: 800;">Fill Color</label>
             <input type="checkbox" id="rectfill">
             <input type="color" id="rectfill-color" style="display: none;">
-            <label for="rectround" style="font-weight: 800;">圓角</label>
+            <label for="rectround" style="font-weight: 800;">Rect Round</label>
             <input type="checkbox" id="rectround">
             <div class="col" id="rectround-switch" style="display: none;">
                 <div class="row">
@@ -203,13 +216,11 @@
             </div>
         </div>
 
-        <label for="lineDash" style="font-weight: 800;">增加線段間隔</label>
+        <label for="lineDash" style="font-weight: 800;">Line Dash</label>
         <input type="range" min="1" max="100" value="0" id="lineDash">
 
         <div class="row orf-auto draggable">
-            <button onclick="saveAsPNG()" class="btn center hashadow">PNG</button>
-            <button onclick="saveAsJPGWhite()" class="btn center hashadow">JPG 白底</button>
-            <button onclick="saveAsJPG()" class="btn center hashadow">JPG 黑底</button>
+            <button id="jpg-btn" class="btn center hashadow">File</button>
             <div id="undo-btn" class="btn center hashadow">↻</div>
             <div id="redo-btn" class="btn center hashadow">↺</div>
             <div id="brush" class="btn center hashadow">🖌️</div>
@@ -223,7 +234,142 @@
     <canvas id="PaintCanvas" width="1000" height="700"></canvas>
     <canvas id="GUICanvas" width="1000" height="700"></canvas>
     <div id="opentool" class="hashadow">▲</div>
+    <script src="https://lib.duckode.com/js/storageutils.min.js"></script>
+    <script src="https://lib.duckode.com/js/contextmenuutils.min.js"></script>
+    <script>
+        const jpg_btn = document.getElementById("jpg-btn");
+        jpg_btn.addEventListener('click', e => {
+            contextmenuutils.init(e, jpg_btn.parentElement.parentElement, (b, c) => {
+                c.style.left = (e.pageX) - 0 + "px";
+                c.style.top = (e.pageY) - 150 + "px";
+                c.style.paddingTop = "10px";
+                c.style.paddingBottom = "10px";
+                c.style.zIndex = '999';
+            })
+            contextmenuutils.addItem("Export PNG", (c) => {
+                defaultset(c, () => {
+                    saveAsPNG();
+                });
+            });
+            contextmenuutils.addItem("Export JPG", (c) => {
+                JPGSettings(c, () => {
+                    addJPGSettings();
+                    removeItem("Export PNG");
+                });
+            });
+            function addJPGSettings() {
+                contextmenuutils.addItem("Back", (c) => {
+                    c.addEventListener("click", () => {
+                        removeAllItem();
+                        contextmenuutils.addItem("Export PNG", (c) => {
+                            defaultset(c, () => {
+                                saveAsPNG();
+                            });
+                        });
+                        contextmenuutils.addItem("Export JPG", (c) => {
+                            JPGSettings(c, () => {
+                                addJPGSettings();
+                                removeItem("Export PNG");
+                            });
+                        });
+                    });
+                    c.addEventListener("mouseenter", () => {
+                        c.style.background = "#202020";
+                    });
+                    c.addEventListener("mouseleave", () => {
+                        c.style.background = "";
+                    });
+                });
+                contextmenuutils.addItem("JPG Settings", (c) => {
+                    c.style.fontSize = "25px";
+                    c.style.cursor = "default";
+                });
+                const input = document.createElement('input');
+                contextmenuutils.addItem("Quality", (c) => {
+                    input.type = 'range';
+                    input.step = 0.1;
+                    input.min = 0;
+                    input.max = 1;
+                    input.value = storageutils.get('JPG_Quality', 0.8);
+                    const span = document.createElement('span');
+                    span.textContent = input.value * 10;
+                    input.addEventListener('input', () => {
+                        storageutils.set('JPG_Quality', input.value);
+                        span.textContent = input.value * 10;
+                    });
+                    const btn = document.createElement('div');
+                    btn.textContent = 'Default';
+                    btn.addEventListener("click", () => {
+                        localStorage.removeItem('JPG_Quality');
+                        input.value = 0.8;
+                        span.textContent = input.value * 10;
+                    });
+                    btn.addEventListener("mouseenter", () => {
+                        btn.style.background = "#202020";
+                    });
+                    btn.addEventListener("mouseleave", () => {
+                        btn.style.background = "";
+                    });
+                    c.appendChild(input);
+                    c.appendChild(span);
+                    c.appendChild(btn);
+                });
+                contextmenuutils.addItem("White Output", (c) => {
+                    defaultset(c, () => {
+                        saveAsJPGWhite(input.value);
+                    });
+                });
+                contextmenuutils.addItem("Black Output", (c) => {
+                    defaultset(c, () => {
+                        saveAsJPGBlack(input.value);
+                    });
+                });
+            }
+            function defaultset(c, fn) {
+                c.style.paddingLeft = "80px";
+                c.style.paddingRight = "80px";
+                c.addEventListener("click", () => {
+                    fn();
+                    contextmenuutils.remove();
+                });
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#202020";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "";
+                });
+            }
 
+            function JPGSettings(c, fn) {
+                c.style.paddingLeft = "80px";
+                c.style.paddingRight = "80px";
+                c.addEventListener("click", () => {
+                    fn();
+                    c.remove();
+                });
+                c.addEventListener("mouseenter", () => {
+                    c.style.background = "#202020";
+                });
+                c.addEventListener("mouseleave", () => {
+                    c.style.background = "";
+                });
+            }
+            function removeItem(v) {
+                var c = document.querySelectorAll("#ins-contextmenu div");
+                c.forEach(element => {
+                    if (element.textContent === v) {
+                        element.remove();
+                    }
+                });
+            }
+            function removeAllItem() {
+                var c = document.querySelectorAll("#ins-contextmenu div");
+                c.forEach(element => {
+                    element.remove();
+                });
+            }
+        });
+    </script>
     <script>
         // **
         // e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left === e.offsetX
@@ -263,6 +409,7 @@
         const rectfilllabel = document.querySelector(`label[for="rectfill"]`);
         const rectfill_color = document.getElementById("rectfill-color");
         const pipette = document.getElementById("pipette");
+        const penpressure = document.getElementById("penpressure");
         const toolId = {
             brush: 0,
             eraser: 1,
@@ -271,7 +418,7 @@
         };
         let selectools = toolId.brush;
 
-        let undoStack = [context.getImageData(0, 0, canvas.width, canvas.height)];
+        let undoStack = [];
         let redoStack = [];
         let isDrawing = false;
         let recordMX;
@@ -288,6 +435,7 @@
         let isM0 = false;
         let retool = null;
         let epos;
+        let lastX, lastY, lastTime, speed = 0;
 
         init();
 
@@ -339,6 +487,36 @@
                         }
                         context.lineTo(mouseX, mouseY);
                         context.stroke();
+
+                        if (penpressure.checked) {
+                            let calculateSpeed = getBrushSpeed();
+                            context.lineWidth = calculateSpeed(mouseX, mouseY);
+
+                            context.beginPath();
+                            context.moveTo(mouseX, mouseY);
+                            context.lineTo(mouseX, mouseY);
+                            context.stroke();
+
+                            function getBrushSpeed() {
+                                return function (x, y) {
+                                    let currentTime = Date.now();
+                                    if (lastX !== undefined && lastY !== undefined && lastTime !== undefined) {
+                                        let distance = Math.sqrt((x - lastX) ** 2 + (y - lastY) ** 2);
+                                        let timeDiff = currentTime - lastTime;
+                                        let newSpeed = timeDiff / distance;
+
+                                        let smoothingFactor = 0.1;
+                                        speed += (newSpeed - speed) * smoothingFactor;
+                                    }
+                                    lastX = x;
+                                    lastY = y;
+                                    lastTime = currentTime;
+                                    speed = Math.max(Math.max(0, parseInt(lineWidth.value)), Math.min(speed, Math.min(parseInt(lineWidth.value * 2), 20)));
+
+                                    return speed;
+                                };
+                            }
+                        }
                     }
                     if (!leaveGUIcanvas) {
                         setPointer(e);
@@ -396,6 +574,9 @@
                     context.moveTo(mouseX, mouseY);
                     context.lineTo(mouseX, mouseY);
                     context.stroke();
+                    if (penpressure.checked) {
+                        context.lineWidth = 1;
+                    }
                     break;
                 case 2:
                     isDrawing = true;
@@ -416,6 +597,14 @@
                         var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
                         context.lineTo(mouseX, mouseY);
                         context.stroke();
+                        if (penpressure.checked) {
+                            context.lineWidth += (e.touches[0].force * lineWidth.value - context.lineWidth) * 0.1;
+
+                            context.beginPath();
+                            context.moveTo(mouseX, mouseY);
+                            context.lineTo(mouseX, mouseY);
+                            context.stroke();
+                        }
                     }
                     setPointer_touch(e);
                     break;
@@ -433,7 +622,7 @@
                     break;
             }
         }, { passive: false });
-        GUIcanvas.addEventListener("touchend", () => {
+        GUIcanvas.addEventListener("touchend", e => {
             switch (selectools) {
                 case 2:
                     if (rectfill.checked) {
@@ -567,6 +756,11 @@
             setools();
             setCursor();
         });
+        penpressure.addEventListener('change', () => {
+            if (!penpressure.checked) {
+                context.lineWidth = lineWidth.value;
+            }
+        });
 
         opentool.addEventListener('click', () => {
             if (opentool.textContent === "▼") {
@@ -640,31 +834,53 @@
             }
         });
         GUIcanvas.addEventListener('touchstart', e => {
-            if (selectools === toolId.colorPipette) {
+            epos = e;
+            if (selectools === toolId.colorPipette && e.touches.length < 2) {
                 isPipette = true;
+                if (retool === null) {
+                    retool = selectools;
+                    selectools = toolId.colorPipette;
+                }
                 setColorPipette(e.touches[0].clientX, e.touches[0].clientY);
+                setPointer_touch(epos);
+            }
+            if (e.touches.length > 2) {
+                e.preventDefault();
+                isPipette = true;
+                if (retool === null) {
+                    retool = selectools;
+                    selectools = toolId.colorPipette;
+                }
+                setColorPipette(e.touches[0].clientX, e.touches[0].clientY);
+                setPointer_touch(epos);
             }
         });
         GUIcanvas.addEventListener('touchmove', e => {
             epos = e;
-            if (isPipette && e.touches.length < 2) {
+            if (isPipette) {
                 e.preventDefault();
                 setColorPipette(e.touches[0].clientX, e.touches[0].clientY);
-                if (!leaveGUIcanvas) {
-                    setPointer_touch(epos);
-                }
+                setPointer_touch(epos);
             }
         }, { passive: false });
-        GUIcanvas.addEventListener('touchend', () => {
-            if (selectools === toolId.colorPipette) {
+        GUIcanvas.addEventListener('touchend', e => {
+            if (selectools === toolId.colorPipette && e.touches.length === 0) {
                 isPipette = false;
                 clear(GUIctx, GUIcanvas);
+                if (retool !== null) {
+                    selectools = retool;
+                    retool = null;
+                }
             }
         });
-        GUIcanvas.addEventListener('touchcancel', () => {
-            if (selectools === toolId.colorPipette) {
+        GUIcanvas.addEventListener('touchcancel', e => {
+            if (selectools === toolId.colorPipette && e.touches.length === 0) {
                 isPipette = false;
                 clear(GUIctx, GUIcanvas);
+                if (retool !== null) {
+                    selectools = retool;
+                    retool = null;
+                }
             }
         });
         document.addEventListener('mousedown', e => {
@@ -705,6 +921,7 @@
         function init() {
             canvas.width = window.innerWidth - 20;
             canvas.height = window.innerHeight - 80;
+            undoStack = [context.getImageData(0, 0, canvas.width, canvas.height)];
             context.lineJoin = 'round';
             context.lineCap = 'round';
             context.lineWidth = lineWidth.value;
@@ -772,6 +989,9 @@
                 case 2:
                     opentool.textContent = "▢";
                     break;
+                case 3:
+                    opentool.textContent = "Choose🖌️";
+                    break;
 
                 default:
                     break;
@@ -799,14 +1019,14 @@
                 case 1:
                     GUIctx.beginPath();
                     clear(GUIctx, GUIcanvas);
-                    GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
-                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top)) >= 0.5 ? '#fff' : '#000';
+                    GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, Math.max(context.lineWidth / 2 - 1, 0), 0, 2 * Math.PI);
+                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top)) > 0.5 ? '#fff' : getPixelAlphaColor(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top) > 0 ? '#000' : '#fff';
                     GUIctx.stroke();
 
                     GUIctx.beginPath();
-                    GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 0.5), 0, 2 * Math.PI);
+                    GUIctx.arc(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top, Math.max(context.lineWidth / 2 - 0.5, 0), 0, 2 * Math.PI);
                     GUIctx.lineWidth = 1.3;
-                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top)) > 0.5 ? '#000' : '#fff';
+                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top)) > 0.5 ? '#000' : getPixelAlphaColor(e.clientX - GUIcanvas.getBoundingClientRect().left, e.clientY - GUIcanvas.getBoundingClientRect().top) > 0 ? '#fff' : '#000';
                     GUIctx.stroke();
                     break;
                 case 2:
@@ -842,14 +1062,14 @@
                 case 1:
                     GUIctx.beginPath();
                     clear(GUIctx, GUIcanvas);
-                    GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 1), 0, 2 * Math.PI);
-                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top)) >= 0.5 ? '#fff' : '#000';
+                    GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, Math.max(context.lineWidth / 2 - 1, 0), 0, 2 * Math.PI);
+                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top)) > 0.5 ? '#fff' : getPixelAlphaColor(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top) > 0 ? '#000' : '#fff';
                     GUIctx.stroke();
 
                     GUIctx.beginPath();
-                    GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, (context.lineWidth / 2 - 0.5), 0, 2 * Math.PI);
+                    GUIctx.arc(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top, Math.max(context.lineWidth / 2 - 0.5, 0), 0, 2 * Math.PI);
                     GUIctx.lineWidth = 1.3;
-                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top)) > 0.5 ? '#000' : '#fff';
+                    GUIctx.strokeStyle = brightness_RGB(...getPixelColor(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top)) > 0.5 ? '#000' : getPixelAlphaColor(e.touches[0].clientX - GUIcanvas.getBoundingClientRect().left, e.touches[0].clientY - GUIcanvas.getBoundingClientRect().top) > 0 ? '#fff' : '#000';
                     GUIctx.stroke();
                     break;
                 case 2:
@@ -944,9 +1164,15 @@
         }
         function getPixelColor(x, y) {
             const context = canvas.getContext('2d');
-            const pixelData = context.getImageData(x, y, 1, 1).data;
+            const pixelData = context.getImageData(x, y, 1, 1, { willReadFrequently: true }).data;
             const color = [pixelData[0], pixelData[1], pixelData[2]];
             return color;
+        }
+        function getPixelAlphaColor(x, y) {
+            const context = canvas.getContext('2d');
+            const pixelData = context.getImageData(x, y, 1, 1, { willReadFrequently: true }).data;
+            const alpha = pixelData[3];
+            return alpha;
         }
         function rgbToHex(r, g, b) {
             const red = Math.max(0, Math.min(255, r));
@@ -1015,13 +1241,13 @@
             link.href = canvas.toDataURL('image/png').replace("image/png", "image/octet-stream");
             link.click();
         }
-        function saveAsJPG() {
+        function saveAsJPGBlack(v) {
             var link = document.createElement('a');
-            link.download = 'canvas_image.jpg';
-            link.href = canvas.toDataURL('image/jpeg', 0.8);
+            link.download = `canvas_image_black_${v * 10}.jpg`;
+            link.href = canvas.toDataURL('image/jpeg', v);
             link.click();
         }
-        function saveAsJPGWhite() {
+        function saveAsJPGWhite(v) {
             var newCanvas = document.createElement('canvas');
             var newCtx = newCanvas.getContext('2d');
 
@@ -1034,8 +1260,8 @@
             newCtx.drawImage(canvas, 0, 0);
 
             var link = document.createElement('a');
-            link.download = 'canvas_image.jpg';
-            link.href = newCanvas.toDataURL('image/jpeg', 0.8);
+            link.download = `canvas_image_white_${v * 10}.jpg`;
+            link.href = newCanvas.toDataURL('image/jpeg', v);
             link.click();
         }
 
