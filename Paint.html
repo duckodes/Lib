@@ -143,10 +143,7 @@
             width: 95%;
             left: 2.5%;
             background-color: #f0f0f0;
-        }
-
-        #lineDash {
-            width: 100%;
+            z-index: 999;
         }
 
         #rectround {
@@ -174,6 +171,10 @@
             height: 38px;
         }
 
+        .hide {
+            display: none;
+        }
+
         #PaintCanvas {
             background-image: url(img/bg/transbg_100x_144ppi.png);
             border: 1px solid #000;
@@ -197,8 +198,12 @@
         <div class="row">
             <label for="Cap" style="font-weight: 800;">Square End</label>
             <input type="checkbox" id="Cap">
+            <label for="lineDash" style="font-weight: 800;">Dashed</label>
+            <input type="range" min="1" max="100" value="0" id="lineDash">
             <label for="penpressure" style="font-weight: 800;">Pressure</label>
             <input type="checkbox" id="penpressure">
+            <label for="wetness" style="font-weight: 800;" class="hide">Wetness</label>
+            <input type="range" step="0.1" min="0" max="1" value="0" id="wetness" class="hide">
             <label for="rectfill" style="font-weight: 800;">Fill Color</label>
             <input type="checkbox" id="rectfill">
             <input type="color" id="rectfill-color" style="display: none;">
@@ -215,9 +220,6 @@
                 </div>
             </div>
         </div>
-
-        <label for="lineDash" style="font-weight: 800;">Line Dash</label>
-        <input type="range" min="1" max="100" value="0" id="lineDash">
 
         <div class="row orf-auto draggable">
             <button id="jpg-btn" class="btn center hashadow">File</button>
@@ -410,6 +412,8 @@
         const rectfill_color = document.getElementById("rectfill-color");
         const pipette = document.getElementById("pipette");
         const penpressure = document.getElementById("penpressure");
+        const wetness = document.getElementById("wetness");
+        const wetnesslabel = document.querySelector(`label[for="wetness"]`);
         const toolId = {
             brush: 0,
             eraser: 1,
@@ -436,6 +440,7 @@
         let retool = null;
         let epos;
         let lastX, lastY, lastTime, speed = 0;
+        let isDragCanvas = false;
 
         init();
 
@@ -443,7 +448,7 @@
             switch (selectools) {
                 case 0:
                 case 1:
-                    if (!isAlt) {
+                    if (!isAlt && !isDragCanvas) {
                         isDrawing = true;
                         context.beginPath();
                         var mouseX = e.clientX - canvas.getBoundingClientRect().left;
@@ -567,15 +572,14 @@
             switch (selectools) {
                 case 0:
                 case 1:
-                    isDrawing = true;
-                    context.beginPath();
-                    var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
-                    var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
-                    context.moveTo(mouseX, mouseY);
-                    context.lineTo(mouseX, mouseY);
-                    context.stroke();
-                    if (penpressure.checked) {
-                        context.lineWidth = 1;
+                    if (!isAlt && !isDragCanvas) {
+                        isDrawing = true;
+                        context.beginPath();
+                        var mouseX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+                        var mouseY = e.touches[0].clientY - canvas.getBoundingClientRect().top;
+                        context.moveTo(mouseX, mouseY);
+                        context.lineTo(mouseX, mouseY);
+                        context.stroke();
                     }
                     break;
                 case 2:
@@ -598,12 +602,15 @@
                         context.lineTo(mouseX, mouseY);
                         context.stroke();
                         if (penpressure.checked) {
+                            context.shadowColor = context.strokeStyle;
+                            context.shadowBlur = context.lineWidth * wetness.value;
                             context.lineWidth += (e.touches[0].force * lineWidth.value - context.lineWidth) * 0.1;
 
                             context.beginPath();
                             context.moveTo(mouseX, mouseY);
                             context.lineTo(mouseX, mouseY);
                             context.stroke();
+                            context.shadowBlur = 0;
                         }
                     }
                     setPointer_touch(e);
@@ -635,6 +642,9 @@
 
                 default:
                     break;
+            }
+            if (penpressure.checked) {
+                context.lineWidth = 0.1 * lineWidth.value;
             }
             undoStack.push(context.getImageData(0, 0, canvas.width, canvas.height));
             redoStack = [];
@@ -682,9 +692,15 @@
             switch (selectools) {
                 case 0:
                     brushWidth = context.lineWidth;
+                    if (penpressure.checked) {
+                        context.lineWidth = 0.1 * lineWidth.value;
+                    }
                     break;
                 case 1:
                     eraserWidth = context.lineWidth;
+                    if (penpressure.checked) {
+                        context.lineWidth = 0.1 * lineWidth.value;
+                    }
                     break;
                 case 2:
                     rectWidth = context.lineWidth;
@@ -759,6 +775,12 @@
         penpressure.addEventListener('change', () => {
             if (!penpressure.checked) {
                 context.lineWidth = lineWidth.value;
+                wetness.classList.add('hide');
+                wetnesslabel.classList.add('hide');
+            } else {
+                context.lineWidth = 0.1 * lineWidth.value;
+                wetness.classList.remove('hide');
+                wetnesslabel.classList.remove('hide');
             }
         });
 
@@ -778,6 +800,130 @@
             }
             else if (e.ctrlKey && e.shiftKey && e.key === 'Z') {
                 redo();
+            }
+            if (e.key === 'b') {
+                selectools = toolId.brush;
+                setools();
+                setCursor();
+            }
+            if (e.key === 'e') {
+                selectools = toolId.eraser;
+                setools();
+                setCursor();
+            }
+            if (e.key === '[') {
+                isDrawing = false;
+                lineWidth.value--;
+                context.lineWidth = lineWidth.value;
+                switch (selectools) {
+                    case 0:
+                        brushWidth = context.lineWidth;
+                        if (penpressure.checked) {
+                            context.lineWidth = 0.1 * lineWidth.value;
+                        }
+                        break;
+                    case 1:
+                        eraserWidth = context.lineWidth;
+                        if (penpressure.checked) {
+                            context.lineWidth = 0.1 * lineWidth.value;
+                        }
+                        break;
+                    case 2:
+                        rectWidth = context.lineWidth;
+                        GUIctx.lineWidth = context.lineWidth;
+                        break;
+                    default:
+                        break;
+                }
+            } else if (e.key === ']') {
+                isDrawing = false;
+                lineWidth.value++;
+                context.lineWidth = lineWidth.value;
+                switch (selectools) {
+                    case 0:
+                        brushWidth = context.lineWidth;
+                        if (penpressure.checked) {
+                            context.lineWidth = 0.1 * lineWidth.value;
+                        }
+                        break;
+                    case 1:
+                        eraserWidth = context.lineWidth;
+                        if (penpressure.checked) {
+                            context.lineWidth = 0.1 * lineWidth.value;
+                        }
+                        break;
+                    case 2:
+                        rectWidth = context.lineWidth;
+                        GUIctx.lineWidth = context.lineWidth;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (e.key === 'p') {
+                if (penpressure.checked) {
+                    context.lineWidth = lineWidth.value;
+                    wetness.classList.add('hide');
+                    wetnesslabel.classList.add('hide');
+                    penpressure.checked = false;
+                } else {
+                    context.lineWidth = 0.1 * lineWidth.value;
+                    wetness.classList.remove('hide');
+                    wetnesslabel.classList.remove('hide');
+                    penpressure.checked = true;
+                }
+            }
+            if (e.key === 'c') {
+                if (opentool.textContent !== "▼") {
+                    opentool.click();
+                    setTimeout(() => {
+                        colorPicker.click();
+                    }, 200);
+                }
+            }
+            if (e.key === 'Tab') {
+                e.preventDefault();
+                opentool.click();
+            }
+            if (e.key === ' ') {
+                isDragCanvas = true;
+                e.preventDefault();
+                enableScroll();
+                function enableScroll() {
+                    let isScrolling = false;
+                    let startX, startY, scrollLeft, scrollTop;
+
+                    document.addEventListener('mousedown', (e) => {
+                        if (isDragCanvas) {
+                            isScrolling = true;
+                            startX = e.pageX;
+                            startY = e.pageY;
+                            scrollLeft = document.documentElement.scrollLeft;
+                            scrollTop = document.documentElement.scrollTop;
+                        }
+                    });
+
+                    document.addEventListener('mouseleave', () => {
+                        isScrolling = false;
+                    });
+
+                    document.addEventListener('mouseup', () => {
+                        isScrolling = false;
+                    });
+
+                    document.addEventListener('mousemove', (e) => {
+                        if (!isScrolling) return;
+
+                        const x = e.pageX;
+                        const y = e.pageY;
+                        const deltaX = x - startX;
+                        const deltaY = y - startY;
+
+                        const sensitivity = 0.7;
+                        document.documentElement.scrollLeft = scrollLeft - deltaX * sensitivity;
+                        document.documentElement.scrollTop = scrollTop - deltaY * sensitivity;
+                    });
+                }
             }
             if (e.ctrlKey && e.key === 's') {
                 e.preventDefault();
@@ -806,6 +952,9 @@
                     }
                     retool = null;
                 }
+            }
+            if (e.key === ' ') {
+                isDragCanvas = false;
             }
         });
         GUIcanvas.addEventListener('mousedown', e => {
@@ -946,6 +1095,9 @@
                     rectround.style.display = "none"; rectfill.style.display = "none"; rectroundlabel.style.display = "none"; rectfilllabel.style.display = "none";
                     GUIctx.lineWidth = 1;
                     context.lineWidth = lineWidth.value = brushWidth;
+                    if (penpressure.checked) {
+                        context.lineWidth = 0.1 * lineWidth.value;
+                    }
                     context.globalCompositeOperation = 'source-over';
                     context.strokeStyle = colorPicker.value;
                     eraser.style = ""; rectools.style = ""; pipette.style = "";
@@ -955,6 +1107,9 @@
                     rectround.style.display = "none"; rectfill.style.display = "none"; rectroundlabel.style.display = "none"; rectfilllabel.style.display = "none";
                     GUIctx.lineWidth = 1;
                     context.lineWidth = lineWidth.value = eraserWidth;
+                    if (penpressure.checked) {
+                        context.lineWidth = 0.1 * lineWidth.value;
+                    }
                     context.globalCompositeOperation = 'destination-out';
                     context.strokeStyle = 'rgba(0, 0, 0, 1)';
                     brush.style = ""; rectools.style = ""; pipette.style = "";
@@ -1163,14 +1318,14 @@
             GUIctx.stroke();
         }
         function getPixelColor(x, y) {
-            const context = canvas.getContext('2d');
-            const pixelData = context.getImageData(x, y, 1, 1, { willReadFrequently: true }).data;
+            const context = canvas.getContext('2d', { willReadFrequently: true });
+            const pixelData = context.getImageData(x, y, 1, 1).data;
             const color = [pixelData[0], pixelData[1], pixelData[2]];
             return color;
         }
         function getPixelAlphaColor(x, y) {
-            const context = canvas.getContext('2d');
-            const pixelData = context.getImageData(x, y, 1, 1, { willReadFrequently: true }).data;
+            const context = canvas.getContext('2d', { willReadFrequently: true });
+            const pixelData = context.getImageData(x, y, 1, 1).data;
             const alpha = pixelData[3];
             return alpha;
         }
@@ -1184,6 +1339,13 @@
             const hexBlue = blue.toString(16).padStart(2, '0');
 
             return `#${hexRed}${hexGreen}${hexBlue}`;
+        }
+        function alphaToHex(alpha) {
+            const clampedAlpha = Math.max(0, Math.min(1, alpha));
+
+            const alphaHex = Math.round(clampedAlpha * 255).toString(16).padStart(2, '0');
+
+            return alphaHex;
         }
         function HexReverse(hexColor) {
             hexColor = hexColor.replace('#', '');
@@ -1320,8 +1482,6 @@
 
 <script src="js/paramname.js"></script>
 <script src="js/fileutils.js"></script>
-<script src="js/consoleprohibit.js"></script>
-<script src="js/userprevent.js"></script>
 <script src="js/limitlibs.js"></script>
 
 </html>
